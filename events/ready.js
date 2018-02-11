@@ -6,7 +6,7 @@ module.exports = async client => {
 
   // Both `wait` and `client.log` are in `./modules/functions`.
   client.logger.log(`[READY] ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "ready");
-  client.user.setActivity("Techno World. Use a!help.", "Hi.", "https://www.roblox.com/My/Groups.aspx?gid=3643510", "PLAYING")
+  client.user.setActivity("Techno World. Use a!help. Serving " + client.users.size + " in " + client.guilds.size + " servers." , "Hi.", "https://www.roblox.com/My/Groups.aspx?gid=3643510", "PLAYING")
   // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
   client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.defaultSettings));
 };
