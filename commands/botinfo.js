@@ -13,7 +13,7 @@ exports.run = (client, message, args, level) => {
             description: "Find information about Aureum Studios!",
             fields: [{
                 name: "Info",
-                value: "Aureum Studios is a bot developed to be the main bot for the ROBLOX group Aureum Studios. It's also a bot that can be used for moderation and some fun on your server! 😃"
+                value: "Aureum Studios is a bot developed to be the main bot for the ROBLOX group Aureum Studios. It's also a bot that can be used for moderation and some fun on your server! 😃\n`Current Guilds: " + client.guilds.size + "`\n`Current Users: " + client.users.size + "`" 
             },
             {
                 name: "Owners / Developers",
