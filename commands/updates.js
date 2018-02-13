@@ -7,7 +7,7 @@ exports.run = (client, message, args, level) => {
     var request = require('request')
     var embed = new discord.RichEmbed();
     let currentLog = 'v1.12'
-    https('https://api.roblox.com/Marketplace/ProductInfo?assetId=1416632167', { json: true }, (err, res, body) => {
+    request('https://api.roblox.com/Marketplace/ProductInfo?assetId=1416632167', { json: true }, (err, res, body) => {
         if (err) {
             message.channel.send("Error retreiving update data.")
             return console.log(err);
