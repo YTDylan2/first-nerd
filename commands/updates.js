@@ -13,18 +13,18 @@ exports.run = (client, message, args, level) => {
             message.channel.send("Error retreiving update data.")
             return console.log(err);
         }
-        desc = body.Description
+        const embed = new discord.RichEmbed()
+        .addField(`**Updates for ${currentLog}**`, body.Description)
+        .setTitle("**Updates**")
+        .setDescription("These are the updates for " + currentLog + ".")
+        .setColor(6605055)
+        .setAuthor("Aureum Studios | techno turret", 'https://imgur.com/WcypWFd')
+        .setFooter("Provided by Aureum Studios", 'https://imgur.com/WcypWFd')
+        .setTimestamp()
+        message.channel.send({embed})
         
     });
-    const embed = new discord.RichEmbed()
-    .addField(`**Updates for ${currentLog}**`, desc)
-    .setTitle("**Updates**")
-    .setDescription("These are the updates for " + currentLog + ".")
-    .setColor(6605055)
-    .setAuthor("Aureum Studios | techno turret", 'https://imgur.com/WcypWFd')
-    .setFooter("Provided by Aureum Studios", 'https://imgur.com/WcypWFd')
-    .setTimestamp()
-    message.channel.send({embed})
+    
 };
 
 exports.conf = {
