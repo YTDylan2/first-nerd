@@ -5,7 +5,7 @@ updates!!
 exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var request = require('request')
-    var embed = new discord.RichEmbed();
+    let embed = new discord.RichEmbed()
     let currentLog = 'v1.12'
     request('https://api.roblox.com/Marketplace/ProductInfo?assetId=1416632167', { json: true }, (err, res, body) => {
         if (err) {
