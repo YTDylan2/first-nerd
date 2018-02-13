@@ -12,13 +12,13 @@ exports.run = (client, message, args, level) => {
             message.channel.send("Error retreiving update data.")
             return console.log(err);
         }
-        embed.addField(`**Updates for ${currentLog}**`, body.Description)
+        embed.addField(`**Updates for ${currentLog}**`, 'test')
         console.log(body)
         embed.setTitle("**Updates**")
         embed.setDescription("These are the updates for " + currentLog + ".")
         embed.setColor(6605055)
         embed.setAuthor("Aureum Studios | techno turret", 'https://imgur.com/WcypWFd')
-        embed.setFooter("Provided by Aureum Studios")
+        embed.setFooter("Provided by Aureum Studios", 'https://imgur.com/WcypWFd')
         embed.setTimestamp()
     });
     message.channel.send({ embed })
