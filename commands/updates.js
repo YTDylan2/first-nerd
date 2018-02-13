@@ -18,6 +18,8 @@ exports.run = (client, message, args, level) => {
         .setTitle("**Updates**")
         .setDescription("These are the updates for " + currentLog + ".")
         .setColor(6605055)
+        .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://i.imgur.com/WcypWFd.png')
         .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
         .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
         .setTimestamp()
