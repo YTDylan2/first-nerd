@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
         message.channel.send("I'm not that stupid! :(")
         return;
     }
-    let translated = translate(text, { to: 'ef', engine: 'yandex', key: transKey }).then(function (newText) {
+    let translated = translate(text, { to: 'fr', engine: 'yandex', key: transKey }).then(function (newText) {
         if (newText == text) {
             message.channel.send("That's already french!")
         } else {
