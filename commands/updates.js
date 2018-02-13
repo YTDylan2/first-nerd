@@ -13,6 +13,7 @@ exports.run = (client, message, args, level) => {
             return console.log(err);
         }
         embed.addField(`**Updates for ${currentLog}**`, body.Description)
+        console.log(body)
         embed.setTitle("**Updates**")
         embed.setDescription("These are the updates for " + currentLog + ".")
         embed.setColor(6605055)
