@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
             message.channel.send("Error retreiving update data.")
             return console.log(err);
         }
-        embed.addField(`**Updates for ${currentLog}**`, request.Description)
+        embed.addField(`**Updates for ${currentLog}**`, body.Description)
         embed.setTitle("**Updates**")
         embed.setDescription("These are the updates for " + currentLog + ".")
         embed.setColor(6605055)
