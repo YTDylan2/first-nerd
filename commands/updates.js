@@ -5,23 +5,27 @@ updates!!
 exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var request = require('request')
-    let embed = new discord.RichEmbed()
+    
     let currentLog = 'v1.12'
+    let desc = null
     request('https://api.roblox.com/Marketplace/ProductInfo?assetId=1416632167', { json: true }, (err, res, body) => {
         if (err) {
             message.channel.send("Error retreiving update data.")
             return console.log(err);
         }
-        embed.addField(`**Updates for ${currentLog}**`, 'test')
+        desc = body.Description
         console.log(body)
-        embed.setTitle("**Updates**")
-        embed.setDescription("These are the updates for " + currentLog + ".")
-        embed.setColor(6605055)
-        embed.setAuthor("Aureum Studios | techno turret", 'https://imgur.com/WcypWFd')
-        embed.setFooter("Provided by Aureum Studios", 'https://imgur.com/WcypWFd')
-        embed.setTimestamp()
+        
     });
-    message.channel.send({ embed })
+    const embed = new discord.RichEmbed()
+    .addField(`**Updates for ${currentLog}**`, 'test')
+    .setTitle("**Updates**")
+    .setDescription("These are the updates for " + currentLog + ".")
+    .setColor(6605055)
+    .setAuthor("Aureum Studios | techno turret", 'https://imgur.com/WcypWFd')
+    .setFooter("Provided by Aureum Studios", 'https://imgur.com/WcypWFd')
+    .setTimestamp()
+    message.channel.send({embed})
 };
 
 exports.conf = {
