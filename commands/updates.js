@@ -14,7 +14,6 @@ exports.run = (client, message, args, level) => {
             return console.log(err);
         }
         desc = body.Description
-        console.log(body)
         
     });
     const embed = new discord.RichEmbed()
