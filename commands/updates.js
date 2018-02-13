@@ -18,7 +18,7 @@ exports.run = (client, message, args, level) => {
         
     });
     const embed = new discord.RichEmbed()
-    .addField(`**Updates for ${currentLog}**`, 'test')
+    .addField(`**Updates for ${currentLog}**`, desc)
     .setTitle("**Updates**")
     .setDescription("These are the updates for " + currentLog + ".")
     .setColor(6605055)
