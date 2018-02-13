@@ -2,7 +2,7 @@
 
 exports.run = (client, message, args, level) => {
     var math = require('mathjs')
-    let toSolve = message.content.slice("a!solve".length)
+    let toSolve = args.join(" ")
 
     try {
         let solution = math.eval(toSolve).toString()
