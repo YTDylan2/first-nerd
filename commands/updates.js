@@ -18,8 +18,8 @@ exports.run = (client, message, args, level) => {
         .setTitle("**Updates**")
         .setDescription("These are the updates for " + currentLog + ".")
         .setColor(6605055)
-        .setAuthor("Aureum Studios | techno turret", 'https://imgur.com/WcypWFd')
-        .setFooter("Provided by Aureum Studios", 'https://imgur.com/WcypWFd')
+        .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
+        .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
         .setTimestamp()
         message.channel.send({embed})
         
