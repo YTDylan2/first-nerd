@@ -25,6 +25,7 @@
   "homepage": "https://github.com/An-Idiots-Guide/guidebot#readme",
   "dependencies": {
     "chalk": "^2.3.0",
+    "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.3.0",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",
@@ -32,8 +33,11 @@
     "mathjs": "^3.20.2",
     "moment": "^2.20.1",
     "moment-duration-format": "^2.2.0",
+    "query-string": "^5.1.0",
     "request": "^2.81.0",
     "roblox-js": "^4.0.2",
+    "snekfetch": "^3.6.4",
     "translate": "^1.0.2"
   }
 }
+
