@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
             },
             {
                 name: "Special Thanks",
-                value: "Special thanks to Flatbird, Alipear, and RagingBudgie for starting the idea and helping to test the bot!"
+                value: "Special thanks to Flatbird, and Alipear for starting the idea and testing the bot!\nThanks alot to RagingBudgie for being a great help with the hosting!"
             },
             ],
         },
