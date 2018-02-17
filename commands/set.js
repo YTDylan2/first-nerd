@@ -77,7 +77,7 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["setting", "settings", "conf"],
+  aliases: ["setting", "settings", "conf", "config"],
   permLevel: "Administrator"
 };
 
@@ -85,5 +85,5 @@ exports.help = {
   name: "set",
   category: "System",
   description: "View or change settings for your server.",
-  usage: "set <view/get/edit> <key> <value>"
+  usage: "set <view/get/edit> <key> <value>\na!set edit welcomeChannel 'general'\na!set get prefix\na!set view"
 };
