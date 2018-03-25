@@ -6,6 +6,8 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 // Load up the discord.js library
 const Discord = require("discord.js");
 const Roblox = require("roblox-js");
+const express = require("express");
+const app = express();
 // We also load the rest of the things we need in this file:
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
@@ -64,6 +66,36 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];
   });
+  
+   // app stuff
+  
+  app.post('/feedback/:message/:player/:userId', authenticate, function (req, res, next) {
+      var fields = {
+          'message' : 'string',
+          'player' : 'string',
+          'userId' : 'int'
+      }
+      var checking = [req.params]
+      var params = verifyParameters(res, checking, fields)
+      if (!params) {
+          client.channels.get('425822679958945792').send("Error getting message data. Please check parameters provided.")
+          return;
+      }
+      const embed = new discord.RichEmbed()
+        .addField(`**Message Body**`, params.message)
+        .setTitle("**Feedback Received!**")
+        .setDescription(""Feedback received from " + params.player" + '.')
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ params.userId + '&width=420&height=420&format=png')
+        .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
+        .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
+        .setTimestamp()
+        client.channels.get('425822679958945792').send({embed})
+
+  })
+
+  app.listen(process.env.PORT)
 
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
