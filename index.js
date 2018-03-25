@@ -200,8 +200,8 @@ const init = async () => {
     });
     
     setInterval(() => {
-      http.get(`https://technoturret.herokuapp.com/`);
-    }, 280000);
+      http.get(`http://technoturret.herokuapp.com/`);
+    }, 10000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
