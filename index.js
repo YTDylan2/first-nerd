@@ -191,7 +191,16 @@ const init = async () => {
   })
 
   app.listen(process.env.PORT)
-
+    
+  // this keeps the app alive
+    app.get("/", (request, response) => {
+      console.log(Date.now() + " Ping Received");
+      response.sendStatus(200);
+    });
+    
+    setInterval(() => {
+      http.get(`https://technoturret.herokuapp.com/`);
+    }, 280000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
