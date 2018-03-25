@@ -173,6 +173,7 @@ const init = async () => {
       var params = verifyParameters(res, checking, fields)
       if (!params) {
           client.channels.get('425822679958945792').send("Error getting message data. Please check parameters provided.")
+          sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
           return;
       }
       const embed = new Discord.RichEmbed()
@@ -186,7 +187,7 @@ const init = async () => {
         .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
         .setTimestamp()
         client.channels.get('425822679958945792').send({embed})
-
+        res.send("Successfully sent message!")
   })
 
   app.listen(process.env.PORT)
