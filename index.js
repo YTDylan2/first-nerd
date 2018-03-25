@@ -8,6 +8,7 @@ const Discord = require("discord.js");
 const Roblox = require("roblox-js");
 const express = require("express");
 const bodyParser = require('body-parser')
+const validator = require('validator')
 var app = express();
 var key = process.env.key
 // We also load the rest of the things we need in this file:
