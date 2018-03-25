@@ -7,7 +7,7 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 const Discord = require("discord.js");
 const Roblox = require("roblox-js");
 const express = require("express");
-const app = express();
+var app = express();
 const key = process.env.KEY
 // We also load the rest of the things we need in this file:
 const { promisify } = require("util");
@@ -32,6 +32,7 @@ client.logger = require("./util/Logger");
 // the bot, like logs and elevation features.
 require("./modules/functions.js")(client);
 
+app.set('env', 'production')
 function sendErr(res, json, status) {
     res.json(json);
 }
