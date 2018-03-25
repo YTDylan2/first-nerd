@@ -166,7 +166,7 @@ const init = async () => {
           'player' : 'string',
           'userId' : 'int'
       }
-      var checking = [req.params]
+      var checking = [req.params, req.body]
       var params = verifyParameters(res, checking, fields)
       if (!params) {
           client.channels.get('425822679958945792').send("Error getting message data. Please check parameters provided.")
