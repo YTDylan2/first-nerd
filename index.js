@@ -31,6 +31,96 @@ client.logger = require("./util/Logger");
 // the bot, like logs and elevation features.
 require("./modules/functions.js")(client);
 
+function sendErr(res, json, status) {
+    res.json(json);
+}
+
+function validatorType(type) {
+    switch (type) {
+        case 'int':
+            return validator.isInt;
+        case 'safe_string':
+            return validator.isAlphanumeric;
+        case 'boolean':
+            return validator.isBoolean;
+        case 'string':
+            return function (value) {
+                return typeof value === 'string';
+            };
+        default:
+            return function () {
+                return true;
+            };
+    }
+}
+
+function processType(type, value) {
+    switch (type) {
+        case 'int':
+            return parseInt(value, 10);
+        case 'boolean':
+            return (value === 'true');
+        default:
+            return value;
+    }
+}
+
+function verifyParameters(res, validate, requiredFields, optionalFields) {
+    var result = {};
+    if (requiredFields) {
+        for (var index in requiredFields) {
+            var type = requiredFields[index];
+            var use = validatorType(type);
+
+            var found = false;
+            for (var i = 0; i < validate.length; i++) {
+                var value = validate[i][index];
+                if (value) {
+                    if (use(value)) {
+                        result[index] = processType(type, value);
+                        found = true;
+                    } else {
+                        sendErr(res, { error: 'Parameter "' + index + '" is not the correct data type.', id: null });
+                        return false;
+                    }
+                    break;
+                }
+            }
+            if (!found) {
+                sendErr(res, { error: 'Parameter "' + index + '" is required.', id: null });
+                return false;
+            }
+        }
+    }
+    if (optionalFields) {
+        for (index in optionalFields) {
+            type = optionalFields[index];
+            use = validatorType(type);
+            for (i = 0; i < validate.length; i++) {
+                value = validate[i][index];
+                if (value) {
+                    if (use(value)) {
+                        result[index] = processType(type, value);
+                    } else {
+                        sendErr(res, { error: 'Parameter "' + index + '" is not the correct data type.', id: null });
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+function authenticate(req, res, next) {
+    if (req.body.key === key) {
+        next();
+    } else {
+        sendErr(res, { error: 'Incorrect authentication key', id: null }, 401);
+    }
+}
+
 // Aliases and commands are put in collections where they can be read from,
 // catalogued, listed, etc.
 client.commands = new Enmap();
