@@ -7,6 +7,7 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 const Discord = require("discord.js");
 const Roblox = require("roblox-js");
 const express = require("express");
+const bodyParser = require('body-parser')
 var app = express();
 var key = process.env.key
 // We also load the rest of the things we need in this file:
@@ -160,7 +161,7 @@ const init = async () => {
   });
   
    // app stuff
-  
+  app.use(bodyParser.json())
   app.post('/feedback/:message/:player/:userId', authenticate, function (req, res, next) {
       var fields = {
           'message' : 'string',
