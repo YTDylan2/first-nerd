@@ -175,7 +175,7 @@ const init = async () => {
           client.channels.get('425822679958945792').send("Error getting message data. Please check parameters provided.")
           return;
       }
-      const embed = new discord.RichEmbed()
+      const embed = new Discord.RichEmbed()
         .addField(`**Message Body**`, params.message)
         .setTitle("**Feedback Received!**")
         .setDescription("Feedback received from " + params.player + '.')
