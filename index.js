@@ -8,6 +8,7 @@ const Discord = require("discord.js");
 const Roblox = require("roblox-js");
 const express = require("express");
 const app = express();
+const key = process.env.KEY
 // We also load the rest of the things we need in this file:
 const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
