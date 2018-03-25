@@ -84,7 +84,7 @@ const init = async () => {
       const embed = new discord.RichEmbed()
         .addField(`**Message Body**`, params.message)
         .setTitle("**Feedback Received!**")
-        .setDescription("Feedback received from " + params.player" + '.')
+        .setDescription("Feedback received from " + params.player + '.')
         .setColor(6605055)
         // .setImage('https://i.imgur.com/zwMrlQT.png')
         .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ params.userId + '&width=420&height=420&format=png')
