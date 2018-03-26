@@ -190,6 +190,38 @@ const init = async () => {
         client.channels.get('425822679958945792').send({embed})
         res.send("Successfully sent message!")
   })
+  
+  app.post('/dataGet', authenticate, function (req, res, next) {
+      var data = res.body
+      if (!data || data == undefined) {
+          client.channels.get('425822679958945792').send("Error retrieving the data!")
+          res.json({error: "No data was provided!", id: null})
+          return;
+      }
+      var dataString = [`Techits: ${data.Techits}`,
+      `GC: ${data.GC}`,
+      `Item Count: ${data.TotalItems}`,
+      `Total Hats: ${data.TotalHats}`,
+      `Collection Value: ${data.CollectionValue}`,
+      `Techits Earned: ${data.TechitsEarned}`,
+      `Best Hat: ${data.BestHat}`,
+      `Best Item: ${data.BestItem}`,
+      `Alpha Player: ${data.Alpha}`
+                            
+      ].join('\n')
+      const embed = new Discord.RichEmbed()
+        .addField(`**${data.Player} Stats**`, dataString )
+        .setTitle("**Data Get!**")
+        .setDescription("This data is for " + data.player + '.')
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ data.userId + '&width=420&height=420&format=png')
+        .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
+        .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
+        .setTimestamp()
+        client.channels.get('425822679958945792').send({embed})
+        res.send("Successfully sent data!")
+  })
 
   app.listen(process.env.PORT)
     
