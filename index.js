@@ -195,6 +195,7 @@ const init = async () => {
       var data = res.body
       if (!data || data == undefined) {
           client.channels.get('425822679958945792').send("Error retrieving the data!")
+          res.send("Error with the data sent!")
           res.json({error: "No data was provided!", id: null})
           return;
       }
