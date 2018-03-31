@@ -211,7 +211,7 @@ const init = async () => {
                             
       ].join('\n')
       const embed = new Discord.RichEmbed()
-        .addField(`**${data.Player} Stats**`, dataString )
+        .addField(`**${data.player} Stats**`, dataString )
         .setTitle("**Data Get!**")
         .setDescription("This data is for " + data.player + '.')
         .setColor(6605055)
