@@ -193,31 +193,31 @@ const init = async () => {
   
   app.post('/dataGet', authenticate, function (req, res, next) {
       var data = res.body
-      if (!data || data === undefined) {
+      if (data === undefined) {
           client.channels.get('425822679958945792').send("Error retrieving the data!")
           client.channels.get('425822679958945792').send("Undefined? " + data === undefined)
           client.channels.get('425822679958945792').send("Null? " + !data)
           res.send("Error with the data sent!")
           return;
       }
-      var dataString = [`Techits: ${data.Techits}`,
-      `GC: ${data.GC}`,
-      `Item Count: ${data.TotalItems}`,
-      `Total Hats: ${data.TotalHats}`,
-      `Collection Value: ${data.CollectionValue}`,
-      `Techits Earned: ${data.TechitsEarned}`,
-      `Best Hat: ${data.BestHat}`,
-      `Best Item: ${data.BestItem}`,
-      `Alpha Player: ${data.Alpha}`
+      var dataString = [`Techits: ${res.body.Techits}`,
+      `GC: ${res.body.GC}`,
+      `Item Count: ${res.body.TotalItems}`,
+      `Total Hats: ${res.body.TotalHats}`,
+      `Collection Value: ${res.body.CollectionValue}`,
+      `Techits Earned: ${res.body.TechitsEarned}`,
+      `Best Hat: ${res.body.BestHat}`,
+      `Best Item: ${res.body.BestItem}`,
+      `Alpha Player: ${res.body.Alpha}`
                             
       ].join('\n')
       const embed = new Discord.RichEmbed()
-        .addField(`**${data.player} Stats**`, dataString )
+        .addField(`**${res.body.player} Stats**`, dataString )
         .setTitle("**Data Get!**")
-        .setDescription("This data is for " + data.player + '.')
+        .setDescription("This data is for " + res.body.player + '.')
         .setColor(6605055)
         // .setImage('https://i.imgur.com/zwMrlQT.png')
-        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ data.userId + '&width=420&height=420&format=png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ res.body.userId + '&width=420&height=420&format=png')
         .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
         .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
         .setTimestamp()
