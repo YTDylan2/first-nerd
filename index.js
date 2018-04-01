@@ -192,13 +192,7 @@ const init = async () => {
   })
   
   app.post('/dataGet', authenticate, function (req, res, next) {
-      var data = res.body
-      if (data === undefined) {
-          client.channels.get('425822679958945792').send("Error retrieving the data!")
-          client.channels.get('425822679958945792').send("Is it Undefined? **" + data === undefined + "**. Is it null? **" + data === null + "**")
-          res.send("Error with the data sent!")
-          return;
-      }
+      console.log(res.body.key, res.body)
       var dataString = [`Techits: ${res.body.Techits}`,
       `GC: ${res.body.GC}`,
       `Item Count: ${res.body.TotalItems}`,
