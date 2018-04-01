@@ -195,8 +195,7 @@ const init = async () => {
       var data = res.body
       if (data === undefined) {
           client.channels.get('425822679958945792').send("Error retrieving the data!")
-          client.channels.get('425822679958945792').send("Undefined? " + data === undefined)
-          client.channels.get('425822679958945792').send("Null? " + !data)
+          client.channels.get('425822679958945792').send("Is it Undefined? **" + data === undefined + "**. Is it null? **" + data === null + "**")
           res.send("Error with the data sent!")
           return;
       }
