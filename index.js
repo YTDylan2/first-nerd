@@ -193,8 +193,10 @@ const init = async () => {
   
   app.post('/dataGet', authenticate, function (req, res, next) {
       var data = res.body
-      if (!data || data == undefined) {
+      if (!data || data === undefined) {
           client.channels.get('425822679958945792').send("Error retrieving the data!")
+          client.channels.get('425822679958945792').send("Undefined? " + data === undefined)
+          client.channels.get('425822679958945792').send("Null? " + !data)
           res.send("Error with the data sent!")
           return;
       }
