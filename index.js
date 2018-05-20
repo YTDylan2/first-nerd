@@ -217,6 +217,50 @@ const init = async () => {
         client.channels.get('425822679958945792').send({embed})
         res.send("Successfully sent data!")
   })
+  
+  app.post('/getGCRBAN', authenticate, function (req, res, next) {
+       client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+      var dataString = [`CaseBux: ${req.body.CB}`,
+      `RAP: ${req.body.RAP}`,
+      `User ID: ${req.body.userId}`,
+      `Name: ${req.body.player}`
+                            
+      ].join('\n')
+      const embed = new Discord.RichEmbed()
+        .addField(`**${req.body.player} Report**`, dataString )
+        .setTitle("**User banned!**")
+        .setDescription("This ban is for " + req.body.player + '.')
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ req.body.userId + '&width=420&height=420&format=png')
+        .setAuthor("Galactic Games | water", 'https://i.imgur.com/kuAJC50.png')
+        .setFooter("Provided by Galactic Games", 'https://i.imgur.com/kuAJC50.png')
+        .setTimestamp()
+        client.channels.get('447790444588433431').send({embed})
+        res.send("Successfully sent data!")
+  })
+   app.post('/getGCRUNBAN', authenticate, function (req, res, next) {
+      client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+      var dataString = [`CaseBux: ${req.body.CB}`,
+      `RAP: ${req.body.RAP}`,
+      `User ID: ${req.body.userId}`,
+      `Name: ${req.body.player}`,
+      `Note: ${req.body.Note}`
+
+      ].join('\n')
+      const embed = new Discord.RichEmbed()
+        .addField(`**${req.body.player} Report**`, dataString )
+        .setTitle("**User unbanned!**")
+        .setDescription("This unban log is for " + req.body.player + '.')
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ req.body.userId + '&width=420&height=420&format=png')
+        .setAuthor("Galactic Games | water", 'https://i.imgur.com/kuAJC50.png')
+        .setFooter("Provided by Galactic Games", 'https://i.imgur.com/kuAJC50.png')
+        .setTimestamp()
+        client.channels.get('447790444588433431').send({embed})
+        res.send("Successfully sent data!")
+    })
 
   app.listen(process.env.PORT)
     
