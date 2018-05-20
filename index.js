@@ -220,14 +220,15 @@ const init = async () => {
   
   app.post('/getGCRBAN', authenticate, function (req, res, next) {
        client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
-      var dataString = [`CaseBux: ${req.body.CB}`,
-      `RAP: ${req.body.RAP}`,
-      `User ID: ${req.body.userId}`,
-      `Name: ${req.body.player}`
+      var dataString = [`CaseBux: **${req.body.CB}**`,
+      `RAP: **${req.body.RAP}**`,
+      `User ID: **${req.body.userId}**`,
+      `Name: **${req.body.player}**`,
+      `Note: **${req.body.Note}**`
                             
       ].join('\n')
       const embed = new Discord.RichEmbed()
-        .addField(`**${req.body.player} Report**`, dataString )
+        .addField(`**Ban Report**`, dataString )
         .setTitle("**User banned!**")
         .setDescription("This ban is for " + req.body.player + '.')
         .setColor(6605055)
@@ -241,15 +242,15 @@ const init = async () => {
   })
    app.post('/getGCRUNBAN', authenticate, function (req, res, next) {
       client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
-      var dataString = [`CaseBux: ${req.body.CB}`,
-      `RAP: ${req.body.RAP}`,
-      `User ID: ${req.body.userId}`,
-      `Name: ${req.body.player}`,
-      `Note: ${req.body.Note}`
+      var dataString = [`CaseBux: **${req.body.CB}**`,
+      `RAP: **${req.body.RAP}**`,
+      `User ID: **${req.body.userId}**`,
+      `Name: **${req.body.player}**`,
+      `Note: **${req.body.Note}**`
 
       ].join('\n')
       const embed = new Discord.RichEmbed()
-        .addField(`**${req.body.player} Report**`, dataString )
+        .addField(`**Unban Report**`, dataString )
         .setTitle("**User unbanned!**")
         .setDescription("This unban log is for " + req.body.player + '.')
         .setColor(6605055)
