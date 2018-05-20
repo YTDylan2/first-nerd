@@ -41,6 +41,7 @@
     "roblox-js": "^4.0.2",
     "snekfetch": "^3.6.4",
     "translate": "^1.0.2",
-    "validator": "^9.4.1"
+    "validator": "^9.4.1",
+    "hoek" : "^5.0.3"
   }
 }
