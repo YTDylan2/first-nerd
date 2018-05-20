@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
     }
     if (text.length > 0 && !text.match("@everyone") && !text.match("@here")) {
         message.delete()
-        message.channel.send(text)
+        message.channel.send(text + " (" + message.author.username + ")")
     }
 }
 
