@@ -311,7 +311,7 @@ const init = async () => {
                   client.channels.get('449982070597353472').send("**"+ userData.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
                });           
              };
-             if (groupBanned[userData.userId) {
+             if (groupBanned[userData.userId]) {
                 client.channels.get('449982070597353472').send(userData.username + " is not allowed into the GCR group!")
                 return;
              };
