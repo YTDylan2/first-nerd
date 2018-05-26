@@ -290,8 +290,12 @@ const init = async () => {
       https('https://groups.roblox.com/v1/groups/4044556/roles/28047493/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
        
          if (err) {
-              client.channels.get('449982070597353472').send("Could not promote a user!")
+             client.channels.get('449982070597353472').send("Could not promote a user!")
              return;
+         }
+         if (body.data.length == 0) {
+            client.channels.get('449982070597353472').send("No users to promote!")
+            return;
          }
          for (x in body.data) {
              var userData = body.data[x]
@@ -308,7 +312,7 @@ const init = async () => {
              };
          };
       });
-    }, 5000);
+    }, 120000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
