@@ -22,7 +22,7 @@ const config = {
     "modRole": "Staff",
     "adminRole": "Administrator",
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
-    "welcomeChannel": "hey-and-cya",
+    "welcomeChannel": "general",
     "welcomeMessage": "Hey there {{user}}! Welcome to Aureum Studios. Check out #law for the rules.",
     "welcomeEnabled": "true"
   },
