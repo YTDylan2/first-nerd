@@ -291,7 +291,6 @@ const init = async () => {
       https('https://groups.roblox.com/v1/groups/4044556/roles/28047493/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
        
          if (err) {
-             client.channels.get('449982070597353472').send("Could not promote a user!")
              return;
          }
          if (body.data.length == 0) {
