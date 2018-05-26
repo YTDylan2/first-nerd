@@ -305,7 +305,9 @@ const init = async () => {
                 .then(function (newRole){
                   client.channels.get('449982070597353472').send("**"+ userData.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
                });
-      });
+             };
+         });
+      };
     }, 5000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
