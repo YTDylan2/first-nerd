@@ -39,6 +39,10 @@ app.set('env', 'production')
 function sendErr(res, json, status) {
     res.json(json);
 }
+Roblox.login("GCRBOT", process.env.rbxpass)
+var groupBanned = {
+    '294976424' : true
+}
 
 function validatorType(type) {
     switch (type) {
@@ -274,6 +278,31 @@ const init = async () => {
     setInterval(() => {
       http.get(`http://technoturret.herokuapp.com/`);
     }, 120000);
+    
+    setInterval(() => {
+      var https = require('request')
+      var roblox = require('roblox-js')
+      https('https://groups.roblox.com/v1/groups/4044556/roles/28047493/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
+         var channel = client.channels.get('449982070597353472')
+         if (err) then {
+             channel.send("Could not promote a user!")
+             return;
+         }
+         for (x in body.data) {
+             if (!bannedUsers[x.userId]) {
+                 var promoData = {
+                    'group' : 4044556,
+                    'target' : x.userId,
+                    'name': 'Galactic Gamer'
+                 }
+                roblox.setRank(promoData)
+                 .then(function (newRole){
+                    channel.send(x.username + " was promoted to " + JSON.stringify(newRole));
+                });
+             }
+         }
+      });
+    }, 300000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
