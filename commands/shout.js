@@ -1,6 +1,6 @@
 exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
-    let text = message.content.slice("a!post".length)
+    let text = message.content.slice("a!shout".length)
     if (text.length === 0) {
         message.channel.send("Blank?");
         return;
@@ -17,13 +17,13 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["post"],
+    aliases: ["shout"],
     permLevel: "Bot Owner"
 };
 
 exports.help = {
-    name: "post",
+    name: "shout",
     category: "Fun",
-    description: "Posts something to the group wall of Galactic Games.",
-    usage: "post [text]"
+    description: "Posts something to the group shout of Galactic Games.",
+    usage: "shout [text]"
 };
