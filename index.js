@@ -293,6 +293,7 @@ const init = async () => {
               client.channels.get('449982070597353472').send("Could not promote a user!")
              return;
          }
+         console.log(body.data)
          for (x in body.data) {
              console.log(x.userId)
              if (!groupBanned[x.userId]) {
