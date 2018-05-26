@@ -294,7 +294,7 @@ const init = async () => {
              return;
          }
          if (body.data.length == 0) {
-            client.channels.get('449982070597353472').send("No users to promote!")
+            // client.channels.get('449982070597353472').send("No users to promote!")
             return;
          }
          for (x in body.data) {
