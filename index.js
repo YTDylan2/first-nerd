@@ -40,6 +40,7 @@ function sendErr(res, json, status) {
     res.json(json);
 }
 Roblox.login("GCRBOT", process.env.rbxpass)
+Roblox.post(4044556, "Second test: Hello world!")
 var groupBanned = {
     '294976424' : true
 }
@@ -283,9 +284,9 @@ const init = async () => {
       var https = require('request')
       var roblox = require('roblox-js')
       https('https://groups.roblox.com/v1/groups/4044556/roles/28047493/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
-         var channel = client.channels.get('449982070597353472')
+       
          if (err) {
-             channel.send("Could not promote a user!")
+              client.channels.get('449982070597353472').send("Could not promote a user!")
              return;
          }
          for (x in body.data) {
@@ -297,7 +298,7 @@ const init = async () => {
                  }
                 roblox.setRank(promoData)
                  .then(function (newRole){
-                    channel.send(x.username + " was promoted to " + JSON.stringify(newRole));
+                     client.channels.get('449982070597353472').send(x.username + " was promoted to " + JSON.stringify(newRole));
                 });
              }
          }
