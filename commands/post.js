@@ -5,11 +5,11 @@ exports.run = (client, message, args, level) => {
         message.channel.send("Blank?");
         return;
     }
-    if (!message.author.id == 240639333567168512) {
+    if (!message.author.id == '240639333567168512') {
         message.channel.send("You can't do that! You're not the owner.");
         return;
     }
-    if (text.length > 0) {
+    if (text.length > 0 && message.author.id == '240639333567168512') {
        roblox.post(4044556, text)
     }
 }
