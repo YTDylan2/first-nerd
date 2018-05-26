@@ -304,12 +304,7 @@ const init = async () => {
                roblox.setRank(4044556, userData.userId, 'Galactic Gamer')
                 .then(function (newRole){
                   client.channels.get('449982070597353472').send("**"+ userData.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
-               })
-               .catch(function (errr) {
-                   client.channels.get('449982070597353472').send("Could not promote a user! Error: " + errr)
-                    console.log(errr)
-             });
-         }
+               });
       });
     }, 5000);
   // Generate a cache of client permissions for pretty perms
