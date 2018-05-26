@@ -22,7 +22,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: "post,
+    name: "post",
     category: "Fun",
     description: "Posts something to the group wall of Galactic Games.",
     usage: "post [text]"
