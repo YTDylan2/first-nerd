@@ -294,7 +294,7 @@ const init = async () => {
              return;
          }
          for (x in body.data) {
-             if (!bannedUsers[x.userId]) {
+             if (!groupBanned[x.userId]) {
                  var promoData = {
                     'group' : 4044556,
                     'target' : x.userId,
