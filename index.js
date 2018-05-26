@@ -298,7 +298,7 @@ const init = async () => {
              console.log(userData.userId)
              if (!groupBanned[x.userId]) {
                roblox.setRank(4044556, userData.userId, 28047493)
-                then(function (newRole){
+                .then(function (newRole){
                   client.channels.get('449982070597353472').send("**"+ x.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
                });
              }
