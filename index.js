@@ -46,7 +46,8 @@ Roblox.login("GCRBOT", process.env.rbxpass)
 
 
 var groupBanned = {
-    '294976424' : true
+    '294976424' : true,
+    '620089904' : true,
 }
 
 function validatorType(type) {
@@ -309,10 +310,13 @@ const init = async () => {
                 .then(function (newRole){
                   client.channels.get('449982070597353472').send("**"+ userData.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
                });
+             else {
+                client.channels.get('449982070597353472').send(userData.username + " is not allowed into the GCR group!")
+                return;
              };
          };
       });
-    }, 120000);
+    }, 60000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
