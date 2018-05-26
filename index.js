@@ -44,7 +44,7 @@ Roblox.login("GCRBOT", process.env.rbxpass)
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
 
-Roblox.post(4044556, "Second test: Hello world!")
+
 var groupBanned = {
     '294976424' : true
 }
@@ -149,7 +149,7 @@ client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
 
 const init = async () => {
-
+    Roblox.post(4044556, "Second test: Hello world!")
   // Here we load **commands** into memory, as a collection, so they're accessible
   // here and everywhere else.
   const cmdFiles = await readdir("./commands/");
