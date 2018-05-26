@@ -307,7 +307,7 @@ const init = async () => {
                });
              };
          };
-      };
+      });
     }, 5000);
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
