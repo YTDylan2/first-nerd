@@ -297,11 +297,10 @@ const init = async () => {
              var userData = body.data[x]
              console.log(userData.userId)
              if (!groupBanned[x.userId]) {
-               // client.channels.get('449982070597353472').send(x.userId)
-               // roblox.setRank(4044556, x.userId, 28047493)
-                // .then(function (newRole){
-                  //   client.channels.get('449982070597353472').send(x.username + " was promoted to " + JSON.stringify(newRole));
-               // });
+               roblox.setRank(4044556, userData.userId, 28047493)
+                then(function (newRole){
+                  client.channels.get('449982070597353472').send("**"+ x.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
+               });
              }
          }
       });
