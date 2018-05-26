@@ -301,7 +301,7 @@ const init = async () => {
              var userData = body.data[x]
              if (!groupBanned[userData.userId]) {
                 if (!userData.userId) {
-                    client.channels.get('449982070597353472').send("Could not promote a user!")
+                    // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
                  client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
