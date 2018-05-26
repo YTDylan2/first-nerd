@@ -293,10 +293,9 @@ const init = async () => {
               client.channels.get('449982070597353472').send("Could not promote a user!")
              return;
          }
-         console.log(body.data)
          for (x in body.data) {
-             console.log(x)
-             console.log(x.userId)
+             var userData = body.data[x]
+             console.log(userData.userId)
              if (!groupBanned[x.userId]) {
                // client.channels.get('449982070597353472').send(x.userId)
                // roblox.setRank(4044556, x.userId, 28047493)
