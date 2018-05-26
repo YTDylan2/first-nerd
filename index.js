@@ -300,7 +300,6 @@ const init = async () => {
          }
          for (x in body.data) {
              var userData = body.data[x]
-             console.log(userData.userId)
              if (!groupBanned[userData.userId]) {
                 if (!userData.userId) {
                     client.channels.get('449982070597353472').send("Could not promote a user!")
@@ -308,7 +307,7 @@ const init = async () => {
                 }
                roblox.setRank(4044556, userData.userId, 2)
                 .then(function (newRole){
-                  client.channels.get('449982070597353472').send("**"+ userData.username + "** was promoted to **" + JSON.stringify(newRole) + "**");
+                  client.channels.get('449982070597353472').send(userData.username + "** was promoted to **" + newRole.Name);
                });           
              };
              if (groupBanned[userData.userId]) {
