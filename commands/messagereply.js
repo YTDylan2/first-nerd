@@ -11,14 +11,14 @@ exports.run = (client, message, args, level) => {
         return;
     }
     if (text.length > 0 && message.author.id == '240639333567168512') {
-       roblox.login("GCRBOT", process.env.rbxpass)
-       let jar = roblox.jar();
-       message.channel.send("Message requested to send: **" + text + "** to userId **" + args[0] + "**")
-       roblox.message(userId, "Message Reply", "test", jar)
-        .catch(function (err) {
-           message.channel.send("Message error: " + err.toString())
-           console.error(err)
-       });
+       //roblox.login("GCRBOT", process.env.rbxpass)
+       // let jar = roblox.jar();
+       message.channel.send("cmd broke")
+       // roblox.message(userId, "Message Reply", "test", jar)
+        // .catch(function (err) {
+           // message.channel.send("Message error: " + err.toString())
+           // console.error(err)
+       // });
     }
 }
 
