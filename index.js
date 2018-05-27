@@ -289,7 +289,7 @@ const init = async () => {
         roblox.login("GCRBOT", process.env.rbxpass)
          .then(function () {
             console.log("Logged in!")
-        }
+        });
     }, 86400000);
         
     setInterval(() => {
