@@ -325,6 +325,7 @@ const init = async () => {
       let userId = message.sender.userId
       var messageString = [`User: **${name}**`,
       `User ID: **${userId}**`,
+      `Message Id: **${message.id}**`,
       "```\n" + name + "'s Message\nSubject: " + subject + "\n\n" + body + "```"
 
       ].join('\n')
