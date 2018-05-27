@@ -321,12 +321,12 @@ const init = async () => {
   botMessaged.on('data', function(message) {
       let name = message.sender.name
       let subject = message.subject
-      let message = message.body
+      let body = message.body
       let userId = message.sender.userId
       var messageString = [`User: **${name}**`,
       `User ID: **${userId}**`,
       `Subject: **${subject}**`,
-      "Message: ```\n" + message + "```"
+      "Message: ```\n" + body + "```"
 
       ].join('\n')
       const embed = new Discord.RichEmbed()
