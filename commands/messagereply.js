@@ -1,6 +1,6 @@
 exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
-    let messageId = args[0]
+    let userId = args[0]
     let text = message.content.slice("a!messagereply".length + args[0].length + 1)
     if (text.length === 0) {
         message.channel.send("Blank?");
@@ -11,8 +11,8 @@ exports.run = (client, message, args, level) => {
         return;
     }
     if (text.length > 0 && message.author.id == '240639333567168512') {
-       message.channel.send("Message requested to send: **" + text + "** to messageId **" + args[0] + "**")
-       roblox.message(messageId, "Message Reply", text)
+       message.channel.send("Message requested to send: **" + text + "** to userId **" + args[0] + "**")
+       roblox.message(userId, "Message Reply", "test")
         .catch(function (err) {
            message.channel.send("Message error: " + err.toString())
        });
