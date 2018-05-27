@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
         return;
     }
     if (text.length > 0 && message.author.id == '240639333567168512') {
-       message.channel.send("Message requested to send: " + text)
+       message.channel.send("Message requested to send: " + text + " to userId " + args[1])
        roblox.message(userId, "Message Reply", text)
     }
 }
