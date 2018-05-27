@@ -16,6 +16,7 @@ exports.run = (client, message, args, level) => {
        roblox.message(userId, "Message Reply", "test")
         .catch(function (err) {
            message.channel.send("Message error: " + err.toString())
+           console.error(err)
        });
     }
 }
