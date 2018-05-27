@@ -42,6 +42,7 @@
     "snekfetch": "^3.6.4",
     "translate": "^1.0.2",
     "validator": "^9.4.1",
-    "hoek" : "^5.0.3"
+    "hoek" : "^5.0.3",
+    "noblox.js" : "^4.1.1"
   }
 }
