@@ -317,7 +317,7 @@ const init = async () => {
       });
     }, 60000);
 
-  var botMessaged = rbx.onMessage();
+  var botMessaged = Roblox.onMessage();
   botMessaged.on('data', function(data) {
       let name = data.message.sender.name
       let subject = data.message.subject
