@@ -286,6 +286,13 @@ const init = async () => {
     }, 120000);
     
     setInterval(() => {
+        roblox.login("GCRBOT", process.env.rbxpass)
+         .then(function () {
+            console.log("Logged in!")
+        }
+    }, 86400000);
+        
+    setInterval(() => {
       var https = require('request')
       var roblox = require('roblox-js')
       https('https://groups.roblox.com/v1/groups/4044556/roles/28047493/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
