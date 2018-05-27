@@ -324,9 +324,8 @@ const init = async () => {
       let body = message.body
       let userId = message.sender.userId
       var messageString = [`User: **${name}**`,
-      `User ID: **${userId}**`,
-      `Subject: **${subject}**`,
-      "Message: ```\n" + body + "```"
+      `User ID: **${userId}**`
+      "```\n" + name + "'s Message\nSubject: " + subject + "\n\n" + body + "```"
 
       ].join('\n')
       const embed = new Discord.RichEmbed()
