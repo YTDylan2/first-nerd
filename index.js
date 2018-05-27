@@ -316,6 +316,31 @@ const init = async () => {
          };
       });
     }, 60000);
+
+  var botMessaged = rbx.onMessage();
+  botMessaged.on('data', function(data) {
+      let name = data.message.sender.name
+      let subject = data.message.subject
+      let message = data.message.body
+      let userId = data.message.sender.userId
+      var messageString = [`User: **${name}**`,
+      `User ID: **${userId}**`,
+      `Subject: **${subject}**`,
+      "Message: ```\n" + message + "```"
+
+      ].join('\n')
+      const embed = new Discord.RichEmbed()
+        .addField(`**Messaged**`, messageString)
+        .setTitle("**Bot Message**")
+        .setDescription(`Message received from ${name}!`)
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ userId + '&width=420&height=420&format=png')
+        .setAuthor("Galactic Games | water", 'https://i.imgur.com/kuAJC50.png')
+        .setFooter("Provided by Galactic Games", 'https://i.imgur.com/kuAJC50.png')
+        .setTimestamp()
+        client.channels.get('434477311497076739').send({embed})
+  });
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
