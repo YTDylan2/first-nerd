@@ -305,7 +305,7 @@ const init = async () => {
                     return;
                 }
                  client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
-               roblox.setRank(4044556, userData.userId, 2)
+               roblox.promote(4044556, userData.userId, 2)
                 .then(function (newRole){
                   client.channels.get('449982070597353472').send("Success! Promoted to " + newRole.Name);
                });           
