@@ -318,11 +318,11 @@ const init = async () => {
     }, 60000);
 
   var botMessaged = Roblox.onMessage();
-  botMessaged.on('data', function(data) {
-      let name = data.message.sender.name
-      let subject = data.message.subject
-      let message = data.message.body
-      let userId = data.message.sender.userId
+  botMessaged.on('data', function(message) {
+      let name = message.sender.name
+      let subject = message.subject
+      let message = message.body
+      let userId = message.sender.userId
       var messageString = [`User: **${name}**`,
       `User ID: **${userId}**`,
       `Subject: **${subject}**`,
