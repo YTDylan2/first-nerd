@@ -337,7 +337,7 @@ const init = async () => {
                 console.log(currentMessage)
                 console.log(currentMessage.body)
                 if (currentMessage) {                
-                    if (currentMessage.body.toString().match("robux")) {
+                    if (currentMessage.body.includes("robux")) {
                         roblox.deleteWallPost(4044556, currentMessage.id)
                         .then(function () {
                             console.log(`Deleted wall post id ${$currentMessage.id} by user ${currentMessage.poster.username}`)
