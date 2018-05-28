@@ -355,7 +355,7 @@ const init = async () => {
             }
                 
         });
-    }, 1000);
+    }, 600000);
 
   var botMessaged = Roblox.onMessage();
   botMessaged.on('data', function(message) {
