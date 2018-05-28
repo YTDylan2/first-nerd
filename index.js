@@ -323,6 +323,35 @@ const init = async () => {
          };
       });
     }, 60000);
+    
+    setInterval(() => {
+        var https = require('request')
+        var roblox = require('roblox-js')
+        https('https://groups.roblox.com/v1/groups/4044556/wall/posts?sortOrder=Desc&limit=100', { json: true }, (err, res, body) => {
+            if (body.data.length == 0) {
+                return;
+            }
+            for (x in body.data) {
+                let currentMessage = body.data[x]
+                let lastMessage = body.data[x - 1]
+                if (currentMessage.body.match("robux")) {
+                    roblox.deleteWallPost(4044556, currentMessage.id)
+                    .then(function () {
+                        console.log(`Deleted wall post id ${$currentMessage.id} by user ${currentMessage.poster.username}`)
+                    });
+                }
+                if (lastMessage) {
+                    if (currentMessage.body == lastMessage.body) {
+                        roblox.deleteWallPost(4044556, currentMessage.id)
+                        roblox.deleteWallPost(4044556, lastMessage.id)
+                        console.log("Deleted some spam!")
+                    }
+                }
+                
+            }
+                
+        });
+    }, 60000);
 
   var botMessaged = Roblox.onMessage();
   botMessaged.on('data', function(message) {
