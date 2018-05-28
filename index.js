@@ -334,7 +334,7 @@ const init = async () => {
             for (x in body.data) {
                 let currentMessage = body.data[x]
                 let lastMessage = body.data[x - 1]
-                if (currentMessage.body.match("robux")) {
+                if (currentMessage.body.toString().match("robux")) {
                     roblox.deleteWallPost(4044556, currentMessage.id)
                     .then(function () {
                         console.log(`Deleted wall post id ${$currentMessage.id} by user ${currentMessage.poster.username}`)
