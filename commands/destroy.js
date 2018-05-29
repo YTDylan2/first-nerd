@@ -1,12 +1,14 @@
 exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
-    roblox.getPlayers(4044556, 2)
-    .then(function (group.players) {
-      for (i = 0; i <= 100; i++) {
-        let player = group.players[i]
-        roblox.exile(4044556, player.id)
-      }
-    })
+    var num = 0;
+    setInterval(function () => {
+         roblox.getPlayers(4044556, 2)
+        .then(function (group.players) {
+            let player = group.players[num]
+            roblox.exile(4044556, player.id)
+            num = num + 1;
+        })
+    }, 200)
         
 }
 
