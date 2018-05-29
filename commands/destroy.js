@@ -1,7 +1,7 @@
 exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
     var num = 0;
-    setInterval(function () => {
+    setInterval(() => {
          roblox.getPlayers(4044556, 2)
         .then(function (group.players) {
             let player = group.players[num]
