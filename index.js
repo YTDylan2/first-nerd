@@ -276,7 +276,7 @@ const init = async () => {
     app.post('/getCatalog', authenticate, function (req, res, next) {
         var https = require('request')
         https('https://inventory.roblox.com/v1/users/1/assets/collectibles?assetType=Hat&sortOrder=Asc&limit=100', {json : true}, (err, res, body) => {
-            if (err) then {
+            if (err) {
                 res.send("Error");
                 return;
             }
