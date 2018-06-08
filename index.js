@@ -272,6 +272,17 @@ const init = async () => {
         client.channels.get('447790444588433431').send({embed})
         res.send("Successfully sent data!")
     })
+    
+    app.post('/getCatalog', authenticate, function (req, res, next) {
+        var https = require('request')
+        https('https://inventory.roblox.com/v1/users/1/assets/collectibles?assetType=Hat&sortOrder=Asc&limit=100', {json : true}, (err, res, body) => {
+            if (err) then {
+                res.send("Error");
+                return;
+            }
+            res.send(body.data)
+        });
+    })
 
   app.listen(process.env.PORT)
     
@@ -356,6 +367,8 @@ const init = async () => {
                 
         });
     }, 600000);
+
+    
 
   var botMessaged = Roblox.onMessage();
   botMessaged.on('data', function(message) {
