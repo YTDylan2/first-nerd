@@ -39,7 +39,7 @@ app.set('env', 'production')
 function sendErr(res, json, status) {
     res.json(json);
 }
-Roblox.login("GCRBOT", process.env.rbxpass)
+Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
     .then(function () {
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
