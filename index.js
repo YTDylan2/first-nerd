@@ -41,6 +41,7 @@ function sendErr(res, json, status) {
 }
 Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
     .then(function () {
+        console.log("Logged in to ROBLOX")
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
 
