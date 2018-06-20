@@ -150,7 +150,7 @@ client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
 
 const init = async () => {
-    Roblox.post(4044556, "Second test: Hello world!")
+   // Roblox.post(4044556, "Second test: Hello world!")
   // Here we load **commands** into memory, as a collection, so they're accessible
   // here and everywhere else.
   const cmdFiles = await readdir("./commands/");
@@ -303,71 +303,28 @@ const init = async () => {
         });
     }, 86400000);
         
-    setInterval(() => {
-      var https = require('request')
-      var roblox = require('roblox-js')
-      https('https://groups.roblox.com/v1/groups/4044556/roles/28047493/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
-       
-         if (err) {
-             return;
-         }
-         if (body.data.length == 0) {
-            // client.channels.get('449982070597353472').send("No users to promote!")
-            return;
-         }
-         for (x in body.data) {
-             var userData = body.data[x]
-             if (!groupBanned[userData.userId]) {
-                if (!userData.userId) {
-                    // client.channels.get('449982070597353472').send("Could not promote a user!")
-                    return;
-                }
-                 client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
-               roblox.promote(4044556, userData.userId)
-                .then(function (roles){
-                  client.channels.get('449982070597353472').send("Success! Promoted to " + roles.newRole.Name + " from " + roles.oldRole.Name);
-               });           
-             };
-             if (groupBanned[userData.userId]) {
-                client.channels.get('449982070597353472').send(userData.username + " is not allowed into the GCR group!")
-             };
-         };
-      });
-    }, 60000);
-    
-    setInterval(() => {
-        var https = require('request')
-        var roblox = require('roblox-js')
-        https('https://groups.roblox.com/v1/groups/4044556/wall/posts?sortOrder=Desc&limit=100', { json: true }, (err, res, body) => {
-            if (body.data.length == 0) {
-                return;
-            }
-            for (x in body.data) {
-                let currentMessage = body.data[x]
-                let lastMessage = body.data[x - 1]
-                // console.log(currentMessage)
-                // console.log(currentMessage.body)
-                if (currentMessage && !currentMessage.body === undefined) {                
-                    if (currentMessage.body.includes("robux")) {
-                        roblox.deleteWallPost(4044556, currentMessage.id)
-                        .then(function () {
-                            console.log(`Deleted wall post id ${$currentMessage.id} by user ${currentMessage.poster.username}`)
-                        });
-                    }
-                }
-                if (lastMessage) {
-                    if (currentMessage.body == lastMessage.body) {
-                        roblox.deleteWallPost(4044556, currentMessage.id)
-                        roblox.deleteWallPost(4044556, lastMessage.id)
-                        console.log("Deleted some spam!")
-                    }
-                }
-                
-            }
-                
-        });
-    }, 600000);
+  var wallPost = Roblox.onWallPost(process.env.groupid)
+  wallPost.on('data', function(post) {
+      let name = post.author.name
+      let message = post.content
+      let date = post.date
+      let userId = post.author.id
+      var messageString = [`**${name}** says,`,
+      "```fix\n" + name + "'s Post\n" + message + "```"
 
+      ].join('\n')
+       const embed = new Discord.RichEmbed()
+        .addField(`**Group Wall**`, messageString)
+        .setTitle("**Wall Post**")
+        .setDescription(`Post from ${name}`)
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ userId + '&width=420&height=420&format=png')
+        .setAuthor("WaterIsIceSoup | water", 'https://i.imgur.com/qMyW7KX.png')
+        .setFooter("Provided by WaterIsIceSoup", 'https://i.imgur.com/qMyW7KX.png')
+        .setTimestamp()
+        client.channels.get('434477311497076739').send({embed})
+  }
     
 
   var botMessaged = Roblox.onMessage();
