@@ -303,7 +303,7 @@ const init = async () => {
         });
     }, 86400000);
         
-  var wallPost = Roblox.onWallPost(process.env.groupid)
+  var wallPost = Roblox.onWallPost(process.env.groupid);
   wallPost.on('data', function(post) {
       let name = post.author.name
       let message = post.content
