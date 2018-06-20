@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => {
         return;
     }
     if (text.length > 0 && message.author.id == '240639333567168512') {
-       roblox.post(4044556, text)
+       roblox.post(process.env.groupid, text)
     }
 }
 
