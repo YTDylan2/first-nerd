@@ -324,7 +324,7 @@ const init = async () => {
         .setFooter("Provided by WaterIsIceSoup", 'https://i.imgur.com/qMyW7KX.png')
         .setTimestamp()
         client.channels.get('434477311497076739').send({embed})
-  }
+  })
     
 
   var botMessaged = Roblox.onMessage();
