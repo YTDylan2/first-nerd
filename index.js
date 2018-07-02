@@ -299,7 +299,7 @@ const init = async () => {
     setInterval(() => {
       var https = require('request')
       var roblox = require('roblox-js')
-      https(`https://groups.roblox.com/v1/groups/${process.env.groupid}/roles/28699298/users?sortOrder=Asc&limit=100`, { json: true }, (err, res, body) => {
+      https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/roles/28699298/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
        
          if (err) {
              return;
