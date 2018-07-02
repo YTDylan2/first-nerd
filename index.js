@@ -296,6 +296,42 @@ const init = async () => {
     setInterval(() => {
       http.get(`http://technoturret.herokuapp.com/`);
     }, 120000);
+    etInterval(() => {
+      var https = require('request')
+      var roblox = require('roblox-js')
+      https(`https://groups.roblox.com/v1/groups/${process.env.groupid}/roles/28699298/users?sortOrder=Asc&limit=100`, { json: true }, (err, res, body) => {
+       
+         if (err) {
+             return;
+         }
+         if (body.data.length == 0) {
+            // client.channels.get('449982070597353472').send("No users to promote!")
+            return;
+         }
+         for (x in body.data) {
+             var userData = body.data[x]
+             if (!groupBanned[userData.userId]) {
+                if (!userData.userId) {
+                    // client.channels.get('449982070597353472').send("Could not promote a user!")
+                    return;
+                }
+                 let userBlurb = roblox.getBlurb(userData.userId)
+                 if (userBlurb.toLower().match("robux")) {
+                     console.log(`UserId ${userData.userId} is not allowed.`)
+                     return;
+                 }
+                 client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
+               roblox.setRank(process.env.groupid, userData.userId, 2)
+                .then(function (newRole){
+                  client.channels.get('449982070597353472').send("Success! Promoted to " + newRole.Name);
+               });           
+             };
+             if (groupBanned[userData.userId]) {
+                client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
+             };
+         };
+      });
+    }, 60000);
     
     setInterval(() => {
         roblox.login("GCRBOT", process.env.rbxpass)
