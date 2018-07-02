@@ -318,7 +318,7 @@ const init = async () => {
                  let failed = false
                  roblox.getBlurb(userData.userId)
                     .then(function(blurb) {
-                     if blurb.toLowerCase().match("robux") then {
+                     if (blurb.toLowerCase().match("robux")) {
                          console.log("Not allowed")
                          failed = true
                      }
