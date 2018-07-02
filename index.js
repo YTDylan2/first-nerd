@@ -316,7 +316,7 @@ const init = async () => {
                     return;
                 }
                  let userBlurb = roblox.getBlurb(userData.userId).blurb
-                 if (userBlurb.toLower().match("robux")) {
+                 if (userBlurb.toLowerCase().match("robux")) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
                      return;
                  }
