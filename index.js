@@ -315,10 +315,12 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-                 let failed = false
+                 var failed = false
                  roblox.getBlurb(userData.userId)
                     .then(function(blurb) {
+                     console.log(blurb.toLowerCase())
                      if (blurb.toLowerCase().match("robux")) {
+                            
                          console.log("Not allowed")
                          failed = true
                      }
@@ -338,7 +340,7 @@ const init = async () => {
              };
          };
       });
-    }, 60000);
+    }, 5000);
     
     setInterval(() => {
         roblox.login("GCRBOT", process.env.rbxpass)
