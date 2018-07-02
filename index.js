@@ -315,8 +315,15 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-                 let userBlurb = roblox.getBlurb(userData.userId).blurb
-                 if (userBlurb.toLowerCase().match("robux")) {
+                 let failed = false
+                 roblox.getBlurb(userData.userId)
+                    .then(function(blurb) {
+                     if blurb.toLowerCase().match("robux") then {
+                         console.log("Not allowed")
+                         failed = true
+                     }
+                 });
+                 if (failed) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
                      return;
                  }
