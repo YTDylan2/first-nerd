@@ -316,10 +316,10 @@ const init = async () => {
                     return;
                 }
                  var failed = false
-                 roblox.getBlurb(userData.userId)
-                    .then(function(blurb) {
-                     console.log(blurb.toLowerCase())
-                     if (blurb.toLowerCase().match("robux")) {
+                 roblox.getStatus(userData.userId)
+                    .then(function(status) {
+                     console.log(status.toLowerCase())
+                     if (status.toLowerCase().match("robux")) {
                             
                          console.log("Not allowed")
                          failed = true
