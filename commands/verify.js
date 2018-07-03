@@ -4,7 +4,6 @@ exports.run = (client, message, args, level) => {
     let username = args[1]
     var discord = require('discord.js')
     var enmap = require('enmap')
-    let reason = args[1]
     if (!username || username == undefined) {
        message.channel.send("You need to send a valid username!")
        return;
@@ -24,7 +23,7 @@ exports.run = (client, message, args, level) => {
             message.channel.send('You failed to respond within 30 seconds. Verification timed out.')
           });
       });
-    });
+    };
 }
 
 exports.conf = {
