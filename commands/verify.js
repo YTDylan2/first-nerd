@@ -9,9 +9,21 @@ exports.run = (client, message, args, level) => {
        return;
     }
     if (username) {
-      message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username "**. Is this correct? Say `Yes` or `No`.")
-      
-    };
+      message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`.")
+      .then(() => {
+        message.channel.awaitMessages(response => response.author.id == message.author.id, {
+            max: 1,
+            time: 30000,
+            errors: ['time'],
+        })
+        .then((collected) => {
+          message.channel.send("Your choice was " + collected.first().content)
+        })
+        .catch(() => {
+          message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
+        });
+     });
+   };
 }
 
 exports.conf = {
