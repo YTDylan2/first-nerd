@@ -1,7 +1,7 @@
 // verify
 
 exports.run = (client, message, args, level) => {
-    let username = args[1]
+    let username = args[0]
     var discord = require('discord.js')
     var enmap = require('enmap')
     if (!username || username == undefined) {
