@@ -3,7 +3,7 @@
 exports.run = (client, message, args, level) => {
     let username = args[1]
     var discord = require('discord.js')
-    var enmap = require(
+    var enmap = require('enmap')
     let reason = args[1]
     if (!username || username == undefined) {
        message.channel.send("You need to send a valid username!")
@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
           });
       });
     });
-})
+}
 
 exports.conf = {
     enabled: true,
