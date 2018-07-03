@@ -14,8 +14,7 @@ exports.run = (client, message, args, level) => {
         message.channel.awaitMessages(response => response.content.toLower() === 'yes' || response => response.content.toLower() === 'no', {
           max: 1,
           time: 30000,
-          errors: ['time'],
-        })
+          errors: ['time']})
         .then((collected) => {
             message.channel.send("Response: " + collected.first().content)
           })
