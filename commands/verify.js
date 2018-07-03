@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
     if (username) {
       message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`.")
       .then(() => {
-        message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLower().match('yes') || response.content.toLower().match('no')), {
+        message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
             max: 1,
             time: 60000,
             errors: ['time'],
