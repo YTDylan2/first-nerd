@@ -10,18 +10,7 @@ exports.run = (client, message, args, level) => {
     }
     if (username) {
       message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username "**. Is this correct? Say `Yes` or `No`.")
-      .then(() => {
-        message.channel.awaitMessages(response => response.content.toLower() === 'yes' || response => response.content.toLower() === 'no', {
-          max: 1,
-          time: 30000,
-          errors: ['time']})
-        .then((collected) => {
-            message.channel.send("Response: " + collected.first().content)
-          })
-          .catch(() => {
-            message.channel.send('You failed to respond within 30 seconds. Verification timed out.')
-          });
-      });
+      
     };
 }
 
