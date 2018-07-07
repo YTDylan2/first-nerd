@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
     if (isNan(keyParse)) {
         // this is a name.
         for (x in data) {
-            let dataTable = data[x]
+            var dataTable = data[x]
             if (dataTable.name.toLowerCase() == key.toLowerCase()) {
                 found = true
                 var RAP = dataTable.RAP
@@ -47,7 +47,7 @@ exports.run = (client, message, args, level) => {
     else {
         // this is a userId.
         for (x in data) {
-            let dataTable = data[x]
+            var dataTable = data[x]
             if (dataTable.userId.toLowerCase() == key.toLowerCase()) {
                 found = true
                 var RAP = dataTable.RAP
