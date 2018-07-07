@@ -3,7 +3,7 @@ exports.run = (client, message, args, level) => {
     let enmapLevel = require('enmap-level')
     let key = args[0]
     var gotValue = client.collection.get(key)
-    message.channel.send(gotValue.toString() || "No data for this key.")
+    message.channel.send(gotValue || "No data for this key.")
 }
 
 exports.conf = {
