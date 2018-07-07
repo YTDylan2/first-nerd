@@ -16,8 +16,8 @@ exports.conf = {
 };
 
 exports.help = {
-    name: "set",
+    name: "setdata",
     category: "Utility",
     description: "For data persistence testing.",
-    usage: "set [arg] [val]"
+    usage: "setdata [arg] [val]"
 };
