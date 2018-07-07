@@ -4,7 +4,7 @@ exports.run = async (client, message, args, level) => {// eslint-disable-line no
     await client.unloadCommand(cmd);
   });
   await client.collection.db.close();
-  process.exit(1);
+  process.exit(143);
 };
 
 exports.conf = {
