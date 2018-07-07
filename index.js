@@ -50,9 +50,8 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
     });
 
 client.caseLegendsPlayerData = {
-    // 'userId' = {
-    
-    //}
+    // {userId: 1, casebux: blah}, {userId: 2, rap: blah}
+        
 }
 
 
@@ -145,6 +144,15 @@ function authenticate(req, res, next) {
     } else {
         sendErr(res, { error: 'Incorrect authentication key', id: null }, 401);
     }
+}
+
+function findUserIdMatch(id, array) {
+    for (x in array) {
+        if (array.userId == id) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // Aliases and commands are put in collections where they can be read from,
@@ -286,6 +294,7 @@ const init = async () => {
         res.send("Successfully sent data!")
     })
     
+    var idsLogged = {}
     app.post('/getCaseLegendsData/:data', authenticate, function (req, res, next) {
         var requiredFields = {
             'data' : 'string'
@@ -297,7 +306,23 @@ const init = async () => {
             sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
             return;
         }
-        client.caseLegendsPlayerData = params.data
+        
+        if (idsLogged[data.userId]) {
+            for (x in client.caseLegendsPlayerData)
+                let data = client.caseLegendsPlayerData[x]
+                if (findUserIdMatch(data.userId, params.data) {
+                    data = params  
+                }
+            }    
+        }
+        for (x in params.data) {
+            let data = params.data[x]
+            if (!idsLogged[data.userId]) {
+                idsLogged[data.userId] = true
+                client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = data
+            }
+        }
+        
         res.send("Data was successfully received and uploaded to memory.")
     })
 
