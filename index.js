@@ -312,10 +312,10 @@ const init = async () => {
             }    
         }
         for (x in data) {
-            let data = data[x]
+            let pData = data[x]
             if (!idsLogged[data.userId]) {
                 idsLogged[data.userId] = true
-                client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = data
+                client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
             }
         }
         
