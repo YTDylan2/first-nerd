@@ -9,7 +9,7 @@ exports.run = (client, message, args, level) => {
         return;
     }
     let keyParse = parseInt(key)
-    if (isNan(keyParse)) {
+    if (isNaN(keyParse)) {
         // this is a name.
         for (x in data) {
             var dataTable = data[x]
@@ -44,8 +44,9 @@ exports.run = (client, message, args, level) => {
                 break;
             }
         }
-    else {
-        // this is a userId.
+    }
+    // this is a userId.
+    if (!isNaN(keyParse)) {
         for (x in data) {
             var dataTable = data[x]
             if (dataTable.userId.toLowerCase() == key.toLowerCase()) {
