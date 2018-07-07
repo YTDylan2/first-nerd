@@ -410,6 +410,10 @@ const init = async () => {
   client.login(process.env.BOT_TOKEN);
 
 // End top-level async/await function.
+  client.collection.defer.then(() => {
+    // all data is loaded now.
+    console.log(client.collection.size + " keys were loaded");
+  });
   await client.collection.db.close();
 };
 
