@@ -296,7 +296,7 @@ const init = async () => {
     
     var idsLogged = {}
     app.post('/getCaseLegendsData/:data', authenticate, function (req, res, next) {
-        var requiredFields = {
+        var fields = {
             'data' : 'string'
         }
         var checking = [req.params]
