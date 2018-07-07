@@ -223,7 +223,7 @@ const init = async () => {
   })
   
   app.post('/dataGet', authenticate, function (req, res, next) {
-       client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+      // client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
       var dataString = [`Techits: ${req.body.Techits}`,
       `GC: ${req.body.GC}`,
       `Item Count: ${req.body.TotalItems}`,
@@ -250,7 +250,7 @@ const init = async () => {
   })
   
   app.post('/getGCRBAN', authenticate, function (req, res, next) {
-       client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+    //   client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
       var dataString = [`CaseBux: **${req.body.CB}**`,
       `RAP: **${req.body.RAP}**`,
       `User ID: **${req.body.userId}**`,
@@ -272,7 +272,7 @@ const init = async () => {
         res.send("Successfully sent data!")
   })
    app.post('/getGCRUNBAN', authenticate, function (req, res, next) {
-      client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+     // client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
       var dataString = [`CaseBux: **${req.body.CB}**`,
       `RAP: **${req.body.RAP}**`,
       `User ID: **${req.body.userId}**`,
@@ -295,29 +295,24 @@ const init = async () => {
     })
     
     var idsLogged = {}
-    app.post('/getCaseLegendsData/:data', authenticate, function (req, res, next) {
-        var fields = {
-            'data' : 'string'
-        }
-        var checking = [req.params]
-        var params = verifyParameters(res, checking, fields)
-        if (!params) {
-            client.channels.get('457275469796999169').send("Error getting message data. Please check parameters provided.")
+    app.post('/getCaseLegendsData', authenticate, function (req, res, next) {
+        if (!req.body) {
+            client.channels.get('457275469796999169').send("Error getting data. Please check parameters provided.")
             sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
             return;
         }
-        
+        var data = req.body
         if (idsLogged[data.userId] && client.caseLegendsPlayerData.length > 0) {
             for (x in client.caseLegendsPlayerData) {
-                var data = client.caseLegendsPlayerData[x]
-                if (findUserIdMatch(data.userId, params.data)) {
-                    var result, pData = findUserIdMatch(data.userId, params.data)
-                    data = pData
+                var olddata = client.caseLegendsPlayerData[x]
+                if (findUserIdMatch(olddata.userId, data)) {
+                    var result, pData = findUserIdMatch(olddata.userId, data)
+                    olddata = pData
                 }
             }    
         }
-        for (x in params.data) {
-            let data = params.data[x]
+        for (x in data) {
+            let data = data[x]
             if (!idsLogged[data.userId]) {
                 idsLogged[data.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = data
