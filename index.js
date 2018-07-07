@@ -310,7 +310,7 @@ const init = async () => {
         if (idsLogged[data.userId]) {
             for (x in client.caseLegendsPlayerData)
                 var data = client.caseLegendsPlayerData[x]
-                if (findUserIdMatch(data.userId, params.data) {
+                if (findUserIdMatch(data.userId, params.data)) {
                     data = params  
                 }
             }    
