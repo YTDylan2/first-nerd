@@ -20,6 +20,7 @@ const EnmapLevel = require("enmap-level");
 const rethink = require("rethinkdb")
 const EnmapRethink = require('enmap-rethink')
 
+
 // This is your client. Some people call it `bot`, some people call it `self`,
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
@@ -47,6 +48,12 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
         console.log("Logged in to ROBLOX")
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
+
+client.caseLegendsPlayerData = {
+    // 'userId' = {
+    
+    //}
+}
 
 
 var groupBanned = {
@@ -150,7 +157,7 @@ client.aliases = new Enmap();
 // and makes things extremely easy for this purpose.
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 
-client.collection = new Enmap({provider: new EnmapRethink({name: "enmapTest"})});
+client.collection = new Enmap({provider: new EnmapLevel(name: "enmapTest"})});
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
@@ -279,15 +286,19 @@ const init = async () => {
         res.send("Successfully sent data!")
     })
     
-    app.post('/getCatalog', authenticate, function (req, res, next) {
-        var https = require('request')
-        https('https://inventory.roblox.com/v1/users/1/assets/collectibles?assetType=Hat&sortOrder=Asc&limit=100', {json : true}, (failData, urlResponse, body) => {
-            if (failData) {
-                res.send("Error");
-                return;
-            }
-            res.send(body.data)
-        });
+    app.post('/getCaseLegendsData/:data', authenticate, function (req, res, next) {
+        var requiredFields = {
+            'data' : 'string'
+        }
+        var checking = [req.params]
+        var params = verifyParameters(res, checking, fields)
+        if (!params) {
+            client.channels.get('457275469796999169').send("Error getting message data. Please check parameters provided.")
+            sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
+            return;
+        }
+        client.caseLegendsPlayerData = params.data
+        res.send("Data was successfully received and uploaded to memory.")
     })
 
   app.listen(process.env.PORT)
@@ -414,9 +425,10 @@ const init = async () => {
   client.login(process.env.BOT_TOKEN);
 
 // End top-level async/await function
-    await client.collection.defer;
-    console.log(client.collection.size + " keys were loaded")
+    
 };
 
 init();
+await client.collection.defer;
+console.log(client.collection.size + " keys were loaded")
 
