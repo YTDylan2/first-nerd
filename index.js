@@ -411,9 +411,7 @@ const init = async () => {
 
 // End top-level async/await function
     await client.collection.defer;
-    console.log(client.collection.size + " keys were loaded");
-    
-  client.collection.db.close();
+    console.log(client.collection.size + " keys were loaded")
 };
 
 init();
