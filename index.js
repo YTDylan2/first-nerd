@@ -149,7 +149,7 @@ function authenticate(req, res, next) {
 function findUserIdMatch(id, array) {
     for (x in array) {
         if (array.userId == id) {
-            return true;
+            return true, array[x]
         }
     }
     return false;
@@ -307,11 +307,12 @@ const init = async () => {
             return;
         }
         
-        if (idsLogged[data.userId]) {
+        if (idsLogged[data.userId] && client.caseLegendsPlayerData.length > 0) {
             for (x in client.caseLegendsPlayerData) {
                 var data = client.caseLegendsPlayerData[x]
                 if (findUserIdMatch(data.userId, params.data)) {
-                    data = params  
+                    var result, pData = findUserIdMatch(data.userId, params.data)
+                    data = pData
                 }
             }    
         }
