@@ -454,6 +454,6 @@ const init = async () => {
 };
 
 init();
-await client.collection.defer;
-console.log(client.collection.size + " keys were loaded")
+//await client.collection.defer;
+//console.log(client.collection.size + " keys were loaded")
 
