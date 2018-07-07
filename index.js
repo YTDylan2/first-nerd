@@ -410,6 +410,7 @@ const init = async () => {
   client.login(process.env.BOT_TOKEN);
 
 // End top-level async/await function.
+  await client.collection.db.close();
 };
 
 init();
