@@ -414,7 +414,7 @@ const init = async () => {
     // all data is loaded now.
     console.log(client.collection.size + " keys were loaded");
   });
-  await client.collection.db.close();
 };
 
 init();
+await client.collection.db.close();
