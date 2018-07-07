@@ -22,6 +22,8 @@ const EnmapLevel = require("enmap-level");
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
 const client = new Discord.Client();
+const database = new EnmapLevel({name: 'test'})
+this.collection = new Enmap({provider: database})
 
 // Here we load the config file that contains our token and our prefix values.
 client.config = require("./config.js");
