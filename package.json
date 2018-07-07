@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "8.2.1"
+    "node": ">=8"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "discord.js": "^11.3.0",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",
+    "enmap-rethink": "^2.1.1",
     "express": "^4.16.3",
     "google": "^2.1.0",
     "http": "0.0.0",
@@ -38,10 +39,10 @@
     "moment-duration-format": "^2.2.0",
     "noblox.js": "^4.1.1",
     "query-string": "^5.1.0",
-    "sqlite": "^2.9.2",
     "request": "^2.81.0",
     "roblox-js": "^4.0.2",
     "snekfetch": "^3.6.4",
+    "sqlite": "^2.9.2",
     "translate": "^1.0.2",
     "validator": "^9.4.1"
   }
