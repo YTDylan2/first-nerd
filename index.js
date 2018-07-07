@@ -22,7 +22,7 @@ const EnmapLevel = require("enmap-level");
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
 const client = new Discord.Client();
-client.collection = new Enmap({name: 'test", persistent : true});
+
 
 // Here we load the config file that contains our token and our prefix values.
 client.config = require("./config.js");
@@ -147,6 +147,8 @@ client.aliases = new Enmap();
 // essentially saves a collection to disk. This is great for per-server configs,
 // and makes things extremely easy for this purpose.
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
+
+client.collection = new Enmap({provider: new EnmapLevel({name: "enmapTest"})});
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
