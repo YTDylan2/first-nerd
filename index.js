@@ -302,10 +302,10 @@ const init = async () => {
             return;
         }
         var data = req.body.info
-        console.log(req.body.info)
+        //console.log(req.body.info)
         if (idsLogged[data.userId] && client.caseLegendsPlayerData.length > 0) {
-            for (x in client.caseLegendsPlayerData) {
-                var olddata = client.caseLegendsPlayerData[x]
+            for (i in client.caseLegendsPlayerData) {
+                var olddata = client.caseLegendsPlayerData[i]
                 if (findUserIdMatch(olddata.userId, data)) {
                     var result, pData = findUserIdMatch(olddata.userId, data)
                     olddata = pData
@@ -315,7 +315,7 @@ const init = async () => {
         }
         for (x in data) {
             var pData = data[x]
-            console.log(data.userId)
+            // console.log(data.userId)
             if (!idsLogged[data.userId]) {
                 idsLogged[data.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
