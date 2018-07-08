@@ -301,7 +301,8 @@ const init = async () => {
             sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
             return;
         }
-        var data = req.body.Data
+        var data = req.body.info
+        console.log(req.body.info)
         if (idsLogged[data.userId] && client.caseLegendsPlayerData.length > 0) {
             for (x in client.caseLegendsPlayerData) {
                 var olddata = client.caseLegendsPlayerData[x]
