@@ -49,7 +49,7 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
 
-client.caseLegendsPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }); });
+client.caseLegendsPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
 
 
 
