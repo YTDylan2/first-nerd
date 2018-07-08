@@ -303,23 +303,20 @@ const init = async () => {
         }
         var data = req.body.info
         //console.log(req.body.info)
-        if (idsLogged[data.userId] && client.caseLegendsPlayerData.length > 0) {
-            for (i in client.caseLegendsPlayerData) {
-                var olddata = client.caseLegendsPlayerData[i]
-                if (findUserIdMatch(olddata.userId, data)) {
-                    var result, pData = findUserIdMatch(olddata.userId, data)
-                    olddata = pData
-                    console.log("Updated a data entry for Case Legends " + pData.name)
-                }
-            }    
-        }
+        
         for (x in data) {
             var pData = data[x]
             // console.log(data.userId)
-            if (!idsLogged[data.userId]) {
-                idsLogged[data.userId] = true
+            if (!idsLogged[pData.userId]) {
+                idsLogged[pData.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
                 console.log("Added a new data entry for Case Legends " + pData.name)
+            }
+            if (idsLogged[pData.userId] && client.caseLegendsPlayerData.length > 0) {
+                if (findUserIdMatch(pData.userId, client.caseLegendsPlayerData)) {
+                    var result, oldData = findUserIdMatch(pData.userId, client.caseLegendsPlayerData)
+                    oldData = pData
+                }
             }
         }
         
