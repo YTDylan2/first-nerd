@@ -5,7 +5,7 @@ exports.run = (client, message, args, level) => {
     let key = args[0]
     let found = false;
     if (key === undefined) {
-        message.reply("A key is needed to get stats. `Say " + client.config.prefix + "check [user OR userId]`")
+        message.reply("A key is needed to get stats. `Say " + client.config.defaultSettings.prefix + "check [user OR userId]`")
         return;
     }
     let keyParse = parseInt(key)
@@ -13,7 +13,7 @@ exports.run = (client, message, args, level) => {
         // this is a name.
         for (x in data) {
             var dataTable = data[x]
-            if (dataTable.name.toLowerCase() == key.toLowerCase()) {
+            if (dataTable) {
                 found = true
                 var RAP = dataTable.RAP
                 var itemCount = dataTable.Itemcount
