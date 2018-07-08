@@ -2,6 +2,7 @@
 
 exports.run = (client, message, args, level) => {
     let data = client.caseLegendsPlayerData
+    let Discord = require('discord.js')
     let key = args[0]
     let found = false;
     if (key === undefined) {
