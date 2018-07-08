@@ -49,10 +49,10 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
 
-client.caseLegendsPlayerData = {
+client.caseLegendsPlayerData = [
     // {userId: 1, casebux: blah}, {userId: 2, rap: blah}
         
-}
+]
 
 
 var groupBanned = {
@@ -297,11 +297,14 @@ const init = async () => {
     var idsLogged = {}
     app.post('/getCaseLegendsData', authenticate, function (req, res, next) {
         if (!req.body) {
-            message.channel.send("Error getting data. Please check parameters provided.")
+            // ("Error getting data. Please check parameters provided.")
             sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
             return;
         }
         var data = req.body.info
+        if (data.length == 0) {
+            console.log("There's an error here.")
+        }
         //console.log(req.body.info)
         
         for (x in data) {
