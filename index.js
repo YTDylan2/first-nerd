@@ -49,10 +49,8 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
 
-client.caseLegendsPlayerData = [
-    // {userId: 1, casebux: blah}, {userId: 2, rap: blah}
-        
-]
+client.caseLegendsPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }); });
+
 
 
 var groupBanned = {
@@ -323,6 +321,7 @@ const init = async () => {
                 }
             }
         }
+        client.caseLegendsPlayerData.set(data)
         
         res.send("Data was successfully received and uploaded to memory.")
     })
