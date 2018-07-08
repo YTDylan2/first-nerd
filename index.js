@@ -321,7 +321,7 @@ const init = async () => {
                 }
             }
         }
-        client.caseLegendsPlayerData.set(data)
+        client.caseLegendsPlayerData.set("Case Legends", data)
         
         res.send("Data was successfully received and uploaded to memory.")
     })
