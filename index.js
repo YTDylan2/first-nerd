@@ -308,6 +308,7 @@ const init = async () => {
                 if (findUserIdMatch(olddata.userId, data)) {
                     var result, pData = findUserIdMatch(olddata.userId, data)
                     olddata = pData
+                    console.log("Updated a data entry for Case Legends " + pData.name)
                 }
             }    
         }
@@ -316,6 +317,7 @@ const init = async () => {
             if (!idsLogged[data.userId]) {
                 idsLogged[data.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
+                console.log("Added a new data entry for Case Legends " + pData.name)
             }
         }
         
