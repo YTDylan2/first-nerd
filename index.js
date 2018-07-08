@@ -309,6 +309,7 @@ const init = async () => {
         
         for (x in data) {
             var pData = data[x]
+            console.log(pData)
             // console.log(data.userId)
             if (!idsLogged[pData.userId]) {
                 idsLogged[pData.userId] = true
