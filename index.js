@@ -310,7 +310,7 @@ const init = async () => {
             if (!idsLogged[pData.userId]) {
                 idsLogged[pData.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
-                console.log("Added a new data entry for Case Legends " + pData.name)
+                console.log("Added a new data entry for Case Legends " + pData.userId)
             }
             if (idsLogged[pData.userId] && client.caseLegendsPlayerData.length > 0) {
                 if (findUserIdMatch(pData.userId, client.caseLegendsPlayerData)) {
