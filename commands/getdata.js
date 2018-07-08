@@ -14,7 +14,7 @@ exports.run = (client, message, args, level) => {
         // this is a name.
         for (x in data) {
             var dataTable = data[x]
-            if (dataTable) {
+            if (dataTable.name.toLowerCase() == key.toLowerCase()) {
                 found = true
                 var RAP = dataTable.RAP
                 var itemCount = dataTable.Itemcount
