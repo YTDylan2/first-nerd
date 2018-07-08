@@ -313,7 +313,8 @@ const init = async () => {
             }    
         }
         for (x in data) {
-            let pData = data[x]
+            var pData = data[x]
+            console.log(data.userId)
             if (!idsLogged[data.userId]) {
                 idsLogged[data.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
