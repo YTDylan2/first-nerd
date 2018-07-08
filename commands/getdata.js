@@ -24,18 +24,22 @@ exports.run = (client, message, args, level) => {
                 var rebirths = dataTable.Rebirths
                 var rubies = dataTable.Rubies
                 var CPO = dataTable.Cases
+                var Level = dataTable.Level
+                var profLink = dataTable.playerLink
                 var uniqueItems = dataTable.UniqueItemCount
                 const embed = new Discord.RichEmbed()
                 .addField("Player's RAP", RAP)
                 .addField("Player's Case-Bux", bux)
                 .addField("Player's Rubies", rubies)
+                .addField("Player's Level", Level)
+                .addField("Player's Profile Link", profLink)
                 .addField("Player's Rebirths", rebirths)
                 .addField("Player's Cases Per Open", CPO)
                 .addField("Player's Item Count", itemCount)
                 .addField("Item with Highest Amount", highItem)
                 .addField("Unique Amount of Items In Inventory", uniqueItems)
-                .setTitle(`Stats for ${dataTable.name}`)
-                .setDescription(`The data retrieved for ${dataTable.name}. Updated every 30 seconds if the user ingame. Returns their last save if not ingame.`)
+                .setTitle(`Stats for ${dataTable.displayName}`)
+                .setDescription(`The data retrieved for ${dataTable.displayName}. Updated every 30 seconds if the user ingame. Returns their last save if not ingame.`)
                 .setColor(16776960)
                 // .setImage('https://i.imgur.com/zwMrlQT.png')
                 .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ dataTable.userId + '&width=420&height=420&format=png')
@@ -60,11 +64,15 @@ exports.run = (client, message, args, level) => {
                 var rebirths = dataTable.Rebirths
                 var rubies = dataTable.Rubies
                 var CPO = dataTable.Cases
+                var Level = dataTable.Level
+                var profLink = dataTable.playerLink
                 var uniqueItems = dataTable.UniqueItemCount
                 const embed = new Discord.RichEmbed()
                 .addField("Player's RAP", RAP)
                 .addField("Player's Case-Bux", bux)
                 .addField("Player's Rubies", rubies)
+                .addField("Player's Level", Level)
+                .addField("Player's Profile Link", profLink)
                 .addField("Player's Rebirths", rebirths)
                 .addField("Player's Cases Per Open", CPO)
                 .addField("Player's Item Count", itemCount)
