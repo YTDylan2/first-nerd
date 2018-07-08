@@ -48,8 +48,8 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
         console.log("Logged in to ROBLOX")
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
     });
-
-client.caseLegendsPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
+client.caseLegendsPlayerData = []
+client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
 
 
 
@@ -321,7 +321,7 @@ const init = async () => {
                 }
             }
         }
-        client.caseLegendsPlayerData.set("Case Legends", data)
+        client.savedPlayerData.set("Case Legends", client.caseLegendsPlayerData)
         
         res.send("Data was successfully received and uploaded to memory.")
     })
