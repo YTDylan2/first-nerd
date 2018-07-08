@@ -14,6 +14,7 @@ exports.run = (client, message, args, level) => {
         // this is a name.
         for (x in data) {
             var dataTable = data[x]
+            console.log(dataTable)
             if (dataTable.name.toLowerCase() == key.toLowerCase()) {
                 found = true
                 var RAP = dataTable.RAP
@@ -50,7 +51,7 @@ exports.run = (client, message, args, level) => {
     if (!isNaN(keyParse)) {
         for (x in data) {
             var dataTable = data[x]
-            if (dataTable.userId.toLowerCase() == key.toLowerCase()) {
+            if (dataTable.userId == key.toLowerCase()) {
                 found = true
                 var RAP = dataTable.RAP
                 var itemCount = dataTable.Itemcount
@@ -69,8 +70,8 @@ exports.run = (client, message, args, level) => {
                 .addField("Player's Item Count", itemCount)
                 .addField("Item with Highest Amount", highItem)
                 .addField("Unique Amount of Items In Inventory", uniqueItems)
-                .setTitle(`Stats for ${dataTable.name}`)
-                .setDescription(`The data retrieved for ${dataTable.name}. Updated every 30 seconds if the user ingame. Returns their last save if not ingame.`)
+                .setTitle(`Stats for ${dataTable.displayName}`)
+                .setDescription(`The data retrieved for ${dataTable.displayName}. Updated every 30 seconds if the user ingame. Returns their last save if not ingame.`)
                 .setColor(16776960)
                 // .setImage('https://i.imgur.com/zwMrlQT.png')
                 .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ dataTable.userId + '&width=420&height=420&format=png')
