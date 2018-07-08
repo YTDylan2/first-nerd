@@ -297,7 +297,7 @@ const init = async () => {
     var idsLogged = {}
     app.post('/getCaseLegendsData', authenticate, function (req, res, next) {
         if (!req.body) {
-            client.channels.get('457275469796999169').send("Error getting data. Please check parameters provided.")
+            message.channel.send("Error getting data. Please check parameters provided.")
             sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
             return;
         }
