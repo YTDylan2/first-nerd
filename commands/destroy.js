@@ -1,27 +1,29 @@
 exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
     var num = 0
-    setInterval(() => {
-         roblox.getPlayers(4044556, 2)
-        .then(function (group) {
-            let player = group.players[num]
-            roblox.exile(4044556, player.id)
-            num = num + 1;
-        })
-    }, 200)
+    let text = args.join(" ")
+    var {post} = require("snekfetch");
+    try {
+        var {body} = await post("https://www.hastebin.com/documents").send(text);
+        message.channel.send(`Sent to https://www.hastebin.com/${body.key}.txt`);
+      } catch (error) {
+        message.channel.send(`I tried to upload the input to hastebin but encountered this error ${error.name}:${error.message}`);
+      }
+
+    
         
 }
 
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["destroy"],
+    aliases: [""],
     permLevel: "Bot Owner"
 };
 
 exports.help = {
-    name: "destroy",
+    name: "hastebin",
     category: "Fun",
-    description: "last stand.",
-    usage: "destroy"
+    description: "Posts to hastebin!",
+    usage: "hastebin [...]"
 };
