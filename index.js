@@ -352,12 +352,16 @@ const init = async () => {
             var messageId = messageData.id
             var target = messageData.poster.userId
             console.log(messageData)
-            if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux')) {
-                roblox.deleteWallPost(process.env.groupid, messageId)
-                 .then(function () {
-                     console.log("Spam deleted!")
-                 });
-                roblox.promote(process.env.groupid, target, 3)
+            if ( (message != undefined) && (messageId != undefined) && (target != undefined) ) {
+                message = message.toLowerCase()
+                if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux')) {
+                    roblox.deleteWallPost(process.env.groupid, messageId)
+                     .then(function () {
+                         console.log("Spam deleted!")
+                     });
+                    roblox.promote(process.env.groupid, target, 3)
+                
+                }
             }
         }
           
