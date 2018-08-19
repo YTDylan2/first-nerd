@@ -155,16 +155,18 @@ function findUserIdMatch(id, array) {
 
 function checkScammer(userId) {
     var https = require('request')
+    var found = false
     https('https://avatar.roblox.com/v1/users/' + userId +'/currently-wearing', {json: true}, (err, res, body) => {
         if (body) {
             for (x in body.assetIds) {
                 if (body.assetIds[x] == 6340101) {
-                    return true;
+                    found = true;
+                    break;
                 }
             }
         }
     });
-    return false
+    return found
 }
 
 // Aliases and commands are put in collections where they can be read from,
@@ -373,19 +375,17 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-                var scammer = checkScammer(userData.userId)      
-                var failed = false
+                var scammer = checkScammer(userData.userId)   
+                console.log(scammer)
                 if (scammer) {
-                     failed = true;
-                 }
-                 if (failed) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
                      roblox.setRank(process.env.groupid, userData.userId, 3)
                      .catch(function (err) {
                          console.log(err)
                      })
-                     return;
+                     return;  
                  }
+                 
                  client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
                roblox.setRank(process.env.groupid, userData.userId, 2)
                 .then(function (newRole){
