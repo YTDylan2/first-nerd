@@ -351,7 +351,7 @@ const init = async () => {
             var message = messageData.body.toLowerCase()
             var messageId = messageData.id
             var target = messageData.poster.userId
-            if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux') {
+            if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux')) {
                 roblox.deleteWallPost(process.env.groupid, messageId)
                  .then(function () {
                      console.log("Spam deleted!")
