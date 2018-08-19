@@ -153,6 +153,20 @@ function findUserIdMatch(id, array) {
     return false;
 }
 
+function checkScammer(userId) {
+    var https = require('https')
+    https('https://avatar.roblox.com/v1/users/' + userId +'/currently-wearing', {json: true}, (err, res, body) => {
+        if (body) {
+            for (x in body.assetIds) {
+                if (x == 6340101) {
+                    return true;
+                }
+            }
+        }
+    });
+    return false
+}
+
 // Aliases and commands are put in collections where they can be read from,
 // catalogued, listed, etc.
 client.commands = new Enmap();
@@ -338,36 +352,7 @@ const init = async () => {
       http.get(`http://technoturret.herokuapp.com/`);
     }, 120000);
     
-    setInterval(() => {
-      var https = require('request')
-      var roblox = require('noblox.js')
-      roblox.login({username: "GCRBOT", password: process.env.rbxpass})
-      https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/wall/posts?sortOrder=Desc&limit=100', {json: true}, (err, res, body) => {
-        if (err) {
-            console.log(err)
-            return;
-        }
-        for (x in body.data) {
-            var messageData = body.data[x]
-            var message = messageData.body
-            var messageId = messageData.id
-            var target = messageData.poster
-          //  console.log(messageData)
-            if ( (message != undefined) && (messageId != undefined) && (target != undefined) ) {
-                message = message.toLowerCase()
-                if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux')) {
-                    roblox.deleteWallPost(process.env.groupid, messageId)
-                     .then(function () {
-                         console.log("Spam deleted!")
-                     });
-                    roblox.promote(process.env.groupid, target.userId, 3)
-                
-                }
-            }
-        }
-          
-      });
-    }, 30000);
+    
     
     setInterval(() => { // auto rank users
       var https = require('request')
@@ -388,16 +373,11 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-                 var failed = false
-                 roblox.getStatus(userData.userId)
-                    .then(function(status) {
-                     console.log(status.toLowerCase())
-                     if (status.toLowerCase().match("robux")) {
-                            
-                         console.log("Not allowed")
-                         failed = true
-                     }
-                 });
+                var scammer = checkScammer(userData.userId)      
+                var failed = false
+                if (scammer) {
+                     failed = true;
+                 }
                  if (failed) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
                      return;
