@@ -351,7 +351,7 @@ const init = async () => {
             var message = messageData.body
             var messageId = messageData.id
             var target = messageData.poster
-            console.log(messageData)
+          //  console.log(messageData)
             if ( (message != undefined) && (messageId != undefined) && (target != undefined) ) {
                 message = message.toLowerCase()
                 if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux')) {
