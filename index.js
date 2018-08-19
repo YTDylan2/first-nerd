@@ -337,7 +337,33 @@ const init = async () => {
     setInterval(() => {
       http.get(`http://technoturret.herokuapp.com/`);
     }, 120000);
+    
     setInterval(() => {
+      var https = require('request')
+      var roblox = require('roblox-js')
+      https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/wall/posts?sortOrder=Desc&limit=100', {json: true}, (err, res, body) => {
+        if (err) {
+            console.log(err)
+            return;
+        }
+        for (x in body.data) {
+            var messageData = body.data[x]
+            var message = messageData.body.toLowerCase()
+            var messageId = messageData.id
+            var target = messageData.poster.userId
+            if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux') {
+                roblox.deleteWallPost(process.env.groupid, messageId)
+                 .then(function () {
+                     console.log("Spam deleted!")
+                 });
+                roblox.promote(process.env.groupid, target, 3)
+            }
+        }
+          
+      });
+    }, 10000);
+    
+    setInterval(() => { // auto rank users
       var https = require('request')
       var roblox = require('roblox-js')
       https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/roles/28699298/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
