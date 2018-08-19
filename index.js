@@ -383,7 +383,7 @@ const init = async () => {
                      roblox.setRank(process.env.groupid, userData.userId, 3)
                      .catch(function (err) {
                          console.log(err)
-                     }
+                     })
                      return;
                  }
                  client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
