@@ -158,7 +158,7 @@ function checkScammer(userId) {
     https('https://avatar.roblox.com/v1/users/' + userId +'/currently-wearing', {json: true}, (err, res, body) => {
         if (body) {
             for (x in body.assetIds) {
-                if (x == 6340101) {
+                if (body.assetIds[x] == 6340101) {
                     return true;
                 }
             }
