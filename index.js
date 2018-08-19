@@ -154,7 +154,7 @@ function findUserIdMatch(id, array) {
 }
 
 function checkScammer(userId) {
-    var https = require('https')
+    var https = require('request')
     https('https://avatar.roblox.com/v1/users/' + userId +'/currently-wearing', {json: true}, (err, res, body) => {
         if (body) {
             for (x in body.assetIds) {
