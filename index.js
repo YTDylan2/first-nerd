@@ -161,13 +161,11 @@ function checkScammer(userId) {
             for (x in body.assetIds) {
                 console.log(body.assetIds[x])
                 if (body.assetIds[x] == 6340101) {
-                    found = true;
-                    break;
+                   return true;
                 }
             }
         }
     });
-    return found
 }
 
 // Aliases and commands are put in collections where they can be read from,
