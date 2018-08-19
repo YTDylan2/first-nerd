@@ -5,7 +5,7 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 
 // Load up the discord.js library
 const Discord = require("discord.js");
-const Roblox = require("noblox-js");
+const Roblox = require("noblox.js");
 const express = require("express");
 const bodyParser = require('body-parser')
 const validator = require('validator')
@@ -340,7 +340,7 @@ const init = async () => {
     
     setInterval(() => {
       var https = require('request')
-      var roblox = require('noblox-js')
+      var roblox = require('noblox.js')
       roblox.login({username: "GCRBOT", password: process.env.rbxpass})
       https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/wall/posts?sortOrder=Desc&limit=100', {json: true}, (err, res, body) => {
         if (err) {
@@ -371,7 +371,7 @@ const init = async () => {
     
     setInterval(() => { // auto rank users
       var https = require('request')
-      var roblox = require('noblox-js')
+      var roblox = require('noblox.js')
       https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/roles/28699298/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
        
          if (err) {
