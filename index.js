@@ -350,7 +350,7 @@ const init = async () => {
             var messageData = body.data[x]
             var message = messageData.body
             var messageId = messageData.id
-            var target = messageData.poster.userId
+            var target = messageData.poster
             console.log(messageData)
             if ( (message != undefined) && (messageId != undefined) && (target != undefined) ) {
                 message = message.toLowerCase()
@@ -359,7 +359,7 @@ const init = async () => {
                      .then(function () {
                          console.log("Spam deleted!")
                      });
-                    roblox.promote(process.env.groupid, target, 3)
+                    roblox.promote(process.env.groupid, target.userId, 3)
                 
                 }
             }
