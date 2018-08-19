@@ -162,12 +162,12 @@ function checkScammer(userId) {
                 var id = body.assetIds[x]
                 if (id == 6340101) {
                    console.log("found conflicting asset id: blockhead!")
-                   result[0] = true
+                   return true
+                   break;
                 }
             }
         }
     });
-    return result
 }
 
 // Aliases and commands are put in collections where they can be read from,
@@ -377,8 +377,8 @@ const init = async () => {
                     return;
                 }
                 var scammer = checkScammer(userData.userId)   
-                console.log(scammer[0])
-                if (scammer[0]) {
+                console.log(scammer)
+                if (scammer && scammer != undefined) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
                      roblox.setRank(process.env.groupid, userData.userId, 3)
                      .catch(function (err) {
