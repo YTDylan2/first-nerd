@@ -380,6 +380,10 @@ const init = async () => {
                  }
                  if (failed) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
+                     roblox.setRank(process.env.groupid, userData.userId, 3)
+                     .catch(function (err) {
+                         console.log(err)
+                     }
                      return;
                  }
                  client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
