@@ -341,6 +341,7 @@ const init = async () => {
     setInterval(() => {
       var https = require('request')
       var roblox = require('roblox-js')
+      roblox.login({username: "GCRBOT", password: process.env.rbxpass})
       https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/wall/posts?sortOrder=Desc&limit=100', {json: true}, (err, res, body) => {
         if (err) {
             console.log(err)
@@ -366,7 +367,7 @@ const init = async () => {
         }
           
       });
-    }, 10000);
+    }, 30000);
     
     setInterval(() => { // auto rank users
       var https = require('request')
