@@ -161,8 +161,8 @@ function checkScammer(userId) {
             for (x in body.assetIds) {
                 var id = body.assetIds[x]
                 if (id == 6340101) {
-                    console.log(`UserId ${userData.userId} is not allowed.`)
-                    roblox.setRank(process.env.groupid, userData.userId, 3)
+                    console.log(`UserId ${userId} is not allowed.`)
+                    roblox.setRank(process.env.groupid, userId, 3)
                      .catch(function (err) {
                          console.log(err)
                      })
@@ -173,8 +173,8 @@ function checkScammer(userId) {
         }
     });
     if (result == false) {
-         client.channels.get('449982070597353472').send("Promoting **" + userData.username + "**...")
-         roblox.setRank(process.env.groupid, userData.userId, 2)
+         client.channels.get('449982070597353472').send("Promoting **" + userId + "**...")
+         roblox.setRank(process.env.groupid, userId, 2)
           .then(function (newRole){
             client.channels.get('449982070597353472').send("Success! Promoted to " + newRole.Name);
          });     
