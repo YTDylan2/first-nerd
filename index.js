@@ -348,9 +348,10 @@ const init = async () => {
         }
         for (x in body.data) {
             var messageData = body.data[x]
-            var message = messageData.body.toLowerCase()
+            var message = messageData.body
             var messageId = messageData.id
             var target = messageData.poster.userId
+            console.log(messageData)
             if (message.match('every game pass for free') || message.match('go to the following link') || message.match('tons of robux')) {
                 roblox.deleteWallPost(process.env.groupid, messageId)
                  .then(function () {
