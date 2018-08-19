@@ -155,17 +155,19 @@ function findUserIdMatch(id, array) {
 
 function checkScammer(userId) {
     var https = require('request')
-    var found = false
+    var result = {}
     https('https://avatar.roblox.com/v1/users/' + userId +'/currently-wearing', {json: true}, (err, res, body) => {
         if (body) {
             for (x in body.assetIds) {
-                console.log(body.assetIds[x])
-                if (body.assetIds[x] == 6340101) {
-                   return true;
+                var id = body.assetIds[x]
+                if (id == 6340101) {
+                   console.log("found conflicting asset id: blockhead!")
+                   result[0] = true
                 }
             }
         }
     });
+    return result
 }
 
 // Aliases and commands are put in collections where they can be read from,
@@ -375,8 +377,8 @@ const init = async () => {
                     return;
                 }
                 var scammer = checkScammer(userData.userId)   
-                console.log(scammer)
-                if (scammer) {
+                console.log(scammer[0])
+                if (scammer[0]) {
                      console.log(`UserId ${userData.userId} is not allowed.`)
                      roblox.setRank(process.env.groupid, userData.userId, 3)
                      .catch(function (err) {
