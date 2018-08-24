@@ -250,8 +250,8 @@ const init = async () => {
   
   app.post('/groupVerify', authenticate, function(req, res, next) {
       console.log(req.body)
-      var userId = req.body.userId
-      var success = false
+      let userId = req.body.userId
+      let success = false
       var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
       if (rank > 0 && rank < 4) {
