@@ -254,7 +254,7 @@ const init = async () => {
       let success = false
       var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
-      Roblox.setRank(process.env.groupid, userId, 4)
+      Roblox.promote(process.env.groupid, userId, 4)
       .then(function (n) {
           success = true
       })
