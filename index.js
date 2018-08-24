@@ -251,10 +251,10 @@ const init = async () => {
   app.post('/groupVerify', authenticate, function(req, res, next) {
       console.log(req.body)
       var userId = req.body.userId
-      var rank = Roblox.getRankInGroup(process.env.groupId, userId)
+      var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
       if (rank > 0) {
-          Roblox.promote(process.env.groupId, userId, 4)
+          Roblox.promote(process.env.groupid, userId, 4)
           res.send("Success!")
       }
   })
