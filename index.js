@@ -251,6 +251,7 @@ const init = async () => {
   app.post('/groupVerify', authenticate, function(req, res, next) {
       var userId = req.body.userId
       var rank = Roblox.getRankInGroup(userId)
+      console.log(req.body)
       if (rank > 0) {
           Roblox.promote(userId, 4)
           res.send("Success!")
@@ -311,18 +312,18 @@ const init = async () => {
         }
         var data = req.body.info
         if (data.length == 0) {
-            console.log("There's an error here.")
+           // console.log("There's an error here.")
         }
         //console.log(req.body.info)
         
         for (x in data) {
             var pData = data[x]
-            console.log(pData)
+           // console.log(pData)
             // console.log(data.userId)
             if (!idsLogged[pData.userId]) {
                 idsLogged[pData.userId] = true
                 client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
-                console.log("Added a new data entry for Case Legends " + pData.userId)
+               // console.log("Added a new data entry for Case Legends " + pData.userId)
             }
             if (idsLogged[pData.userId] && client.caseLegendsPlayerData.length > 0) {
                 if (findUserIdMatch(pData.userId, client.caseLegendsPlayerData)) {
