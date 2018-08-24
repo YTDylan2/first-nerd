@@ -248,31 +248,13 @@ const init = async () => {
         res.send("Successfully sent message!")
   })
   
-  app.post('/dataGet', authenticate, function (req, res, next) {
-      // client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
-      var dataString = [`Techits: ${req.body.Techits}`,
-      `GC: ${req.body.GC}`,
-      `Item Count: ${req.body.TotalItems}`,
-      `Total Hats: ${req.body.TotalHats}`,
-      `Collection Value: ${req.body.CollectionValue}`,
-      `Techits Earned: ${req.body.TechitsEarned}`,
-      `Best Hat: ${req.body.BestHat}`,
-      `Best Item: ${req.body.BestItem}`,
-      `Alpha Player: ${req.body.Alpha}`
-                            
-      ].join('\n')
-      const embed = new Discord.RichEmbed()
-        .addField(`**${req.body.player} Stats**`, dataString )
-        .setTitle("**Data Get!**")
-        .setDescription("This data is for " + req.body.player + '.')
-        .setColor(6605055)
-        // .setImage('https://i.imgur.com/zwMrlQT.png')
-        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ req.body.userId + '&width=420&height=420&format=png')
-        .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
-        .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
-        .setTimestamp()
-        client.channels.get('425822679958945792').send({embed})
-        res.send("Successfully sent data!")
+  app.post('/groupVerify', authenticate, function(req, res, next) {
+      var userId = req.body.userId
+      var rank = Roblox.getRankInGroup(userId)
+      if (rank > 0) {
+          Roblox.promote(userId, 4)
+          res.send("Success!")
+      }
   })
   
   app.post('/getGCRBAN', authenticate, function (req, res, next) {
