@@ -251,15 +251,19 @@ const init = async () => {
   app.post('/groupVerify', authenticate, function(req, res, next) {
       console.log(req.body)
       var userId = req.body.userId
+      var success = false
       var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
       if (rank > 0 && rank < 4) {
           Roblox.promote(process.env.groupid, userId, 4)
-          res.send("Success!")
+          .then(function (newRole) {
+            success = true
+          })
       }
-      if (rank > 4) {
-          res.send("Success!")
+      if (rank >= 4) {
+          success = true
       }
+      res.send("Success")
   })
   
   app.post('/getGCRBAN', authenticate, function (req, res, next) {
