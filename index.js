@@ -249,9 +249,10 @@ const init = async () => {
   })
   
   app.post('/groupVerify', authenticate, function(req, res, next) {
+      console.log(req.body)
       var userId = req.body.userId
       var rank = Roblox.getRankInGroup(userId)
-      console.log(req.body)
+
       if (rank > 0) {
           Roblox.promote(userId, 4)
           res.send("Success!")
