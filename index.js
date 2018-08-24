@@ -263,7 +263,7 @@ const init = async () => {
       if (rank >= 4) {
           success = true
       }
-      res.send("Success")
+      res.send(success)
   })
   
   app.post('/getGCRBAN', authenticate, function (req, res, next) {
