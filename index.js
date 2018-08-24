@@ -253,8 +253,11 @@ const init = async () => {
       var userId = req.body.userId
       var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
-      if (rank > 0) {
+      if (rank > 0 && rank < 4) {
           Roblox.promote(process.env.groupid, userId, 4)
+          res.send("Success!")
+      }
+      if (rank > 4) {
           res.send("Success!")
       }
   })
