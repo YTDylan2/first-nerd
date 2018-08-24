@@ -257,7 +257,7 @@ const init = async () => {
       Roblox.setRank(process.env.groupid, userId, 4)
       .then(function (n) {
           success = true
-      }
+      })
           
       if (rank >= 4) {
           success = true
