@@ -254,8 +254,8 @@ const init = async () => {
       let success = false
       var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
-      if (rank > 0 && rank < 4) {
-          Roblox.promote(process.env.groupid, userId, 4)
+      if (rank > 0) {
+          Roblox.setRank(process.env.groupid, userId, 4)
           .then(function (newRole) {
             success = true
           })
