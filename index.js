@@ -254,7 +254,7 @@ const init = async () => {
       let senderTime = req.body.sendTime
       let now = Date.now()
       let ping = now - senderTime
-      res.send({ping, client.lastCommand})
+      res.send([ping, client.lastCommand])
   })
   
   app.post('/groupVerify', authenticate, function(req, res, next) {
