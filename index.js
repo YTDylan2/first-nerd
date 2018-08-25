@@ -386,7 +386,7 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-                var scammer = checkScammer(userData.userId)        
+               // var scammer = checkScammer(userData.userId)        
              };
              if (groupBanned[userData.userId]) {
                 client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
@@ -400,31 +400,9 @@ const init = async () => {
          .then(function () {
             console.log("Logged in!")
         });
-    }, 86400000);
+    }, 8640000);
         
-  var wallPost = Roblox.onWallPost(process.env.groupid);
-  wallPost.on('data', function(post) {
-      let name = post.author.name
-      let message = post.content
-      let date = post.date
-      let userId = post.author.id
-      var messageString = [`**${name}** says,`,
-      "```fix\n" + name + "'s Post\n" + message + "```"
-
-      ].join('\n')
-       const embed = new Discord.RichEmbed()
-        .addField(`**Group Wall**`, messageString)
-        .setTitle("**Wall Post**")
-        .setDescription(`Post from ${name}`)
-        .setColor(6605055)
-        // .setImage('https://i.imgur.com/zwMrlQT.png')
-        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ userId + '&width=420&height=420&format=png')
-        .setAuthor("WaterIsIceSoup | water", 'https://i.imgur.com/qMyW7KX.png')
-        .setFooter("Provided by WaterIsIceSoup", 'https://i.imgur.com/qMyW7KX.png')
-        .setTimestamp()
-        console.log("ok, on post")
-        client.channels.get('434477311497076739').send({embed})
-  });
+  
     
 
   var botMessaged = Roblox.onMessage();
