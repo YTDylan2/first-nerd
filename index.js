@@ -247,6 +247,13 @@ const init = async () => {
         client.channels.get('425822679958945792').send({embed})
         res.send("Successfully sent message!")
   })
+    
+  app.post('/ping', authenticate, function(req, res, next) {
+      let senderTime = req.body.sendTime
+      let now = Date.now()
+      let ping = now - senderTime
+      res.send(ping)
+  })
   
   app.post('/groupVerify', authenticate, function(req, res, next) {
       console.log(req.body)
@@ -348,7 +355,7 @@ const init = async () => {
     
   // this keeps the app alive
     app.get("/", (request, response) => {
-      console.log(Date.now() + " Ping Received");
+     // console.log(Date.now() + " Ping Received");
       response.sendStatus(200);
     });
     
