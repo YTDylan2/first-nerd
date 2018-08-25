@@ -164,7 +164,7 @@ function checkScammer(userId) {
                 var id = body.assetIds[x]
                 if (id == 6340101) {
                     console.log(`UserId ${userId} is not allowed.`)
-                    Roblox.setRank(process.env.groupid, userId, 3)
+                    Roblox.setRank(process.env.groupid, userId, 4)
                      .catch(function (err) {
                          console.log(err)
                      })
@@ -176,7 +176,7 @@ function checkScammer(userId) {
     });
     if (result == false) {
          client.channels.get('449982070597353472').send("Promoting **" + userId + "**...")
-         Roblox.setRank(process.env.groupid, userId, 2)
+         Roblox.setRank(process.env.groupid, userId, 3)
           .then(function (newRole){
             client.channels.get('449982070597353472').send("Success! Promoted to " + newRole.Name);
          });     
@@ -263,7 +263,7 @@ const init = async () => {
       let success = false
       var rank = Roblox.getRankInGroup(process.env.groupid, userId)
 
-      Roblox.promote(process.env.groupid, userId, 4)
+      Roblox.promote(process.env.groupid, userId)
       .then(function (n) {
           success = true
       })
@@ -386,7 +386,7 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-               // var scammer = checkScammer(userData.userId)        
+               var scammer = checkScammer(userData.userId)        
              };
              if (groupBanned[userData.userId]) {
                 client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
