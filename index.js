@@ -176,7 +176,7 @@ function checkScammer(userId) {
     });
     if (result == false) {
          client.channels.get('449982070597353472').send("Promoting **" + userId + "**...")
-         Roblox.setRank(process.env.groupid, userId, 3)
+         Roblox.setRank(process.env.groupid, userId, 2)
           .then(function (newRole){
             client.channels.get('449982070597353472').send("Success! Promoted to " + newRole.Name);
          });     
