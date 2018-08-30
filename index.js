@@ -381,6 +381,7 @@ const init = async () => {
          if (err) {
              return;
          }
+        client.channels.get('449982070597353472').send(`There are ${body.data.length} user(s) waiting for a rank.`)
          if (body.data.length == 0) {
             // client.channels.get('449982070597353472').send("No users to promote!")
             return;
@@ -392,7 +393,7 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-               var scammer = checkScammer(userData.userId)        
+               // var scammer = checkScammer(userData.userId)        
              };
              if (groupBanned[userData.userId]) {
                 client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
