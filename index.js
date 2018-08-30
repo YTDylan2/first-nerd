@@ -5,7 +5,7 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 
 // Load up the discord.js library
 const Discord = require("discord.js");
-const Roblox = require("noblox.js");
+const Roblox = require("roblox-js");
 const express = require("express");
 const bodyParser = require('body-parser')
 const validator = require('validator')
@@ -48,6 +48,9 @@ Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX")
         client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
+    })
+    .catch(function(err) {
+        console.log("login error: " + err)
     });
 client.caseLegendsPlayerData = []
 client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
@@ -179,7 +182,10 @@ function checkScammer(userId) {
          Roblox.setRank(process.env.groupid, userId, 2)
           .then(function (newRole){
             client.channels.get('449982070597353472').send("Success! Promoted to " + newRole.Name);
-         });     
+         })
+         .catch(function (err) {
+            console.log("ERROR RANKING: " + err)
+         }) 
     }
 }
 
