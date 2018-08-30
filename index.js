@@ -400,7 +400,7 @@ const init = async () => {
              };
          };
       });
-    }, 5000);
+    }, 600000 * 3 ); // lazy af
     
     setInterval(() => {
         roblox.login("GCRBOT", process.env.rbxpass)
