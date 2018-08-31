@@ -11,7 +11,9 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
 • Servers    :: ${client.guilds.size.toLocaleString()}
 • Channels   :: ${client.channels.size.toLocaleString()}
 • Discord.js :: v${version}
-• Node       :: ${process.version}`, {code: "asciidoc"});
+• Node       :: ${process.version}
+• Began running at :: ${process.env.HEROKU_RELEASE_CREATED_AT}
+• Build Version :: ${process.env.HEROKU_RELEASE_VERSION}`, {code: "asciidoc"});
 };
 
 exports.conf = {
