@@ -47,7 +47,7 @@ function sendErr(res, json, status) {
 Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX")
-        client.channels.get('434477311497076739').send("Logged into ROBLOX as **'GCRBOT'**")
+       
     })
     .catch(function(err) {
         console.log("login error: " + err)
@@ -82,6 +82,9 @@ function validatorType(type) {
     }
 }
 
+function logDiscord(msg) {
+     client.users.get(client.config.ownerID).send("```js" + msg + "```")
+}
 function processType(type, value) {
     switch (type) {
         case 'int':
@@ -381,7 +384,7 @@ const init = async () => {
          if (err) {
              return;
          }
-        client.channels.get('449982070597353472').send(`There are ${body.data.length} user(s) waiting for a rank.`)
+        // client.channels.get('449982070597353472').send(`There are ${body.data.length} user(s) waiting for a rank.`)
          if (body.data.length == 0) {
             // client.channels.get('449982070597353472').send("No users to promote!")
             return;
@@ -393,7 +396,7 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-               // var scammer = checkScammer(userData.userId)        
+               var scammer = checkScammer(userData.userId)        
              };
              if (groupBanned[userData.userId]) {
                 client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
