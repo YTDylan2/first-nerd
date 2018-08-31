@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "8.2.1"
+    "node": ">=8"
   },
   "repository": {
     "type": "git",
@@ -24,26 +24,27 @@
   },
   "homepage": "https://github.com/An-Idiots-Guide/guidebot#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "chalk": "^2.3.0",
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
-    "discord.js": "^11.3.0",
-    "enmap": "^0.4.2",
-    "enmap-level": "^1.0.0",
-    "enmap-rethink": "^2.1.1",
+    "discord.js": "^11.4.2",
+    "enmap": "^0.4.6",
+    "enmap-level": "^1.0.1",
+    "enmap-rethink": "^2.1.2",
     "express": "^4.16.3",
     "google": "^2.1.0",
     "http": "0.0.0",
+    "lodash": "^4.17.10",
     "mathjs": "^3.20.2",
-    "moment": "^2.20.1",
-    "moment-duration-format": "^2.2.0",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
     "noblox.js": "^4.1.1",
-    "query-string": "^5.1.0",
-    "request": "^2.81.0",
+    "query-string": "^5.1.1",
+    "request": "^2.88.0",
     "rethinkdb": "^2.3.3",
-    "roblox-js": "^4.0.2",
+    "roblox-js": "^4.0.3",
     "snekfetch": "^3.6.4",
-    "sqlite": "^2.9.2",
+    "sqlite": "^2.9.3",
     "translate": "^1.0.2",
     "validator": "^9.4.1"
   }
