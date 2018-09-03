@@ -431,7 +431,7 @@ const init = async () => {
                                  .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
                                  .addField("Name", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
-                                 .addField("Limited Quantity", asset.Sales + '/' + (parseInt(asset.Sales) + remaining) 
+                                 .addField("Limited Quantity", asset.Sales + '/' + parseInt(asset.Sales) + remaining) 
                                 // .setTimestamp()
                                 sendChannel.send({embed})
                             }
