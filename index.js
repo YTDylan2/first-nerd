@@ -432,7 +432,7 @@ const init = async () => {
                                  .addField("Name", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
                                  .addField("Limited Quantity", asset.Sales + '/' + (parseInt(asset.Sales) + remaining) 
-                                 .setTimestamp()
+                                // .setTimestamp()
                                 sendChannel.send({embed})
                             }
                         }
@@ -444,8 +444,8 @@ const init = async () => {
                                  .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
                                  .addField("Name", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
-                                 .addField("Timer", secondsToHours(timer)) 
-                                 .setTimestamp()
+                                 .addField("Timer", secondsToHours(timer) + ' hours') 
+                                // .setTimestamp()
                                 sendChannel.send({embed})
                             }
                         }
