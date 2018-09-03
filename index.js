@@ -425,6 +425,7 @@ const init = async () => {
                         let timer = parseInt(asset.OffSaleDeadline)
                         if (!isNaN(remaining)) {
                             if (remaining > 0 && !loggedAssets[asset.Name]) {
+                                var total = parseInt(remaining) + parseInt(asset.Sales)
                                 loggedAssets[asset.Name] = true
                                 const embed = new Discord.RichEmbed()
                                  .setTitle("**Click here to purchase**")
@@ -432,7 +433,7 @@ const init = async () => {
                                  .addField("New Limited U!", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
                                  .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
-                                 .addField("Limited Quantity", `${asset.Sales}/${parseInt(asset.Sales + remaining)}`) 
+                                 .addField("Limited Quantity", `${asset.Sales}/${total}`) 
                                  .setColor(6605055)
                                 // .setTimestamp()
                                 sendChannel.send({embed})
