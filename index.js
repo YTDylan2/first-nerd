@@ -427,10 +427,11 @@ const init = async () => {
                             if (remaining > 0 && !loggedAssets[asset.Name]) {
                                 loggedAssets[asset.Name] = true
                                 const embed = new Discord.RichEmbed()
-                                 .setTitle("**New Limited U Item!**")
+                                 .setTitle("**Click here to purchase**")
                                  .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
-                                 .addField("Name", asset.Name)
+                                 .addField("New Limited U", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
+                                 .setThumbnail(`https://www.roblox.com/Thumbs/Asset.ashx?width=250&height=250&assetId={asset.AssetId}`)
                                  .addField("Limited Quantity", asset.Sales + '/' + parseInt(asset.Sales) + remaining) 
                                 // .setTimestamp()
                                 sendChannel.send({embed})
@@ -440,11 +441,12 @@ const init = async () => {
                             if (timer > 0 && !loggedAssets[asset.Name]) {
                                 loggedAssets[asset.Name] = true
                                 const embed = new Discord.RichEmbed()
-                                 .setTitle("**New Timed Item!**")
+                                 .setTitle("**Click here to purchase**")
                                  .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
-                                 .addField("Name", asset.Name)
+                                 .addField("Item", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
                                  .addField("Timer", secondsToHours(timer) + ' hours') 
+                                 .setThumbnail(`https://www.roblox.com/Thumbs/Asset.ashx?width=250&height=250&assetId={asset.AssetId}`)
                                 // .setTimestamp()
                                 sendChannel.send({embed})
                             }
