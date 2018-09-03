@@ -425,7 +425,7 @@ const init = async () => {
                         let timer = parseInt(asset.OffSaleDeadline)
                         if (!isNaN(remaining)) {
                             if (remaining > 0 && !loggedAssets[asset.Name]) {
-                                var total = parseInt(remaining) + parseInt(asset.Sales)
+                                var total = parseInt(asset.Remaining) + parseInt(asset.Sales)
                                 loggedAssets[asset.Name] = true
                                 const embed = new Discord.RichEmbed()
                                  .setTitle("**Click here to purchase**")
