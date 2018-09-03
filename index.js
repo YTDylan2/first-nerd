@@ -161,6 +161,10 @@ function findUserIdMatch(id, array) {
     return false;
 }
 
+function secondsToHours(seconds) {
+    return parseInt(seconds / 3600)
+}
+
 function checkScammer(userId) {
     var https = require('request')
     var result = false
@@ -418,10 +422,31 @@ const init = async () => {
                     let asset = assets[x]
                     if (asset.AssetId != undefined) {
                         let remaining = parseInt(asset.Remaining)
+                        let timer = parseInt(asset.OffSaleDeadline)
                         if (!isNaN(remaining)) {
                             if (remaining > 0 && !loggedAssets[asset.Name]) {
                                 loggedAssets[asset.Name] = true
-                                sendChannel.send(`Limited that has not been bought out yet: ${asset.Name}. Link: https://www.roblox.com/catalog/${asset.AssetId}`)
+                                const embed = new Discord.RichEmbed()
+                                 .setTitle("**New Limited U Item!**")
+                                 .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
+                                 .addField("Name", asset.Name")
+                                 .addField("Price in Robux", asset.Price + " ROBUX")
+                                 .addField("Limited Quantity", asset.Sales + '/' + (parseInt(asset.Sales) + remaining) 
+                                 .setTimestamp()
+                                sendChannel.send({embed})
+                            }
+                        }
+                        if (!isNaN(timer)) {
+                            if (timer > 0 && !loggedAssets[asset.Name]) {
+                                loggedAssets[asset.Name] = true
+                                const embed = new Discord.RichEmbed()
+                                 .setTitle("**New Timed Item!**")
+                                 .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
+                                 .addField("Name", asset.Name")
+                                 .addField("Price in Robux", asset.Price + " ROBUX")
+                                 .addField("Timer", secondsToHours(timer)) 
+                                 .setTimestamp()
+                                sendChannel.send({embed})
                             }
                         }
                     }
