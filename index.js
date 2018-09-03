@@ -432,7 +432,7 @@ const init = async () => {
                                  .addField("New Limited U!", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
                                  .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
-                                 .addField("Limited Quantity", asset.Sales + '/' + parseInt(asset.Sales) + remaining) 
+                                 .addField("Limited Quantity", `${asset.Sales}/${asset.Sales + remaining}`) 
                                  .setColor(6605055)
                                 // .setTimestamp()
                                 sendChannel.send({embed})
