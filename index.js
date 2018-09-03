@@ -413,7 +413,7 @@ const init = async () => {
         
         request(url, {json:true}, (err, res, body) => {
             if (body != undefined) {
-                var assets = body.array()
+                var assets = body
                 for (x in assets) {
                     let asset = assets[x]
                     if (asset.AssetId != undefined) {
@@ -428,7 +428,7 @@ const init = async () => {
                 }
             }
         })
-    }, 30000)
+    }, 5000)
                 
             
             
