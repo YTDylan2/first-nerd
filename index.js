@@ -412,7 +412,7 @@ const init = async () => {
     var loggedAssets = {}
     setInterval(() => {
         var request = require('request')
-        var url = 'http://search.roblox.com/catalog/json?Category=2&ResultsPerPage=25&SortType=3&Subcategory=19'
+        var url = 'http://search.roblox.com/catalog/json?&ResultsPerPage=50&SortType=3&Subcategory=19'
         var sendChannel = client.channels.get('475383159043915797')
         
         request(url, {json:true}, (err, res, body) => {
@@ -431,7 +431,7 @@ const init = async () => {
                                  .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
                                  .addField("New Limited U", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
-                                 .setThumbnail(`https://www.roblox.com/Thumbs/Asset.ashx?width=250&height=250&assetId=${asset.AssetId}`)
+                                 .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
                                  .addField("Limited Quantity", asset.Sales + '/' + parseInt(asset.Sales) + remaining) 
                                 // .setTimestamp()
                                 sendChannel.send({embed})
@@ -446,7 +446,7 @@ const init = async () => {
                                  .addField("Item", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
                                  .addField("Timer", secondsToHours(timer) + ' hours') 
-                                 .setThumbnail(`https://www.roblox.com/Thumbs/Asset.ashx?width=250&height=250&assetId=${asset.AssetId}`)
+                                 .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
                                 // .setTimestamp()
                                 sendChannel.send({embed})
                             }
