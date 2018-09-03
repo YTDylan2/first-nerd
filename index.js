@@ -405,7 +405,35 @@ const init = async () => {
       });
     }, 10000); // lazy af
     
+    var loggedAssets = {}
     setInterval(() => {
+        var request = require('request')
+        var url = 'http://search.roblox.com/catalog/json?Category=2&ResultsPerPage=25&SortType=3'
+        var sendChannel = client.channels.get('475383159043915797')
+        
+        request(url, {json:true}, (err, res, body) => {
+            if (body != undefined) {
+                var assets = body.array()
+                for (x in assets) {
+                    let asset = assets[x]
+                    if (asset.AssetId != undefined) {
+                        let remaining = parseInt(asset.Remaining)
+                        if (!isNaN(remaining)) {
+                            if (remaining > 0 && !loggedAssets[asset.Name]) {
+                                loggedAssets[asset.Name] = true
+                                sendChannel.send(`Limited that has not been bought out yet: ${asset.Name}. Link: https://www.roblox.com/catalog/${asset.AssetId}`)
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }, 30000)
+                
+            
+            
+    setInterval(() => {
+        var roblox = require('roblox-js')
         roblox.login("GCRBOT", process.env.rbxpass)
          .then(function () {
             console.log("Logged in!")
