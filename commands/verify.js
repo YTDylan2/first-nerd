@@ -18,7 +18,7 @@ exports.run = (client, message, args, level) => {
         }).then(collected => {
           if (response.content.match('yes') {
             message.channel.send("Please add the following words to your personal bio/info page:\n\n```Waterblob Verification```\nReply 'done' when you have done so!") 
-            message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('done'), {
+            message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('done')), {
                 max: 1,
                 time: 120000,
                 errors: ['time'],
