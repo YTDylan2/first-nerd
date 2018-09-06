@@ -1,9 +1,9 @@
 exports.run = async (client, message, args, level) => {// eslint-disable-line no-unused-vars
-  await message.reply("bot is shutting down.");
+  await message.channel.send("ok brb");
   client.commands.forEach( async cmd => {
     await client.unloadCommand(cmd);
   });
-  await client.collection.db.close();
+  // await client.collection.db.close();
   process.exit(143);
 };
 
