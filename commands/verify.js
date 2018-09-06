@@ -16,16 +16,19 @@ exports.run = (client, message, args, level) => {
             time: 60000,
             errors: ['time'],
         }).then(collected => {
-          if (response.content.match('yes') {
-            message.channel.send("path 1")
-          }
-          if (response.content.match('no') { 
-             message.channel.send("path 2")
-          }
+              if (response.content.match('yes') {
+                message.channel.send("path 1")
+              }
+              if (response.content.match('no') { 
+                 message.channel.send("path 2")
+              }
+        })
+
+        
                                                                          
-    }).catch(() => {
-        message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
-    });
+       }).catch(() => {
+          message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
+       });
    };
 }
 
