@@ -410,10 +410,12 @@ const init = async () => {
     }, 10000); // lazy af
     
     var loggedAssets = {}
+    //var messageCheck = client.channels.get(process.env.channelid).fetchMessage(process.env.messageid).then(msg => { console.log("edit message redy") })
     setInterval(() => {
         var request = require('request')
-        var url = 'http://search.roblox.com/catalog/json?&ResultsPerPage=50&SortType=3&Subcategory=19'
-        var sendChannel = client.channels.get('475383159043915797')
+        var url = 'http://search.roblox.com/catalog/json?&ResultsPerPage=50&SortType=3&Subcategory=0&Category=0'
+        var sendChannel = client.channels.get('487369498396065795')
+        
         
         request(url, {json:true}, (err, res, body) => {
             if (body != undefined) {
@@ -425,7 +427,9 @@ const init = async () => {
                         let timer = parseInt(asset.OffSaleDeadline)
                         if (!isNaN(remaining)) {
                             if (remaining > 0 && !loggedAssets[asset.Name]) {
-                                var total = parseInt(asset.Remaining) + parseInt(asset.Sales)
+                                var numb = asset.Sales.match(/\d/g);
+                                numb = numb.join("");
+                                var total = parseInt(asset.Remaining) + parseInt(numb)
                                 loggedAssets[asset.Name] = true
                                 const embed = new Discord.RichEmbed()
                                  .setTitle("**Click here to purchase**")
@@ -440,7 +444,7 @@ const init = async () => {
                             }
                         }
                         if (!isNaN(timer)) {
-                            if (timer > 0 && !loggedAssets[asset.Name]) {
+                            if (timer > 0 &&  !loggedAssets[asset.Name]) {
                                 loggedAssets[asset.Name] = true
                                 const embed = new Discord.RichEmbed()
                                  .setTitle("**Click here to purchase**")
