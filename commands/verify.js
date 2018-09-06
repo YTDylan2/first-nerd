@@ -16,10 +16,10 @@ exports.run = (client, message, args, level) => {
             time: 60000,
             errors: ['time'],
         }).then(collected => {
-              if (response.content.match('yes') {
+              if (response.content.match('yes')) {
                 message.channel.send("path 1")
               }
-              if (response.content.match('no') { 
+              if (response.content.match('no')) { 
                  message.channel.send("path 2")
               }
         })
