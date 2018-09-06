@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "8.2.1"
+    "node": ">=8"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "moment-duration-format": "^2.2.2",
     "noblox.js": "^4.1.1",
     "query-string": "^5.1.1",
+    "redis": "^2.8.0",
     "request": "^2.88.0",
     "rethinkdb": "^2.3.3",
     "roblox-js": "^4.0.3",
