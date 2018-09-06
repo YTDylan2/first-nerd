@@ -15,26 +15,25 @@ exports.run = (client, message, args, level) => {
             max: 1,
             time: 60000,
             errors: ['time'],
-        })
-        .then((collected) => {
+        }).then(collected => {
           if (response.content.match('yes') {
-            
-          } else {
+            message.channel.send("Please add the following words to your personal bio/info page:\n\n```Waterblob Verification```\nReply 'done' when you have done so!") 
+            message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('done'), {
+                max: 1,
+                time: 120000,
+                errors: ['time'],
+            }).then((collected) => {
+                message.channel.send("this is where we check the data boy")
+            }).catch(() => {
+                message.channel.send('You failed to complete the prompt within 2 minutes! Your verification timed out. :(')
+            })
+          }
+          if (response.content.match('no') { 
             message.channel.send("Verification request cancelled.")
           }
-          message.channel.send("Please add the following words to your personal bio/info page:\n\n```Waterblob Verification```\nReply 'done' when you have done so!") 
-            message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('done'), {
-            max: 1,
-            time: 120000,
-            errors: ['time'],
-        }).then((collected) => {
-           message.channel.send("this is where we check the data boy")
-        }).catch(() => {
-          message.channel.send('You failed to complete the prompt within 2 minutes! Your verification timed out. :(')
-        })
-                                                                 
-     }).catch(() => {
-      message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
+                                                                         
+    }).catch(() => {
+        message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
     });
    };
 }
