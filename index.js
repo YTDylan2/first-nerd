@@ -19,6 +19,7 @@ const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 const rethink = require("rethinkdb")
 const EnmapRethink = require('enmap-rethink')
+const redis = require('redis')
 
 
 // This is your client. Some people call it `bot`, some people call it `self`,
@@ -207,6 +208,9 @@ client.aliases = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 
 client.collection = new Enmap({provider: new EnmapLevel({name: "enmapTest"})});
+
+// set up redis
+client.redisClient = redis.createClient({url: process.env.REDIS_URL})
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
