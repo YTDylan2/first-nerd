@@ -5,7 +5,17 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var redis = require('redis')
     var roblox = require('roblox-js')
-       
+    
+    // sleep
+    function sleep(milliseconds) {
+      var start = new Date().getTime();
+      for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+          break;
+        }
+      }
+    }
+    
     // bad argument
     if (!username || username == undefined) {
        message.channel.send("You need to send a valid username!")
@@ -13,10 +23,12 @@ exports.run = (client, message, args, level) => {
     }
    roblox.getIdFromUsername(username)
     .then(id => { 
+        let continue = true
         // already verified
         client.redisClient.get(message.author.id, function(err, reply) {
             if (reply != null) {
                  message.channel.send(`You've already been verified to **${reply}**!`)
+                 continue = false
                  return;
             }
         })
@@ -27,12 +39,13 @@ exports.run = (client, message, args, level) => {
                  var user = client.users.get(reply)
                  if (user) { 
                     message.channel.send("That roblox account has already been verified to **" + user.username + "**!")
+                    continue = false
                     return;
                  }             
              }
         })
-
-        if (id != null) {
+        sleep(2500)
+        if (id != null && continue) {
           message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`. (is this you?) - https://www.roblox.com/users/" + id +"/profile")
             message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
                 max: 1,
