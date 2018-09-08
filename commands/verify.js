@@ -7,15 +7,6 @@ exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
     var proceed = true
     
-    // sleep
-    function sleep(milliseconds) {
-      var start = new Date().getTime();
-      for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-          break;
-        }
-      }
-    }
     
     // bad argument
     if (!username || username == undefined) {
@@ -25,9 +16,9 @@ exports.run = (client, message, args, level) => {
    roblox.getIdFromUsername(username)
     .then(id => { 
         
-        message.channel.send('Checking database... 🔄')
+        await message.channel.send('Checking database... 🔄')
         // already verified
-        client.redisClient.get(message.author.id, function(err, reply) {
+        await client.redisClient.get(message.author.id, function(err, reply) {
             if (reply != null) {
                  message.channel.send(`You've already been verified to **${reply}**!`)
                  proceed = !proceed
@@ -36,7 +27,7 @@ exports.run = (client, message, args, level) => {
         })
 
         // trying to verify to another user
-        var storedData = client.redisClient.get(id.toString(), function(err, reply) {
+        await client.redisClient.get(id.toString(), function(err, reply) {
              if (reply != null && proceed) {
                  var user = client.users.get(reply)
                  if (user) { 
@@ -46,7 +37,7 @@ exports.run = (client, message, args, level) => {
                  }             
              }
         })
-        sleep(3500)
+        
         if (id != null && proceed) {
           message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`. (is this you?) - https://www.roblox.com/users/" + id +"/profile")
             message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
