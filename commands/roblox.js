@@ -44,7 +44,7 @@ exports.run = (client, message, args, level) => {
             }
         })
     } else {
-        message.channel.reply("Please mention a user!")
+        message.channel.send("Please mention a user!")
     }
     message.channel.stopTyping()
 }
