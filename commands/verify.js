@@ -5,6 +5,7 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var redis = require('redis')
     var roblox = require('roblox-js')
+    var proceed = true
     
     // sleep
     function sleep(milliseconds) {
@@ -23,24 +24,24 @@ exports.run = (client, message, args, level) => {
     }
    roblox.getIdFromUsername(username)
     .then(id => { 
-        let proceed = true
+        
         message.channel.send('Checking database... 🔄')
         // already verified
         client.redisClient.get(message.author.id, function(err, reply) {
             if (reply != null) {
                  message.channel.send(`You've already been verified to **${reply}**!`)
-                 proceed = false
+                 proceed = !proceed
                  return;
             }
         })
 
         // trying to verify to another user
         var storedData = client.redisClient.get(id.toString(), function(err, reply) {
-             if (reply != null) {
+             if (reply != null && proceed) {
                  var user = client.users.get(reply)
                  if (user) { 
                     message.channel.send("That roblox account has already been verified to **" + user.username + "**!")
-                    proceed = false
+                    proceed = !proceed
                     return;
                  }             
              }
