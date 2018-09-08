@@ -2,7 +2,7 @@ exports.run = (client, message, args, level) => {
     var roblox = require('roblox-js')
     var discord = require('discord.js')
     var request = require('request')
-    let member = message.mentions.first()
+    let member = message.mentions.members.first()
     var db = client.redisClient
     var postURL = 'https://presence.roblox.com/v1/presence/users'
 
