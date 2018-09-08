@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
        message.channel.send("You need to send a valid username!")
        return;
     }
-   roblox.getIdFromUsername(username)
+   let id = roblox.getIdFromUsername(username)
     .catch(() => { 
         message.channel.send("You need to send a valid username! Case sensitive.") 
         return; 
