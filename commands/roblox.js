@@ -6,38 +6,28 @@ exports.run = (client, message, args, level) => {
     var db = client.redisClient
     var postURL = 'https://presence.roblox.com/v1/presence/users'
 
-    message.channel.startTyping()
+   
     if (member) {
         db.get(member.id, function(err, reply) {
             if (reply == null) {
                 message.channel.send("this person isn't linked to ROBLOX.")
             } else { 
+                message.channel.startTyping()
                 roblox.getUsernameFromId(reply)
                 .then(username => {
                      roblox.getBlurb(reply)
                      .then(blurb => {
                          roblox.getStatus(reply)
-                         .then(status => {
-                             var bod = {"userIds" : [36051587]}
-                             request.post(postURL, {form:bod}, function(err, res, body) {
-                                 if (body != undefined) {
-                                     let user = body.userPresences.first()
-                                     let lastLoc = user.lastLocation
-                                      const embed = new Discord.RichEmbed()
-                                        .setColor(4387926)
-                                        .setAuthor(member.tag, member.avatarURL)
-                                        .setThumbnail(`https://www.roblox.com/bust-thumbnail/image?userId=${reply}&width=420&height=420&format=png`)
-                                        .addField("Username", username)
-                                        .addField("User ID", reply, true)
-                                        .addField("Bio", blurb)
-                                        .addField("Feed", status, true)
-                                        .addField("Status", lastLoc)
-                                     if (user.rootPlaceId) {
-                                         embed.addField("Game Link", `https://www.roblox.com/games/${user.rootPlaceId}`, true)
-                                     }
-                                     message.channel.send({embed})
-                                }
-                             })
+                         .then(status => {                            
+                             const embed = new Discord.RichEmbed()
+                                .setColor(4387926)
+                                .setAuthor(member.tag, member.avatarURL)
+                                .setThumbnail(`https://www.roblox.com/bust-thumbnail/image?userId=${reply}&width=420&height=420&format=png`)
+                                .addField("Username", username)
+                                .addField("User ID", reply, true)
+                                .addField("Bio", blurb)
+                                .addField("Feed", status, true)
+                             message.channel.send({embed})                                     
                          })
                      })
                 })
