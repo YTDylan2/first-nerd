@@ -5,8 +5,7 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var redis = require('redis')
     var roblox = require('roblox-js')
-    
-    var userData = cl
+       
     // bad argument
     if (!username || username == undefined) {
        message.channel.send("You need to send a valid username!")
