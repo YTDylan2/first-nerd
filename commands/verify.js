@@ -38,7 +38,7 @@ exports.run = (client, message, args, level) => {
         }).then(collected => {
               if (collected.first().content.match('yes')) {
                  message.channel.send("Please place the words:\n\n**Waterblob Verification**\n\ninto your STATUS (What are you up to?) section. Reply 'finished' when done so.")
-                 message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('finished'), {
+                 message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('finished')), {
                     max: 1,
                     time: 120000,
                     errors: ['time'],
