@@ -1,6 +1,6 @@
 // verify
 
-exports.run = (client, message, args, level) => {
+exports.run = async (client, message, args, level) => {
     let username = args[0]
     var discord = require('discord.js')
     var redis = require('redis')
