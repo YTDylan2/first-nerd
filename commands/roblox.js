@@ -18,10 +18,10 @@ exports.run = (client, message, args, level) => {
                      .then(blurb => {
                          roblox.getStatus(reply)
                          .then(status => {
-                             var body = {"userIds" : [36051587]}
-                             request.post(postURL, {form:body}, function(err, res, body) {
+                             var bod = {"userIds" : [36051587]}
+                             request.post(postURL, {form:bod}, function(err, res, body) {
                                  if (body != undefined) {
-                                     let user = body.userPresences[0]
+                                     let user = body.userPresences.first()
                                      let lastLoc = user.lastLocation
                                       const embed = new Discord.RichEmbed()
                                         .setColor(4387926)
