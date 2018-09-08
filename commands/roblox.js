@@ -19,7 +19,7 @@ exports.run = (client, message, args, level) => {
                      .then(blurb => {
                          roblox.getStatus(reply)
                          .then(status => {                            
-                             const embed = new Discord.RichEmbed()
+                             const embed = new discord.RichEmbed()
                                 .setColor(4387926)
                                 .setAuthor(member.tag, member.avatarURL)
                                 .setThumbnail(`https://www.roblox.com/bust-thumbnail/image?userId=${reply}&width=420&height=420&format=png`)
