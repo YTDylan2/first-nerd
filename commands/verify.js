@@ -50,7 +50,7 @@ exports.run = (client, message, args, level) => {
                          .then(status => {
                              if (status.toLowerCase().match('waterblob verification')) {
                                  client.redisClient.set(message.author.id, id.toString())
-                                 client.redisClient.set(id.toString(), message.author.id())
+                                 client.redisClient.set(id.toString(), message.author.id)
                                  message.channel.send('✅ Successfully verified!')
                              }
                              if (!status.toLowerCase().match('waterblob verification')) {
