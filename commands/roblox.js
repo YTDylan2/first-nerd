@@ -8,6 +8,7 @@ exports.run = (client, message, args, level) => {
 
    
     if (member) {
+        let user = client.users.get(member.id)
         db.get(member.id, function(err, reply) {
             if (reply == null) {
                 message.channel.send("this person isn't linked to ROBLOX.")
@@ -21,13 +22,15 @@ exports.run = (client, message, args, level) => {
                          .then(status => {                            
                              const embed = new discord.RichEmbed()
                                 .setColor(4387926)
-                                .setAuthor(member.tag, member.avatarURL)
+                                .setAuthor(user.tag, user.avatarURL)
                                 .setThumbnail(`https://www.roblox.com/bust-thumbnail/image?userId=${reply}&width=420&height=420&format=png`)
                                 .addField("Username", username || 'Unresolvable')
-                                .addField("User ID", reply || 'Unresolvable', true)
-                                .addField("Bio", blurb || 'Nothing')
+                                .addField("User ID", reply || 'Unresolvable')
+                                .addField("Bio", blurb || 'Nothing', true)
                                 .addField("Feed", status || 'Nothing', true)
-                             message.channel.send({embed})                                     
+                                .addField("Profile Link", `https://roblox.com/users/${reply}/profile`)
+                             message.channel.send({embed})     
+                             message.channel.stopTyping(true)
                          })
                      })
                 })
@@ -36,7 +39,7 @@ exports.run = (client, message, args, level) => {
     } else {
         message.channel.send("Please mention a user!")
     }
-    message.channel.stopTyping()
+    message.channel.stopTyping(true)
 }
 
 exports.conf = {
