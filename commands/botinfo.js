@@ -9,23 +9,23 @@ exports.run = (client, message, args, level) => {
                 icon_url: client.user.avatarURL
             },
             title: "Support Server",
-            url: "https://discord.gg/HeSq8Ze",
-            description: "Find information about Aureum Studios!",
+            url: "https://discord.gg/bVJ8WJk",
+            description: "Find information about WaterIsIceSoup!",
             fields: [{
                 name: "Info",
-                value: "Aureum Studios is a bot developed to be the main bot for the ROBLOX group Aureum Studios. It's also a bot that can be used for moderation and some fun on your server! 😃\n`Current Guilds: " + client.guilds.size + "`\n`Current Users: " + client.users.size + "`" 
+                value: "water is ice soup's son\n`Current Guilds: " + client.guilds.size + "`\n`Current Users: " + client.users.size + "`" 
             },
             {
                 name: "Owners / Developers",
-                value: "@techno turret#0907 - Owner and Developer"
+                value: "@water is ice soup#0907 - Owner and Developer"
             },
             {
                 name: "Other Links",
-                value: "You can find the roblox group [here](https://www.roblox.com/My/Groups.aspx?gid=3643510), and the discord server [here](https://discord.gg/HeSq8Ze)."
+                value: `You can find the roblox group [here](https://www.roblox.com/My/Groups.aspx?gid=${process.env.groupid}), and the discord server [here](https://discord.gg/bVJ8WJk).`
             },
             {
                 name: "Special Thanks",
-                value: "Special thanks to Flatbird, and Alipear for starting the idea and testing the bot!\nThanks alot to RagingBudgie for being a great help with the hosting!"
+                value: "Special thanks to Flatbird, and Rewolf-nori for gettomg the idea underway and testing the bot!\nThanks alot to Budgie for being a great help with the hosting!"
             },
             ],
         },
@@ -35,7 +35,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["info, about"],
+    aliases: ["info, about, support"],
     permLevel: "User"
 };
 
