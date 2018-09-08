@@ -13,7 +13,7 @@ exports.run = (client, message, args, level) => {
                 message.channel.send("this person isn't linked to ROBLOX.")
             } else { 
                 message.channel.startTyping()
-                roblox.getUsernameFromId(reply)
+                roblox.getUsernameFromId(parseInt(reply))
                 .then(username => {
                      roblox.getBlurb(reply)
                      .then(blurb => {
@@ -23,10 +23,10 @@ exports.run = (client, message, args, level) => {
                                 .setColor(4387926)
                                 .setAuthor(member.tag, member.avatarURL)
                                 .setThumbnail(`https://www.roblox.com/bust-thumbnail/image?userId=${reply}&width=420&height=420&format=png`)
-                                .addField("Username", username)
-                                .addField("User ID", reply, true)
-                                .addField("Bio", blurb)
-                                .addField("Feed", status, true)
+                                .addField("Username", username || 'Unresolvable')
+                                .addField("User ID", reply || 'Unresolvable', true)
+                                .addField("Bio", blurb || 'Nothing')
+                                .addField("Feed", status || 'Nothing', true)
                              message.channel.send({embed})                                     
                          })
                      })
