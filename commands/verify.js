@@ -57,7 +57,7 @@ exports.run = (client, message, args, level) => {
                      })
                  }).catch(() => {
                      message.channel.send("oof, your verification timed out!")
-                 }
+                 })
               }
               if (collected.first().content.match('no')) { 
                  message.channel.send("Verification cancelled.")
