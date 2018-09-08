@@ -48,12 +48,12 @@ exports.run = (client, message, args, level) => {
                     }).then(collected => {
                          roblox.getStatus(id)
                          .then(status => {
-                             if (status.lower().match('waterblob verification')) {
+                             if (status.toLowerCase().match('waterblob verification')) {
                                  client.redisClient.set(message.author.id, id.toString())
                                  client.redisClient.set(id.toString(), message.author.id())
                                  message.channel.send('✅ Successfully verified!')
                              }
-                             if (!status.lower().match('waterblob verification')) {
+                             if (!status.toLowerCase().match('waterblob verification')) {
                                  message.channel.send('❎ oof... could not verify you. Did you enter the phrase into your status correctly?')
                              }
                          })
