@@ -29,7 +29,7 @@ exports.run = (client, message, args, level) => {
                  if (reply != null && proceed) {
                      var user = client.users.get(reply)
                      if (user) { 
-                        message.channel.send("That roblox account has already been verified to **" + user.username + "**!")
+                        message.channel.send("That roblox account has already been verified to Discord User **" + user.tag + "**!")
                         proceed = !proceed
                         return;
                      }             
@@ -42,7 +42,7 @@ exports.run = (client, message, args, level) => {
                             time: 60000,
                             errors: ['time'],
                         }).then(collected => {
-                              if (collected.first().content.match('yes')) {
+                              if (collected.first().content.toLowerCase().match('yes')) {
                                  message.channel.send("Please place the words:\n\n**Waterblob Verification**\n\ninto your STATUS (What are you up to?) section. Reply 'finished' when done so.")
                                  message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('finished')), {
                                     max: 1,
@@ -64,7 +64,7 @@ exports.run = (client, message, args, level) => {
                                      message.channel.send("oof, your verification timed out!")
                                  })
                               }
-                              if (collected.first().content.match('no')) { 
+                              if (collected.first().content.toLowerCase().match('no')) { 
                                  message.channel.send("Verification cancelled.")
                               }
                         }).catch(() => {
