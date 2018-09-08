@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
        message.channel.send("You need to send a valid username!")
        return;
     }
-    var id = roblox.getIdByUsername(username)
+    var id = roblox.getIdFromUsername(username)
     // not valid user
     if (!id) {
        message.channel.send("You need to send a valid username! Case sensitive.")
