@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
         client.redisClient.get(message.author.id, function(err, reply) {
             if (reply != null) {
                  message.channel.send(`❗Warning: You're already linked to an account! Proceeding will replace your current account with the one you choose. Current account: https://roblox.com/users/${reply}/profile`)
-                 proceed = !proceed
+                // proceed = !proceed
                 // return;
             }
              // trying to verify to another user
