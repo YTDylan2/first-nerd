@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {// eslint-disable-line no
   client.commands.forEach( async cmd => {
     await client.unloadCommand(cmd);
   });
-  // await client.collection.db.close();
+  await client.redisClient.exit()
   process.exit(143);
 };
 
