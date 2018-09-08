@@ -6,29 +6,34 @@ exports.run = (client, message, args, level) => {
     var redis = require('redis')
     var roblox = require('roblox-js')
     
-    var userData = client.redisClient.get(message.author.id)
+    var userData = cl
     // bad argument
     if (!username || username == undefined) {
        message.channel.send("You need to send a valid username!")
        return;
     }
-    var id = roblox.getIdFromUsername(username)
+    var id = roblox.getIdFromUsername(username).catch(() => { message.channel.send("You need to send a valid username! Case sensitive.") return; }) 
     // not valid user
-    if (!id) {
-       message.channel.send("You need to send a valid username! Case sensitive.")
-       return;
-    }
+    
     // already verified
-    if (userData != null) {
-        message.channel.send(`You've already been verified to ${userData}.`)
-        return;
-    }
+    client.redisClient.get(message.author.id, function(err, reply) {
+        if (reply != null) {
+             message.channel.send(`You've already been verified to **${reply}**!`)
+             return;
+        }
+    })
+    
     // trying to verify to another user
-    var storedData = client.redisClient.get(id.toString())
-    if (storedData != null) {
-        message.channel.send("That user has already been verified!")
-        return;
-    }
+    var storedData = client.redisClient.get(id.toString(), function(err, reply) {
+         if (reply != null) {
+             var user = client.users.get(reply)
+             if (user) { 
+                message.channel.send("That user has already been verified to **" + user.username + "**!")
+             }
+             return;
+         }
+    })
+    
     if (id) {
       message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`.")
         message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
