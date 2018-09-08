@@ -33,7 +33,7 @@ exports.run = (client, message, args, level) => {
         })
 
         if (id != null) {
-          message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`. (is this you?) - http://www.https://www.roblox.com/users/" + id +"/profile")
+          message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`. (is this you?) - https://www.roblox.com/users/" + id +"/profile")
             message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
                 max: 1,
                 time: 60000,
