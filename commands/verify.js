@@ -28,9 +28,9 @@ exports.run = (client, message, args, level) => {
          if (reply != null) {
              var user = client.users.get(reply)
              if (user) { 
-                message.channel.send("That user has already been verified to **" + user.username + "**!")
-             }
-             return;
+                message.channel.send("That roblox account has already been verified to **" + user.username + "**!")
+                return;
+             }             
          }
     })
     
