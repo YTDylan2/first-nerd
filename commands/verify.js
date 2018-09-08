@@ -31,7 +31,6 @@ exports.run = (client, message, args, level) => {
     }
     if (id) {
       message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `Yes` or `No`.")
-      .then(() => {
         message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
             max: 1,
             time: 60000,
@@ -62,13 +61,9 @@ exports.run = (client, message, args, level) => {
               if (collected.first().content.match('no')) { 
                  message.channel.send("Verification cancelled.")
               }
-        })
-
-        
-                                                                         
-       }).catch(() => {
+        }).catch(() => {
           message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
-       });
+        })                                                                                 
    };
 }
 
