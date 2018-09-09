@@ -43,7 +43,7 @@ exports.run = (client, message, args, level) => {
                             errors: ['time'],
                         }).then(collected => {
                               if (collected.first().content.toLowerCase().match('yes')) {
-                                 message.channel.send("Please place the words:\n\n**Waterblob Verification**\n\ninto your STATUS (What are you up to?) section. Reply 'finished' when done so.")
+                                 message.channel.send("Please place the words:\n\n**dog cat lol**\n\ninto your status or feed section. Not your profile description! Reply 'finished' when done so.")
                                  message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('finished')), {
                                     max: 1,
                                     time: 120000,
@@ -51,12 +51,12 @@ exports.run = (client, message, args, level) => {
                                 }).then(collected => {
                                      roblox.getStatus(id)
                                      .then(status => {
-                                         if (status.toLowerCase().match('waterblob verification')) {
+                                         if (status.toLowerCase().match('dog cat lol')) {
                                              client.redisClient.set(message.author.id, id.toString())
                                              client.redisClient.set(id.toString(), message.author.id)
                                              message.channel.send('✅ Successfully verified!')
                                          }
-                                         if (!status.toLowerCase().match('waterblob verification')) {
+                                         if (!status.toLowerCase().match('dog cat lol')) {
                                              message.channel.send('❎ oof... could not verify you. Did you enter the phrase into your status correctly?')
                                          }
                                      })
