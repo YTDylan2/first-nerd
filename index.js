@@ -20,6 +20,7 @@ const EnmapLevel = require("enmap-level");
 const rethink = require("rethinkdb")
 const EnmapRethink = require('enmap-rethink')
 const redis = require('redis')
+const recentMessages = new Set();
 
 
 // This is your client. Some people call it `bot`, some people call it `self`,
@@ -164,6 +165,16 @@ function findUserIdMatch(id, array) {
 
 function secondsToHours(seconds) {
     return parseInt(seconds / 3600)
+}
+
+function addUserToGlobal(data) {
+    client.redisClient.get("Global Coins", function(err, reply) {
+        if (!reply == null) {
+            var stored = JSON.parse(reply)
+            stored[data.key] = data.value
+            client.redisClient.set("Global Coins", stored)
+        }
+    })
 }
 
 function checkScammer(userId) {
@@ -485,6 +496,35 @@ const init = async () => {
     const thisLevel = client.config.permLevels[i];
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
+    
+  // set up coin earning
+  client.on('message', message => {
+      if (message.author.bot) return;
+      if (message.guild) {
+          if (message.guild.id == '434477310817730572') {
+              if (!recentMessages.has(message.author.id)) {
+                  recentMessages.add(message.author.id) 
+                  setTimeout(() => {
+                         recentMessages.delete(message.author.id)
+                  }, 10000)
+                  let randCoins = Math.floor(Math.random() * 70) + 1
+                  client.redisClient.get(message.author.id + '-coins', function(err, reply) {
+                      if (reply == null) {
+                          client.redisClient.set(message.author.id + '-coins', randCoins)
+                          addUserToGlobal({key: message.author.id + '-coins', value: randCoins})
+                      } else {
+                          client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
+                              if (rep) {
+                                message.reply("you have " + rep + " coins homie")
+                                addUserToGlobal({key: message.author.id + '-coins', value: rep})
+                              }
+                          })
+                      }
+                  })
+              }
+          }
+      }
+  })
 
   // Here we login the client.
   client.login(process.env.BOT_TOKEN);
