@@ -167,9 +167,9 @@ function secondsToHours(seconds) {
     return parseInt(seconds / 3600)
 }
 
-function addUserToGlobal(data) {
+function updateGlobal(data) {
     client.redisClient.get("Global Coins", function(err, reply) {
-        if (!reply == null) {
+        if (reply) {
             var stored = reply
             stored[data.key] = data.value
             client.redisClient.set("Global Coins", stored, redis.print)
@@ -516,12 +516,12 @@ const init = async () => {
                   client.redisClient.get(message.author.id + '-coins', function(err, reply) {
                       if (reply == null) {
                           client.redisClient.set(message.author.id + '-coins', randCoins)
-                          addUserToGlobal({key: message.author.id, value: randCoins})
+                          updateGlobal({key: message.author.id, value: randCoins})
                       } else {
                           client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
                               if (rep) {
                                // message.reply("you have " + rep + " coins homie")
-                                addUserToGlobal({key: message.author.id, value: rep})
+                                updateGlobal({key: message.author.id, value: rep})
                               }
                           })
                       }
