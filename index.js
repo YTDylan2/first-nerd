@@ -170,9 +170,12 @@ function secondsToHours(seconds) {
 function addUserToGlobal(data) {
     client.redisClient.get("Global Coins", function(err, reply) {
         if (!reply == null) {
-            var stored = JSON.parse(reply)
-            stored[data.key] = data.value
+            var stored = reply
+            stored.push(data)
             client.redisClient.set("Global Coins", stored)
+        } else {
+            var newData = [data]
+            client.redisClient.set("Global Coins", newData)
         }
     })
 }
