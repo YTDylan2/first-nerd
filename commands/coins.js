@@ -12,6 +12,7 @@ exports.run = (client, message, args, level) => {
         } else {
           message.channel.send("that person broke, no money")
         }
+      })
      } else {
         let id = message.author.id
         let member = client.users.get(id)
@@ -21,6 +22,7 @@ exports.run = (client, message, args, level) => {
           } else {
             message.channel.send("ur broke")
           }
+        })
       }
 }
 exports.conf = {
