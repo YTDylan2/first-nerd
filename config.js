@@ -19,12 +19,13 @@ const config = {
   "defaultSettings" : {
     "prefix": "a!",
     "modLogChannel": "bot-logs",
-    "modRole": "Staff",
-    "adminRole": "Administrator",
+    "modRole": "Moderator",
+    "adminRole": "Admin",
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
     "welcomeChannel": "general",
     "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
-    "welcomeEnabled": "true"
+    "welcomeEnabled": "true",
+    "ownerGuild": '434477310817730572',
   },
 
   // PERMISSION LEVEL DEFINITIONS.
@@ -48,7 +49,7 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message) => {
         try {
-          const modRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.modRole.toLowerCase());
+          const modRole = message.guild.roles.find(r => r.name.toLowerCase().match() === message.settings.modRole.toLowerCase());
           if (modRole && message.member.roles.has(modRole.id)) return true;
         } catch (e) {
           return false;
@@ -57,10 +58,10 @@ const config = {
     },
 
     { level: 3,
-      name: "Administrator", 
+      name: "Admin", 
       check: (message) => {
         try {
-          const adminRole = message.guild.roles.find(r => r.name.toLowerCase() === message.settings.adminRole.toLowerCase());
+          const adminRole = message.guild.roles.find(r => r.name.toLowerCase().match() === message.settings.adminRole.toLowerCase());
           return (adminRole && message.member.roles.has(adminRole.id));
         } catch (e) {
           return false;
