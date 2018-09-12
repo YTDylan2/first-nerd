@@ -171,11 +171,12 @@ function addUserToGlobal(data) {
     client.redisClient.get("Global Coins", function(err, reply) {
         if (!reply == null) {
             var stored = reply
-            stored.push(data)
-            client.redisClient.set("Global Coins", stored)
+            stored[data.key] = data.value
+            client.redisClient.set("Global Coins", stored, redis.print)
         } else {
-            var newData = [data]
-            client.redisClient.set("Global Coins", newData)
+            var newData = {}
+            newData[data.key] = data.value
+            client.redisClient.set("Global Coins", newData, redis.print)
         }
     })
 }
@@ -515,12 +516,12 @@ const init = async () => {
                   client.redisClient.get(message.author.id + '-coins', function(err, reply) {
                       if (reply == null) {
                           client.redisClient.set(message.author.id + '-coins', randCoins)
-                          addUserToGlobal({key: message.author.id + '-coins', value: randCoins})
+                          addUserToGlobal({key: message.author.id, value: randCoins})
                       } else {
                           client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
                               if (rep) {
                                // message.reply("you have " + rep + " coins homie")
-                                addUserToGlobal({key: message.author.id + '-coins', value: rep})
+                                addUserToGlobal({key: message.author.id, value: rep})
                               }
                           })
                       }
