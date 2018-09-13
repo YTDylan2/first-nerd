@@ -178,8 +178,8 @@ function updateGlobal(data) {
         } else {
             var newData = {}
             newData[data.key] = data.value
-            client.redisClient.set("Global Coins", JSON.stringify(newData),function(err, rep) {
-                console.log(err, rep))
+            client.redisClient.set("Global Coins", JSON.stringify(newData), function(err, rep) {
+                console.log(err, rep)
             })
         }
     })
