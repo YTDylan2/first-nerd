@@ -172,7 +172,7 @@ function secondsToHours(seconds) {
 function updateGlobal(data) {
     client.redisClient.get("Global Coins", function(err, reply) {
         if (reply) {
-            var stored = reply
+            var stored = JSON.parse(reply)
             stored[data.key] = data.value
             client.redisClient.set("Global Coins", JSON.stringify(stored), function(err, rep) {
                 console.log(err, rep)
@@ -526,7 +526,7 @@ const init = async () => {
                       } else {
                           client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
                               if (rep) {
-                               // message.reply("you have " + rep + " coins homie")
+                                message.reply("you have " + rep + " coins homie (debugging message)")
                                 updateGlobal({key: message.author.id, value: rep})
                               }
                           })
