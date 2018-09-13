@@ -510,7 +510,7 @@ const init = async () => {
   // set up coin earning
   client.on('message', message => {
       if (message.author.bot) return;
-      if (message.content.indexOf(client.config.prefix) !== 0) return;
+      if (message.content.indexOf(client.config.prefix) == 0) return;
       if (message.guild) {
           if (message.guild.id == '434477310817730572') {
               if (!recentMessages.has(message.author.id)) {
