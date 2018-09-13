@@ -33,7 +33,7 @@ exports.run = (client, message, args, level) => {
       } else {
         message.channel.send("nobody on the leaderboards yet")
       }
-    })    
+   })
 }
 exports.conf = {
     enabled: true,
