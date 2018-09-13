@@ -19,7 +19,7 @@ exports.run = (client, message, args, level) => {
          if (userTable) {
             let member = client.users.get(userTable[0])
             if (member) {
-               display.push(i + ". **" + member.tag + "** - **" userTable[1] + "** coins\n")
+               display.push(i + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
             }
          }
       }
