@@ -30,7 +30,7 @@ exports.run = (client, message, args, level) => {
 
      message.channel.send({embed})
     } else {
-       message.channel.send("nobody on the leaderboards yet")
+       message.channel.send("nobody on the leaderboards yet b")
     }
 }
 exports.conf = {
