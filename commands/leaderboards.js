@@ -22,13 +22,13 @@ exports.run = (client, message, args, level) => {
                let member = client.users.get(userTable[0])
               // console.log(member + " (member)")
                if (member) {
-                  display = display + (i + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
+                  display = display + ( (i + 1) + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
                }
             }
          }
          const embed = new discord.RichEmbed()
          .setTitle("Top 25 Global Users")
-         .addField("List", display + "\nfiller")
+         .addField("List", display + "\nhey there")
          .setColor(6579455)
 
         message.channel.send({embed})
