@@ -24,7 +24,7 @@ exports.run = (client, message, args, level) => {
           }
         }
         let str = display.join(" ")
-        const embed = new discord.RichEmbed
+        const embed = new discord.RichEmbed()
         .setTitle("Top 25 Global Users")
         .addField("List", str)
         .setColor(6579455)
