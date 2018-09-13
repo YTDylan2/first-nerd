@@ -17,10 +17,10 @@ exports.run = (client, message, args, level) => {
          let display = ""
          for (i = 0; i < 25; i++) {
             var userTable = sorted[i]
-            console.log("user table is " + userTable)
+            //console.log("user table is " + userTable)
             if (userTable) {
                let member = client.users.get(userTable[0])
-               console.log(member + " (member)")
+              // console.log(member + " (member)")
                if (member) {
                   display = display + (i + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
                }
