@@ -10,6 +10,12 @@ const config = {
 
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
   "token": ":)",
+  
+  // our prefix
+  "prefix" : "a!",
+  
+  // my server
+   "ownerGuild": '434477310817730572',
 
   // Default per-server settings. New guilds have these settings. 
 
@@ -24,8 +30,8 @@ const config = {
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
     "welcomeChannel": "general",
     "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
-    "welcomeEnabled": "true",
-    "ownerGuild": '434477310817730572',
+    "welcomeEnabled": "true"
+  
   },
 
   // PERMISSION LEVEL DEFINITIONS.
