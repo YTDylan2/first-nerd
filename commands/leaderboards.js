@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
             sorted.push([x + '', parsed[x]])
          }
          sorted.sort(function(a, b) {
-            return a[1] - b[1]
+            return b[1] - a[1]
          })
 
          let display = ""
