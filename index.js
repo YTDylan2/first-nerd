@@ -521,8 +521,10 @@ const init = async () => {
                   let randCoins = Math.floor(Math.random() * 70) + 1
                   client.redisClient.get(message.author.id + '-coins', function(err, reply) {
                       if (reply == null) {
-                          client.redisClient.set(message.author.id + '-coins', randCoins)
-                          updateGlobal({key: message.author.id, value: randCoins})
+                          client.redisClient.set(message.author.id + '-coins', randCoins, function(e, rep) {
+                               message.reply("you have " + rep + " coins homie (debugging message) and ur new")
+                               updateGlobal({key: message.author.id, value: randCoins})
+                          }
                       } else {
                           client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
                               if (rep) {
@@ -532,6 +534,8 @@ const init = async () => {
                           })
                       }
                   })
+              } else {
+                console.log("someone on message timeout: " + message.author.username)
               }
           }
       }
