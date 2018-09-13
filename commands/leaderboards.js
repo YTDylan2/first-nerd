@@ -7,26 +7,25 @@ exports.run = (client, message, args, level) => {
    var data = client.redisClient.get("Global Coins")
     if (data) {
       for (x in data) {
-         sorted.push([x, data[x]])
+         sorted.push([x + '', data[x]])
       }
       sorted.sort(function(a, b) {
          return a > b
       })
 
-      let display = []
+      let display = ""
       for (i = 0; i < 25; i++) {
          var userTable = sorted[i]
          if (userTable) {
             let member = client.users.get(userTable[0])
             if (member) {
-               display.push(i + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
+               display = display + (i + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
             }
          }
       }
-      let str = display.join(" ")
       const embed = new discord.RichEmbed()
       .setTitle("Top 25 Global Users")
-      .addField("List", str)
+      .addField("List", display + "\nfiller")
       .setColor(6579455)
 
      message.channel.send({embed})
