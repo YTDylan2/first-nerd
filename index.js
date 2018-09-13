@@ -172,11 +172,15 @@ function updateGlobal(data) {
         if (reply) {
             var stored = reply
             stored[data.key] = data.value
-            client.redisClient.set("Global Coins", JSON.stringify(stored), redis.print)
+            client.redisClient.set("Global Coins", JSON.stringify(stored), function(err, rep) {
+                console.log(err, rep)
+            })
         } else {
             var newData = {}
             newData[data.key] = data.value
-            client.redisClient.set("Global Coins", JSON.stringify(newData), redis.print)
+            client.redisClient.set("Global Coins", JSON.stringify(newData),function(err, rep) {
+                console.log(err, rep))
+            })
         }
     })
 }
