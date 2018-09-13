@@ -524,7 +524,7 @@ const init = async () => {
                           client.redisClient.set(message.author.id + '-coins', randCoins, function(e, rep) {
                                message.reply("you have " + rep + " coins homie (debugging message) and ur new")
                                updateGlobal({key: message.author.id, value: randCoins})
-                          }
+                          })
                       } else {
                           client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
                               if (rep) {
