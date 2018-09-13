@@ -6,19 +6,21 @@ exports.run = (client, message, args, level) => {
    
    var data = client.redisClient.get("Global Coins")
     if (data) {
-      let parsed = JSON.parse(JSON.parse(data))
+      let parsed = JSON.parse(data)
       for (x in parsed) {
          sorted.push([x + '', parsed[x]])
       }
       sorted.sort(function(a, b) {
-         return a > b
+         return a[1] - b[1]
       })
 
       let display = ""
       for (i = 0; i < 25; i++) {
          var userTable = sorted[i]
+         console.log("user table is " + userTable)
          if (userTable) {
             let member = client.users.get(userTable[0])
+            console.log(member + " (member)")
             if (member) {
                display = display + (i + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
             }
