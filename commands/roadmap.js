@@ -25,14 +25,22 @@ exports.run = (client, message, args, level) => {
       }
       return final
    }
+   
+   function isCommand(str) {
+      if (!str == "help" && !str == "addtopic" && !str == "deltopic" && !str == "addplan" && !str == "delplan") {
+         return true
+      } else {
+         return false
+      }
+   }
       
    client.redisClient.get("Roadmap", function(err, roadmapData) {
       if (roadmapData) {
          var data = JSON.parse(roadmapData)
          var scope = args[0]
-         var fullString = args.join(" ")
-         console.log(fullString)
+         var fullString = args.join(" ")        
          var command = args[1]
+         
          if (command && scope == 'config') {
             if (level == 10 || allowedUsers[message.author.id]) {
                let cmdArgs = getArgsPastIndex(1, args)
@@ -77,7 +85,7 @@ exports.run = (client, message, args, level) => {
                   let modified = data
                   let name = cmdArgs[1]
                   name = spaceOut(name)
-                  let plan = getArgsPastIndex(2, cmdArgs)
+                  let plan = getArgsPastIndex(2, cmdArgs).join(" ")
                   if (!modified[name]) {
                      message.channel.send("Topic does not exist!")
                       return;
@@ -104,11 +112,12 @@ exports.run = (client, message, args, level) => {
             } else {
                message.channel.send("access denied!")
             }
+            return
          }
-         if (scope && !command) {
+         if (scope) {
             
             let plans = data[fullString]
-            console.log(plans)
+
             if (plans) {                 
                let str = ""
                for (var i in plans) {
