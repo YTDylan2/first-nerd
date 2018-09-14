@@ -52,7 +52,7 @@ exports.run = (client, message, args, level) => {
                      message.channel.send("That topic exists already!")
                   } else {
                      modified[name] = []
-                     client.redisClient.set("Roadmap", modified)
+                     client.redisClient.set("Roadmap", JSON.stringify(modified))
                      message.channel.send("Created topic **" + name + ".** ✅")
                   }
                }
@@ -62,6 +62,7 @@ exports.run = (client, message, args, level) => {
                   name = spaceOut(name)
                   if (!modified[name]) {
                      message.channel.send("That topic does not exist!")
+                     return;
                   } else {
                      modified[name] = null
                      client.redisClient.set("Roadmap", JSON.stringify(modified))
@@ -75,6 +76,7 @@ exports.run = (client, message, args, level) => {
                   let plan = getArgsPastIndex(2, cmdArgs)
                   if (!modified[name]) {
                      message.channel.send("Topic does not exist!")
+                      return;
                   } else {
                      modified[name].push(plan)
                      client.redisClient.set("Roadmap", JSON.stringify(modified))
@@ -88,6 +90,7 @@ exports.run = (client, message, args, level) => {
                   let num = cmdArgs[2]
                   if (!modified[name]) {
                      message.channel.send("Topic does not exist!")
+                      return;
                   } else {
                      modified[name].splice(num, 1)
                      client.redisClient.set("Roadmap", JSON.stringify(modified))
@@ -116,8 +119,7 @@ exports.run = (client, message, args, level) => {
                } else {
                   message.channel.send("No plans for this topic!")
                }
-            }
-           
+            } 
          } else {                  
             message.channel.send("Please provide a scope / roadmap topic!")
             let scopes = [];
@@ -135,11 +137,8 @@ exports.run = (client, message, args, level) => {
                 message.channel.send("No topics have been added.") 
             }
          }        
-      } else {
-         message.channel.send("doesn't look like there's anything planned! at all....")
       }
-    })
-    
+    })    
 }
 
 exports.conf = {
@@ -152,6 +151,6 @@ exports.conf = {
 exports.help = {
     name: "roadmap",
     category: "System",
-    description: `Shows any planned updates.\nConfig topics using <prefix>roadmap config [params].\nUse <prefix>roadmap config help for help.`,
+    description: "Shows any planned updates.\nConfig topics using <prefix>roadmap config [params].\nUse <prefix>roadmap config help for help"
     usage: "roadmap"
 };
