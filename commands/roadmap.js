@@ -104,6 +104,7 @@ exports.run = (client, message, args, level) => {
             }
          }
          if (scope && !command) {
+            let scope = args.join(" ")
             let plans = data[scope]
             if (plans) {                 
                let str = ""
