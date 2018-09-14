@@ -34,7 +34,7 @@ exports.run = (client, message, args, level) => {
             if (level == 10 || allowedUsers[message.author.id]) {
                let cmdArgs = getArgsPastIndex(1, args)
                if (command == "help") {
-                   const embed = discord.RichEmbed()
+                   const embed = new discord.RichEmbed()
                   .setTitle("Command help")
                   .addField("addtopic", `Add a new topic / scope!\nUsage: ${prefix}roadmap config addtopic [topic-name]\n!! NOTE: Spaces are marked with a **-** between letters.`)
                   .addField("deltopic", `Deletes a topic / scope.\nUsage: ${prefix}roadpmap config deletetopic [topic-name]\n!! NOTE: Spaces are marked with a **-** between letters.`)
@@ -108,7 +108,7 @@ exports.run = (client, message, args, level) => {
                for (var i in plans) {
                   str = str + (`${i + 1} - ${plans[i]}`)
                }
-               const embed = discord.RichEmbed()
+               const embed = new discord.RichEmbed()
                .setTitle("Roadmap for **" + scope + "**")
                if (str.length > 0) {
                   embed.addField("Plans", str)
@@ -128,7 +128,7 @@ exports.run = (client, message, args, level) => {
             }
             let str = scopes.join("\n")
             if (scopes.length > 0) {
-                const embed = discord.RichEmbed()
+                const embed = new discord.RichEmbed()
                .addField("Scopes and topics\n\n", str)
                .setColor(6579455)
                message.channel.send({embed}) 
