@@ -126,6 +126,7 @@ exports.run = (client, message, args, level) => {
                }
                const embed = new discord.RichEmbed()
                .setTitle("Roadmap for **" + fullString + "**")
+               .setColor(6579455)
                if (str.length > 0) {
                   embed.addField("Plans", str)
                } else {
