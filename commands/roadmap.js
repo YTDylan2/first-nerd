@@ -139,8 +139,8 @@ exports.run = (client, message, args, level) => {
                } else {
                   embed.addField("Scopes and topics\n\n", str)
                }                  
-               message.channel.send({embed})              
-               }
+               message.channel.send({embed})             
+               
             }
          }   
       }
