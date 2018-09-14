@@ -121,7 +121,7 @@ exports.run = (client, message, args, level) => {
                let str = ""
                for (var i in plans) {
                    if (typeof(plans[i]) == 'string') {                     
-                     str = str + ( (i + 1) + ". " + plans[i] + '\n')
+                     str = str + ( parseInt(i + 1) + ". " + plans[i] + '\n')
                    }
                }
                const embed = new discord.RichEmbed()
