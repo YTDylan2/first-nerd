@@ -127,7 +127,7 @@ exports.run = (client, message, args, level) => {
             }
             let str = scopes.join("\n")
             if (scopes.length > 0) {
-                const discord.RichEmbed()
+                const embed = discord.RichEmbed()
                .addField("Scopes and topics\n\n", str)
                .setColor(6579455)
                message.channel.send({embed}) 
