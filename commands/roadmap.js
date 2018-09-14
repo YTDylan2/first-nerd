@@ -103,7 +103,7 @@ exports.run = (client, message, args, level) => {
                if (plans) {                 
                   let str = ""
                   for (var i in plans) {
-                     str += `${i + 1}. ${plans[i]}`
+                     str = str + (`${i + 1} - ${plans[i]}`)
                   }
                   const embed = discord.RichEmbed()
                   .setTitle("Roadmap for **" + scope + "**")
