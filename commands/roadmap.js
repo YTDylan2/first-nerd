@@ -123,20 +123,22 @@ exports.run = (client, message, args, level) => {
             }
          } else {    
             if (!scope) {               
-               message.channel.send("Please provide a scope / roadmap topic!")
+              message.channel.send("Please provide a scope / roadmap topic! Here, I'll fetch some!")
                let scopes = [];
                let i;
                for (i in data) {
-                  scopes.push(`**${data[i]}**`)
+                  scopes.push(`**${i}**`)
                }
                let str = scopes.join("\n")
+                const embed = new discord.RichEmbed()
+               
+               .setColor(6579455)
                if (scopes.length > 0) {
-                   const embed = new discord.RichEmbed()
-                  .addField("Scopes and topics\n\n", str)
-                  .setColor(6579455)
-                  message.channel.send({embed}) 
+                  embed.addField("Scopes and topics\n\n", str)
                } else {
-                   message.channel.send("No topics have been added.") 
+                  embed.addField("Scopes and topics\n\n", str)
+               }                  
+               message.channel.send({embed})              
                }
             }
          }   
