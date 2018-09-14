@@ -102,24 +102,23 @@ exports.run = (client, message, args, level) => {
             }
          }
          if (scope && !command) {
-               let plans = data[scope]
-               if (plans) {                 
-                  let str = ""
-                  for (var i in plans) {
-                     str = str + (`${i + 1} - ${plans[i]}`)
-                  }
-                  const embed = discord.RichEmbed()
-                  .setTitle("Roadmap for **" + scope + "**")
-                  if (str.length > 0) {
-                     embed.addField("Plans", str)
-                  } else {
-                     embed.addField("Plans", "Nothing here yet...")
-                  }
-                  message.channel.send({embed})
-               } else {
-                  message.channel.send("No plans for this topic!")
+            let plans = data[scope]
+            if (plans) {                 
+               let str = ""
+               for (var i in plans) {
+                  str = str + (`${i + 1} - ${plans[i]}`)
                }
-            } 
+               const embed = discord.RichEmbed()
+               .setTitle("Roadmap for **" + scope + "**")
+               if (str.length > 0) {
+                  embed.addField("Plans", str)
+               } else {
+                  embed.addField("Plans", "Nothing here yet...")
+               }
+               message.channel.send({embed})
+            } else {
+               message.channel.send("No plans for this topic!")
+            }
          } else {                  
             message.channel.send("Please provide a scope / roadmap topic!")
             let scopes = [];
@@ -136,9 +135,9 @@ exports.run = (client, message, args, level) => {
             } else {
                 message.channel.send("No topics have been added.") 
             }
-         }        
+         }   
       }
-    })    
+   })    
 }
 
 exports.conf = {
