@@ -105,7 +105,9 @@ exports.run = (client, message, args, level) => {
             }
          }
          if (scope && !command) {
+            console.log(fullString)
             let plans = data[fullString]
+            console.log(plans)
             if (plans) {                 
                let str = ""
                for (var i in plans) {
