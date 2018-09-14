@@ -5,7 +5,7 @@ exports.run = (client, message, args, level) => {
       if (roadmapData) {
         console.log(level)
       }
-    }
+    })
     
 }
 
