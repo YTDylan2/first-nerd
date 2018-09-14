@@ -3,7 +3,7 @@
 exports.run = (client, message, args, level) => {
     var google = require('google')
     let links = []
-    let search = args[0]
+    let search = args.join(" ")
     if (search === undefined) {
         message.channel.send("Please send something to search!")
         return;
@@ -29,7 +29,7 @@ exports.conf = {
 exports.help = {
     name: "google",
     category: "Fun",
-    description: "Googles your search query!",
+    description: "Googles your search query! This command is very basic right now, and returns the first link Google provides.",
     usage: "google [...search]"
 };
 
