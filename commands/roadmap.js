@@ -31,6 +31,7 @@ exports.run = (client, message, args, level) => {
          var data = JSON.parse(roadmapData)
          var scope = args[0]
          var fullString = args.join(" ")
+         console.log(fullString)
          var command = args[1]
          if (command && scope == 'config') {
             if (level == 10 || allowedUsers[message.author.id]) {
@@ -105,7 +106,7 @@ exports.run = (client, message, args, level) => {
             }
          }
          if (scope && !command) {
-            console.log(fullString)
+            
             let plans = data[fullString]
             console.log(plans)
             if (plans) {                 
