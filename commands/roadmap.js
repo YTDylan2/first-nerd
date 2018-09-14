@@ -108,7 +108,7 @@ exports.run = (client, message, args, level) => {
                   const embed = discord.RichEmbed()
                   .setTitle("Roadmap for **" + scope + "**")
                   if (str.length > 0) {
-                     embed..addField("Plans", str)
+                     embed.addField("Plans", str)
                   } else {
                      embed.addField("Plans", "Nothing here yet...")
                   }
