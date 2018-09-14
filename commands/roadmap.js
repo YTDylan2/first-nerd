@@ -3,7 +3,7 @@
 exports.run = (client, message, args, level) => {
    client.redisClient.get("Roadmap", function(err, roadmapData) {
       if (roadmapData) {
-        console.log(level(
+        console.log(level)
       }
     }
     
