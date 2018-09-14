@@ -20,7 +20,8 @@ exports.run = (client, message, args, level) => {
       let matching = '-'
       let final = str
       while (final.match(matching)) {
-         final.replace(matching, " ")
+         final = final.replace(matching, " ")
+         console.log(final.match(matching))
       }
       return final
    }
@@ -50,6 +51,7 @@ exports.run = (client, message, args, level) => {
                   name = spaceOut(name)
                   if (modified[name]) {
                      message.channel.send("That topic exists already!")
+                     return;
                   } else {
                      modified[name] = []
                      client.redisClient.set("Roadmap", JSON.stringify(modified))
@@ -119,21 +121,23 @@ exports.run = (client, message, args, level) => {
             } else {
                message.channel.send("No plans for this topic!")
             }
-         } else {                  
-            message.channel.send("Please provide a scope / roadmap topic!")
-            let scopes = [];
-            let i;
-            for (i in data) {
-               scopes.push(`**${i}**`)
-            }
-            let str = scopes.join("\n")
-            if (scopes.length > 0) {
-                const embed = new discord.RichEmbed()
-               .addField("Scopes and topics\n\n", str)
-               .setColor(6579455)
-               message.channel.send({embed}) 
-            } else {
-                message.channel.send("No topics have been added.") 
+         } else {    
+            if (!scope) {               
+               message.channel.send("Please provide a scope / roadmap topic!")
+               let scopes = [];
+               let i;
+               for (i in data) {
+                  scopes.push(`**${data[i]}**`)
+               }
+               let str = scopes.join("\n")
+               if (scopes.length > 0) {
+                   const embed = new discord.RichEmbed()
+                  .addField("Scopes and topics\n\n", str)
+                  .setColor(6579455)
+                  message.channel.send({embed}) 
+               } else {
+                   message.channel.send("No topics have been added.") 
+               }
             }
          }   
       }
