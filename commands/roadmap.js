@@ -30,6 +30,7 @@ exports.run = (client, message, args, level) => {
       if (roadmapData) {
          var data = JSON.parse(roadmapData)
          var scope = args[0]
+         var fullString = args.join(" ")
          var command = args[1]
          if (command && scope == 'config') {
             if (level == 10 || allowedUsers[message.author.id]) {
@@ -104,15 +105,14 @@ exports.run = (client, message, args, level) => {
             }
          }
          if (scope && !command) {
-            let scope = args.join(" ")
-            let plans = data[scope]
+            let plans = data[fullString]
             if (plans) {                 
                let str = ""
                for (var i in plans) {
                   str = str + (`${i + 1} - ${plans[i]}`)
                }
                const embed = new discord.RichEmbed()
-               .setTitle("Roadmap for **" + scope + "**")
+               .setTitle("Roadmap for **" + fullString + "**")
                if (str.length > 0) {
                   embed.addField("Plans", str)
                } else {
