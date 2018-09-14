@@ -99,7 +99,7 @@ exports.run = (client, message, args, level) => {
                   let modified = data
                   let name = cmdArgs[1]
                   name = spaceOut(name)
-                  let num = cmdArgs[2]
+                  let num = cmdArgs[2] - 1
                   if (!modified[name]) {
                      message.channel.send("Topic does not exist!")
                       return;
@@ -117,11 +117,12 @@ exports.run = (client, message, args, level) => {
          if (scope) {
             
             let plans = data[fullString]
-
             if (plans) {                 
                let str = ""
                for (var i in plans) {
-                  str = str + (`${i + 1} - ${plans[i]}`)
+                   if (typeof(plans[i]) == 'string') {                     
+                     str = str + ( (i + 1) + ". " + plans[i] + '\n')
+                   }
                }
                const embed = new discord.RichEmbed()
                .setTitle("Roadmap for **" + fullString + "**")
@@ -146,10 +147,10 @@ exports.run = (client, message, args, level) => {
                 const embed = new discord.RichEmbed()
                
                .setColor(6579455)
-               if (scopes.length > 0) {
+               if (scopes.length > 0 && str.length > 0) {
                   embed.addField("Scopes and topics\n\n", str)
                } else {
-                  embed.addField("Scopes and topics\n\n", str)
+                  embed.addField("Scopes and topics\n\n", "None")
                }                  
                message.channel.send({embed})             
                
