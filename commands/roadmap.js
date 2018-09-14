@@ -150,6 +150,6 @@ exports.conf = {
 exports.help = {
     name: "roadmap",
     category: "System",
-    description: "Shows any planned updates.\nConfig topics using <prefix>roadmap config [params].\nUse <prefix>roadmap config help for help"
+    description: "Shows any planned updates.\nConfig topics using <prefix>roadmap config [params].\nUse <prefix>roadmap config help for help",
     usage: "roadmap"
 };
