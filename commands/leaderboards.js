@@ -2,7 +2,8 @@
 
 exports.run = (client, message, args, level) => {
    var sorted = [];
-   var discord = require('discord.js')
+   const discord = require('discord.js')
+   const ordinal = require('ordinal-js')
    
    client.redisClient.get("Global Coins", function(err, data) {
        if (data) {
@@ -22,7 +23,8 @@ exports.run = (client, message, args, level) => {
                let member = client.users.get(userTable[0])
               // console.log(member + " (member)")
                if (member) {
-                  display = display + ( (i + 1) + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
+                  let num = i + 1
+                  display = display + (ordinal.toOrdinal(num) + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
                }
             }
          }
@@ -40,7 +42,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["cboards, leaders"],
+    aliases: ["leaders"],
     permLevel: "User"
 };
 
