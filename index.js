@@ -550,7 +550,7 @@ const init = async () => {
       if (message.content.indexOf(mentionTag) == 0) {
           message.channel.startTyping()
           bot.create(function(bad, session) {
-              bot.ask(message.slice(mentionTag.length), function(err, response) {
+              bot.ask(message.content.slice(mentionTag.length), function(err, response) {
                   message.channel.send(response)
                   message.channel.stopTyping()
               })
