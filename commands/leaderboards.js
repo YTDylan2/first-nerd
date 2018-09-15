@@ -16,7 +16,7 @@ exports.run = (client, message, args, level) => {
          })
 
          let display = ""
-         for (i = 0; i < 25; i++) {
+         for (i = 0; i <= 10; i++) {
             var userTable = sorted[i]
             //console.log("user table is " + userTable)
             if (userTable) {
@@ -49,6 +49,6 @@ exports.conf = {
 exports.help = {
     name: "leaderboards",
     category: "Economy",
-    description: "Displays the top 25 in coin earning!",
+    description: "Displays the top 10 in coin earning!",
     usage: "leaderboards"
 };
