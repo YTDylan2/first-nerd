@@ -1,9 +1,9 @@
 exports.run = async (client, message, args, level) => {// eslint-disable-line no-unused-vars
-  await message.channel.send("ok brb");
+  await message.channel.send("Night night.");
   client.commands.forEach( async cmd => {
     await client.unloadCommand(cmd);
   });
-  await client.redisClient.exit()
+  // await client.redisClient.exit()
   process.exit(143);
 };
 
