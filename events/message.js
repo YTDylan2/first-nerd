@@ -1,12 +1,24 @@
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
+function matchMention(text) {
+   var mentionTag1 = '<@411683313926012928>'
+   var mentionTag2 = '<@!411683313926012928>'
+   if (text.indexOf(mentionTag1) == 0) {
+     return message.content.slice(mentionTag1.length)
+   }
+   if (text.indexOf(mentionTag2) == 0) {
+       return message.content.slice(mentionTag1.length)
+   }
+   return null
+}
 
 module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot) return;
 
+  
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
   const settings = message.guild
@@ -17,17 +29,16 @@ module.exports = (client, message) => {
   // to the message object, so `message.settings` is accessible.
   message.settings = settings;
   let mentions = message.mentions.members
-      let mentionTag = '<@411683313926012928>'
-      let mentionTag2 = '<@!411683313926012928>'
-      if (message.content.indexOf(mentionTag) == 0) {
-          message.channel.startTyping()
-          client.cleverbot.create(function(bad, session) {
-              client.cleverbot.ask(message.content.slice(mentionTag.length), function(err, response) {
-                  message.channel.send(response + ' <@!' + message.author.id + '>')
-                  message.channel.stopTyping()
-              })
+  let match =  matchMention(message.content)   
+  if (match) {
+      message.channel.startTyping()
+      client.cleverbot.create(function(bad, session) {
+          client.cleverbot.ask(match, function(err, response) {
+              message.channel.send(response + ' <@!' + message.author.id + '>')
+              message.channel.stopTyping()
           })
-      }            
+      })
+  }            
 
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
