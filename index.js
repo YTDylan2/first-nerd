@@ -59,8 +59,8 @@ client.caseLegendsPlayerData = []
 client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
 client.lastCommand = "None"
 
-var bot = new cleverbot(process.env.cbname, process.env.cbkey)
-bot.setNick("Main Session")
+client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
+client.cleverbot.setNick("Main Session")
 
 var groupBanned = {
     '294976424' : true,
