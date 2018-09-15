@@ -36,6 +36,18 @@ module.exports = (client, message) => {
   const cmd = client.commands.get(command.toLowerCase()) || client.commands.get(client.aliases.get(command.toLowerCase()));
   // using this const varName = thing OR otherthign; is a pretty efficient
   // and clean way to grab one of 2 values!
+   // clever bot
+      let mentions = message.mentions.members
+      let mentionTag = '<@!411683313926012928>'
+      if (message.content.indexOf(mentionTag) == 0) {
+          message.channel.startTyping()
+          bot.create(function(bad, session) {
+              bot.ask(message.content.slice(mentionTag.length), function(err, response) {
+                  message.channel.send(response + ' <@!' + message.author.id + '>')
+                  message.channel.stopTyping()
+              })
+          })
+      }             
   if (!cmd) return;
 
   // Some commands may not be useable in DMs. This check prevents those commands from running
