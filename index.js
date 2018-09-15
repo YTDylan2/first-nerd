@@ -22,6 +22,7 @@ const EnmapLevel = require("enmap-level");
 const rethink = require("rethinkdb")
 const EnmapRethink = require('enmap-rethink')
 const redis = require('redis')
+const cleverbot = require('cleverbot')
 const recentMessages = new Set();
 
 
@@ -45,9 +46,7 @@ client.logger = require("./util/Logger");
 require("./modules/functions.js")(client);
 
 app.set('env', 'production')
-function sendErr(res, json, status) {
-    res.json(json);
-}
+
 Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX")
@@ -60,11 +59,16 @@ client.caseLegendsPlayerData = []
 client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
 client.lastCommand = "None"
 
-
+var bot = new cleverbot(process.env.cbname, process.env.cbkey)
+bot.setNick("Main Session")
 
 var groupBanned = {
     '294976424' : true,
     '620089904' : true,
+}
+
+function sendErr(res, json, status) {
+    res.json(json);
 }
 
 function validatorType(type) {
@@ -539,6 +543,19 @@ const init = async () => {
               }
           }
       }
+      
+      // clever bot
+      let mentions = message.mentions.members
+      let mentionTag = '<@!411683313926012928>'
+      if (message.content.indexOf(mentionTag) == 0) {
+          message.channel.startTyping()
+          bot.create(function(bad, session) {
+              bot.ask(message.slice(mentionTag.length), function(err, response) {
+                  message.channel.send(response)
+                  message.channel.stopTyping()
+              })
+          })
+      }              
   })
 
   // Here we login the client.
