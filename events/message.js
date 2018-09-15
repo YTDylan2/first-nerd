@@ -19,7 +19,7 @@ module.exports = (client, message) => {
   let mentions = message.mentions.members
       let mentionTag = '<@411683313926012928>'
       let mentionTag2 = '<@!411683313926012928>'
-      if (message.content.indexOf(mentionTag) == 0 || message.content.indexOf(mentionTag2) == 0) {
+      if (message.content.indexOf(mentionTag) == 0) {
           message.channel.startTyping()
           client.cleverbot.create(function(bad, session) {
               client.cleverbot.ask(message.content.slice(mentionTag.length), function(err, response) {
