@@ -6,7 +6,7 @@ module.exports = async client => {
   await client.wait(1000);
  
   
-  let buildVer = process.env.HEROKU_RELEASE_VERSION)
+  let buildVer = process.env.HEROKU_RELEASE_VERSION
   let numb = buildVer.match(/\d/g);
   numb = numb.join("");
   // Both `wait` and `client.log` are in `./modules/functions`.
