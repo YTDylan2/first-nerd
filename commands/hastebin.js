@@ -3,7 +3,7 @@ exports.run = (client, message, args, level) => {
     var num = 0
     let text = args.join(" ")
     const { post } = require("snekfetch");
-    const { body } = await post("https://www.hastebin.com/documents").send(text);
+    const { body } = post("https://www.hastebin.com/documents").send(text);
     message.channel.send(`Sent to https://www.hastebin.com/${body.key}.txt`)
 
     
