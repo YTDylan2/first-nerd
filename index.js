@@ -551,7 +551,7 @@ const init = async () => {
           message.channel.startTyping()
           bot.create(function(bad, session) {
               bot.ask(message.content.slice(mentionTag.length), function(err, response) {
-                  message.channel.send(response + '<@!' + message.author.id + '>')
+                  message.channel.send(response + ' <@!' + message.author.id + '>')
                   message.channel.stopTyping()
               })
           })
