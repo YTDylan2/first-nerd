@@ -519,11 +519,12 @@ const init = async () => {
       let mentions = message.mentions.members
       let mentionTag = '<@!411683313926012928>'
       if (message.content.indexOf(mentionTag) == 0) {
-          message.channel.startTyping()
+          //message.channel.startTyping()
+          message.channel.send("Hm...")
           bot.create(function(bad, session) {
               bot.ask(message.content.slice(mentionTag.length), function(err, response) {
                   message.channel.send(response + ' <@!' + message.author.id + '>')
-                  message.channel.stopTyping()
+                  // message.channel.stopTyping()
               })
           })
       }             
