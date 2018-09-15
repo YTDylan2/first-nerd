@@ -13,15 +13,16 @@ exports.run = (client, message, args, level) => {
             description: "Find information about WaterIsIceSoup!",
             fields: [{
                 name: "Info",
-                value: "water is ice soup's son\n`Current Guilds: " + client.guilds.size + "`\n`Current Users: " + client.users.size + "`" 
+                value: `I am  ${client.user.username}, the culimation of water is ice soup's creativity.\nI'm also a great listener. Just ping me.\nCurrent Guilds: ${client.guilds.size}\nEvery user I've seen: ${client.users.size}`
             },
+           
             {
                 name: "Owners / Developers",
                 value: "@water is ice soup#0907 - Owner and Developer"
             },
             {
                 name: "Other Links",
-                value: `You can find the roblox group [here](https://www.roblox.com/My/Groups.aspx?gid=${process.env.groupid}), and the discord server [here](https://discord.gg/bVJ8WJk).`
+                value: `You can find his roblox group [here](https://www.roblox.com/My/Groups.aspx?gid=${process.env.groupid}), and the discord server [here](https://discord.gg/bVJ8WJk).`
             },
             {
                 name: "Special Thanks",
