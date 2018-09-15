@@ -17,7 +17,7 @@ module.exports = (client, message) => {
   // to the message object, so `message.settings` is accessible.
   message.settings = settings;
   let mentions = message.mentions.members
-      let mentionTag = '<@!411683313926012928>'
+      let mentionTag = '<@411683313926012928>'
       if (message.content.indexOf(mentionTag) == 0) {
           message.channel.startTyping()
           client.cleverbot.create(function(bad, session) {
