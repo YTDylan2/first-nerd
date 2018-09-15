@@ -515,19 +515,7 @@ const init = async () => {
   client.on('message', message => {
       if (message.author.bot) return;
       if (message.content.indexOf(client.config.prefix) == 0) return;
-       // clever bot
-      let mentions = message.mentions.members
-      let mentionTag = '<@!411683313926012928>'
-      if (message.content.indexOf(mentionTag) == 0) {
-          //message.channel.startTyping()
-          message.channel.send("Hm...")
-          bot.create(function(bad, session) {
-              bot.ask(message.content.slice(mentionTag.length), function(err, response) {
-                  message.channel.send(response + ' <@!' + message.author.id + '>')
-                  // message.channel.stopTyping()
-              })
-          })
-      }             
+      
       if (message.guild) {
           if (message.guild.id == '434477310817730572') {
               if (!recentMessages.has(message.author.id)) {
