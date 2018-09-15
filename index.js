@@ -22,7 +22,7 @@ const EnmapLevel = require("enmap-level");
 const rethink = require("rethinkdb")
 const EnmapRethink = require('enmap-rethink')
 const redis = require('redis')
-const cleverbot = require('cleverbot')
+const cleverbot = require('cleverbot.io')
 const recentMessages = new Set();
 
 
