@@ -5,10 +5,10 @@ function matchMention(text) {
    var mentionTag1 = '<@411683313926012928>'
    var mentionTag2 = '<@!411683313926012928>'
    if (text.indexOf(mentionTag1) == 0) {
-     return text.content.slice(mentionTag1.length)
+     return text.slice(mentionTag1.length)
    }
    if (text.indexOf(mentionTag2) == 0) {
-       return text.content.slice(mentionTag1.length)
+       return text.slice(mentionTag1.length)
    }
    return;
 }
