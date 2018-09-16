@@ -12,7 +12,11 @@ exports.run = (client, message, args, level) => {
     }
     if (text.length > 0 && !text.match("@everyone") && !text.match("@here")) {
         message.delete()
-        message.channel.send(text + " (" + message.author.username + ")")
+        if (level < 10) {            
+            message.channel.send(text + " (" + message.author.username + ")")
+        } else {
+            message.channel.send(text)
+        }
     }
 }
 
