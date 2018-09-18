@@ -11,8 +11,8 @@ exports.conf = {
 };
 
 exports.help = {
-  name: "mylevel",
+  name: "userlevel",
   category: "Misc",
-  description: "Tells you your permission level for the current message location.",
-  usage: "mylevel"
+  description: "Tells you your permissions level for the current message location.",
+  usage: "userlevel"
 };
