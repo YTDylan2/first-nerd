@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: true,
+    enabled: false,
     guildOnly: false,
     aliases: [""],
     permLevel: "Bot Owner"
@@ -19,7 +19,7 @@ exports.conf = {
 
 exports.help = {
     name: "hastebin",
-    category: "Fun",
-    description: "Posts to hastebin! it's also currently broken",
-    usage: "hastebin [...]"
+    category: "Development",
+    description: "e",
+    usage: "hastebin [words]"
 };
