@@ -1,3 +1,5 @@
+ bad notifier
+ 
  setInterval(() => {
         var request = require('request')
         var url = 'http://search.roblox.com/catalog/json?&ResultsPerPage=50&SortType=3&Subcategory=0&Category=0'
@@ -52,3 +54,86 @@
     }, 5000)
 
 -------------------------------------
+
+
+ban HTTP gets 
+
+
+app.post('/getGCRBAN', authenticate, function (req, res, next) {
+    //   client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+      var dataString = [`CaseBux: **${req.body.CB}**`,
+      `RAP: **${req.body.RAP}**`,
+      `User ID: **${req.body.userId}**`,
+      `Name: **${req.body.player}**`,
+      `Note: **${req.body.Note}**`
+                            
+      ].join('\n')
+      const embed = new Discord.RichEmbed()
+        .addField(`**Ban Report**`, dataString )
+        .setTitle("**User banned!**")
+        .setDescription("This ban is for " + req.body.player + '.')
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ req.body.userId + '&width=420&height=420&format=png')
+        .setAuthor("Galactic Games | water", 'https://i.imgur.com/kuAJC50.png')
+        .setFooter("Provided by Galactic Games", 'https://i.imgur.com/kuAJC50.png')
+        .setTimestamp()
+        client.channels.get('447790444588433431').send({embed})
+        res.send("Successfully sent data!")
+  })
+   app.post('/getGCRUNBAN', authenticate, function (req, res, next) {
+     // client.channels.get('425822679958945792').send("BODY: " + req.body + ". PARAMS: " + req.body)
+      var dataString = [`CaseBux: **${req.body.CB}**`,
+      `RAP: **${req.body.RAP}**`,
+      `User ID: **${req.body.userId}**`,
+      `Name: **${req.body.player}**`,
+      `Note: **${req.body.Note}**`
+
+      ].join('\n')
+      const embed = new Discord.RichEmbed()
+        .addField(`**Unban Report**`, dataString )
+        .setTitle("**User unbanned!**")
+        .setDescription("This unban log is for " + req.body.player + '.')
+        .setColor(6605055)
+        // .setImage('https://i.imgur.com/zwMrlQT.png')
+        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ req.body.userId + '&width=420&height=420&format=png')
+        .setAuthor("Galactic Games | water", 'https://i.imgur.com/kuAJC50.png')
+        .setFooter("Provided by Galactic Games", 'https://i.imgur.com/kuAJC50.png')
+        .setTimestamp()
+        client.channels.get('447790444588433431').send({embed})
+        res.send("Successfully sent data!")
+    })
+    
+    var idsLogged = {}
+    app.post('/getCaseLegendsData', authenticate, function (req, res, next) {
+        if (!req.body) {
+            // ("Error getting data. Please check parameters provided.")
+            sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
+            return;
+        }
+        var data = req.body.info
+        if (data.length == 0) {
+           // console.log("There's an error here.")
+        }
+        //console.log(req.body.info)
+        
+        for (x in data) {
+            var pData = data[x]
+           // console.log(pData)
+            // console.log(data.userId)
+            if (!idsLogged[pData.userId]) {
+                idsLogged[pData.userId] = true
+                client.caseLegendsPlayerData[client.caseLegendsPlayerData.length + 1] = pData
+               // console.log("Added a new data entry for Case Legends " + pData.userId)
+            }
+            if (idsLogged[pData.userId] && client.caseLegendsPlayerData.length > 0) {
+                if (findUserIdMatch(pData.userId, client.caseLegendsPlayerData)) {
+                    var result, oldData = findUserIdMatch(pData.userId, client.caseLegendsPlayerData)
+                    oldData = pData
+                }
+            }
+        }
+        client.savedPlayerData.set("Case Legends", client.caseLegendsPlayerData)
+        
+        res.send("Data was successfully received and uploaded to memory.")
+    })
