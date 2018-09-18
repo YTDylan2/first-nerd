@@ -9,11 +9,11 @@ exports.run = (client, message, args, level) => {
         return;
     }
     google(search, async (err, res) => {
-        if (!res.links[0].href) {
+        if (!res.links[0].link) {
             message.channel.send("There were no search results.")
             return
         } else {
-            message.channel.send(res.links[0].href)
+            message.channel.send(res.links[0].link)
         }
     })
 
@@ -22,15 +22,15 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["g"],
+    aliases: ["search"],
     permLevel: "User"
 };
 
 exports.help = {
     name: "google",
     category: "Fun",
-    description: "Googles your search query! This command is very basic right now, and returns the first link Google provides.",
-    usage: "google [...search]"
+    description: "Googles stuff. You know?",
+    usage: "google [...search terms]"
 };
 
 
