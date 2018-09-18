@@ -32,10 +32,12 @@ exports.run = (client, message, args, level) => {
     let arrayCmds = myCommands.array()
     for (var x in arrayCmds) {
       let cmd = arrayCmds[x]
-      if (!sortedCommands[cmd.help.category]) {
-        sortedCommands[cmd.help.category] = [cmd.help.name]
-      } else {
-        sortedCommands[cmd.help.category].push([cmd.help.name])
+      if (cmd.help) {        
+        if (!sortedCommands[cmd.help.category]) {
+          sortedCommands[cmd.help.category] = [cmd.help.name]
+        } else {
+          sortedCommands[cmd.help.category].push([cmd.help.name])
+        }
       }
     }
     
