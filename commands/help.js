@@ -44,7 +44,7 @@ exports.run = (client, message, args, level) => {
     embed.setTitle("Vanessa's Commands")
     
     for (var x in sortedCommands) {
-      let seperated = seperateStrings(x)
+      let seperated = seperateStrings(sortedCommands[x])
       embed.addField(x, seperated)
     }
     embed.setColor(process.env.purple)
