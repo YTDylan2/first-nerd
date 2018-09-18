@@ -1,6 +1,9 @@
 // case legends exclusive
 
 exports.run = (client, message, args, level) => {
+    if (true) {
+        return;
+    }
     let data = client.savedPlayerData.get("Case Legends")
     let Discord = require('discord.js')
     let key = args[0]
@@ -97,7 +100,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: true,
+    enabled: false,
     guildOnly: false,
     aliases: [""],
     permLevel: "Administrator"
@@ -105,7 +108,7 @@ exports.conf = {
 
 exports.help = {
     name: "check",
-    category: "Roblox",
-    description: "For data persistence testing.",
-    usage: "check [user OR userId]"
+    category: "Development",
+    description: "This command is under development!",
+    usage: "<none>"
 };
