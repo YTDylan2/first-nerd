@@ -18,7 +18,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: true,
+    enabled: false,
     guildOnly: false,
     aliases: ["hammer, banland"],
     permLevel: "Administrator"
@@ -26,8 +26,8 @@ exports.conf = {
 
 exports.help = {
     name: "ban",
-    category: "Moderation",
-    description: "Bans a user. Reason needed. Moderators are specified as members who have a role with the Manage Messages permission.",
+    category: "Vault",
+    description: "Currently being reworked.",
     usage: "ban [user] [reason]"
 };
 
