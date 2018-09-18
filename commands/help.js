@@ -59,7 +59,7 @@ exports.run = (client, message, args, level) => {
       let embed = new discord.RichEmbed()
       .setTitle(client.config.prefix + command.help.name)
       .setDescription(command.help.description)
-      .addField("Usage", "`" + "command.help.usage" + "`")
+      .addField("Usage", "`" + command.help.usage + "`")
       .setColor(process.env.purple)
       message.channel.send({embed})
     }
