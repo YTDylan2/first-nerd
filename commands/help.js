@@ -1,44 +1,71 @@
 /*
-The HELP command is used to display every command's name and description
-to the user, so that he may see what commands are available. The help
-command is also filtered by level, so if a user does not have access to
-a command, it is not shown to them. If a command name is given with the
-help command, its extended help is shown.
+redesigning this command
+
+would now use embeds
 */
 
-exports.run = (client, message, args, level) => {
-  // If no specific command is called, show all filtered commands.
-  if (!args[0]) {
-    // Load guild settings (for prefixes and eventually per-guild tweaks)
-    const settings = message.guild ? client.settings.get(message.guild.id) : client.config.defaultSettings;
+  
 
-    // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
+
+exports.run = (client, message, args, level) => {
+  // if no specific command is calle show all commands.
+  const discord = require("discord.js")
+  
+  function seperateStrings(strings) {
+    var newStrings = []
+    for (var x in strings) {
+      if (x < strings.length) {
+        newStrings[x] = strings[x] + ', '
+      }
+    }
+    return newStrings
+  }
+  if (!args[0]) {
+    // load guild settings (for prefixes and eventually per guild tweaks)
+
     const myCommands = message.guild ? client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level) : client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level &&  cmd.conf.guildOnly !== true);
 
-    // Here we have to get the command names only, and we use that array to get the longest name.
-    // This make the help commands "aligned" in the output.
-    const commandNames = myCommands.keyArray();
-    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-
-    let currentCategory = "";
-    let output = `= Command List =\n\n[Use ${client.config.prefix}help <commandname> for details]\n`;
-    const sorted = myCommands.array().sort((p, c) => p.help.category > c.help.category ? 1 :  p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
-    sorted.forEach( c => {
-      const cat = c.help.category.toProperCase();
-      if (currentCategory !== cat) {
-        output += `\u200b\n== ${cat} ==\n`;
-        currentCategory = cat;
+    
+    const embed = new discord.RichEmbed()
+    
+    let sortedCommands = {}
+    let arrayCmds = myCommands.array()
+    for (var x in arrayCmds) {
+      let cmd = arrayCmds[x]
+      if (!sortedCommands[cmd.help.category]) {
+        sortedCommands[cmd.help.category] = [cmd.help.name]
+      } else {
+        sortedCommands[cmd.help.category].push([cmd.help.name])
       }
-      output += `${client.config.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
-    });
-    message.channel.send(output, {code: "asciidoc", split: { char: "\u200b" }});
+    }
+    
+    embed.setTitle("Vanessa's Commands")
+    
+    for (var x in sortedCommands) {
+      let seperated = seperateStrings(x)
+      embed.addField(x, seperated)
+    }
+    embed.setColor(process.env.purple)
+    embed.setTimestamp()
+    embed.setAuthor("Vanessa", client.user.avatarURL)
+    embed.setFooter("dlivie was here owo", client.user.avatarURL)
+    embed.setDescription("A full list of commands! Use `a!help [command name]` to get more help on a command!")
+    message.channel.send({embed});
   } else {
-    // Show individual command's help.
+    // show command's help.
     let command = args[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
-      if (level < client.levelCache[command.conf.permLevel]) return;
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(", ")}\n= ${command.help.name} =`, {code:"asciidoc"});
+      if (level < client.levelCache[command.conf.permLevel]) {
+        message.channel.send("Uh oh! Looks like you can't use this command!")
+        return;
+      }
+      let embed = new discord.RichEmbed()
+      .setTitle(command.help.name)
+      .setDescription(command.help.description)
+      .addField("Usage", command.help.usage)
+      .setColor(process.env.purple)
+      message.channel.send({embed})
     }
   }
 };
@@ -46,13 +73,13 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["h", "halp"],
+  aliases: ["halp"],
   permLevel: "User"
 };
 
 exports.help = {
   name: "help",
-  category: "System",
-  description: "Displays all the available commands for your permission level.",
+  category: "Info",
+  description: "Displays all the available commands for Vanessa! These will only display commands your level of access.",
   usage: "help [command]"
 };
