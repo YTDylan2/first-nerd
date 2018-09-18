@@ -264,34 +264,7 @@ const init = async () => {
   });
   
    // app stuff
-  app.use(bodyParser.json())
-  app.post('/feedback/:message/:player/:userId', authenticate, function (req, res, next) {
-      var fields = {
-          'message' : 'string',
-          'player' : 'string',
-          'userId' : 'int'
-      }
-      var checking = [req.params]
-      var params = verifyParameters(res, checking, fields)
-      if (!params) {
-          client.channels.get('425822679958945792').send("Error getting message data. Please check parameters provided.")
-          sendErr(res, {error : 'The parameters given do not match what is required.', id: null})
-          return;
-      }
-      const embed = new Discord.RichEmbed()
-        .addField(`**Message Body**`, params.message)
-        .setTitle("**Feedback Received!**")
-        .setDescription("Feedback received from " + params.player + '.')
-        .setColor(6605055)
-        // .setImage('https://i.imgur.com/zwMrlQT.png')
-        .setThumbnail('https://www.roblox.com/bust-thumbnail/image?userId='+ params.userId + '&width=420&height=420&format=png')
-        .setAuthor("Aureum Studios | techno turret", 'https://i.imgur.com/WcypWFd.png')
-        .setFooter("Provided by Aureum Studios", 'https://i.imgur.com/WcypWFd.png')
-        .setTimestamp()
-        client.channels.get('425822679958945792').send({embed})
-        res.send("Successfully sent message!")
-  })
-    
+  app.use(bodyParser.json())   
   app.post('/ping', authenticate, function(req, res, next) {
       let senderTime = req.body.sendTime
       let now = Date.now()
@@ -359,7 +332,7 @@ const init = async () => {
              };
          };
       });
-    }, 10000); // lazy af
+    }, 30000); // lazy af
     
     var loggedAssets = {}
     //var messageCheck = client.channels.get(process.env.channelid).fetchMessage(process.env.messageid).then(msg => { console.log("edit message redy") })
