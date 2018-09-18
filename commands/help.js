@@ -8,17 +8,11 @@ would now use embeds
 
 
 exports.run = (client, message, args, level) => {
-  // if no specific command is calle show all commands.
+  // if no specific command is called show all commands
   const discord = require("discord.js")
   
   function seperateStrings(strings) {
-    var newStrings = []
-    for (var x in strings) {
-      if (x < strings.length) {
-        newStrings[x] = strings[x] + ', '
-      }
-    }
-    return newStrings
+    return strings.join(", ")
   }
   if (!args[0]) {
     // load guild settings (for prefixes and eventually per guild tweaks)
@@ -63,9 +57,9 @@ exports.run = (client, message, args, level) => {
         return;
       }
       let embed = new discord.RichEmbed()
-      .setTitle(command.help.name)
+      .setTitle(client.config.prefix + command.help.name)
       .setDescription(command.help.description)
-      .addField("Usage", command.help.usage)
+      .addField("Usage", "`" + "command.help.usage" + "`")
       .setColor(process.env.purple)
       message.channel.send({embed})
     }
