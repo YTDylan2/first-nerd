@@ -18,16 +18,16 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: true,
-    guildOnly: false,
+    enabled: false,
+    guildOnly: true,
     aliases: ["boot"],
     permLevel: "Moderator"
 };
 
 exports.help = {
     name: "kick",
-    category: "Moderation",
-    description: "Kicks a user. Reason needed. Moderators are specified as members who have a role with the Manage Messages permission.",
+    category: "Vault",
+    description: "Currently being reworked!",
     usage: "kick [user] [reason]"
 };
 
