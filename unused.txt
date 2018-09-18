@@ -1,0 +1,54 @@
+ setInterval(() => {
+        var request = require('request')
+        var url = 'http://search.roblox.com/catalog/json?&ResultsPerPage=50&SortType=3&Subcategory=0&Category=0'
+        var sendChannel = client.channels.get('487369498396065795')
+        
+        
+        request(url, {json:true}, (err, res, body) => {
+            if (body != undefined) {
+                var assets = body
+                for (x in assets) {
+                    let asset = assets[x]
+                    if (asset.AssetId != undefined) {
+                        let remaining = parseInt(asset.Remaining)
+                        let timer = parseInt(asset.OffSaleDeadline)
+                        if (!isNaN(remaining)) {
+                            if (remaining > 0 && !loggedAssets[asset.Name]) {
+                                var numb = asset.Sales.match(/\d/g);
+                                numb = numb.join("");
+                                var total = parseInt(asset.Remaining) + parseInt(numb)
+                                loggedAssets[asset.Name] = true
+                                const embed = new Discord.RichEmbed()
+                                 .setTitle("**Click here to purchase**")
+                                 .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
+                                 .addField("New Limited U!", asset.Name)
+                                 .addField("Price in Robux", asset.Price + " ROBUX")
+                                 .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
+                                 .addField("Limited Quantity", `${asset.Sales}/${total}`) 
+                                 .setColor(6605055)
+                                // .setTimestamp()
+                                sendChannel.send({embed})
+                            }
+                        }
+                        if (!isNaN(timer)) {
+                            if (timer > 0 &&  !loggedAssets[asset.Name]) {
+                                loggedAssets[asset.Name] = true
+                                const embed = new Discord.RichEmbed()
+                                 .setTitle("**Click here to purchase**")
+                                 .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
+                                 .addField("New Item on Sale!", asset.Name)
+                                 .addField("Price in Robux", asset.Price + " ROBUX")
+                                 .addField("Timer", secondsToHours(timer) + ' hours') 
+                                 .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
+                                 .setColor(6605055)
+                                // .setTimestamp()
+                                sendChannel.send({embed})
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }, 5000)
+
+-------------------------------------
