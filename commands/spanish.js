@@ -9,7 +9,7 @@ exports.run = (client, message, args, level) => {
         return;
     }
     if (text.match("@everyone") || text.match("here")) {
-        message.channel.send("I'm not that stupid! :(")
+        message.channel.send("Despacito")
         return;
     }
     let translated = translate(text, { to: 'es', engine: 'yandex', key: transKey }).then(function (newText) {
