@@ -2,12 +2,16 @@
 
 exports.run = (client, message, args, level) => {
     let num = parseInt(args[0])
+    var erasing = num
     if (!isNaN(num)) {
         let loopTimes = Math.max(Math.ceil(num / 100), 1)
+        if (num > 100) {
+           erasing = 100
+        }
         var i;
         for (i = 1; i <= loopTimes; i++) {       
             message.channel.fetchMessages({
-                limit: 100
+                limit: erasing
             })
             .then(messages => {
             message.channel.bulkDelete(messages);
