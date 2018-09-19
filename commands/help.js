@@ -60,6 +60,7 @@ exports.run = (client, message, args, level) => {
       .setTitle(client.config.prefix + command.help.name)
       .setDescription(command.help.description)
       .addField("Usage", "`" + `${process.env.prefix}${command.help.usage}` + "`")
+      .addField("Security", command.conf.permLevel + "+")
       .setColor(process.env.purple)
       message.channel.send({embed})
     }
