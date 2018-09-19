@@ -16,7 +16,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: true,
+    enabled: false,
     guildOnly: false,
     aliases: [""],
     permLevel: "Bot Owner"
@@ -24,7 +24,7 @@ exports.conf = {
 
 exports.help = {
     name: "groupban",
-    category: "Roblox",
+    category: "Vault",
     description: "ban cmd",
     usage: "ban [userId]"
 };
