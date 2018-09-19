@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => {
         if (body.success) {
             message.channel.send(`The username **${username}** is taken.`)
         } else {
-            message.channel.send(`The username **${username}** is not taken.`)
+            message.channel.send(`The username **${username}** is not taken. Sniping time?`)
         }
     });
 }
@@ -18,15 +18,15 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["chkuser, checkuser"],
+    aliases: ["snipe"],
     permLevel: "User"
 };
 
 exports.help = {
-    name: "usertaken",
+    name: "checkuser",
     category: "Info",
-    description: "Returns yes or no if the specified username is taken.",
-    usage: "usertaken [username]"
+    description: "Says Yes or No if the specified username in Roblox is taken.",
+    usage: "checkuser [username]"
 };
 
 
