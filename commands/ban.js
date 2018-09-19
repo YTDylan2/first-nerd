@@ -20,7 +20,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: false,
     guildOnly: false,
-    aliases: ["hammer, banland"],
+    aliases: ["hammer", "banland"],
     permLevel: "Bot Owner"
 };
 
