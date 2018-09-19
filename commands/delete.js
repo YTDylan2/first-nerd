@@ -5,11 +5,12 @@ exports.run = (client, message, args, level) => {
     var erasing = num
     if (!isNaN(num)) {
         let loopTimes = Math.max(Math.ceil(num / 100), 1)
-        if (num > 100) {
-           erasing = 100
-        }
+        
         var i;
-        for (i = 1; i <= loopTimes; i++) {       
+        for (i = 1; i <= loopTimes; i++) {  
+            if (num > 100) {
+               erasing = 100
+            }
             message.channel.fetchMessages({
                 limit: erasing
             })
@@ -26,7 +27,7 @@ exports.run = (client, message, args, level) => {
             })
         }
         if (num > 1) {
-            message.channel.send("Just threw `" + Math.ceil(num) + "` messages in the garbage!").then(message => message.delete(10000))
+            // message.channel.send("Just threw `" + Math.ceil(num) + "` messages in the garbage!").then(message => message.delete(10000))
         }
     } else {
         let random = Math.floor(Math.random() * 26)
