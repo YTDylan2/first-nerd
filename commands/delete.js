@@ -21,7 +21,9 @@ exports.run = (client, message, args, level) => {
                 return;
             })
         }
-        message.channel.send("Just threw `" + Math.ceil(num) + "` messages in the garbage!").then(message => message.delete(10000))
+        if (num > 1) {
+            message.channel.send("Just threw `" + Math.ceil(num) + "` messages in the garbage!").then(message => message.delete(10000))
+        }
     } else {
         let random = Math.floor(Math.random() * 26)
         message.channel.send("Try sending a number? You know, like " + random + "?")
@@ -32,7 +34,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["delete"],
+    aliases: ["delete", "purge", "erase"],
     permLevel: "Moderator"
 };
 
