@@ -36,7 +36,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["support"],
+    aliases: ["info"],
     permLevel: "User"
 };
 
@@ -44,7 +44,7 @@ exports.help = {
     name: "support",
     category: "Info",
     description: "Shows bot information.",
-    usage: "support
+    usage: "support",
 };
 
 
