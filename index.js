@@ -303,6 +303,11 @@ const init = async () => {
       http.get(`http://technoturret.herokuapp.com/`);
     }, 120000);
     
+    // use this to update
+    setInterval(() => {
+        client.config.prefix = process.env.prefix
+    }, 60000)
+    
     
     
     setInterval(() => { // auto rank users
@@ -368,7 +373,7 @@ const init = async () => {
                   setTimeout(() => {
                          recentMessages.delete(message.author.id)
                   }, 10000)
-                  let randCoins = Math.floor(Math.random() * 70) + 1
+                  let randCoins = Math.floor(Math.random() * 20) + 1
                   client.redisClient.get(message.author.id + '-coins', function(err, reply) {
                       if (reply == null) {
                           client.redisClient.set(message.author.id + '-coins', randCoins, function(e, rep) {
