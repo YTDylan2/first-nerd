@@ -44,13 +44,13 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ["run"],
   permLevel: "Bot Owner"
 };
 
 exports.help = {
   name: "eval",
   category: "System",
-  description: "Evaluates arbitrary javascript.",
+  description: "Evaluates arbitrary javascript code.",
   usage: "eval [...code]"
 };
