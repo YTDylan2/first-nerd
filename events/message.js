@@ -70,16 +70,14 @@ module.exports = (client, message) => {
 
   if (level < client.levelCache[cmd.conf.permLevel]) {
     if (settings.systemNotice === "true") {
-      return message.channel.send(`You do not have permission to use this command.
-  Your permission level is ${level} (${client.config.permLevels.find(l => l.level === level).name})
-  This command requires level ${client.levelCache[cmd.conf.permLevel]} (${cmd.conf.permLevel})`);
+      return message.channel.send(`You're missing the required permission (${cmd.conf.permLevel}) to use this command!`)
     } else {
       return;
     }
   }
    
   // don't run if disabled
-   if (!cmd.conf.enabled) {
+   if (cmd.conf.enabled == false) {
       return message.channel.send("Looks like this command is disabled.")
    }
 
