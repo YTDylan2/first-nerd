@@ -91,6 +91,6 @@ exports.conf = {
 exports.help = {
     name: "verify",
     category: "Roblox",
-    description: "Verify your discord user with your roblox user using Waterblob!",
+    description: "Verify your discord user with your roblox user using Vanessa!",
     usage: "verify [username]"
 };
