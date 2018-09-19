@@ -9,7 +9,7 @@ exports.run = (client, message, args, level) => {
         return;
     }
     if (text.match("@everyone") || text.match("here")) {
-        message.channel.send("I'm not that stupid! :(")
+        message.channel.send("I'm not stupid.")
         return;
     }
     let translated = translate(text, { to: 'ru', engine: 'yandex', key: transKey }).then(function (newText) {
@@ -31,7 +31,7 @@ exports.conf = {
 
 exports.help = {
     name: "russian",
-    category: "Translation",
+    category: "Fun",
     description: "Hmm... 🤔",
     usage: "russian [text]"
 };
