@@ -6,21 +6,23 @@ exports.run = (client, message, args, level) => {
     if (user) {
       let id = user.id
       let member = client.users.get(id)
-      client.redisClient.get(id + '-coins', function(err, data) {
+      let dataKey = id + "-" + message.guild.id + "-coins"
+      client.redisClient.get(dataKey, function(err, data) {
         if (data) {
           message.channel.send(`**${member.username}** has **${data}** coins.`)
         } else {
-          message.channel.send("that person broke, no money")
+          message.channel.send("They're a sad hobo sitting down on the road.")
         }
       })
      } else {
         let id = message.author.id
         let member = client.users.get(id)
-        client.redisClient.get(id + '-coins', function(err, data) {
+        let dataKey = id + "-" + message.guild.id + "-coins"
+        client.redisClient.get(dataKey, function(err, data) {
           if (data) {
-            message.channel.send(`you have **${data}** coins.`)
+            message.channel.send(`You have **${data}** coins!`)
           } else {
-            message.channel.send("ur broke")
+            message.channel.send("You don't even have enough money to use this command.\nWait, you have none.")
           }
         })
       }
@@ -28,7 +30,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["bal"],
+    aliases: ["bal", "money"],
     permLevel: "User"
 };
 
