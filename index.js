@@ -368,33 +368,31 @@ const init = async () => {
       if (message.content.indexOf(client.config.prefix) == 0) return;
       
       if (message.guild) {
-          if (message.guild.id == '434477310817730572') {
-              let timeoutKey = message.author.id + "-" + message.guild.id
-              let dataKey = message.author.id + "-" + message.guild.id + "-coins"
-              if (!recentMessages.has(timeoutKey)) {
-                  recentMessages.add(timeoutKey) 
-                  setTimeout(() => {
-                         recentMessages.delete(timeoutKey)
-                  }, 10000)
-                  let randCoins = Math.floor(Math.random() * 50) + 1
-                  client.redisClient.get(dataKey, function(err, reply) {
-                      if (reply == null) {
-                          client.redisClient.set(dataKey, randCoins, function(e, rep) {
-                               //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
-                               updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
-                          })
-                      } else {
-                          client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
-                              if (rep) {
-                               // message.reply("you have " + rep + " coins homie (debugging message)")
-                                updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
-                              }
-                          })
-                      }
-                  })
-              } else {
-               // console.log("someone on message timeout: " + message.author.username)
-              }
+          let timeoutKey = message.author.id + "-" + message.guild.id
+          let dataKey = message.author.id + "-" + message.guild.id + "-coins"
+          if (!recentMessages.has(timeoutKey)) {
+              recentMessages.add(timeoutKey) 
+              setTimeout(() => {
+                     recentMessages.delete(timeoutKey)
+              }, 10000)
+              let randCoins = Math.floor(Math.random() * 50) + 1
+              client.redisClient.get(dataKey, function(err, reply) {
+                  if (reply == null) {
+                      client.redisClient.set(dataKey, randCoins, function(e, rep) {
+                           //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
+                           updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
+                      })
+                  } else {
+                      client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
+                          if (rep) {
+                           // message.reply("you have " + rep + " coins homie (debugging message)")
+                            updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
+                          }
+                      })
+                  }
+              })
+          } else {
+           // console.log("someone on message timeout: " + message.author.username)
           }
       } 
   })
