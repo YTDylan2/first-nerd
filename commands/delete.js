@@ -17,13 +17,14 @@ exports.run = (client, message, args, level) => {
             .then(messages => {
             message.channel.bulkDelete(messages);
             if (num == 1) {
-                 return message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))              
+                message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))   
+                break
             }        
             })
             .catch(err => {
                 message.channel.send("Error deleting messages! I **don't have any permissions** or **these messages are too old!**")
                 console.log(err)
-                return;
+                break;
             })
         }
         if (num > 1) {
