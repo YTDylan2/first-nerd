@@ -4,6 +4,7 @@ exports.run = async (client, message, args, level) => {// eslint-disable-line no
     await client.unloadCommand(cmd);
   });
   // await client.redisClient.exit()
+  await client.startChannel.send("shut down, restarting")
   process.exit(143);
 };
 
