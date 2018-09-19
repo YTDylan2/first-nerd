@@ -12,10 +12,8 @@ exports.run = (client, message, args, level) => {
             .then(messages => {
             message.channel.bulkDelete(messages);
             if (num == 1) {
-                message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))
-                return;
-            }
-            else           
+                 return message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))              
+            }        
             })
             .catch(err => {
                 message.channel.send("Error deleting messages! I **don't have any permissions** or **these messages are too old!**")
@@ -24,11 +22,11 @@ exports.run = (client, message, args, level) => {
             })
         }
         message.channel.send("Just threw `" + Math.ceil(num) + "` messages in the garbage!").then(message => message.delete(10000))
-    }
-    else
+    } else {
         let random = Math.floor(Math.random() * 26)
         message.channel.send("Try sending a number? You know, like " + random + "?")
         return;
+    }
 }
 
 exports.conf = {
