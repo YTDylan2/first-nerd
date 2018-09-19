@@ -45,8 +45,7 @@ exports.run = (client, message, args, level) => {
     embed.setTimestamp()
     embed.setAuthor("Vanessa", client.user.avatarURL)
     embed.setFooter("dlivie was here owo", client.user.avatarURL)
-    let prefix = process.env.prefix
-    embed.setDescription("A full list of commands! Use " +`${prefix}help [command name]` + "to get more help on a command!")
+    embed.setDescription("A full list of commands! Use " +`${process.env.prefix}help [command name]` + "to get more help on a command!")
     message.channel.send({embed});
   } else {
     // show command's help.
@@ -60,7 +59,7 @@ exports.run = (client, message, args, level) => {
       let embed = new discord.RichEmbed()
       .setTitle(client.config.prefix + command.help.name)
       .setDescription(command.help.description)
-      .addField("Usage", "`" + command.help.usage + "`")
+      .addField("Usage", "`" + `${process.env.prefix}${command.help.usage}` + "`")
       .setColor(process.env.purple)
       message.channel.send({embed})
     }
