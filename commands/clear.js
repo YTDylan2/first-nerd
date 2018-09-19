@@ -3,44 +3,46 @@
 exports.run = (client, message, args, level) => {
     let num = parseInt(args[0])
     if (!isNaN(num)) {
-        if (num <= 100 && num >= 1) {
-            newNum = num + 1
+        let loopTimes = Math.max(Math.ceil(num / 100), 1)
+        var i;
+        for (i = 1; i <= loopTimes; i++) {       
             message.channel.fetchMessages({
-                limit: num
-            }).then(messages => {
-                message.channel.bulkDelete(messages);
-                newNum = newNum - 1
-                if (num === 1) {
-                    message.channel.send("Successfully deleted a message!").then(message => message.delete(5000))
-                    return;
-                }
-                else
-                message.channel.send("Successfully deleted `" + newNum + "` messages!").then(message => message.delete(5000))
-                })
-                .catch(err => {
-                    message.channel.send("Error deleting messages.")
-                    console.log(err)
-                })
+                limit: 100
+            })
+            .then(messages => {
+            message.channel.bulkDelete(messages);
+            if (num == 1) {
+                message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))
+                return;
+            }
+            else           
+            })
+            .catch(err => {
+                message.channel.send("Error deleting messages! I **don't have any permissions** or **these messages are too old!**")
+                console.log(err)
+                return;
+            })
         }
-        else
-            message.channel.send("Please send a number between `1` and `100`.")
+        message.channel.send("Just threw `" + Math.ceil(num) + "` messages in the garbage!").then(message => message.delete(10000))
     }
     else
-        message.channel.send("That's not a number.")
+        let random = Math.floor(Math.random() * 26)
+        message.channel.send("Try sending a number? You know, like " + random + "?")
+        return;
 }
 
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["purge, delete, erase"],
+    aliases: ["delete"],
     permLevel: "Moderator"
 };
 
 exports.help = {
     name: "clear",
     category: "Moderation",
-    description: "Clears `x` amount of messages. [Limit 100]",
-    usage: "clear (number, max 100, min 1)"
+    description: "Clears `x` amount of messages. Can't delete messages over 2 weeks old!\n**Warning: Any user with Manage Messages can use this command. This will be fixed in the future.**",
+    usage: "clear [num]"
 };
 
 
