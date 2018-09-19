@@ -31,7 +31,7 @@ exports.conf = {
 
 exports.help = {
     name: "french",
-    category: "Translation",
+    category: "Fun",
     description: "Bonjour!",
     usage: "french [text]"
 };
