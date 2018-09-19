@@ -79,7 +79,7 @@ module.exports = (client, message) => {
   }
    
   // don't run if disabled
-   if (cmd.conf.disabled) {
+   if (!cmd.conf.enabled) {
       return message.channel.send("Looks like this command is disabled.")
    }
 
