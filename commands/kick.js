@@ -21,7 +21,7 @@ exports.conf = {
     enabled: false,
     guildOnly: true,
     aliases: ["boot"],
-    permLevel: "Moderator"
+    permLevel: "Bot Owner"
 };
 
 exports.help = {
