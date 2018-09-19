@@ -76,7 +76,7 @@ exports.run = (client, message, args, level) => {
                      message.channel.send("That topic does not exist!")
                      return;
                   } else {
-                     modified[name] = null
+                     delete modified[name]
                      client.redisClient.set("Roadmap", JSON.stringify(modified))
                      message.channel.send("Deleted topic **" + name + ".** ✅")
                   }
@@ -106,7 +106,7 @@ exports.run = (client, message, args, level) => {
                   } else {
                      modified[name].splice(num, 1)
                      client.redisClient.set("Roadmap", JSON.stringify(modified))
-                     message.channel.send(`Deleted plan **#${num}** from topic **${name}.** ✅`)
+                     message.channel.send(`Deleted plan **#${num + 1}** from topic **${name}.** ✅`)
                   }
                }
             } else {
@@ -120,8 +120,9 @@ exports.run = (client, message, args, level) => {
             if (plans) {                 
                let str = ""
                for (var i in plans) {
-                   if (typeof(plans[i]) == 'string') {                     
-                     str = str + ( parseInt(i + 1) + ". " + plans[i] + '\n')
+                   if (typeof(plans[i]) == 'string') {     
+                     let num = i + 1
+                     str = str + ( parseInt(num) + ". " + plans[i] + '\n')
                    }
                }
                const embed = new discord.RichEmbed()
