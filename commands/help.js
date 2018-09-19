@@ -45,7 +45,8 @@ exports.run = (client, message, args, level) => {
     embed.setTimestamp()
     embed.setAuthor("Vanessa", client.user.avatarURL)
     embed.setFooter("dlivie was here owo", client.user.avatarURL)
-    embed.setDescription("A full list of commands! Use `a!help [command name]` to get more help on a command!")
+    let prefix = process.env.prefix
+    embed.setDescription("A full list of commands! Use " +`${prefix}help [command name]` + "to get more help on a command!")
     message.channel.send({embed});
   } else {
     // show command's help.
