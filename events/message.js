@@ -8,7 +8,7 @@ function matchMention(text) {
      return text.slice(mentionTag1.length)
    }
    if (text.indexOf(mentionTag2) == 0) {
-       return text.slice(mentionTag1.length)
+       return text.slice(mentionTag2.length)
    }
    return;
 }
@@ -77,6 +77,11 @@ module.exports = (client, message) => {
       return;
     }
   }
+   
+  // don't run if disabled
+   if (cmd.conf.disabled) {
+      return message.channel.send("Looks like this command is disabled.")
+   }
 
   // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
   // The "level" command module argument will be deprecated in the future.
