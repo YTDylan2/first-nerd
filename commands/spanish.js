@@ -30,7 +30,7 @@ exports.conf = {
 };
 
 exports.help = {
-    name: "spanish",
+    name: "Fun",
     category: "Translation",
     description: "Que? Traduce del ingles al espanol!",
     usage: "spanish [text]"
