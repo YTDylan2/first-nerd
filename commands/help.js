@@ -61,6 +61,9 @@ exports.run = (client, message, args, level) => {
       .setDescription(command.help.description)
       .addField("Usage", "`" + `${process.env.prefix}${command.help.usage}` + "`")
       .addField("Security", command.conf.permLevel + "+")
+      if (command.conf.aliases.length > 0) {
+        embed.addField("Aliases", command.conf.aliases.join(", "))
+       }                
       .setColor(process.env.purple)
       message.channel.send({embed})
     }
