@@ -175,17 +175,17 @@ function secondsToHours(seconds) {
 }
 
 function updateGlobal(data) {
-    client.redisClient.get("Global Coins", function(err, reply) {
+    client.redisClient.get(data.guild, function(err, reply) {
         if (reply) {
             var stored = JSON.parse(reply)
             stored[data.key] = data.value
-            client.redisClient.set("Global Coins", JSON.stringify(stored), function(err, rep) {
+            client.redisClient.set(data.guild, JSON.stringify(stored), function(err, rep) {
                 console.log(err, rep)
             })
         } else {
             var newData = {}
             newData[data.key] = data.value
-            client.redisClient.set("Global Coins", JSON.stringify(newData), function(err, rep) {
+            client.redisClient.set(data.guild, JSON.stringify(newData), function(err, rep) {
                 console.log(err, rep)
             })
         }
@@ -369,23 +369,25 @@ const init = async () => {
       
       if (message.guild) {
           if (message.guild.id == '434477310817730572') {
-              if (!recentMessages.has(message.author.id)) {
-                  recentMessages.add(message.author.id) 
+              let timeoutKey = message.author.id + "-" + message.guild.id
+              let dataKey = message.author.id + "-" + message.guild.id + "-coins"
+              if (!recentMessages.has(timeoutKey)) {
+                  recentMessages.add(timeoutKey) 
                   setTimeout(() => {
-                         recentMessages.delete(message.author.id)
+                         recentMessages.delete(timeoutKey)
                   }, 10000)
-                  let randCoins = Math.floor(Math.random() * 20) + 1
-                  client.redisClient.get(message.author.id + '-coins', function(err, reply) {
+                  let randCoins = Math.floor(Math.random() * 50) + 1
+                  client.redisClient.get(dataKey, function(err, reply) {
                       if (reply == null) {
-                          client.redisClient.set(message.author.id + '-coins', randCoins, function(e, rep) {
+                          client.redisClient.set(dataKey, randCoins, function(e, rep) {
                                //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
-                               updateGlobal({key: message.author.id, value: randCoins})
+                               updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
                           })
                       } else {
-                          client.redisClient.incrby(message.author.id + '-coins', randCoins, function(err, rep) {
+                          client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
                               if (rep) {
                                // message.reply("you have " + rep + " coins homie (debugging message)")
-                                updateGlobal({key: message.author.id, value: rep})
+                                updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
                               }
                           })
                       }
