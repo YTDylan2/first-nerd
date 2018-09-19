@@ -4,8 +4,9 @@ exports.run = (client, message, args, level) => {
    var sorted = [];
    const discord = require('discord.js')
    const ordinal = require('ordinal-js')
+   let guildKey = message.guild.id + "-globalcoins"
    
-   client.redisClient.get("Global Coins", function(err, data) {
+   client.redisClient.get(guildKey, function(err, data) {
        if (data) {
          let parsed = JSON.parse(data)
          for (x in parsed) {
@@ -29,26 +30,26 @@ exports.run = (client, message, args, level) => {
             }
          }
          const embed = new discord.RichEmbed()
-         .setTitle("Top 25 Global Users")
-         .addField("List", display + "\nhey there")
-         .setColor(6579455)
+         .setTitle("Top 25 Server Users")
+         .addField("List", display + "\nVanessa")
+         .setColor(process.env.purple)
 
         message.channel.send({embed})
        } else {
-          message.channel.send("nobody on the leaderboards yet b")
+          message.channel.send("Doesn't seem like anyone's here...")
        }
    })
 }
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["leaders"],
+    aliases: ["leaders", "richest"],
     permLevel: "User"
 };
 
 exports.help = {
     name: "leaderboards",
     category: "Economy",
-    description: "Displays the top 10 in coin earning!",
+    description: "Displays the top 25 in coin earning!",
     usage: "leaderboards"
 };
