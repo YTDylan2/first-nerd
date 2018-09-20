@@ -36,7 +36,7 @@ module.exports = (client, message) => {
             })
          } else {
             let helpCmd = client.commands.get("help")
-            helpCmd.run(client, message, [], client.permLevel(message))
+            helpCmd.run(client, message, [], client.permlevel(message))
          }
       })
    }              
