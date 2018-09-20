@@ -21,10 +21,7 @@ module.exports = (client, message) => {
   
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
-  const settings = message.guild
-    ? JSON.parse(client.redisClient.get(message.guild.id + "-SETTINGS"))
-    : client.config.defaultSettings;
-
+  
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
   client.redisClient.get(message.guild.id + "-SETTINGS", function(err, data) {
