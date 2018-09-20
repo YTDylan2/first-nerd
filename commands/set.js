@@ -13,7 +13,7 @@ const redis = require('redis')
 // const action = args[0]; const key = args[1]; const value = args.slice(2);
 // OR the same as:
 // const [action, key, ...value] = args;
-exports.run = (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
+exports.run = (client, message, [action, key, value], level) => { // eslint-disable-line no-unused-vars
   let guildId = message.guild.id
   client.redisClient.get(guildId + "-SETTINGS", function(err, settings) {
     if (settings) {
@@ -23,19 +23,22 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
           return message.channel.send("Please provide a setting to edit!")
         }
         if (!value) {
-          return message.channel.send(modifiable)          
+          return message.channel.send("Please return a valid value for this key!")          
         }
         if (!modifiable[key]) {
           return message.channel.send("That setting wasn't found!")
         }
         modifiable[key] = value
-        client.redisClient.set(guildId + "-SETTINGS", modifiable, function(fail, data) {
+        client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(fail, data) {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
     } else {
       client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
+    }
+    if (action == "view") {
+      message.channel.send(settings, {code: 'asciidoc'})
     }
   })
 };
