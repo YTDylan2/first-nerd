@@ -30,8 +30,8 @@ const config = {
     "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
     "welcomeChannel": "general",
     "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
-    "welcomeEnabled": "true"
-  
+    "welcomeEnabled": "true",
+    
   },
 
   // PERMISSION LEVEL DEFINITIONS.
