@@ -14,6 +14,13 @@ exports.run = (client, message, args, level) => {
   function seperateStrings(strings) {
     return strings.join(", ")
   }
+  let settings = client.config.defaultSettings
+  if (message.guild) {
+    client.redisClient.get(message.guild.id + "-SETTINGS", function(err, response) {
+      settings = JSON.parse(response)
+    })
+  }
+                           
   if (!args[0]) {
     // load guild settings (for prefixes and eventually per guild tweaks)
 
@@ -45,7 +52,7 @@ exports.run = (client, message, args, level) => {
     embed.setTimestamp()
     embed.setAuthor("Vanessa", client.user.avatarURL)
     embed.setFooter("dlivie was here owo", client.user.avatarURL)
-    embed.setDescription("A full list of commands! Use " +`**${process.env.prefix}help [command name]** ` + "to get more help on a command!")
+    embed.setDescription("A full list of commands! Use " +`**${settings.prefix}help [command name]** ` + "to get more help on a command!")
     message.channel.send({embed});
   } else {
     // show command's help.
@@ -57,9 +64,9 @@ exports.run = (client, message, args, level) => {
         return;
       }
       let embed = new discord.RichEmbed()
-      .setTitle(client.config.prefix + command.help.name)
+      .setTitle(settings.prefix + command.help.name)
       .setDescription(command.help.description)
-      .addField("Usage", "`" + `${process.env.prefix}${command.help.usage}` + "`")
+      .addField("Usage", "`" + `${settings.prefix}${command.help.usage}` + "`")
       .addField("Security", command.conf.permLevel + "+")
       if (command.conf.aliases.length > 0) {
         embed.addField("Aliases", command.conf.aliases.join(", "))
@@ -72,7 +79,7 @@ exports.run = (client, message, args, level) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: ["halp", "commands"],
   permLevel: "User"
 };
