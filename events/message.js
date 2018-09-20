@@ -24,7 +24,23 @@ module.exports = (client, message) => {
   
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
-  if (message.guild) {
+    let mentions = message.mentions.members
+    let match =  matchMention(message.content)   
+    if (match) {
+      message.channel.startTyping()
+      client.cleverbot.create(function(bad, session) {
+         if (match != "help") {            
+            client.cleverbot.ask(match, function(err, response) {
+               message.channel.send(response + ' <@!' + message.author.id + '>')
+               message.channel.stopTyping()
+            })
+         } else {
+            let helpCmd = client.commands.get("help")
+            helpCmd.run(client, message, [], client.permLevel(message))
+         }
+      })
+   }              
+   if (message.guild) {
      client.redisClient.get(message.guild.id + "-SETTINGS", function(err, data) {
          let settings = JSON.parse(data)
          if (!settings) {
@@ -32,17 +48,7 @@ module.exports = (client, message) => {
          }
 
          message.settings = settings;
-         let mentions = message.mentions.members
-         let match =  matchMention(message.content)   
-         if (match) {
-            message.channel.startTyping()
-            client.cleverbot.create(function(bad, session) {
-                client.cleverbot.ask(match, function(err, response) {
-                    message.channel.send(response + ' <@!' + message.author.id + '>')
-                    message.channel.stopTyping()
-                })
-            })
-         }            
+         
 
          // Also good practice to ignore any message that does not start with our prefix,
          // which is set in the configuration file.
