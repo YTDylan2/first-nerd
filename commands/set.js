@@ -23,7 +23,7 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
           return message.channel.send("Please provide a setting to edit!")
         }
         if (!value) {
-          return message.channel.send("Please send a proper value for the setting!")
+          return message.channel.send(modifiable)          
         }
         if (!modifiable[key]) {
           return message.channel.send("That setting wasn't found!")
@@ -33,6 +33,9 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
+    } else {
+      client.redisClient.set(guildId + "-SETTINGS", client.config.defaultSettings)
+      message.channel.send("Default settings have been applied!")
     }
   })
 };
