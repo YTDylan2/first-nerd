@@ -33,13 +33,19 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
+      if (action == "view") {
+         let newArray = []
+         for (var i in modifiable) {
+           newArray.push(`${i}: ${modifiable[i]}`)
+         }
+         let str = newArray.join("\n")
+         message.channel.send(str, {code: 'asciidoc'})
+      }
     } else {
       client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
     }
-    if (action == "view") {
-      message.channel.send(settings, {code: 'asciidoc'})
-    }
+   
   })
 };
 
