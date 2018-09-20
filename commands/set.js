@@ -34,7 +34,7 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
         })
       }
     } else {
-      client.redisClient.set(guildId + "-SETTINGS", client.config.defaultSettings)
+      client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
     }
   })
