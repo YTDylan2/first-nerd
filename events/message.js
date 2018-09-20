@@ -22,7 +22,7 @@ module.exports = (client, message) => {
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
   const settings = message.guild
-    ? client.settings.get(message.guild.id)
+    ? JSON.parse(client.redisClient.get(message.guild.id + "-SETTINGS"))
     : client.config.defaultSettings;
 
   // For ease of use in commands and functions, we'll attach the settings
@@ -42,13 +42,13 @@ module.exports = (client, message) => {
 
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
-  if (message.content.indexOf(process.env.prefix || "a!") !== 0 && message.content.indexOf(process.env.prefix.toUpperCase() || "A!") !== 0) return;
+  if (message.content.indexOf(settings) !== 0 && message.content.indexOf(settings.prefix.toUpperCase()) !== 0) return;
 
   // Here we separate our "command" name, and our "arguments" for the command.
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
   // command = say
   // args = ["Is", "this", "the", "real", "life?"]
-  const args = message.content.slice(process.env.prefix.length).trim().split(/ +/g);
+  const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
   // Get the user or member's permission level from the elevation
