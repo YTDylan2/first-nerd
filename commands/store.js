@@ -67,7 +67,10 @@ exports.run = (client, message, args, level) => {
     let playerCoins = message.author.id + '-coins'
     var def = {
         'items': {
-
+            'holder' : {
+                price: 0,
+                description: 'like a coffee holder, but with no coffee. what does it hold?'
+            }
         },
         'settings' : {
             name: guild.name + "'s Shop",
