@@ -147,6 +147,7 @@ exports.run = (client, message, args, level) => {
                 } else {
                    return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
                 }
+            }
             if (action == 'seticon') {
                 if (level >= 4) {
                     let pictures = message.attachments.array()
