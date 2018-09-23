@@ -133,6 +133,7 @@ module.exports = (client) => {
     } catch (e) {
       client.startChannel.send('check permission failure: ' + e)
     }
+  }
 
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
   process.on("uncaughtException", (err) => {
