@@ -12,7 +12,7 @@ function getArgsPastIndex(index, array) {
   return args
 }
 
-function shopToEmbed(shop) {
+function shopToEmbed(shop, channel) {
     let items = shop.items
     let settings = shop.settings
     let embed = new discord.RichEmbed()
@@ -26,7 +26,7 @@ function shopToEmbed(shop) {
     }
     embed.setAuthor("jesse has the ultra fats")
     embed.setColor(process.env.green)
-    return embed
+    channel.send({embed})
 }
         
 
@@ -37,8 +37,7 @@ exports.run = (client, message, args, level) => {
             let shopData = JSON.parse(response)
             let action = args[0]
             if (!action) {
-                let view = shopToEmbed(shopData)
-                message.channel.send({view})
+                shopToEmbed(shopData, message.channel)
                 return
             }
         } else {
