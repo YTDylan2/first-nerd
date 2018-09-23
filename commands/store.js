@@ -108,7 +108,7 @@ exports.run = (client, message, args, level) => {
                      } else {
                          shopData.settings.name = name
                          client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, response) {
-                            message.channel.send("Shop description was successfully updated!")
+                            message.channel.send("Shop name was successfully updated!")
                          })
                      }
                  }
