@@ -61,7 +61,7 @@ function addRoleToMember(member, roleID, channel, client) {
 
 
 
-exports.run = (client, message, args, level) => {
+exports.run = async (client, message, args, level) => {
     let guild = message.guild
     let guildKey = guild.id + '-SHOPTEST'
     let playerCoins = message.author.id + '-coins'
@@ -144,8 +144,9 @@ exports.run = (client, message, args, level) => {
                                 return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
                           }
                        }
-                } else {
-                   return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
+                    } else {
+                       return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
+                    }
                 }
             }
             if (action == 'seticon') {
