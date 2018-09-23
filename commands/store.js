@@ -37,7 +37,7 @@ exports.run = (client, message, args, level) => {
             let shopData = JSON.parse(response)
             let action = args[0]
             if (!action) {
-                let view = shopToEmbed(response)
+                let view = shopToEmbed(shopData)
                 message.channel.send({view})
                 return
             }
