@@ -84,7 +84,7 @@ exports.run = (client, message, args, level) => {
             }
             if (action == 'setdesc') { 
                  if (level >= 4) {
-                     let desc = getArgsPastIndex(args, 1)
+                     let desc = getArgsPastIndex(1, args)
                      desc = desc.join(" ")
                      if (desc.length == 0) {
                          return message.channel.send("Please send a description for your shop!")
@@ -98,7 +98,7 @@ exports.run = (client, message, args, level) => {
             }
             if (action == 'setname') { 
                  if (level >= 4) {
-                     let name = getArgsPastIndex(args, 1)
+                     let name = getArgsPastIndex(1, args)
                      name = name.join(" ")
                      if (name.length == 0) {
                          shopData.settings.name = guild.name + "'s Shop"
