@@ -24,6 +24,7 @@ function shopToEmbed(shop, channel, client) {
         let desc = item.description
         embed.addField(x, `**Cost: ${price} coins**\n${desc}`)
     }
+    embed.setThumbnail(settings.icon)
     embed.setFooter("jesse has the ultra fats", client.user.avatarURL)
     embed.setColor(process.env.green)
     embed.setTimestamp()
@@ -33,6 +34,23 @@ function shopToEmbed(shop, channel, client) {
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
+    let def = {
+        'items': {
+            'testitem' : {
+               price: 100,
+               description : 'it smells like vinegar'
+            },
+            'testitem2' : {
+                price: 200,
+                description: 'you should not eat this! its toxic'
+            }
+        },
+        'settings' : {
+            name: guild.name + "'s Shop",
+            description: 'a place where you buy thingies for your shmingies',
+            icon : 'https://cdn.discordapp.com/attachments/414573970374000640/493501939816988673/vanessa_shop_icon.png'
+        }
+    }
     client.redisClient.get(guild.id + '-SHOPTEST', function(err, response) {
         if (response) {
             let shopData = JSON.parse(response)
@@ -41,24 +59,15 @@ exports.run = (client, message, args, level) => {
                 shopToEmbed(shopData, message.channel, client)
                 return
             }
-        } else {
-            let def = {
-                'items': {
-                    'testitem' : {
-                       price: 100,
-                       description : 'it smells like vinegar'
-                    },
-                    'testitem2' : {
-                        price: 200,
-                        description: 'you should not eat this! its toxic'
-                    }
-                },
-                'settings' : {
-                    name: guild.name + "'s Shop",
-                    description: 'a place where you buy thingies for your shmingies',
-                    icon : ''
+            if (action == 'reset') {
+                if (level >= 4) {
+                    client.redisClient.set(guild.id + '-SHOPTEST', JSON.stringify(def))
+                    message.channel.send("Shop successfully reset!")
                 }
+                return
             }
+        } else {
+            
             client.redisClient.set(guild.id + '-SHOPTEST', JSON.stringify(def), function(err, response) {              
                 message.channel.send("Hold on, I've just set the basic settings for your server shop!")                
             })
