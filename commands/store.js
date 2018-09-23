@@ -77,10 +77,41 @@ exports.run = (client, message, args, level) => {
                         let picture = pictures[0]
                         shopData.settings.icon = picture.url
                         client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, response) {
-                            message.channel.send("Icon was successfully updated to", {files: [picture.url]})
+                            message.channel.send("Shop icon was successfully updated!")
                         })
                     }
                 }
+            }
+            if (action == 'setdesc') { 
+                 if (level >= 4) {
+                     let desc = getArgsPastIndex(args, 1)
+                     desc = desc.join(" ")
+                     if (desc.length == 0) {
+                         return message.channel.send("Please send a description for your shop!")
+                     } else {
+                         shopData.settings.description = desc
+                         client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, response) {
+                            message.channel.send("Shop description was successfully updated!")
+                         })
+                     }
+                 }
+            }
+            if (action == 'setname') { 
+                 if (level >= 4) {
+                     let name = getArgsPastIndex(args, 1)
+                     name = name.join(" ")
+                     if (name.length == 0) {
+                         shopData.settings.name = guild.name + "'s Shop"
+                         client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, response) {
+                            message.channel.send("Shop name was set to the default naming.")
+                         })
+                     } else {
+                         shopData.settings.name = name
+                         client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, response) {
+                            message.channel.send("Shop description was successfully updated!")
+                         })
+                     }
+                 }
             }
         } else {
             
