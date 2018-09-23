@@ -27,7 +27,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         const { body } = await post("https://www.hastebin.com/documents").send(output);
         message.channel.send(`Output was to long so it was uploaded to hastebin https://www.hastebin.com/${body.key}.js `);
       } catch (error) {
-        message.channel.send(`I tried to upload the output to hastebin but encountered this error ${error.name}:${error.message}`);
+        message.channel.send(`I tried to upload the output to hastebin but encountered this error ${error.name}: ${error.message}`);
       }
     }
   } catch (error) {
