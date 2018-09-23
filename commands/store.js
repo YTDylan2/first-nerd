@@ -58,7 +58,7 @@ exports.run = (client, message, args, level) => {
                     description: 'a place where you buy thingies for your shmingies'
                 }
             }
-            client.redisClient.set(guild.id + '-SHOPTEST', def, function(err, response) {              
+            client.redisClient.set(guild.id + '-SHOPTEST', JSON.stringify(def), function(err, response) {              
                 message.channel.send("Hold on, I've just set the basic settings for your server shop!")                
             })
         }
