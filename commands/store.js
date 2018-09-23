@@ -12,11 +12,20 @@ function getArgsPastIndex(index, array) {
   return args
 }
 
+function convertArray(json) {
+    let array = []
+    for (var i in json) {
+        array.push(json[i])
+    }
+    return array
+}
+
 function shopToEmbed(shop, channel, client) {
     let items = shop.items
     let settings = shop.settings
     let embed = new discord.RichEmbed()
-    if (items.array().length > 0) {
+    let itemsArray = convertArray(items)
+    if (itemsArray.length > 0) {
         
         embed.setTitle(settings.name)
         embed.setDescription(settings.description)
@@ -65,7 +74,7 @@ exports.run = (client, message, args, level) => {
     let guild = message.guild
     let guildKey = guild.id + '-SHOPTEST'
     let playerCoins = message.author.id + '-coins'
-    var def = {
+    let def = {
         'items': {
             'holder' : {
                 price: 0,
@@ -78,7 +87,7 @@ exports.run = (client, message, args, level) => {
             icon : 'https://cdn.discordapp.com/attachments/414573970374000640/493501939816988673/vanessa_shop_icon.png'
         }
     }       
-    var acceptableTypes = {
+    let acceptableTypes = {
         "Role" : true,
         "None" : true,
         "Item" : true
@@ -148,8 +157,7 @@ exports.run = (client, message, args, level) => {
                      }
                  }
             }
-        } else {
-            
+        } else {            
             client.redisClient.set(guildKey, JSON.stringify(def), function(err, response) {              
                 message.channel.send("Hold on, I've just set the basic settings for your server shop!")                
             })
