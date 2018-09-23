@@ -12,7 +12,7 @@ function getArgsPastIndex(index, array) {
   return args
 }
 
-function shopToEmbed(shop, channel) {
+function shopToEmbed(shop, channel, client) {
     let items = shop.items
     let settings = shop.settings
     let embed = new discord.RichEmbed()
@@ -24,8 +24,9 @@ function shopToEmbed(shop, channel) {
         let desc = item.description
         embed.addField(x, `**Cost: ${price} coins**\n${desc}`)
     }
-    embed.setAuthor("jesse has the ultra fats")
+    embed.setFooter("jesse has the ultra fats", client.user.avatarURL)
     embed.setColor(process.env.green)
+    embed.setTimestamp()
     channel.send({embed})
 }
         
@@ -37,7 +38,7 @@ exports.run = (client, message, args, level) => {
             let shopData = JSON.parse(response)
             let action = args[0]
             if (!action) {
-                shopToEmbed(shopData, message.channel)
+                shopToEmbed(shopData, message.channel, client)
                 return
             }
         } else {
@@ -54,7 +55,8 @@ exports.run = (client, message, args, level) => {
                 },
                 'settings' : {
                     name: guild.name + "'s Shop",
-                    description: 'a place where you buy thingies for your shmingies'
+                    description: 'a place where you buy thingies for your shmingies',
+                    icon : ''
                 }
             }
             client.redisClient.set(guild.id + '-SHOPTEST', JSON.stringify(def), function(err, response) {              
