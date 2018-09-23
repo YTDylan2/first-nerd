@@ -61,7 +61,7 @@ function addRoleToMember(member, roleID, channel, client) {
 
 
 
-exports.run = async (client, message, args, level) => {
+exports.run = (client, message, args, level) => {
     let guild = message.guild
     let guildKey = guild.id + '-SHOPTEST'
     let playerCoins = message.author.id + '-coins'
@@ -99,56 +99,7 @@ exports.run = async (client, message, args, level) => {
             
             
             // shop configuration
-            if (action == 'additem') {
-                if (level < 4) return;
-                let types = acceptableTypes.array().join("\n")
-                const type = await client.awaitReply(message, `What type of item will this be? Choose between ${acceptableTypes.array().length} types **(caSE senSITIve)**:\n ${types}`)
-                if (type) {
-                    if (!acceptableTypes[type]) {
-                       return message.channel.send("That is not an acceptable type!")
-                    } else {
-                        if (type == "Role") {
-                          if (!client.checkPerm(message.guild.members.get(client.id), "MANAGE_ROLES")) {
-                              return message.channel.send("Sorry, but I require a role with the `Manage Roles` permission! Check them and try again.")
-                          }
-                          const name = await client.awaitReply(message, "What will the name of the role be? You can fully customize this role yourself, such as color, position, etc.\nBe warned that if this role is deleted, the shop in the item will not work and you must delete it!\nI cannot add roles that are above me either.")
-                          if (name) {
-                              const cost = await client.awaitReply(message, "What will the price of the role be?")
-                              if (cost) {
-                                  if (!isNaN(parseInt(cost))) {
-                                      cost = Math.floor(parseInt(cost))
-                                      const desc = await client.awaitReply(message, "Final step! What is the description for this role?")
-                                      if (desc) {
-                                          let newRoleData = {
-                                              type: 'Role',
-                                              price: cost,
-                                              description: desc,
-                                          }
-                                          guild.createRole({name: name})
-                                          .then(r => {
-                                            newRoleData.id = r.id
-                                            shopData.items[name] = newRoleData
-                                            client.redisClient.set(guildKey, shopData)
-                                            message.channel.send("Role successfully added to the shop!")  
-                                          }).catch(err => message.channel.send("There seemed to be an error adding the role to the shop!"))
-                                      } else {
-                                         return message.channel.send("You failed to respond within 1 minute, or an error occurred!") 
-                                      }
-                                  } else {
-                                        return message.channel.send("That isn't a number! Please restart this setup.") 
-                                  }
-                              } else {
-                                    return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
-                              }
-                          } else {
-                                return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
-                          }
-                       }
-                    } else {
-                       return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
-                    }
-                }
-            }
+            
             if (action == 'seticon') {
                 if (level >= 4) {
                     let pictures = message.attachments.array()
