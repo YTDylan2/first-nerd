@@ -353,6 +353,28 @@ const init = async () => {
             console.log("Logged in!")
         });
     }, 8640000);
+    
+    setInterval(() => {
+        let phrases = [
+            ['WATCHING', 'you have fun.'],
+            ['PLAYING', 'with your feelings.'],
+            ['LISTENING', 'to the sweet sound of your voice'],
+            ['STREAMING', 'commands to ' + client.guilds.size + ' servers!'],
+            ['WATCHING', 'you through the window. Hi!'],
+            ['PLAYING', 'with ice soup.'],
+            ['LISTENING', 'for enemies!'],
+            ['WATCHING', 'the sun set.'],
+            ['PLAYING', 'on Discord! @Vanessa help']
+        ]
+        function random(array) {
+            return array[Math.random() * array.length]
+        }
+        let status = random(phrases)
+        client.user.setActivity(status[1], {type: status[0]})
+        .then(p => console.log(p))
+        .catch(e => console.log(e))
+        
+    }, 60000)
         
   
   // Generate a cache of client permissions for pretty perms
