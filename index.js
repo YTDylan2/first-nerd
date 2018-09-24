@@ -366,8 +366,15 @@ const init = async () => {
             ['WATCHING', 'the sun set.'],
             ['PLAYING', 'on Discord! @Vanessa help']
         ]
+        
+        let buildVer = process.env.HEROKU_RELEASE_VERSION   
+        let numb = buildVer.match(/\d/g);
+        numb = numb.join("");
+        numb = parseInt(numb)
+        let ordinal = require("ordinal-js")
         function random(array) {
-            return array[Math.random() * array.length]
+            return array[Math.floor(Math.random() * array.length)] || ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
+                                                                          
         }
         let status = random(phrases)
         client.user.setActivity(status[1], {type: status[0]})
