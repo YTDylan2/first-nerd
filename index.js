@@ -355,23 +355,29 @@ const init = async () => {
     }, 8640000);
     
     setInterval(() => {
-        let phrases = [
-            ['WATCHING', 'you have fun.'],
-            ['PLAYING', 'with your feelings.'],
-            ['LISTENING', 'to the sweet sound of your voice'],
-            ['STREAMING', 'commands to ' + client.guilds.size + ' servers!'],
-            ['WATCHING', 'you through the window. Hi!'],
-            ['PLAYING', 'with ice soup.'],
-            ['LISTENING', 'for enemies!'],
-            ['WATCHING', 'the sun set.'],
-            ['PLAYING', 'on Discord! @Vanessa help']
-        ]
-        
+        let ordinal = require("ordinal-js")
         let buildVer = process.env.HEROKU_RELEASE_VERSION   
         let numb = buildVer.match(/\d/g);
         numb = numb.join("");
         numb = parseInt(numb)
-        let ordinal = require("ordinal-js")
+        
+        let phrases = [
+            ['WATCHING', 'you have fun.'],
+            ['PLAYING', 'with your feelings.'],
+            ['LISTENING', 'the sweet sound of your voice'],
+            ['STREAMING', 'commands to ' + client.guilds.size + ' servers!'],
+            ['WATCHING', 'you through the window. Hi!'],
+            ['PLAYING', 'with ice soup.'],
+            ['LISTENING', 'the bushes for enemies!'],
+            ['WATCHING', 'the sun set.'],
+            ['PLAYING', 'on Discord! @Vanessa help'],
+            ['STREAMING', 'commands! @Vanessa help'],
+            ['LISTENING', 'this song on repeat for ' + ordinal.toOrdinal(Math.floor(Math.random() * 99999))) + ' time!'],
+            ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
+        ]
+        
+        
+        
         function random(array) {
             return array[Math.floor(Math.random() * array.length)] || ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
                                                                           
@@ -381,7 +387,7 @@ const init = async () => {
         .then(p => console.log(p))
         .catch(e => console.log(e))
         
-    }, 60000)
+    }, 30000)
         
   
   // Generate a cache of client permissions for pretty perms
