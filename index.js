@@ -372,7 +372,7 @@ const init = async () => {
             ['WATCHING', 'the sun set.'],
             ['PLAYING', 'on Discord! @Vanessa help'],
             ['STREAMING', 'commands! @Vanessa help'],
-            ['LISTENING', 'this song on repeat for ' + ordinal.toOrdinal(Math.floor(Math.random() * 99999))) + ' time!'],
+            ['LISTENING', 'this song on repeat for ' + ordinal.toOrdinal(Math.floor(Math.random() * 99999)) + ' time!'],
             ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
         ]
         
