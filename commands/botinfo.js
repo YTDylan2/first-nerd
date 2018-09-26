@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => {
             },
             title: "Support Server",
             url: "https://discord.gg/bVJ8WJk",
-            description: "Find information about Vannesa!",
+            description: "Find information about Vannesa!\n**DISCLAIMER: While using the Cleverbot integration, your conversations may be viewed but not recorded for future reference.**",
             fields: [{
                 name: "Info",
                 value: `I am  ${client.user.username}, the culimation of water is ice soup's creativity.\nI'm also a great listener. Just ping me.\nCurrent Guilds: ${client.guilds.size}\nEvery user I've seen: ${client.users.size}`
