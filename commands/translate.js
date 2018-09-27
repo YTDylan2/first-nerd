@@ -43,7 +43,7 @@ exports.run = (client, message, args, level) => {
               }
               console.log(body)
               let fromLang = body.lang
-              translate(text, {from: fromLang, to: toLang}, function(response) {
+              let text = translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}, function(response) {
                 message.channel.send("Response:\n\n " + response)  
               })
           })
