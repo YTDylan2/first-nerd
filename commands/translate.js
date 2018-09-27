@@ -1,6 +1,6 @@
 // espanol?
 
-exports.run = (client, message, args, level) => {
+exports.run = async (client, message, args, level) => {
     const translate = require('translate')
     const request = require('request')
     let transKey = process.env.transKey
@@ -43,9 +43,8 @@ exports.run = (client, message, args, level) => {
               }
               console.log(body)
               let fromLang = body.lang
-              translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}, function(response) {
-                message.channel.send("Response:\n\n " + response)  
-              })
+              let response = await translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey})
+              message.channel.send("Response:\n\n " + response)  
           })
         })
     })
