@@ -45,7 +45,7 @@ exports.run = (client, message, args, level) => {
               body = JSON.parse(body)
               let fromLang = body.lang
               translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}).then(function(response) {
-                message.channel.send("Response:\n\n " + response)  
+                message.channel.send("Translation:\n" + response)  
               })
           })
         })
