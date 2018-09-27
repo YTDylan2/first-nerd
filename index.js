@@ -48,13 +48,14 @@ require("./modules/functions.js")(client);
 
 app.set('env', 'production')
 
-Roblox.login({username: "GCRBOT", password: process.env.rbxpass})
+Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
-        console.log("Logged in to ROBLOX")
-       
+        console.log("Logged in to ROBLOX!")
+        client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
     })
     .catch(function(err) {
         console.log("login error: " + err)
+        client.startChannel.send('there was a login error, check logs')
     });
 client.caseLegendsPlayerData = []
 client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
@@ -247,6 +248,7 @@ const init = async () => {
   // here and everywhere else.
   const cmdFiles = await readdir("./commands/");
   client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
+  client.startChannel.send(`${cmdFiles.length} commands were loaded`)
   cmdFiles.forEach(f => {
     if (!f.endsWith(".js")) return;
     const response = client.loadCommand(f);
@@ -348,11 +350,16 @@ const init = async () => {
             
     setInterval(() => {
         var roblox = require('roblox-js')
-        roblox.login("GCRBOT", process.env.rbxpass)
+        roblox.login(process.env.rbxname, process.env.rbxpass)
          .then(function () {
             console.log("Logged in!")
+            client.startChannel.send('renewed ROBLOX login')
         });
     }, 8640000);
+    
+    setInterval(() => {
+        Roblox.post(process.env.groupid, "Do you want access to chat on our group wall? Please join this game and I will assign the chatting rank to you! http://www.roblox.com/games/2260793709/Get-your-Ice-Soup-rank")
+    }, 57600000)
     
     setInterval(() => {
         let ordinal = require("ordinal-js")
