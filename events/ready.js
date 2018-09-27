@@ -4,7 +4,7 @@ module.exports = async client => {
   // for all of them to be loaded.
   var ordinal = require('ordinal-js')
   await client.wait(1000);
-  client.startChannel = client.channels.get('491777217920106508')
+  //client.startChannel = client.channels.get('491777217920106508')
  
   client.startChannel.send("began running")
   let buildVer = process.env.HEROKU_RELEASE_VERSION
