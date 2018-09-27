@@ -38,9 +38,10 @@ exports.run = (client, message, args, level) => {
           message.channel.send("Alright, converting **" + text + "** to `" + toLang + "`... ")
           request.post('https://translate.yandex.net/api/v1.5/tr.json/detect?key=' + process.env.transKey + '&text=' + text, function(err, res, body) {
               if (err) {
-               console.log(err)
-               return message.channel.send("Error detecting your text's language.")   
+                console.log(err)
+                return message.channel.send("Error detecting your text's language.")   
               }
+              console.log(body)
               let fromLang = body.lang
               translate(text, {from: fromLang, to: toLang}, function(response) {
                 message.channel.send("Response:\n\n " + response)  
