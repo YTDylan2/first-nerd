@@ -1,6 +1,6 @@
 // espanol?
 
-exports.run = async (client, message, args, level) => {
+exports.run = (client, message, args, level) => {
     const translate = require('translate')
     const request = require('request')
     let transKey = process.env.transKey
@@ -41,10 +41,11 @@ exports.run = async (client, message, args, level) => {
                 console.log(err)
                 return message.channel.send("Error detecting your text's language.")   
               }
-              console.log(body)
+              //console.log(body)
               let fromLang = body.lang
-              let response = await translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey})
-              message.channel.send("Response:\n\n " + response)  
+              translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}).then(function(response) {
+                message.channel.send("Response:\n\n " + response)  
+              })
           })
         })
     })
