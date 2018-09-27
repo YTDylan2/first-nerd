@@ -248,7 +248,7 @@ const init = async () => {
   // here and everywhere else.
   const cmdFiles = await readdir("./commands/");
   client.logger.log(`Loading a total of ${cmdFiles.length} commands.`);
-  client.startChannel.send(`${cmdFiles.length} commands were loaded`)
+  //client.startChannel.send(`${cmdFiles.length} commands were loaded`)
   cmdFiles.forEach(f => {
     if (!f.endsWith(".js")) return;
     const response = client.loadCommand(f);
