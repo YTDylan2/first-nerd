@@ -26,11 +26,11 @@ exports.run = (client, message, args, level) => {
     const filter = m => m.author.id === message.author.id;
     message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ["time"]})
     .then(collected => {
-        let text = collected.first().content
+        var text = collected.first().content
         message.channel.send("Please send the language you would like to convert this text in to!\n**Supported languages:**\n" + list.join("\n"))
         message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ["time"]})
         .then(collected => {
-          let toLang = collected.first().content.toLowerCase()
+          var toLang = collected.first().content.toLowerCase()
          
           if (!languages[toLang]) {
               return message.channel.send("Please send a valid, supported language!")
@@ -43,7 +43,7 @@ exports.run = (client, message, args, level) => {
               }
               console.log(body)
               let fromLang = body.lang
-              let text = translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}, function(response) {
+              translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}, function(response) {
                 message.channel.send("Response:\n\n " + response)  
               })
           })
