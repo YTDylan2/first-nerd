@@ -19,16 +19,16 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: false,
+    enabled: true,
     guildOnly: false,
-    aliases: ["rbxuser"],
+    aliases: ["rbxuser", "findrbx"],
     permLevel: "User"
 };
 
 exports.help = {
     name: "robloxuser",
-    category: "Vault",
-    description: "Gives the profile of a roblox user.\nVaulted in favor of verification system!",
+    category: "Roblox",
+    description: "Gives the profile of a roblox user.",
     usage: "robloxuser [username]"
 };
 
