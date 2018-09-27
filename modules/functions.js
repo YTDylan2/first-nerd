@@ -141,13 +141,17 @@ module.exports = (client) => {
     client.logger.error(`Uncaught Exception: ${errorMsg}`);
     // Always best practice to let the code crash on uncaught exceptions. 
     // Because you should be catching them anyway.
-    client.startChannel.send("error, rebooting (check logs)")
+     if (client.startChannel) {     
+      client.startChannel.send("error, rebooting (check logs)")
+     }
     process.exit(143);
   });
 
   process.on("unhandledRejection", err => {
     client.logger.error(`Unhandled rejection: ${err}`);
-    client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
+    if (client.startChannel) {     
+      client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
+    }
   });
   
 };
