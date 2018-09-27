@@ -31,16 +31,18 @@ exports.run = (client, message, args, level) => {
         message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ["time"]})
         .then(collected => {
           let toLang = collected.first().content.toLowerCase()
+         
           if (!languages[toLang]) {
               return message.channel.send("Please send a valid, supported language!")
           }
+          message.channel.send("Alright, converting **" + text + "** to `" + toLang + "`... ")
           request.post('https://translate.yandex.net/api/v1.5/tr.json/detect?key=' + process.env.transKey + '&text=' + text, function(err, res, body) {
               if (err) {
                console.log(err)
                return message.channel.send("Error detecting your text's language.")   
               }
               let fromLang = body.lang
-              translate({from: fromLang, to: toLang}, function(response) {
+              translate(text, {from: fromLang, to: toLang}, function(response) {
                 message.channel.send("Response:\n\n " + response)  
               })
           })
