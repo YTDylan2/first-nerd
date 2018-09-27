@@ -42,6 +42,7 @@ exports.run = (client, message, args, level) => {
                 return message.channel.send("Error detecting your text's language.")   
               }
               //console.log(body)
+              body = JSON.parse(body)
               let fromLang = body.lang
               translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}).then(function(response) {
                 message.channel.send("Response:\n\n " + response)  
