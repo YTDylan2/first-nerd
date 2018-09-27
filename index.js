@@ -64,6 +64,8 @@ client.lastCommand = "None"
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
 
+client.startChannel = client.channels.get('491777217920106508')
+
 var groupBanned = {
     '294976424' : true,
     '620089904' : true,
