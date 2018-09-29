@@ -211,7 +211,11 @@ exports.run = (client, message, args, level) => {
               itemName = itemName.join(" ")
               if (shopData.items[itemName.toProperCase()]) {
                 delete shopData.items[itemName.toProperCase()]
-                return message.channel.send(`${itemName} was deleted from the shop!`)
+                client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
+                  if (reply) {
+                    message.channel.send(`${itemName} was deleted from the shop!`)
+                  }
+                })
               } else {
                 return message.channel.send("Item not found!")
               }
