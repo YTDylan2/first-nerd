@@ -26,7 +26,7 @@ function shopToEmbed(shop, channel, client) {
     let embed = new discord.RichEmbed()
     let itemsArray = convertArray(items)
     if (itemsArray.length > 0) {
-        
+
         embed.setTitle(settings.name)
         embed.setDescription(settings.description)
         for (var x in items) {
@@ -46,7 +46,7 @@ function shopToEmbed(shop, channel, client) {
 }
 
 function addRoleToMember(member, roleID, channel, client) {
-    if (client.checkPerm(channel.guild.members.get(client.id), "MANAGE_ROLES")) {    
+    if (client.checkPerm(channel.guild.members.get(client.id), "MANAGE_ROLES")) {
         if (client.roles.get(roleID)) {
             channel.send("It seems you have already purchased this role!")
             return false
@@ -60,7 +60,7 @@ function addRoleToMember(member, roleID, channel, client) {
                 channel.send("There was an error adding your role!")
                 return false
             })
-           
+
         }
     } else {
         channel.send("I don't have the `Manage Roles` permission! Please check and try this again.")
@@ -68,34 +68,40 @@ function addRoleToMember(member, roleID, channel, client) {
     }
 }
 
-function createRole(name) {
-    
+function createRole(name, message, client) {
+    if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
+      message.guild.createRole({name: name})
+      .then(role => {
+        let id = role.id
+        return id
+      }).catch(error => {
+        message.channel.send("There was an error creating the role.")
+        return false
+      })
+    } else {
+      message.channel.send("I don't have the `Manage Roles` permission! Please check this and try again.")
+    }
 }
 
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let guildKey = guild.id + '-SHOPTEST'
+    let guildKey = guild.id + '-SHOPTEST3'
     let playerCoins = message.author.id + '-coins'
     let def = {
         'items': {
-            'holder' : {
-                price: 0,
-                description: 'like a coffee holder, but with no coffee. what does it hold?'
-            }
+
         },
         'settings' : {
             name: guild.name + "'s Shop",
-            description: 'a place where you buy thingies for your shmingies',
+            description: 'No description set.',
             icon : 'https://cdn.discordapp.com/attachments/414573970374000640/493501939816988673/vanessa_shop_icon.png'
         }
-    }       
+    }
     let acceptableTypes = {
         "Role" : true,
-        "None" : true,
-        "Item" : true
     }
-    
+
     client.redisClient.get(guildKey, function(err, response) {
         if (response) {
             let shopData = JSON.parse(response)
@@ -111,13 +117,51 @@ exports.run = (client, message, args, level) => {
                 }
                 return
             }
-            
-            
+
+
             // shop configuration
             if (action == 'buy') {
-                
+
             }
-            
+
+            if (action == 'additem') {
+              if (level < 4) return;
+              let filter = m => m.author.id === message.author.id
+              message.channel.send("**This currently only supports roles!**")
+              message.channel.send("What will this role's name be?")
+              message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ['time']})
+              .then(collected => {
+                let name = collected.first().content
+                if (shopData[name.toProperCase()]) {
+                  return message.channel.send("This item already exists!")
+                }
+                message.channel.send("What will the price be?")
+                message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ['time']})
+                .then(collected => {
+                    let price = parseInt(collected.first().content)
+                    if (!price) {
+                      return message.channel.send("That doesn't seem like a number...")
+                    }
+                    message.channel.send("Set the description for this role, and it will be finished!")
+                    message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ['time']})
+                    .then(collected => {
+                      let description = collected.first().content
+                      let newrole = createRole(name, message, client)
+                      if (newrole) {
+                        shopData[name.toProperCase()] = {
+                          'name' : name.toProperCase(),
+                          'description' : description,
+                          'type' : 'Role',
+                          'roleID' : newrole
+                        }
+                        client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
+                          message.channel.send("Added item to the shop!")
+                        })
+                      }
+                    })
+                })
+              })
+            }
             if (action == 'seticon') {
                 if (level >= 4) {
                     let pictures = message.attachments.array()
@@ -132,7 +176,7 @@ exports.run = (client, message, args, level) => {
                     }
                 }
             }
-            if (action == 'setdesc') { 
+            if (action == 'setdesc') {
                  if (level >= 4) {
                      let desc = getArgsPastIndex(1, args)
                      desc = desc.join(" ")
@@ -146,7 +190,7 @@ exports.run = (client, message, args, level) => {
                      }
                  }
             }
-            if (action == 'setname') { 
+            if (action == 'setname') {
                  if (level >= 4) {
                      let name = getArgsPastIndex(1, args)
                      name = name.join(" ")
@@ -163,9 +207,9 @@ exports.run = (client, message, args, level) => {
                      }
                  }
             }
-        } else {            
-            client.redisClient.set(guildKey, JSON.stringify(def), function(err, response) {              
-                message.channel.send("Hold on, I've just set the basic settings for your server shop!")                
+        } else {
+            client.redisClient.set(guildKey, JSON.stringify(def), function(err, response) {
+                message.channel.send("Hold on, I've just set the basic settings for your server shop!")
             })
         }
     })
