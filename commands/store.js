@@ -71,16 +71,18 @@ function addRoleToMember(member, roleID, channel, client) {
 async function createRole(name, message, client) {
   if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
       let role = await message.guild.createRole({name: name})
+      console.log('new role created: ' + role.id)
       return role
   } else {
     message.channel.send("I don't have the `Manage Roles` permission! Please check this and try again.")
+    return false
   }
 }
 
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let guildKey = guild.id + '-SHOPTEST3'
+    let guildKey = guild.id + '-SHOPTEST4'
     let playerCoins = message.author.id + '-coins'
     let def = {
         'items': {
@@ -142,7 +144,7 @@ exports.run = (client, message, args, level) => {
                       let description = collected.first().content
                       let newrole = createRole(name, message, client)
                       if (newrole) {
-                        shopData[name.toProperCase()] = {
+                        shopData.items[name.toProperCase()] = {
                           'name' : name.toProperCase(),
                           'description' : description,
                           'type' : 'Role',
