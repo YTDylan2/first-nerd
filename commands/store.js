@@ -33,7 +33,7 @@ function shopToEmbed(shop, channel, client) {
             let item = items[x]
             let price = item.price
             let desc = item.description
-            embed.addField(x, `**Cost: ${price} coins**\n${desc}`)
+            embed.addField(item.name, `**Cost: ${price} coins**\n${desc}`)
         }
         embed.setThumbnail(settings.icon)
         embed.setFooter("jesse has the ultra fats", client.user.avatarURL)
@@ -126,6 +126,7 @@ exports.run = (client, message, args, level) => {
               return message.channel.send("Help coming soon!")
             }
             if (action == 'addrole') {
+              
               let role = message.mentions.roles.first()
               if (role) {
                   let id = role.id
@@ -208,6 +209,7 @@ exports.run = (client, message, args, level) => {
             }
 
             if (action == 'delitem') {
+              if (level < 4) return:
               let itemName = getArgsPastIndex(1, args)
               itemName = itemName.join(" ")
               if (shopData.items[itemName.toProperCase()]) {
