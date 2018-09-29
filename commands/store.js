@@ -72,7 +72,7 @@ async function createRole(name, message, client) {
   if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
       let role = await message.guild.createRole({name: name})
       return role
-    })
+    }
   } else {
     message.channel.send("I don't have the `Manage Roles` permission! Please check this and try again.")
   }
