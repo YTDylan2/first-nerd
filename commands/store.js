@@ -68,20 +68,10 @@ function addRoleToMember(member, roleID, channel, client) {
     }
 }
 
-async function createRole(name, message, client) {
-  if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
-      let role = await message.guild.createRole({name: name})
-      return role
-    })
-  } else {
-    message.channel.send("I don't have the `Manage Roles` permission! Please check this and try again.")
-  }
-}
-
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let guildKey = guild.id + '-SHOPTEST3'
+    let guildKey = guild.id + '-SHOPTEST5'
     let playerCoins = message.author.id + '-coins'
     let def = {
         'items': {
@@ -141,19 +131,24 @@ exports.run = (client, message, args, level) => {
                     message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ['time']})
                     .then(collected => {
                       let description = collected.first().content
-                      let newrole = createRole(name, message, client)
-                      if (newrole) {
-                        shopData[name.toProperCase()] = {
-                          'name' : name.toProperCase(),
-                          'description' : description,
-                          'type' : 'Role',
-                          'roleID' : newrole.id
-                        }
-                        client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
-                          if (reply) {
-                            message.channel.send("Added item to the shop!")
-                          }
-                        })
+                      if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
+                          message.guild.createRole({name: name})
+                          .then(newrole => {
+                            if (newrole) {
+                              shopData[name.toProperCase()] = {
+                                'name' : name.toProperCase(),
+                                'description' : description,
+                                'type' : 'Role',
+                                'roleID' : newrole.id,
+                                'price' : price
+                              }
+                              client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
+                                if (reply) {
+                                  message.channel.send("Added item to the shop!")
+                                }
+                              })
+                            }
+                          })
                       }
                     })
                 })
