@@ -68,6 +68,9 @@ function addRoleToMember(member, roleID, channel, client) {
     }
 }
 
+function createRole(name) {
+    
+}
 
 
 exports.run = (client, message, args, level) => {
@@ -111,6 +114,9 @@ exports.run = (client, message, args, level) => {
             
             
             // shop configuration
+            if (action == 'buy') {
+                
+            }
             
             if (action == 'seticon') {
                 if (level >= 4) {
