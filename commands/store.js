@@ -45,28 +45,6 @@ function shopToEmbed(shop, channel, client) {
     }
 }
 
-function addRoleToMember(member, roleID, channel, client) {
-    if (client.checkPerm(channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
-        if (client.roles.get(roleID)) {
-            channel.send("It seems you have already purchased this role!")
-            return false
-        } else {
-            member.addRole(roleID)
-            .then(r =>  {
-                channel.send("Role successfully purchased!")
-                return true
-            })
-            .catch(error => {
-                channel.send("There was an error adding your role!")
-                return false
-            })
-
-        }
-    } else {
-        channel.send("I don't have the `Manage Roles` permission! Please check and try this again.")
-        return false
-    }
-}
 
 
 exports.run = (client, message, args, level) => {

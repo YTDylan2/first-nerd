@@ -131,6 +131,7 @@ module.exports = (client) => {
     try {
       return guildMember.hasPermission(permissionName)
     } catch (e) {
+      console.log('check perm fail: ' + e)
       // client.startChannel.send('check permission failure: ' + e)
     }
   }
