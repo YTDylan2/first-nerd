@@ -138,7 +138,7 @@ exports.run = (client, message, args, level) => {
                       return message.channel.send("You need more coins for that!")
                     }
                   }
-                }
+                })
               } else {
                 return message.channel.send("Couldn't find that item!")
               }
