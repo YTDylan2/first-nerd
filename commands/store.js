@@ -68,19 +68,14 @@ function addRoleToMember(member, roleID, channel, client) {
     }
 }
 
-function createRole(name, message, client) {
-    if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
-      message.guild.createRole({name: name})
-      .then(role => {
-        let id = role.id
-        return id
-      }).catch(error => {
-        message.channel.send("There was an error creating the role.")
-        return false
-      })
-    } else {
-      message.channel.send("I don't have the `Manage Roles` permission! Please check this and try again.")
-    }
+async function createRole(name, message, client) {
+  if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
+      let role = await message.guild.createRole({name: name})
+      return role
+    })
+  } else {
+    message.channel.send("I don't have the `Manage Roles` permission! Please check this and try again.")
+  }
 }
 
 
@@ -152,10 +147,12 @@ exports.run = (client, message, args, level) => {
                           'name' : name.toProperCase(),
                           'description' : description,
                           'type' : 'Role',
-                          'roleID' : newrole
+                          'roleID' : newrole.id
                         }
                         client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
-                          message.channel.send("Added item to the shop!")
+                          if (reply) {
+                            message.channel.send("Added item to the shop!")
+                          }
                         })
                       }
                     })
