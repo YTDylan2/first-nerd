@@ -106,7 +106,42 @@ exports.run = (client, message, args, level) => {
 
             // shop configuration
             if (action == 'buy') {
-
+              let itemName = getArgsPastIndex(1, args)
+              itemName = itemName.join(" ")
+              if (shopData.items[itemName.toProperCase()]) {
+                let item = shopData.items[itemName.toProperCase()]
+                client.redisClient.get(playerCoins, function(err, coins) {
+                  if (coins) {
+                    if (coins - item.price > 0) {
+                      if (item.type == 'Role') {
+                        let roleID = item.roleID
+                        if (client.checkPerm(channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
+                            if (client.roles.get(roleID)) {
+                                message.channel.send("It seems you have already purchased this role!")
+                                return false
+                            } else {
+                                client.redisClient.set(playerCoins, coins - item.price, function(err, newCoins) {
+                                  message.member.addRole(roleID)
+                                  .then(r => {                                                        
+                                      return message.channel.send("Role successfully purchased!")
+                                  })
+                                  .catch(error => {
+                                      return message.channel.send("There was an error adding your role!")
+                                  })
+                                }
+                            }
+                        } else {
+                            return message.channel.send("I don't have the `Manage Roles` permission! Please check and try this again.")
+                        }
+                      }
+                    } else {
+                      return message.channel.send("You need more coins for that!")
+                    }
+                  }
+                }
+              } else {
+                return message.channel.send("Couldn't find that item!")
+              }
             }
 
             if (action == 'additem') {
