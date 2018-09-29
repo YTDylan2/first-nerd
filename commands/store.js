@@ -51,6 +51,7 @@ exports.run = (client, message, args, level) => {
     let guild = message.guild
     let guildKey = guild.id + '-SHOPTEST5'
     let playerCoins = message.author.id + '-coins'
+    let filter = m => m.author.id === message.author.id
     let def = {
         'items': {
 
