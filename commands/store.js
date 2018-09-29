@@ -49,8 +49,8 @@ function shopToEmbed(shop, channel, client) {
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let guildKey = guild.id + '-SHOPTEST5'
-    let playerCoins = message.author.id + '-coins'
+    let guildKey = guild.id + '-SHOPDATA'
+    let playerCoins = message.author.id + "-" + guild.id + "-coins"
     let filter = m => m.author.id === message.author.id
     let def = {
         'items': {
