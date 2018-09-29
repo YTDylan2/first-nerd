@@ -115,7 +115,7 @@ exports.run = (client, message, args, level) => {
                     if (coins - item.price > 0) {
                       if (item.type == 'Role') {
                         let roleID = item.roleID
-                        if (client.checkPerm(channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
+                        if (client.checkPerm(message.channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
                             if (client.roles.get(roleID)) {
                                 message.channel.send("It seems you have already purchased this role!")
                                 return false
