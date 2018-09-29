@@ -46,7 +46,7 @@ function shopToEmbed(shop, channel, client) {
 }
 
 function addRoleToMember(member, roleID, channel, client) {
-    if (client.checkPerm(channel.guild.members.get(client.id), "MANAGE_ROLES")) {
+    if (client.checkPerm(channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
         if (client.roles.get(roleID)) {
             channel.send("It seems you have already purchased this role!")
             return false
@@ -128,14 +128,14 @@ exports.run = (client, message, args, level) => {
                       return message.channel.send("That doesn't seem like a number...")
                     }
                     message.channel.send("Set the description for this role, and it will be finished!")
-                    message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ['time']})
+                    message.channel.awaitMessages(filter, {max: 1, time: 120000, errors: ['time']})
                     .then(collected => {
                       let description = collected.first().content
-                      if (client.checkPerm(message.channel.guild.members.get(client.id), "MANAGE_ROLES")) {
-                          message.guild.createRole({name: name})
+                      if (client.checkPerm(message.channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
+                          guild.createRole({name: name})
                           .then(newrole => {
                             if (newrole) {
-                              shopData[name.toProperCase()] = {
+                              shopData.items[name.toProperCase()] = {
                                 'name' : name.toProperCase(),
                                 'description' : description,
                                 'type' : 'Role',
@@ -144,7 +144,7 @@ exports.run = (client, message, args, level) => {
                               }
                               client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
                                 if (reply) {
-                                  message.channel.send("Added item to the shop!")
+                                  message.channel.send(`Added role ${newrole.name} to the shop!`)
                                 }
                               })
                             }
