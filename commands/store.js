@@ -94,9 +94,8 @@ exports.run = (client, message, args, level) => {
                       if (item.type == 'Role') {
                         let roleID = item.roleID
                         if (client.checkPerm(message.channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
-                            if (message.member.roles.get(roleID)) {
-                                message.channel.send("It seems you have already purchased this role!")
-                                return false
+                            if (message.member.roles.get(roleID)) {                                
+                                return message.channel.send("It seems you have already purchased this role!")
                             } else {
                                 client.redisClient.set(playerCoins, coins - item.price, function(err, newCoins) {
                                   message.member.addRole(roleID)
