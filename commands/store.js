@@ -90,14 +90,14 @@ exports.run = (client, message, args, level) => {
                 let item = shopData.items[itemName.toProperCase()]
                 client.redisClient.get(playerCoins, function(err, coins) {
                   if (coins) {
-                    if (coins - item.price > 0) {
+                    if (parseInt(coins - item.price) > 0) {
                       if (item.type == 'Role') {
                         let roleID = item.roleID
                         if (client.checkPerm(message.channel.guild.members.get(client.user.id), "MANAGE_ROLES")) {
-                            if (message.member.roles.get(roleID)) {                                
+                            if (message.member.roles.get(roleID)) {
                                 return message.channel.send("It seems you have already purchased this role!")
                             } else {
-                                client.redisClient.set(playerCoins, coins - item.price, function(err, newCoins) {
+                                client.redisClient.decrby(playerCoins, parseInt(item.price), function(err, newCoins) {
                                   message.member.addRole(roleID)
                                   .then(r => {
                                       return message.channel.send("Role successfully purchased!")
@@ -118,6 +118,45 @@ exports.run = (client, message, args, level) => {
                 })
               } else {
                 return message.channel.send("Couldn't find that item!")
+              }
+            }
+
+            if (action == 'help') {
+              return message.channel.send("Help coming soon!")
+            }
+            if (action == 'addrole') {
+              let role = message.mentions.roles.first()
+              if (role) {
+                  let id = role.id
+                  message.channel.send("What will the price be?")
+                  message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ['time']})
+                  .then(collected => {
+                      let price = parseInt(collected.first().content)
+                      if (!price) {
+                        return message.channel.send("That doesn't seem like a number...")
+                      }
+                      message.channel.send("Set the description for this role, and it will be added to the shop!")
+                      message.channel.awaitMessages(filter, {max: 1, time: 120000, errors: ['time']})
+                      .then(collected => {
+                        let description = collected.first().content
+                        if (!shopData.items[role.name.toProperCase()]) {
+                          shopData.items[role.name.toProperCase()] = {
+                            'name' : role.name,
+                            'description' : description,
+                            'type' : 'Role',
+                            'roleID' : id,
+                            'price' : price
+                          }
+                          client.redisClient.set(guildKey, JSON.stringify(shopData), function(err, reply) {
+                            if (reply) {
+                              message.channel.send(`Added role ${role.name} to the shop!`)
+                            }
+                          })
+                        }
+                      })
+                    })
+              } else {
+                return message.channel.send("Please mention a role!")
               }
             }
 
@@ -148,7 +187,7 @@ exports.run = (client, message, args, level) => {
                           .then(newrole => {
                             if (newrole) {
                               shopData.items[name.toProperCase()] = {
-                                'name' : name.toProperCase(),
+                                'name' : name,
                                 'description' : description,
                                 'type' : 'Role',
                                 'roleID' : newrole.id,
@@ -166,6 +205,18 @@ exports.run = (client, message, args, level) => {
                 })
               })
             }
+
+            if (action == 'delitem') {
+              let itemName = getArgsPastIndex(1, args)
+              itemName = itemName.join(" ")
+              if (shopData.items[itemName.toProperCase()]) {
+                delete shopData.items[itemName.toProperCase()]
+                return message.channel.send(`${itemName} was deleted from the shop!`)
+              } else {
+                return message.channel.send("Item not found!")
+              }
+            }
+
             if (action == 'seticon') {
                 if (level >= 4) {
                     let pictures = message.attachments.array()
