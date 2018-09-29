@@ -122,13 +122,13 @@ exports.run = (client, message, args, level) => {
                             } else {
                                 client.redisClient.set(playerCoins, coins - item.price, function(err, newCoins) {
                                   message.member.addRole(roleID)
-                                  .then(r => {                                                        
+                                  .then(r => {
                                       return message.channel.send("Role successfully purchased!")
                                   })
                                   .catch(error => {
                                       return message.channel.send("There was an error adding your role!")
                                   })
-                                }
+                                })
                             }
                         } else {
                             return message.channel.send("I don't have the `Manage Roles` permission! Please check and try this again.")
