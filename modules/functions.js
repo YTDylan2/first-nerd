@@ -96,7 +96,7 @@ module.exports = (client) => {
       command = client.commands.get(client.aliases.get(commandName));
     }
     if (!command) return `The command \`${commandName}\` doesn"t seem to exist, nor is it an alias. Try again!`;
-  
+
     if (command.shutdown) {
       await command.shutdown(client);
     }
@@ -105,18 +105,18 @@ module.exports = (client) => {
   };
 
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
-  
+
   // EXTENDING NATIVE TYPES IS BAD PRACTICE. Why? Because if JavaScript adds this
   // later, this conflicts with native code. Also, if some other lib you use does
   // this, a conflict also occurs. KNOWING THIS however, the following 2 methods
-  // are, we feel, very useful in code. 
-  
-  // <String>.toPropercase() returns a proper-cased string such as: 
+  // are, we feel, very useful in code.
+
+  // <String>.toPropercase() returns a proper-cased string such as:
   // "Mary had a little lamb".toProperCase() returns "Mary Had A Little Lamb"
   String.prototype.toProperCase = function() {
     return this.replace(/([^\W_]+[^\s-]*) */g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-  };    
-  
+  };
+
   // <Array>.random() returns a single random element from an array
   // [1, 2, 3, 4, 5].random() can return 1, 2, 3, 4 or 5.
   // Array.prototype.random = function() {
@@ -125,13 +125,13 @@ module.exports = (client) => {
 
   // `await client.wait(1000);` to "pause" for 1 second.
   client.wait = require("util").promisify(setTimeout);
-  
+
   // check permissions for discord
   client.checkPerm = function(guildMember, permissionName) {
     try {
       return guildMember.hasPermission(permissionName)
     } catch (e) {
-      client.startChannel.send('check permission failure: ' + e)
+      // client.startChannel.send('check permission failure: ' + e)
     }
   }
 
@@ -139,9 +139,9 @@ module.exports = (client) => {
   process.on("uncaughtException", (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
     client.logger.error(`Uncaught Exception: ${errorMsg}`);
-    // Always best practice to let the code crash on uncaught exceptions. 
+    // Always best practice to let the code crash on uncaught exceptions.
     // Because you should be catching them anyway.
-     if (client.startChannel) {     
+     if (client.startChannel) {
       client.startChannel.send("error, rebooting (check logs)")
      }
     process.exit(143);
@@ -149,9 +149,9 @@ module.exports = (client) => {
 
   process.on("unhandledRejection", err => {
     client.logger.error(`Unhandled rejection: ${err}`);
-    if (client.startChannel) {     
+    if (client.startChannel) {
       client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
     }
   });
-  
+
 };
