@@ -79,7 +79,7 @@ exports.run = (client, message, args, level) => {
             embed.setColor(process.env.red)
             client.redisClient.decrby(dataKey, loss, function(err, reply) {
               message.channel.send({embed})
-              client.updateGlobal({key: message.author.id, reply: , guild: message.guild.id + "-globalcoins"})
+              client.updateGlobal({key: message.author.id, value:reply, guild: message.guild.id + "-globalcoins"})
             })
 
           })
