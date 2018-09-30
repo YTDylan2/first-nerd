@@ -75,16 +75,16 @@ module.exports = (client, message) => {
               }, coinEarnCooldown * 1000)
               let randCoins = getRand(coinEarnMin, coinEarnMax)
               client.redisClient.get(dataKey, function(err, reply) {
-                  if (reply == null) {
+                  if (!reply) {
                       client.redisClient.set(dataKey, randCoins, function(e, rep) {
                            //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
-                           updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
+                           client.updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
                       })
                   } else {
                       client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
                           if (rep) {
                            // message.reply("you have " + rep + " coins homie (debugging message)")
-                            updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
+                            client.updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
                           }
                       })
                   }

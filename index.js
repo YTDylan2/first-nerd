@@ -180,7 +180,7 @@ function secondsToHours(seconds) {
     return parseInt(seconds / 3600)
 }
 
-function updateGlobal(data) {
+client.updateGlobal = function(data) {
     client.redisClient.get(data.guild, function(err, reply) {
         if (reply) {
             var stored = JSON.parse(reply)
