@@ -201,7 +201,14 @@ exports.run = (client, message, args, level) => {
 																}
 															})
 														}
+													}).catch(err => {
+														let stringErr = err.toString()
+														if (stringErr.toLowerCase().match('permissions')) {
+															return message.channel.send("I have need the `MANAGE_ROLES` permission! Please check and try again.")
+														}
 													})
+											} else {
+												return message.channel.send("I have need the `MANAGE_ROLES` permission! Please check and try again.")
 											}
 										})
 								})
