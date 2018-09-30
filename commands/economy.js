@@ -25,8 +25,8 @@ exports.run = (client, message, args, level) => {
     if (action == 'reset') {
       if (target == 'all') {
         let members = guild.members
-        for (memberID in members) {
-          client.redisClient.del(memberID + "-" + guild.id + '-coins')
+        for (member in members.array()) {
+          client.redisClient.set(members.array()[member].id + "-" + guild.id + '-coins', 0)
         }
         client.redisClient.del(guild.id + "-globalcoins", function(err, reply) {
           message.channel.send("Successfully reset everyone!")
@@ -45,8 +45,8 @@ exports.run = (client, message, args, level) => {
       if (target == 'all') {
         if (parseInt(value)) {
           let members = guild.members
-          for (memberID in members) {
-            client.redisClient.incrby(memberID + "-" + guild.id + '-coins', value)
+          for (member in members.array()) {
+            client.redisClient.incrby(members.array()[member].id + "-" + guild.id + '-coins', value)
           }
           message.channel.send("Sucessfully gave all members `" + value + "` coins.")
         } else {
@@ -66,8 +66,8 @@ exports.run = (client, message, args, level) => {
     if (action == 'allcoins') {
       let total = 0
       let members = guild.members
-      for (memberID in members) {
-        client.redisClient.get(memberID + "-" + guild.id + '-coins', function(err, coins) {
+      for (member in members.array()) {
+        client.redisClient.get(members.array()[member].id + "-" + guild.id + '-coins', function(err, coins) {
           if (coins) {
             total = total + coins
           }
