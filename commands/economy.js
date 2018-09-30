@@ -35,7 +35,7 @@ exports.run = (client, message, args, level) => {
       }
       if (user) {
         client.redisClient.set(user.id + "-" + guild.id + '-coins', 0, function(err, reply) {
-          message.channel.send("Successfully reset " + user.nickname + "'s coins.")
+          message.channel.send("Successfully reset " + user.user.tag + "'s coins.")
         })
       } else {
         return message.channel.send("Please send a user, or do `all` to reset all members.")
@@ -56,7 +56,7 @@ exports.run = (client, message, args, level) => {
       }
       if (user) {
         client.redisClient.incrby(user.id + "-" + guild.id + '-coins', value, function(err, reply) {
-          message.channel.send("Sucessfully gave **" + user.nickname + "** `" + value + "` coins.")
+          message.channel.send("Sucessfully gave **" + user.user.tag + "** `" + value + "` coins.")
         })
       } else {
         return message.channel.send("Please send a user, or do `all` to give coins all members.")

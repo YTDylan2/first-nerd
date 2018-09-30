@@ -54,7 +54,7 @@ exports.run = (client, message, args, level) => {
         client.updateGlobal({key: message.author.id, value: payout, guild: message.guild.id + "-globalcoins"})
       } else {
         let timeElasped = now - time
-        let format = moment.duration(timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+        let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
         channel.send("You have to wait **" + format + "** until you can work!"));
       }
     }

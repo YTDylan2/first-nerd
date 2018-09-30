@@ -28,6 +28,10 @@ exports.run = (client, message, args, level) => {
                 name: "Special Thanks",
                 value: "Special thanks to Flatbird, and Rewolf for getting the idea underway and testing the bot!\nThanks alot to Budgie for being a great help with the hosting!"
             },
+            {
+                name: "Invite Link",
+                value: "It is up to you which permissions she has.\nhttps://discordapp.com/oauth2/authorize?client_id=411683313926012928&scope=bot&permissions=67136512"
+            }
             ],
         },
     });
