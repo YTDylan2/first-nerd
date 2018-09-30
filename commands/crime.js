@@ -62,7 +62,7 @@ exports.run = (client, message, args, level) => {
           let embed = new discord.RichEmbed()
           payout = Math.floor(payout * crimeMultiplier)
           embed.setTitle("Crime")
-          embed.setDescription(phrase + " " + payout + " coins")
+          embed.setDescription(phrase + payout + " coins!")
           embed.setColor(process.env.green)
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
             message.channel.send({embed})
@@ -75,12 +75,13 @@ exports.run = (client, message, args, level) => {
             let embed = new discord.RichEmbed()
             let loss = Math.floor(coins * (crimeLossPercent / 100))
             embed.setTitle("Loss")
-            embed.setDescription(phrase + " " + loss + " coins")
+            embed.setDescription(phrase + loss + " coins!")
             embed.setColor(process.env.red)
             client.redisClient.decrby(dataKey, loss, function(err, reply) {
               message.channel.send({embed})
+              client.updateGlobal({key: message.author.id, reply: , guild: message.guild.id + "-globalcoins"})
             })
-            client.updateGlobal({key: message.author.id, value: payout, guild: message.guild.id + "-globalcoins"})
+
           })
 
         }

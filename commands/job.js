@@ -50,7 +50,7 @@ exports.run = (client, message, args, level) => {
           let payout = getRand(coinEarnMin, coinEarnMax)
           let embed = new discord.RichEmbed()
           embed.setTitle("Job")
-          embed.setDescription(phrase + " " + payout + " coins")
+          embed.setDescription(phrase + payout + " coins.")
           embed.setColor(process.env.green)
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
             message.channel.send({embed})
