@@ -5,7 +5,7 @@ exports.run = (client, message, args, level) => {
    const discord = require('discord.js')
    const ordinal = require('ordinal-js')
    let guildKey = message.guild.id + "-globalcoins"
-   
+
    client.redisClient.get(guildKey, function(err, data) {
        if (data) {
          let parsed = JSON.parse(data)
@@ -17,7 +17,7 @@ exports.run = (client, message, args, level) => {
          })
 
          let display = ""
-         for (i = 0; i <= 10; i++) {
+         for (i = 1; i <= 25; i++) {
             var userTable = sorted[i]
             //console.log("user table is " + userTable)
             if (userTable) {

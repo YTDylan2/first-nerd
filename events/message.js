@@ -13,22 +13,27 @@ function matchMention(text) {
    return;
 }
 
+function getRand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+let recentMessages = new Set();
 module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot) return;
 
-  
+
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
-  
+
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
     let mentions = message.mentions.members
-    let match =  matchMention(message.content)   
-    if (match) {     
+    let match =  matchMention(message.content)
+    if (match) {
       client.cleverbot.create(function(bad, session) {
-         if (match != "help") {            
+         if (match != "help") {
             message.channel.startTyping()
             client.cleverbot.ask(match, function(err, response) {
                message.channel.send(response + ' <@!' + message.author.id + '>')
@@ -39,7 +44,9 @@ module.exports = (client, message) => {
             helpCmd.run(client, message, [], client.permlevel(message))
          }
       })
-   }       
+   }
+
+
    let id;
    if (message.guild) {
       id = message.guild.id
@@ -51,8 +58,41 @@ module.exports = (client, message) => {
       if (!settings) {
          settings = client.config.defaultSettings
       }
+      let default = client.config.defaultSettings
+
+      let coinEarnMin = parseInt(settings.coinEarnMin) || default.coinEarnMin
+      let coinEarnMax = parseInt(settings.coinEarnMax) || default.coinEarnMax
+
 
       message.settings = settings;
+      if (message.guild) {
+          let timeoutKey = message.author.id + "-" + message.guild.id
+          let dataKey = message.author.id + "-" + message.guild.id + "-coins"
+          if (!recentMessages.has(timeoutKey)) {
+              recentMessages.add(timeoutKey)
+              setTimeout(() => {
+                     recentMessages.delete(timeoutKey)
+              }, coinEarnCooldown * 1000)
+              let randCoins = getRand(coinEarnMin, coinEarnMax)
+              client.redisClient.get(dataKey, function(err, reply) {
+                  if (reply == null) {
+                      client.redisClient.set(dataKey, randCoins, function(e, rep) {
+                           //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
+                           updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
+                      })
+                  } else {
+                      client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
+                          if (rep) {
+                           // message.reply("you have " + rep + " coins homie (debugging message)")
+                            updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
+                          }
+                      })
+                  }
+              })
+          } else {
+           // console.log("someone on message timeout: " + message.author.username)
+          }
+      }
 
 
       // Also good practice to ignore any message that does not start with our prefix,
@@ -106,4 +146,3 @@ module.exports = (client, message) => {
       cmd.run(client, message, args, level);
   })
 };
-                         

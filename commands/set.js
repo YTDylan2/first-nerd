@@ -23,12 +23,15 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
           return message.channel.send("Please provide a setting to edit!")
         }
         if (!value) {
-          return message.channel.send("Please return a valid value for this key!")          
+          return message.channel.send("Please return a valid value for this key!")
         }
         if (!modifiable[key]) {
           return message.channel.send("That setting wasn't found!")
         }
         modifiable[key] = value
+        if (key == "coinEarnCooldown") {
+          message.channel.send("Please note this setting is counted in seconds., setting this to `10` would give you a `10 second cooldown.`")
+        }
         client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(fail, data) {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
@@ -41,24 +44,34 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let str = newArray.join("\n")
          message.channel.send(str, {code: 'asciidoc'})
       }
+      if (action == "update") {
+        let updatedKeys = 0
+        for (x in client.config.defaultSettings) {
+          if (!modifiable[x]) {
+            updatedKeys++
+            modifiable[x] = client.config.defaultSettings[x]
+          }
+          message.channel.send("**" + updatedKeys + "** were added / updated.")
+        }
+      }
     } else {
       client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
     }
-   
+
   })
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["setting", "settings", "conf", "config"],
+  aliases: ["setting", "set", "conf", "config"],
   permLevel: "Server Owner"
 };
 
 exports.help = {
-  name: "set",
+  name: "settings",
   category: "System",
   description: "Configure server information!",
-  usage: "set [option, setting, value]\nset edit modRole Owner"
+  usage: "settings [option, setting, value]\nset edit modRole Owner"
 };

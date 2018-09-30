@@ -64,7 +64,7 @@ client.lastCommand = "None"
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
 
-client.startChannel = client.channels.get('491777217920106508')
+
 
 var groupBanned = {
     '294976424' : true,
@@ -222,7 +222,7 @@ function checkScammer(userId) {
          })
          .catch(function (err) {
             console.log("ERROR RANKING: " + err)
-         }) 
+         })
     }
 }
 
@@ -256,7 +256,7 @@ const init = async () => {
     const response = client.loadCommand(f);
     if (response) console.log(response);
   });
-
+  client.startChannel = client.channels.get('491777217920106508')
   // Then we load events, which will include our message and ready event.
   const evtFiles = await readdir("./events/");
   client.logger.log(`Loading a total of ${evtFiles.length} events.`);
@@ -267,16 +267,16 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];
   });
-  
+
    // app stuff
-  app.use(bodyParser.json())   
+  app.use(bodyParser.json())
   app.post('/ping', authenticate, function(req, res, next) {
       let senderTime = req.body.sendTime
       let now = Date.now()
       let ping = now - senderTime
       res.send([ping, client.lastCommand])
   })
-  
+
   app.post('/groupVerify', authenticate, function(req, res, next) {
       console.log(req.body)
       let userId = req.body.userId
@@ -287,39 +287,39 @@ const init = async () => {
       .then(function (n) {
           success = true
       })
-          
+
       if (rank >= 4) {
           success = true
       }
       res.send(success)
   })
-  
-  
+
+
 
   app.listen(process.env.PORT)
-    
+
   // this keeps the app alive
     app.get("/", (request, response) => {
      // console.log(Date.now() + " Ping Received");
       response.sendStatus(200);
     });
-    
+
     setInterval(() => {
       http.get(`http://technoturret.herokuapp.com/`);
     }, 120000);
-    
+
     // use this to update
     setInterval(() => {
         client.config.prefix = process.env.prefix
     }, 60000)
-    
-    
-    
+
+
+
     setInterval(() => { // auto rank users
       var https = require('request')
       var roblox = require('noblox.js')
       https('https://groups.roblox.com/v1/groups/'+ process.env.groupid +'/roles/28699298/users?sortOrder=Asc&limit=100', { json: true }, (err, res, body) => {
-       
+
          if (err) {
              return;
          }
@@ -335,7 +335,7 @@ const init = async () => {
                     // client.channels.get('449982070597353472').send("Could not promote a user!")
                     return;
                 }
-               var scammer = checkScammer(userData.userId)        
+               var scammer = checkScammer(userData.userId)
              };
              if (groupBanned[userData.userId]) {
                 client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
@@ -343,13 +343,13 @@ const init = async () => {
          };
       });
     }, 30000); // lazy af
-    
+
     var loggedAssets = {}
     //var messageCheck = client.channels.get(process.env.channelid).fetchMessage(process.env.messageid).then(msg => { console.log("edit message redy") })
-   
-                
-            
-            
+
+
+
+
     setInterval(() => {
         var roblox = require('roblox-js')
         roblox.login(process.env.rbxname, process.env.rbxpass)
@@ -358,18 +358,18 @@ const init = async () => {
             client.startChannel.send('renewed ROBLOX login')
         });
     }, 8640000);
-    
+
     setInterval(() => {
         Roblox.post(process.env.groupid, "Do you want access to chat on our group wall? Please join this game and I will assign the chatting rank to you! http://www.roblox.com/games/2260793709/Get-your-Ice-Soup-rank")
     }, 57600000)
-    
+
     setInterval(() => {
         let ordinal = require("ordinal-js")
-        let buildVer = process.env.HEROKU_RELEASE_VERSION   
+        let buildVer = process.env.HEROKU_RELEASE_VERSION
         let numb = buildVer.match(/\d/g);
         numb = numb.join("");
         numb = parseInt(numb)
-        
+
         let phrases = [
             ['WATCHING', 'you have fun.'],
             ['PLAYING', 'with your feelings.'],
@@ -385,71 +385,43 @@ const init = async () => {
             ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.'],
             ['PLAYING', 'Use @Vanessa help | help water has taken me hostage!'], // lollipopwut
         ]
-        
-        
-        
+
+
+
         function random(array) {
             return array[Math.floor(Math.random() * array.length)] || ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
-                                                                          
+
         }
         let status = random(phrases)
         client.user.setActivity(status[1], {type: status[0]})
         .then(p => console.log(p))
         .catch(e => console.log(e))
-        
+
     }, 30000)
-        
-  
+
+
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
     const thisLevel = client.config.permLevels[i];
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
-    
+
   // set up coin earning
   client.on('message', message => {
       if (message.author.bot) return;
       if (message.content.indexOf(client.config.prefix) == 0) return;
-      
-      if (message.guild) {
-          let timeoutKey = message.author.id + "-" + message.guild.id
-          let dataKey = message.author.id + "-" + message.guild.id + "-coins"
-          if (!recentMessages.has(timeoutKey)) {
-              recentMessages.add(timeoutKey) 
-              setTimeout(() => {
-                     recentMessages.delete(timeoutKey)
-              }, 10000)
-              let randCoins = Math.floor(Math.random() * 50) + 1
-              client.redisClient.get(dataKey, function(err, reply) {
-                  if (reply == null) {
-                      client.redisClient.set(dataKey, randCoins, function(e, rep) {
-                           //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
-                           updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
-                      })
-                  } else {
-                      client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
-                          if (rep) {
-                           // message.reply("you have " + rep + " coins homie (debugging message)")
-                            updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
-                          }
-                      })
-                  }
-              })
-          } else {
-           // console.log("someone on message timeout: " + message.author.username)
-          }
-      } 
+
+
   })
 
   // Here we login the client.
   client.login(process.env.BOT_TOKEN);
 
 // End top-level async/await function
-    
+
 };
 
 init();
 //await client.collection.defer;
 //console.log(client.collection.size + " keys were loaded")
-

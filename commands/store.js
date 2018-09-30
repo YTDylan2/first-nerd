@@ -25,23 +25,27 @@ function shopToEmbed(shop, channel, client) {
 		let settings = shop.settings
 		let embed = new discord.RichEmbed()
 		let itemsArray = convertArray(items)
+
+		embed.setTitle(settings.name)
+		embed.setDescription(settings.description)
+		embed.setThumbnail(settings.icon)
+		embed.setFooter("jesse has the ultra fats", client.user.avatarURL)
+		embed.setColor(process.env.green)
+		embed.setTimestamp()
 		if (itemsArray.length > 0) {
 
-				embed.setTitle(settings.name)
-				embed.setDescription(settings.description)
+
 				for (var x in items) {
 						let item = items[x]
 						let price = item.price
 						let desc = item.description
 						embed.addField(item.name, `**Cost: ${price} coins**\n${desc}`)
 				}
-				embed.setThumbnail(settings.icon)
-				embed.setFooter("jesse has the ultra fats", client.user.avatarURL)
-				embed.setColor(process.env.green)
-				embed.setTimestamp()
+
 				channel.send({embed})
 		} else {
-				channel.send("Doesn't look like anything is up for sale!")
+				embed.addField("It's quiet...", "A little too quiet? Try adding some items!")
+				channel.send({embed})
 		}
 }
 
