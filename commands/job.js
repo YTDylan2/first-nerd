@@ -16,7 +16,7 @@ function getRand(min, max) {
 
 exports.run = (client, message, args, level) => {
   let guild = message.guild
-  let phrases = {
+  let phrases = [
     "You swept the floors and got ",
     "You got ",
     "You made a successful game and got ",
@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
     "You sold your old junk and made ",
     "You wrote a song, and sold tons of copies for ",
     "You sold your business for "
-  }
+  ]
 
   let timeoutKey = message.author.id + "-" + message.guild.id + '-timeout'
   let dataKey = message.author.id + "-" + message.guild.id + "-coins"
@@ -55,7 +55,7 @@ exports.run = (client, message, args, level) => {
       } else {
         let timeElasped = now - time
         let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
-        channel.send("You have to wait **" + format + "** until you can work!"));
+        message.channel.send("You have to wait **" + format + "** until you can work!");
       }
     })
 
