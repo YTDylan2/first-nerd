@@ -50,7 +50,7 @@ app.set('env', 'production')
 app.use(bodyParser.json())
 app.listen(process.env.PORT || 3000, function() {
   console.log("Running on port " + process.env.PORT)
-}
+})
 
 Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
