@@ -90,8 +90,7 @@ function validatorType(type) {
         case 'string':
             return function (value) {
                 return typeof value === 'string';
-            };
-        default:
+            }
             return function () {
                 return true;
             };
@@ -410,13 +409,6 @@ const init = async () => {
     client.levelCache[thisLevel.name] = thisLevel.level;
   }
 
-  // set up coin earning
-  client.on('message', message => {
-      if (message.author.bot) return;
-      if (message.content.indexOf(client.config.prefix) == 0) return;
-
-
-  })
 
   // Here we login the client.
   client.login(process.env.BOT_TOKEN);

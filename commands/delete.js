@@ -5,9 +5,9 @@ exports.run = (client, message, args, level) => {
     var erasing = num
     if (!isNaN(num)) {
         let loopTimes = Math.max(Math.ceil(num / 100), 1)
-        
+
         var i;
-        for (i = 1; i <= loopTimes; i++) {  
+        for (i = 1; i <= loopTimes; i++) {
             if (num > 100) {
                erasing = 100
             }
@@ -17,14 +17,14 @@ exports.run = (client, message, args, level) => {
             .then(messages => {
             message.channel.bulkDelete(messages);
             if (num == 1) {
-                message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))   
-                break
-            }        
+                message.channel.send("*Swish.* 3 points!").then(message => message.delete(10000))
+                // break
+            }
             })
             .catch(err => {
                 message.channel.send("Error deleting messages! I **don't have any permissions** or **these messages are too old!**")
                 console.log(err)
-                break;
+                //break;
             })
         }
         if (num > 1) {
@@ -50,5 +50,3 @@ exports.help = {
     description: "Clears `x` amount of messages. Can't delete messages over 2 weeks old!\n**Warning: Any user with Manage Messages can use this command. This will be fixed in the future.**",
     usage: "clear [num]"
 };
-
-
