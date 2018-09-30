@@ -52,7 +52,14 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
             modifiable[x] = client.config.defaultSettings[x]
           }
         }
-        message.channel.send("**" + updatedKeys + "** were added / updated.")
+        if (updatedKeys > 0) {
+          client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(err, reply) {
+            message.channel.send("**" + updatedKeys + "** keys were added / updated.")
+          })
+        } else {
+          message.channel.send("You have the latest key configuration!")
+        }
+
       }
     } else {
       client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
