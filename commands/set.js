@@ -30,13 +30,16 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         }
         modifiable[key] = value
         if (key == "coinEarnCooldown") {
-          message.channel.send("Please note this setting is counted in seconds., setting this to `10` would give you a `10 second cooldown.`")
+          message.channel.send("Please note this setting is counted in seconds, setting this to `10` would give you a `10 second cooldown.`")
+        }
+        if (key == "crimeLossPercent") {
+          message.channel.send("Please note this setting is based off how much money the user has at that moment.")
         }
         client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(fail, data) {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
-      if (action == "view") {
+      if (action == "view" || !action) {
          let newArray = []
          for (var i in modifiable) {
            newArray.push(`${i}: ${modifiable[i]}`)

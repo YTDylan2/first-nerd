@@ -31,7 +31,7 @@ exports.run = (client, message, args, level) => {
             })
             client.redisClient.set(playerDailyKey, time)
           } else {
-            let format = moment.duration(timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+            let format = moment.duration(timeElapsed).format(" D [days], H [hours], m [minutes], and s [seconds]");
             channel.send("You have to wait **" + format + "** until you can claim your daily coins!")
           }
         } else {

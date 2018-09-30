@@ -59,40 +59,12 @@ module.exports = (client, message) => {
          settings = client.config.defaultSettings
       }
 
-      let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin
-      let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax
-      let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown
+
 
 
       message.settings = settings;
-      if (message.guild) {
-          let timeoutKey = message.author.id + "-" + message.guild.id
-          let dataKey = message.author.id + "-" + message.guild.id + "-coins"
-          if (!recentMessages.has(timeoutKey)) {
-              recentMessages.add(timeoutKey)
-              setTimeout(() => {
-                     recentMessages.delete(timeoutKey)
-              }, coinEarnCooldown * 1000)
-              let randCoins = getRand(coinEarnMin, coinEarnMax)
-              client.redisClient.get(dataKey, function(err, reply) {
-                  if (!reply) {
-                      client.redisClient.set(dataKey, randCoins, function(e, rep) {
-                           //message.reply("you have " + rep + " coins homie (debugging message) and ur new")
-                           client.updateGlobal({key: message.author.id, value: randCoins, guild: message.guild.id + "-globalcoins"})
-                      })
-                  } else {
-                      client.redisClient.incrby(dataKey, randCoins, function(err, rep) {
-                          if (rep) {
-                           // message.reply("you have " + rep + " coins homie (debugging message)")
-                            client.updateGlobal({key: message.author.id, value: rep, guild: message.guild.id + "-globalcoins"})
-                          }
-                      })
-                  }
-              })
-          } else {
-           // console.log("someone on message timeout: " + message.author.username)
-          }
-      }
+
+
 
 
       // Also good practice to ignore any message that does not start with our prefix,

@@ -34,7 +34,9 @@ const config = {
     "coinEarnMin" : 20,
     "coinEarnMax" : 50,
     "coinEarnCooldown" : 5,
-    "coinEarnDaily" : 500
+    "coinEarnDaily" : 500,
+    "crimeMultiplier" : 1.5,
+    "crimeLossPercent" : 2.5,
 
   },
 
