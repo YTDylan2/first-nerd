@@ -41,7 +41,7 @@ exports.run = (client, message, args, level) => {
 
     if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
-        if (now - time > coinEarnCooldown) {
+        if (now - time > coinEarnCooldown * 1000) {
           workers[timeoutKey] = now
           let phrase = random(phrases)
           let payout = getRand(coinEarnMin, coinEarnMax)
@@ -57,6 +57,8 @@ exports.run = (client, message, args, level) => {
           let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
           message.channel.send("You have to wait **" + format + "** until you can work!");
         }
+    } else {
+      workers[timeoutKey] = now - coinEarnCooldown * 1000
     }
   })
 }
