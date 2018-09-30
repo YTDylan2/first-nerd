@@ -18,7 +18,7 @@ exports.run = (client, message, args, level) => {
       embed.addField('reset', "Resets a user or all user coins.\n`economy reset @FreakingAnnoying`\neconomy reset all")
       embed.addField('allcoins', "Returns the number of coins in circulation in the server.")
       embed.setTimestamp()
-      embed.setFooter('morbify is ogly >:)')
+      embed.setFooter('morbify is ogly >:)', client.user.avatarURL)
       embed.setColor(process.env.green)
       message.channel.send({embed})
     }
@@ -26,7 +26,7 @@ exports.run = (client, message, args, level) => {
       if (target == 'all') {
         let members = guild.members
         for (memberID in members) {
-          client.redisClient.del(memberID + guild.id + '-coins')
+          client.redisClient.del(memberID + "-" + guild.id + '-coins')
         }
         client.redisClient.del(guild.id + "-globalcoins", function(err, reply) {
           message.channel.send("Successfully reset everyone!")
@@ -34,7 +34,7 @@ exports.run = (client, message, args, level) => {
         return
       }
       if (user) {
-        client.redisClient.set(user.id + guild.id + '-coins', 0, function(err, reply) {
+        client.redisClient.set(user.id + "-" + guild.id + '-coins', 0, function(err, reply) {
           message.channel.send("Successfully reset " + user.nickname + "'s coins.")
         })
       } else {
@@ -46,7 +46,7 @@ exports.run = (client, message, args, level) => {
         if (parseInt(value)) {
           let members = guild.members
           for (memberID in members) {
-            client.redisClient.incrby(memberID + guild.id + '-coins', value)
+            client.redisClient.incrby(memberID + "-" + guild.id + '-coins', value)
           }
           message.channel.send("Sucessfully gave all members `" + value + "` coins.")
         } else {
@@ -55,7 +55,7 @@ exports.run = (client, message, args, level) => {
         return
       }
       if (user) {
-        client.redisClient.incrby(user.id + guild.id + '-coins', value, function(err, reply) {
+        client.redisClient.incrby(user.id + "-" + guild.id + '-coins', value, function(err, reply) {
           message.channel.send("Sucessfully gave **" + user.nickname + "** `" + value + "` coins.")
         })
       } else {
@@ -67,7 +67,7 @@ exports.run = (client, message, args, level) => {
       let total = 0
       let members = guild.members
       for (memberID in members) {
-        client.redisClient.get(memberID + guild.id + '-coins', function(err, coins) {
+        client.redisClient.get(memberID + "-" + guild.id + '-coins', function(err, coins) {
           if (coins) {
             total = total + coins
           }
