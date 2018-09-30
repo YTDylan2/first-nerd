@@ -57,7 +57,7 @@ exports.run = (client, message, args, level) => {
         let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
         channel.send("You have to wait **" + format + "** until you can work!"));
       }
-    }
+    })
 
 
 
