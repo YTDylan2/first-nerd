@@ -44,6 +44,10 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let str = newArray.join("\n")
          message.channel.send(str, {code: 'asciidoc'})
       }
+      if (action == 'reset') {
+        client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
+        message.channel.send("Default settings have been applied!")
+      }
       if (action == "update") {
         let updatedKeys = 0
         for (x in client.config.defaultSettings) {

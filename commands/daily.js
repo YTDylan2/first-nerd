@@ -14,7 +14,7 @@ exports.run = (client, message, args, level) => {
     let time = Date.now()
     let oneDay = 86400000
     client.redisClient.get(guild.id + '-SETTINGS', function(err, response) {
-      let settings = JSON.parse(reponse)
+      let settings = JSON.parse(response)
       if (!settings) {
         settings = client.config.defaultSettings
       }

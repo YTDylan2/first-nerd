@@ -17,7 +17,7 @@ exports.run = (client, message, args, level) => {
          })
 
          let display = ""
-         for (i = 1; i <= 10; i++) {
+         for (i = 0; i < 10; i++) {
             var userTable = sorted[i]
             //console.log("user table is " + userTable)
             if (userTable) {

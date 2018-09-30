@@ -44,7 +44,7 @@ function shopToEmbed(shop, channel, client) {
 
 				channel.send({embed})
 		} else {
-				embed.addField("It's quiet...", "A little too quiet? Try adding some items!")
+				embed.addField("It's quiet...", "A little too quiet? Try adding some items!\nUse `store help` for config commands!")
 				channel.send({embed})
 		}
 }
@@ -127,7 +127,24 @@ exports.run = (client, message, args, level) => {
 						}
 
 						if (action == 'help') {
-							return message.channel.send("Help coming soon!")
+							if (level < 4) return;
+								let embed = new discord.RichEmbed()
+								embed.setTitle("Store Configuration Commands")
+								embed.setDescription("These commands will help you manage your server shop!")
+
+								embed.addField("reset", "Resets your store to default settings.\n`store reset`")
+								embed.addField("additem", "Adds an item to the store. This is an interactive setup.\nVanessa can only add roles as of now.\n`store additem`")
+								embed.addField("addrole", "Used to specifically add roles to the store. The role added will be the first role pinged in your message.\n`store addrole @Owners`")
+								embed.addField("delitem", "Deletes an item by name from the store.\ns`tore delitem Red Role`")
+								embed.addField('setname', "Sets the shop name!\n`store setname Black Market`")
+								embed.addField("seticon", "Sets the icon for your shop!\n`store seticon [image file]`")
+								embed.addField('setdesc', 'Sets the description for your shop!\n`store setdesc Buy everything you have ever wanted here.`')
+								embed.addField('buy', 'Buy an item from the shop!\n`store buy Yellow Role`')
+
+								embed.setColor(process.env.purple)
+								embed.setTimestamp()
+								embed.setFooter("bunnye is ultra n00b")
+								message.channel.send({embed})
 						}
 						if (action == 'addrole') {
 
