@@ -80,7 +80,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: false,
+    enabled: true,
     guildOnly: true,
     aliases: [""],
     permLevel: "Server Owner"
