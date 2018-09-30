@@ -47,9 +47,10 @@ client.logger = require("./util/Logger");
 require("./modules/functions.js")(client);
 
 app.set('env', 'production')
-
-
-app.listen(process.env.PORT || 3000)
+app.use(bodyParser.json())
+app.listen(process.env.PORT || 3000, function() {
+  console.log("Running on port " + process.env.PORT)
+}
 
 Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
@@ -272,7 +273,7 @@ const init = async () => {
   });
 
    // app stuff
-  app.use(bodyParser.json())
+
   app.post('/ping', authenticate, function(req, res, next) {
       let senderTime = req.body.sendTime
       let now = Date.now()
