@@ -61,6 +61,7 @@ module.exports = (client, message) => {
 
       let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin
       let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax
+      let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown
 
 
       message.settings = settings;
