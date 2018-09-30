@@ -28,7 +28,7 @@ exports.run = (client, message, args, level) => {
               if (newCoins) {
                 channel.send("You just received your daily **" + daily + "** coins!")
               }
-            }
+            })
             client.redisClient.set(playerDailyKey, time)
           } else {
             let format = moment.duration(timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
@@ -40,11 +40,11 @@ exports.run = (client, message, args, level) => {
             if (newCoins) {
               channel.send("You just received your daily **" + daily + "** coins!")
             }
-          }
+          })
           client.redisClient.set(playerDailyKey, time)
         }
       }
-    }
+    })
 }
 
 exports.conf = {
