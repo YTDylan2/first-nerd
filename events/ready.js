@@ -30,6 +30,6 @@ module.exports = async client => {
           client.redisClient.set(guild.id + '-SETTINGS', JSON.stringify(settings))
         }
       }
-    }
+    })
   }
 };
