@@ -46,6 +46,9 @@ exports.run = (client, message, args, level) => {
     let crimeMultiplier = parseInt(settings.crimeMultiplier) || client.config.defaultSettings.crimeMultiplier
     let crimeLossPercent = parseInt(settings.crimeLossPercent) || client.config.defaultSettings.crimeLossPercent
 
+    if (!workers[timeoutKey]) {
+      workers[timeoutKey] = now - coinEarnCooldown * 1000
+    }
 
     if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
@@ -81,7 +84,7 @@ exports.run = (client, message, args, level) => {
 
         }
       } else {
-        let timeElasped = now - time
+        let timeElapsed = now - time
         let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
         message.channel.send("You have to wait **" + format + "** until you can use this command!");
       }
