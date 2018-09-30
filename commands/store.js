@@ -140,6 +140,7 @@ exports.run = (client, message, args, level) => {
 								embed.addField("seticon", "Sets the icon for your shop!\n`store seticon [image file]`")
 								embed.addField('setdesc', 'Sets the description for your shop!\n`store setdesc Buy everything you have ever wanted here.`')
 								embed.addField('buy', 'Buy an item from the shop!\n`store buy Yellow Role`')
+								embed.addField('help', "you're literally using it")
 
 								embed.setColor(process.env.purple)
 								embed.setTimestamp()

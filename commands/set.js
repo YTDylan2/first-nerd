@@ -84,5 +84,5 @@ exports.help = {
   name: "settings",
   category: "System",
   description: "Configure server information!",
-  usage: "settings [option, setting, value]\nset edit modRole Owner"
+  usage: "settings [option, setting, value]\nsettings edit modRole Owner\nsettings update"
 };

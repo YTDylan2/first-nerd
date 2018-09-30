@@ -9,14 +9,14 @@ exports.run = (client, message, args, level) => {
     let action = args[0]
     let target = args[1]
     let value = args[2]
-    if (action == 'help') {
+    if (action == 'help' || !action) {
       let embed = new discord.RichEmbed()
       embed.setTitle("Economy Control")
       embed.setDescription("These commands will help you control your economy.\nTo set values such as coin earning, please use `settings view`")
 
-      embed.addTitle('give', "Gives a user or all users coins.\n`economy give @CoolDude 1000`\neconomy give all 10000")
-      embed.addTitle('reset', "Resets a user or all user coins.\n`economy reset @FreakingAnnoying`\neconomy reset all")
-      embed.addTitle('allcoins', "Returns the number of coins in circulation in the server.")
+      embed.addField('give', "Gives a user or all users coins.\n`economy give @CoolDude 1000`\neconomy give all 10000")
+      embed.addField('reset', "Resets a user or all user coins.\n`economy reset @FreakingAnnoying`\neconomy reset all")
+      embed.addField('allcoins', "Returns the number of coins in circulation in the server.")
       embed.setTimestamp()
       embed.setFooter('morbify is ogly >:)')
       embed.setColor(process.env.green)
@@ -90,5 +90,5 @@ exports.help = {
     name: "economy",
     category: "Economy",
     description: "Control the economy in your server!",
-    usage: "economy [action, (target all or user), value]"
+    usage: "economy help"
 };

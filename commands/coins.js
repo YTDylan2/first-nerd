@@ -2,7 +2,7 @@
 
 exports.run = (client, message, args, level) => {
     let user = message.mentions.members.first();
-    
+
     if (user) {
       let id = user.id
       let member = client.users.get(id)
@@ -22,7 +22,7 @@ exports.run = (client, message, args, level) => {
           if (data) {
             message.channel.send(`You have **${data}** coins!`)
           } else {
-            message.channel.send("You don't even have enough money to use this command.\nWait, you have none.")
+            message.channel.send("You don't have enough money to use this command.\nWait, you have none.")
           }
         })
       }
