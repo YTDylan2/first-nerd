@@ -48,11 +48,11 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         let updatedKeys = 0
         for (x in client.config.defaultSettings) {
           if (!modifiable[x]) {
-            updatedKeys++
+            updatedKeys = updatedKeys + 1
             modifiable[x] = client.config.defaultSettings[x]
           }
-          message.channel.send("**" + updatedKeys + "** were added / updated.")
         }
+        message.channel.send("**" + updatedKeys + "** were added / updated.")
       }
     } else {
       client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
