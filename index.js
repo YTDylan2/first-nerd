@@ -296,7 +296,7 @@ const init = async () => {
 
 
 
-  app.listen(process.env.PORT || 80)
+  app.listen(process.env.PORT || 3000)
 
   // this keeps the app alive
     app.get("/", (request, response) => {
