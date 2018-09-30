@@ -10,18 +10,18 @@ const config = {
 
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
   "token": ":)",
-  
+
   // our prefix
   "prefix" : "a!",
-  
+
   // my server
    "ownerGuild": '434477310817730572',
 
-  // Default per-server settings. New guilds have these settings. 
+  // Default per-server settings. New guilds have these settings.
 
   // DO NOT LEAVE ANY OF THESE BLANK, AS YOU WILL NOT BE ABLE TO UPDATE THEM
   // VIA COMMANDS IN THE GUILD.
-  
+
   "defaultSettings" : {
     "prefix": ">",
     "modLogChannel": "bot-logs",
@@ -31,7 +31,11 @@ const config = {
     "welcomeChannel": "general",
     "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
     "welcomeEnabled": "true",
-    
+    "coinEarnMin" : 20,
+    "coinEarnMax" : 50,
+    "coinEarnCooldown" : 5,
+    "coinEarnDaily" : 500
+
   },
 
   // PERMISSION LEVEL DEFINITIONS.
@@ -39,7 +43,7 @@ const config = {
   permLevels: [
     // This is the lowest permisison level, this is for non-roled users.
     { level: 0,
-      name: "User", 
+      name: "User",
       // Don't bother checking, just return true which allows them to execute any command their
       // level allows them to.
       check: () => true
@@ -64,7 +68,7 @@ const config = {
     },
 
     { level: 3,
-      name: "Admin", 
+      name: "Admin",
       check: (message) => {
         try {
           const adminRole = message.guild.roles.find(r => r.name.toLowerCase().match() === message.settings.adminRole.toLowerCase());
@@ -76,7 +80,7 @@ const config = {
     },
     // This is the server owner.
     { level: 4,
-      name: "Server Owner", 
+      name: "Server Owner",
       // Simple check, if the guild owner id matches the message author's ID, then it will return true.
       // Otherwise it will return false.
       check: (message) => message.channel.type === "text" ? (message.guild.owner.user.id === message.author.id ? true : false) : false
@@ -101,7 +105,7 @@ const config = {
     // The reason this should be the highest level is because of dangerous commands such as eval
     // or exec (if the owner has that).
     { level: 10,
-      name: "Bot Owner", 
+      name: "Bot Owner",
       // Another simple check, compares the message author id to the one stored in the config file.
       check: (message) => message.client.config.ownerID === message.author.id
     }
