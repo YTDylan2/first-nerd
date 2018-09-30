@@ -41,26 +41,23 @@ exports.run = (client, message, args, level) => {
 
     if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
-      if (now - time > coinEarnCooldown) {
-        workers[timeoutKey] = now
-        let phrase = random(phrases)
-        let payout = getRand(coinEarnMin, coinEarnMax)
-        let embed = new discord.RichEmbed()
-        embed.setTitle("Job")
-        embed.setDescription(phrase + " " + payout + " coins")
-        client.redisClient.incrby(dataKey, payout, function(err, reply) {
-          message.channel.send({embed})
-        })
-        client.updateGlobal({key: message.author.id, value: payout, guild: message.guild.id + "-globalcoins"})
-      } else {
-        let timeElasped = now - time
-        let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
-        message.channel.send("You have to wait **" + format + "** until you can work!");
-      }
-    })
-
-
-
+        if (now - time > coinEarnCooldown) {
+          workers[timeoutKey] = now
+          let phrase = random(phrases)
+          let payout = getRand(coinEarnMin, coinEarnMax)
+          let embed = new discord.RichEmbed()
+          embed.setTitle("Job")
+          embed.setDescription(phrase + " " + payout + " coins")
+          client.redisClient.incrby(dataKey, payout, function(err, reply) {
+            message.channel.send({embed})
+          })
+          client.updateGlobal({key: message.author.id, value: payout, guild: message.guild.id + "-globalcoins"})
+        } else {
+          let timeElasped = now - time
+          let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+          message.channel.send("You have to wait **" + format + "** until you can work!");
+        }
+    }
   })
 }
 
