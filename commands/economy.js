@@ -63,18 +63,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    if (action == 'allcoins') {
-      var total = 0
-      let members = guild.members
-      for (member in members.array()) {
-        client.redisClient.get(members.array()[member].id + "-" + guild.id + '-coins', function(err, coins) {
-          if (coins) {
-            total = parseInt(total + coins)
-          }
-        })
-      }
-      message.channel.send("There are `" + total + "` coins in circulation.")
-    }
+
 
 
 }

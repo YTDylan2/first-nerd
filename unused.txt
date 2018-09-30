@@ -1,11 +1,11 @@
  bad notifier
- 
+
  setInterval(() => {
         var request = require('request')
         var url = 'http://search.roblox.com/catalog/json?&ResultsPerPage=50&SortType=3&Subcategory=0&Category=0'
         var sendChannel = client.channels.get('487369498396065795')
-        
-        
+
+
         request(url, {json:true}, (err, res, body) => {
             if (body != undefined) {
                 var assets = body
@@ -26,7 +26,7 @@
                                  .addField("New Limited U!", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
                                  .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
-                                 .addField("Limited Quantity", `${asset.Sales}/${total}`) 
+                                 .addField("Limited Quantity", `${asset.Sales}/${total}`)
                                  .setColor(6605055)
                                 // .setTimestamp()
                                 sendChannel.send({embed})
@@ -40,7 +40,7 @@
                                  .setURL(`https://roblox.com/catalog/${asset.AssetId}`)
                                  .addField("New Item on Sale!", asset.Name)
                                  .addField("Price in Robux", asset.Price + " ROBUX")
-                                 .addField("Timer", secondsToHours(timer) + ' hours') 
+                                 .addField("Timer", secondsToHours(timer) + ' hours')
                                  .setThumbnail(`http://www.roblox.com/Thumbs/Asset.ashx?Width=110&Height=110&AssetID=${asset.AssetId}`)
                                  .setColor(6605055)
                                 // .setTimestamp()
@@ -54,6 +54,21 @@
     }, 5001)
 
 -------------------------------------
+
+all coins
+
+if (action == 'allcoins') {
+  var total = 0
+  let members = guild.members
+  for (member in members.array()) {
+    client.redisClient.get(members.array()[member].id + "-" + guild.id + '-coins', function(err, coins) {
+      if (coins) {
+        total = parseInt(total + coins)
+      }
+    })
+  }
+  message.channel.send("There are `" + total + "` coins in circulation.")
+}
 
 shop data
 if (action == 'additem') {
@@ -86,13 +101,13 @@ if (action == 'additem') {
                                             newRoleData.id = r.id
                                             shopData.items[name] = newRoleData
                                             client.redisClient.set(guildKey, shopData)
-                                            message.channel.send("Role successfully added to the shop!")  
+                                            message.channel.send("Role successfully added to the shop!")
                                           }).catch(err => message.channel.send("There seemed to be an error adding the role to the shop!"))
                                       } else {
-                                         return message.channel.send("You failed to respond within 1 minute, or an error occurred!") 
+                                         return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
                                       }
                                   } else {
-                                        return message.channel.send("That isn't a number! Please restart this setup.") 
+                                        return message.channel.send("That isn't a number! Please restart this setup.")
                                   }
                               } else {
                                     return message.channel.send("You failed to respond within 1 minute, or an error occurred!")
@@ -108,7 +123,7 @@ if (action == 'additem') {
             }
 -------------------------------------
 
-ban HTTP gets 
+ban HTTP gets
 
 
 app.post('/getGCRBAN', authenticate, function (req, res, next) {
@@ -118,7 +133,7 @@ app.post('/getGCRBAN', authenticate, function (req, res, next) {
       `User ID: **${req.body.userId}**`,
       `Name: **${req.body.player}**`,
       `Note: **${req.body.Note}**`
-                            
+
       ].join('\n')
       const embed = new Discord.RichEmbed()
         .addField(`**Ban Report**`, dataString )
@@ -155,7 +170,7 @@ app.post('/getGCRBAN', authenticate, function (req, res, next) {
         client.channels.get('447790444588433431').send({embed})
         res.send("Successfully sent data!")
     })
-    
+
     var idsLogged = {}
     app.post('/getCaseLegendsData', authenticate, function (req, res, next) {
         if (!req.body) {
@@ -168,7 +183,7 @@ app.post('/getGCRBAN', authenticate, function (req, res, next) {
            // console.log("There's an error here.")
         }
         //console.log(req.body.info)
-        
+
         for (x in data) {
             var pData = data[x]
            // console.log(pData)
@@ -186,6 +201,6 @@ app.post('/getGCRBAN', authenticate, function (req, res, next) {
             }
         }
         client.savedPlayerData.set("Case Legends", client.caseLegendsPlayerData)
-        
+
         res.send("Data was successfully received and uploaded to memory.")
     })
