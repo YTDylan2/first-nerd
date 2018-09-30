@@ -69,7 +69,7 @@ exports.run = (client, message, args, level) => {
       for (member in members.array()) {
         client.redisClient.get(members.array()[member].id + "-" + guild.id + '-coins', function(err, coins) {
           if (coins) {
-            total = total + coins
+            total = parseInt(total + coins)
           }
         })
       }
