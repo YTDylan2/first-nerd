@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
     "You robbed the bank and made ",
     "You stole someone's shoes and sold them for ",
     "You hacked the Bitcoin network and profited ",
-    "You sold illegal products ",
+    "You sold illegal products for ",
     "You hacked a ROBLOX account and sold it for ",
   ]
   let losePhrases = [
