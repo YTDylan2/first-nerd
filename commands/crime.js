@@ -48,7 +48,7 @@ exports.run = (client, message, args, level) => {
 
     coinEarnCooldown = coinEarnCooldown * 1000
     if (!workers[timeoutKey]) {
-      workers[timeoutKey] = now - coinEarnCooldown
+      workers[timeoutKey] = now - (coinEarnCooldown * 2)
     }
 
     if (workers[timeoutKey]) {
