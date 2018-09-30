@@ -23,14 +23,14 @@ exports.run = (client, message, args, level) => {
 			if (amount == 'all') {
 				client.redisClient.set(playerCoinsKey, 0, function(err, reply) {
 					client.redisClient.incrby(friendCoinsKey, coins)
-					message.channel.send("Donated `" + coins + "` to **" + user.user.tag + "**!" )
+					message.channel.send("Donated `" + coins + " coins` to **" + user.user.tag + "**!" )
 				})
 				return
 			}
 			if (coins - amount >= 0) {
 				client.redisClient.decrby(playerCoinsKey, amount)
 				client.redisClient.incrby(friendCoinsKey, amount)
-				message.channel.send("Donated `" + amount + "` to **" + user.user.tag + "**!" )
+				message.channel.send("Donated `" + amount + " coins` to **" + user.user.tag + "**!" )
 			}
 		} else {
 			message.channel.send("You don't have any money... I respect your generosity, but the law won't let me do that.")
