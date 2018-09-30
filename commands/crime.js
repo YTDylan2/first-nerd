@@ -46,8 +46,9 @@ exports.run = (client, message, args, level) => {
     let crimeMultiplier = parseInt(settings.crimeMultiplier) || client.config.defaultSettings.crimeMultiplier
     let crimeLossPercent = parseInt(settings.crimeLossPercent) || client.config.defaultSettings.crimeLossPercent
 
+    coinEarnCooldown = coinEarnCooldown * 1000
     if (!workers[timeoutKey]) {
-      workers[timeoutKey] = now - coinEarnCooldown * 1000
+      workers[timeoutKey] = now - coinEarnCooldown
     }
 
     if (workers[timeoutKey]) {
@@ -89,7 +90,7 @@ exports.run = (client, message, args, level) => {
         message.channel.send("You have to wait **" + format + "** until you can use this command!");
       }
     } else {
-      workers[timeoutKey] = now - coinEarnCooldown * 1000
+      workers[timeoutKey] = now - coinEarnCooldown
     }
   })
 }

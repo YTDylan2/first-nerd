@@ -38,12 +38,13 @@ exports.run = (client, message, args, level) => {
     let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax
     let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown
 
+    coinEarnCooldown = coinEarnCooldown * 1000
     if (!workers[timeoutKey]) {
-      workers[timeoutKey] = now - coinEarnCooldown * 1000
+      workers[timeoutKey] = now - coinEarnCooldown
     }
     if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
-        if (now - time > coinEarnCooldown * 1000) {
+        if (now - time > coinEarnCooldown) {
           workers[timeoutKey] = now
           let phrase = random(phrases)
           let payout = getRand(coinEarnMin, coinEarnMax)
