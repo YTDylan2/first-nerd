@@ -15,8 +15,8 @@ exports.run = (client, message, args, level) => {
 	if (user.user.bot) {
 		return message.channel.send("You can't donate to bots! Not like they'll use the money...")
 	}
-	let playerCoinsKey = message.author.id + '-' + guild.id + '-coins'
-	let friendCoinsKey = user.id + '-' + guild.id + '-coins'
+	let playerCoinsKey = message.author.id + '-' + message.guild.id + '-coins'
+	let friendCoinsKey = user.id + '-' + message.guild.id + '-coins'
 	client.redisClient.get(playerCoinsKey, function(err, reply) {
 		if (reply) {
 			let coins = parseInt(reply)
