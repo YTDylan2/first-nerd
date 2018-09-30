@@ -43,7 +43,7 @@ exports.run = (client, message, args, level) => {
           })
           client.redisClient.set(playerDailyKey, time)
         }
-      }
+      })
     })
 }
 
