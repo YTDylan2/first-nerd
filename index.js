@@ -48,6 +48,9 @@ require("./modules/functions.js")(client);
 
 app.set('env', 'production')
 
+
+app.listen(process.env.PORT || 3000)
+
 Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX!")
@@ -296,7 +299,6 @@ const init = async () => {
 
 
 
-  app.listen(process.env.PORT || 3000)
 
   // this keeps the app alive
     app.get("/", (request, response) => {
