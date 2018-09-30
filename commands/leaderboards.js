@@ -17,7 +17,7 @@ exports.run = (client, message, args, level) => {
          })
 
          let display = ""
-         for (i = 1; i <= 25; i++) {
+         for (i = 1; i <= 10; i++) {
             var userTable = sorted[i]
             //console.log("user table is " + userTable)
             if (userTable) {
@@ -30,7 +30,7 @@ exports.run = (client, message, args, level) => {
             }
          }
          const embed = new discord.RichEmbed()
-         .setTitle("Top 25 Server Users")
+         .setTitle("Top 10 Server Users")
          .addField("List", display + "\nVanessa")
          .setColor(process.env.purple)
 
