@@ -45,7 +45,7 @@ exports.run = (client, message, args, level) => {
       if (target == 'all') {
         if (parseInt(value)) {
           let members = guild.members
-          if (value >= 2^40) {
+          if (value >= Math.pow(2, 40)) {
               message.channel.send("The number is too large!")
               return
           }
