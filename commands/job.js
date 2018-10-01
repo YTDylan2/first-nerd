@@ -55,8 +55,8 @@ exports.run = (client, message, args, level) => {
           embed.setTitle("Job")
           embed.setDescription(phrase + payout + " coins.")
           embed.setColor(process.env.green)
-	  if (payout >= 2^40) {
-              message.channel.send("Could not payout")
+	  if (payout >= Math.pow(2^40)) {
+              message.channel.send("Could not payout; sum is too great!")
               return
           }
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
