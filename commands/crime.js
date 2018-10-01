@@ -40,11 +40,11 @@ exports.run = (client, message, args, level) => {
   client.redisClient.get(guild.id + '-SETTINGS', function(err, reply) {
     let settings = JSON.parse(reply)
 
-    let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin
-    let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax
-    let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown
-    let crimeMultiplier = parseInt(settings.crimeMultiplier) || client.config.defaultSettings.crimeMultiplier
-    let crimeLossPercent = parseInt(settings.crimeLossPercent) || client.config.defaultSettings.crimeLossPercent
+    let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin || 20
+    let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax || 50
+    let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown || 5
+    let crimeMultiplier = parseInt(settings.crimeMultiplier) || client.config.defaultSettings.crimeMultiplier || 1.5
+    let crimeLossPercent = parseInt(settings.crimeLossPercent) || client.config.defaultSettings.crimeLossPercent || 40
 
     coinEarnCooldown = coinEarnCooldown * 1000
     if (!workers[timeoutKey]) {
