@@ -34,9 +34,9 @@ exports.run = (client, message, args, level) => {
   client.redisClient.get(guild.id + '-SETTINGS', function(err, reply) {
     let settings = JSON.parse(reply)
 
-    let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin
-    let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax
-    let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown
+    let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin || 20
+    let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax || 50
+    let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown || 5
 
     coinEarnCooldown = coinEarnCooldown * 1000
     if (!workers[timeoutKey]) {
