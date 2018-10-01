@@ -3,7 +3,7 @@
 exports.run = (client, message, args, level) => {
 	let user = message.mentions.members.first()
 	let amount = args[1]
-	if (!parseIng(amount) && amount != "all") {
+	if (!parseInt(amount) && amount != "all") {
 		return message.channel.send("Please send a proper amount!")
 	}
 	if (!user) {
