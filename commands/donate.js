@@ -2,8 +2,8 @@
 
 exports.run = (client, message, args, level) => {
 	let user = message.mentions.members.first()
-	let amount = parseInt(args[1])
-	if (!amount && amount != "all") {
+	let amount = args[1]
+	if (!parseIng(amount) && amount != "all") {
 		return message.channel.send("Please send a proper amount!")
 	}
 	if (!user) {
@@ -27,9 +27,10 @@ exports.run = (client, message, args, level) => {
 				})
 				return
 			}
-			if (coins - amount >= 0) {
-				client.redisClient.decrby(playerCoinsKey, amount)
-				client.redisClient.incrby(friendCoinsKey, amount)
+			
+			if (coins - parseInt(amount) >= 0) {
+				client.redisClient.decrby(playerCoinsKey, parseInt(amount))
+				client.redisClient.incrby(friendCoinsKey, parseInt(amount))
 				message.channel.send("Donated `" + amount + " coins` to **" + user.user.tag + "**!" )
 			}
 		} else {
