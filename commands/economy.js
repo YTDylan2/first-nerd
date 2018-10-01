@@ -45,6 +45,10 @@ exports.run = (client, message, args, level) => {
       if (target == 'all') {
         if (parseInt(value)) {
           let members = guild.members
+          if (value >= 2^61) {
+              message.channel.send("The number is too large!")
+              return
+          }
           for (member in members.array()) {
             client.redisClient.incrby(members.array()[member].id + "-" + guild.id + '-coins', value)
           }
