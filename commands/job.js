@@ -33,6 +33,9 @@ exports.run = (client, message, args, level) => {
   let now = Date.now()
   client.redisClient.get(guild.id + '-SETTINGS', function(err, reply) {
     let settings = JSON.parse(reply)
+    if (!settings) {
+       settings = client.config.defaultSettings
+    }
 
     let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin || 20
     let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax || 50
