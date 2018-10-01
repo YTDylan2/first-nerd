@@ -52,7 +52,7 @@ exports.run = (client, message, args, level) => {
           embed.setTitle("Job")
           embed.setDescription(phrase + payout + " coins.")
           embed.setColor(process.env.green)
-	  if (payout >= 2^61) {
+	  if (payout >= 2^40) {
               message.channel.send("Could not payout")
               return
           }
