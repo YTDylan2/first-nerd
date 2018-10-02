@@ -66,8 +66,9 @@ exports.run = (client, message, args, level) => {
           embed.setColor(process.env.green)
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
             message.channel.send({embed})
+	
+          client.updateGlobal({key: message.author.id, value: reply, guild: message.guild.id + "-globalcoins"})
           })
-          client.updateGlobal({key: message.author.id, value: payout, guild: message.guild.id + "-globalcoins"})
         } else {
           workers[timeoutKey] = now
           let phrase = random(losePhrases)
