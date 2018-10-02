@@ -61,8 +61,10 @@ exports.run = (client, message, args, level) => {
           }
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
             message.channel.send({embed})
+		 
+          client.updateGlobal({key: message.author.id, value: reply, guild: message.guild.id + "-globalcoins"}) 
           })
-          client.updateGlobal({key: message.author.id, value: payout, guild: message.guild.id + "-globalcoins"})
+          
         } else {
           let timeElapsed = now - time
           let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
