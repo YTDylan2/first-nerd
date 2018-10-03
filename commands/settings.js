@@ -61,7 +61,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let modifiedStr = "```js\n" + str + "\n```"
          if (missingKeys > 0) {
            if (missingKeys > 0) {
-             embed.addField("Important Notice", "**Reminder: You are missing" + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
+             embed.addField("Important Notice", "**Reminder: You are missing " + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
            }
          }
          embed.addField("Settings", modifiedStr)
