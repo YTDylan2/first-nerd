@@ -56,7 +56,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
            if (!modifiable[x]) {
              missingKeys = missingKeys + 1
            }
-         }
+
          let str = newArray.join("\n")
          let modifiedStr = "```js\n" + str + "\n```"
          if (missingKeys > 0) {
@@ -100,6 +100,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
     } else {
       client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
+    }
     }
 
   })
