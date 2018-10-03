@@ -47,7 +47,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let newArray = []
          let embed = new discord.RichEmbed()
          embed.setTitle("Setting Configuration")
-         embed.setDescription("These are the settings for your guild! Say `" + settings.prefix + "edit (setting) (value)` to change it!")
+         embed.setDescription("These are the settings for your guild! Say `>edit (setting) (value)` to change it!")
          for (var i in modifiable) {
            newArray.push(`${i} => ${modifiable[i]}`)
          }
@@ -61,11 +61,12 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let modifiedStr = "```js\n" + str + "\n```"
          if (missingKeys > 0) {
            if (missingKeys > 0) {
-             embed.addField("Important Notice", "**Reminder: You are missing **" + missingKeys + "** setting option(s)! Please use `settings update` to get the latest configuration info.")
+             embed.addField("Important Notice", "**Reminder: You are missing" + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
            }
          }
          embed.addField("Settings", modifiedStr)
          embed.setFooter("ten millien fyreflys", client.user.avatarURL)
+         embed.setColor(process.env.purple)
          message.channel.send({embed})
 
       }
