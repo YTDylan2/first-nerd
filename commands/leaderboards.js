@@ -43,13 +43,13 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["leaders", "richest"],
+    aliases: ["leaders", "richest", "lb"],
     permLevel: "User"
 };
 
 exports.help = {
     name: "leaderboards",
     category: "Economy",
-    description: "Displays the top 25 in coin earning!",
+    description: "Displays the top 10 in coin earning!",
     usage: "leaderboards"
 };

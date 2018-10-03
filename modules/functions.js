@@ -141,7 +141,7 @@ module.exports = (client) => {
     post('https://hastebin.com/documents').send(input).then(function(body) {
       let text = body.text
       text = JSON.parse(text)
-      return text.key
+      return "https://www.hastebin.com/" + text.key
     })
   }
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.

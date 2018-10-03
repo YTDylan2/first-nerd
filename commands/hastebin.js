@@ -1,25 +1,22 @@
-exports.run = (client, message, args, level) => {
-    var roblox = require('roblox-js')
-    var num = 0
+exports.run = async (client, message, args, level) => {
     let text = args.join(" ")
-    const { post } = require("snekfetch");
-    const { body } = post("https://www.hastebin.com/documents").send(text);
-    // message.channel.send(`Sent to https://www.hastebin.com/${body.key}.txt`)
-
-    
-        
+    if (text == undefined) {
+      return message.channel.send("Need a query!")
+    }
+    let link = await client.hastebin(text)
+    message.channel.send("Posted at " + link)
 }
 
 exports.conf = {
     enabled: false,
     guildOnly: false,
-    aliases: [""],
+    aliases: ["hb"],
     permLevel: "Bot Owner"
 };
 
 exports.help = {
     name: "hastebin",
-    category: "Development",
-    description: "e",
+    category: "System",
+    description: "Posts the query to Hasetbin.",
     usage: "hastebin [words]"
 };
