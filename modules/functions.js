@@ -138,7 +138,7 @@ module.exports = (client) => {
 
   client.hastebin = function(input) {
     const {post} = require('snekfetch')
-    const { body } = await post('https://hastebin.com/documents').send(input)
+    const { body } = post('https://hastebin.com/documents').send(input)
     return "https://hastebin.com/" + body.key
   }
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
