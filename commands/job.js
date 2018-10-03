@@ -37,20 +37,20 @@ exports.run = (client, message, args, level) => {
        settings = client.config.defaultSettings
     }
 
-    let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin || 20
-    let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax || 50
-    let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown || 5
+    let workEarnMin = parseInt(settings.workEarnMin) || client.config.defaultSettings.workEarnMin || 20
+    let workEarnMax = parseInt(settings.workEarnMax) || client.config.defaultSettings.workEarnMax || 50
+    let workEarnCooldown = parseInt(settings.workEarnCooldown) || client.config.defaultSettings.workEarnCooldown || 5
 
-    coinEarnCooldown = coinEarnCooldown * 1000
+    workEarnCooldown = workEarnCooldown * 1000
     if (!workers[timeoutKey]) {
-      workers[timeoutKey] = now - (coinEarnCooldown * 2)
+      workers[timeoutKey] = now - (workEarnCooldown * 2)
     }
     if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
-        if (now - time > coinEarnCooldown) {
+        if (now - time > workEarnCooldown) {
           workers[timeoutKey] = now
           let phrase = random(phrases)
-          let payout = getRand(coinEarnMin, coinEarnMax)
+          let payout = getRand(workEarnMin, workEarnMax)
           let embed = new discord.RichEmbed()
           embed.setTitle("Job")
           embed.setDescription(phrase + payout + " coins.")
@@ -61,13 +61,13 @@ exports.run = (client, message, args, level) => {
           }
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
             message.channel.send({embed})
-		 
-          client.updateGlobal({key: message.author.id, value: reply, guild: message.guild.id + "-globalcoins"}) 
+
+          client.updateGlobal({key: message.author.id, value: reply, guild: message.guild.id + "-globalcoins"})
           })
-          
+
         } else {
           let timeElapsed = now - time
-          let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+          let format = moment.duration(workEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
           message.channel.send("You have to wait **" + format + "** until you can work!");
         }
     } else {

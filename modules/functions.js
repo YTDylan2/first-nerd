@@ -136,6 +136,14 @@ module.exports = (client) => {
     }
   }
 
+  client.hastebin = function(input) {
+    const {post} = require('snekfetch')
+    post('https://hastebin.com/documents').send(input).then(function(body) {
+      let text = body.text
+      text = JSON.parse(text)
+      return text.key
+    })
+  }
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
   process.on("uncaughtException", (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");

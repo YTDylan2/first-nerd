@@ -23,7 +23,7 @@ exports.run = (client, message, args, level) => {
           let lastClaim = parseInt(reply)
           let timeElapsed = time - lastClaim
           if (timeElapsed >= oneDay) {
-            let daily = parseInt(settings.coinEarnDaily) || client.config.defaultSettings.coinEarnDaily
+            let daily = parseInt(settings.workEarnDaily) || client.config.defaultSettings.workEarnDaily
             client.redisClient.incrby(playerCoinKey, daily, function(err, newCoins) {
               if (newCoins) {
                 channel.send("You just received your daily **" + daily + "** coins!")
@@ -35,7 +35,7 @@ exports.run = (client, message, args, level) => {
             channel.send("You have to wait **" + format + "** until you can claim your daily coins!")
           }
         } else {
-          let daily = parseInt(settings.coinEarnDaily) || client.config.defaultSettings.coinEarnDaily
+          let daily = parseInt(settings.workEarnDaily) || client.config.defaultSettings.workEarnDaily
           client.redisClient.incrby(playerCoinKey, daily, function(err, newCoins) {
             if (newCoins) {
               channel.send("You just received your daily **" + daily + "** coins!")

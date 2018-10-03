@@ -259,7 +259,7 @@ const init = async () => {
     const response = client.loadCommand(f);
     if (response) console.log(response);
   });
-  client.startChannel = client.channels.get('491777217920106508')
+
   // Then we load events, which will include our message and ready event.
   const evtFiles = await readdir("./events/");
   client.logger.log(`Loading a total of ${evtFiles.length} events.`);
@@ -366,6 +366,8 @@ const init = async () => {
     }, 57600000)
 
     setInterval(() => {
+        client.startChannel = client.channels.get('491777217920106508')
+
         let ordinal = require("ordinal-js")
         let buildVer = process.env.HEROKU_RELEASE_VERSION
         let numb = buildVer.match(/\d/g);

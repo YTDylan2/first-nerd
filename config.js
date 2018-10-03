@@ -31,12 +31,13 @@ const config = {
     "welcomeChannel": "general",
     "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
     "welcomeEnabled": "true",
-    "coinEarnMin" : 20,
-    "coinEarnMax" : 50,
-    "coinEarnCooldown" : 5,
-    "coinEarnDaily" : 500,
+    "workEarnMin" : 20,
+    "workEarnMax" : 50,
+    "workEarnCooldown" : 5,
+    "workEarnDaily" : 500,
     "crimeMultiplier" : 1.5,
-    "crimeLossPercent" : 2.5,
+    "crimeDeductionPercent" : 2.5,
+    "crimeWinRate" : 50
 
   },
 

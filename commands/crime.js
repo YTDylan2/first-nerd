@@ -39,26 +39,30 @@ exports.run = (client, message, args, level) => {
   let now = Date.now()
   client.redisClient.get(guild.id + '-SETTINGS', function(err, reply) {
     let settings = JSON.parse(reply)
+    if (!settings) {
+      settings = client.config.defaultSettings
+    }
 
-    let coinEarnMin = parseInt(settings.coinEarnMin) || client.config.defaultSettings.coinEarnMin || 20
-    let coinEarnMax = parseInt(settings.coinEarnMax) || client.config.defaultSettings.coinEarnMax || 50
-    let coinEarnCooldown = parseInt(settings.coinEarnCooldown) || client.config.defaultSettings.coinEarnCooldown || 5
+    let workEarnMin = parseInt(settings.workEarnMin) || client.config.defaultSettings.workEarnMin || 20
+    let workEarnMax = parseInt(settings.workEarnMax) || client.config.defaultSettings.workEarnMax || 50
+    let workEarnCooldown = parseInt(settings.workEarnCooldown) || client.config.defaultSettings.workEarnCooldown || 5
     let crimeMultiplier = parseInt(settings.crimeMultiplier) || client.config.defaultSettings.crimeMultiplier || 1.5
-    let crimeLossPercent = parseInt(settings.crimeLossPercent) || client.config.defaultSettings.crimeLossPercent || 40
+    let crimeDeductionPercent = parseInt(settings.crimeDeductionPercent) || client.config.defaultSettings.crimeDeductionPercent || 2.5
+    let crimeWinRate = parseInt(settings.crimeWinRate) || client.config.defaultSettings.crimeWinRate || 50
 
-    coinEarnCooldown = coinEarnCooldown * 1000
+    workEarnCooldown = workEarnCooldown * 1000
     if (!workers[timeoutKey]) {
-      workers[timeoutKey] = now - (coinEarnCooldown * 2)
+      workers[timeoutKey] = now - (workEarnCooldown * 2)
     }
 
     if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
-      if (now - time > coinEarnCooldown) {
-        let crimeChance = getRand(1, 10)
-        if (crimeChance < 7) {
+      if (now - time > workEarnCooldown) {
+        let crimeChance = getRand(1, 100)
+        if (crimeChance <= crimeWinRate) {
           workers[timeoutKey] = now
           let phrase = random(phrases)
-          let payout = getRand(coinEarnMin, coinEarnMax)
+          let payout = getRand(workEarnMin, workEarnMax)
           let embed = new discord.RichEmbed()
           payout = Math.floor(payout * crimeMultiplier)
           embed.setTitle("Crime")
@@ -66,7 +70,7 @@ exports.run = (client, message, args, level) => {
           embed.setColor(process.env.green)
           client.redisClient.incrby(dataKey, payout, function(err, reply) {
             message.channel.send({embed})
-	
+
           client.updateGlobal({key: message.author.id, value: reply, guild: message.guild.id + "-globalcoins"})
           })
         } else {
@@ -74,7 +78,7 @@ exports.run = (client, message, args, level) => {
           let phrase = random(losePhrases)
           client.redisClient.get(dataKey, function(err, coins) {
             let embed = new discord.RichEmbed()
-            let loss = Math.floor(coins * (crimeLossPercent / 100))
+            let loss = Math.floor(coins * (crimeDeductionPercent / 100))
             embed.setTitle("Loss")
             embed.setDescription(phrase + loss + " coins!")
             embed.setColor(process.env.red)
@@ -88,11 +92,11 @@ exports.run = (client, message, args, level) => {
         }
       } else {
         let timeElapsed = now - time
-        let format = moment.duration(coinEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+        let format = moment.duration(workEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
         message.channel.send("You have to wait **" + format + "** until you can use this command!");
       }
     } else {
-      workers[timeoutKey] = now - coinEarnCooldown
+      workers[timeoutKey] = now - workEarnCooldown
     }
   })
 }
