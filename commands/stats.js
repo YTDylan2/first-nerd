@@ -3,9 +3,9 @@ const moment = require("moment");
 require("moment-duration-format");
 
 exports.run = (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+  const duration = moment.duration(client.uptime).format(" D [days], H [hours], m [minutes], s [seconds]");
   var discord = require("discord.js")
-  
+
   const embed = new discord.RichEmbed()
   .setAuthor("Vanessa", client.user.avatarURL)
   .setTitle("Bot Statistics")
@@ -22,7 +22,7 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
   .setColor(process.env.purple)
   message.channel.send({embed})
 };
-   
+
 
 exports.conf = {
   enabled: true,

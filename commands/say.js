@@ -12,7 +12,7 @@ exports.run = (client, message, args, level) => {
     }
     if (text.length > 0 && !text.match("@everyone") && !text.match("@here")) {
         message.delete()
-        if (level < 10) {            
+        if (level < 4) {
             message.channel.send(text + " (" + message.author.username + ")")
         } else {
             message.channel.send(text)
@@ -33,5 +33,3 @@ exports.help = {
     description: "Will mimic and say the content you give it!",
     usage: "say [text]"
 };
-
-

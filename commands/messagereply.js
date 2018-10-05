@@ -23,7 +23,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-    enabled: true,
+    enabled: false,
     guildOnly: false,
     aliases: ["messagereply"],
     permLevel: "Bot Owner"
@@ -31,7 +31,7 @@ exports.conf = {
 
 exports.help = {
     name: "messagereply",
-    category: "Roblox",
+    category: "Vault",
     description: "Replies to a message on ROBLOX.",
     usage: "replymessage [userId] [text]"
 };

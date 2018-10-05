@@ -19,6 +19,6 @@ exports.conf = {
 exports.help = {
     name: "hastebin",
     category: "System",
-    description: "Posts the query to Hasetbin.",
+    description: "Posts the query to Hastebin.",
     usage: "hastebin [words]"
 };

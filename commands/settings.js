@@ -37,7 +37,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
           message.channel.send("Please note this setting is based off how much money the user has at that moment.")
         }
         if (key == "crimeWinRate") {
-          message.channel.send("This is out of 100.")
+          message.channel.send("This is out of 100 percent. Settings this to 35% sets the crime winning rate to 35%.")
         }
         client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(fail, data) {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
