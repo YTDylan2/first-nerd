@@ -157,7 +157,7 @@ module.exports = (client) => {
   process.on("unhandledRejection", err => {
     client.logger.error(`Unhandled rejection: ${err}`);
     if (client.startChannel) {
-      client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
+      //client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
     }
   });
 
