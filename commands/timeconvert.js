@@ -41,8 +41,8 @@ exports.conf = {
 };
 
 exports.help = {
-    name: "alert",
-    category: "System",
+    name: "timeconvert",
+    category: "Fun",
     description: "Convert time. Say `1s`, `1m`, `1h`, `1d`",
-    usage: "alert [alert]"
+    usage: "timeconvert [time]"
 };

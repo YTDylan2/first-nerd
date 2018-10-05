@@ -1,7 +1,7 @@
 // ban user
 
-exports.run = (client, message, args, level) => {
-    let guilds client.guilds.array()
+exports.run = async (client, message, args, level) => {
+    let guilds = client.guilds.array()
     let guildCount = client.guilds.size
     message.channel.send("Currently in `" + guildCount + "` guilds.")
 
