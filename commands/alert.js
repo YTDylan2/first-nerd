@@ -6,15 +6,17 @@ exports.run = async (client, message, args, level) => {
     let users = client.users.array()
     let usersNotified = 0
     for (x in users) {
+      usersNotified = usersNotified + 1
       try {
-       await users[x].send(text)
-       usersNotified = usersNotified + 1
+       users[x].send(text)
+       
       } catch (err) {
         // nothing
-        console.log(err)
+        usersNotified = usersNotified - 1
       }
 
     }
+    await client.wait(10000)
     message.channel.send(`Out of **${users.length}** users, ${usersNotified} were notified.`)
 }
 
