@@ -37,7 +37,7 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: ["ctime", "timeconv", "time"],
-    permLevel: "Bot Owner"
+    permLevel: "User"
 };
 
 exports.help = {
