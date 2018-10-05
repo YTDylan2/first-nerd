@@ -17,7 +17,7 @@ exports.run = (client, message, args, level) => {
     let r = time.replace(/[^a-zA-Z]+/g, '');
     let multiplier = returnMultiplier(r)
     if (number && multiplier) {
-      let format = moment.duration(number, "seconds").format({
+      let format = moment.duration(number * multiplier, "seconds").format({
         template: ('y [years], M [months], w [weeks], D [days], H [hours], m [minutes], s [seconds]'),
         precision: 2
       })
