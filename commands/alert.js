@@ -7,7 +7,8 @@ exports.run = async (client, message, args, level) => {
     let usersNotified = 0
     for (x in users) {
       try {
-        users[x].send(text).then(msg => usersNotified = usersNotified + 1)
+       await users[x].send(text)
+       usersNotified = usersNotified + 1
       } catch (err) {
         // nothing
         console.log(err)
