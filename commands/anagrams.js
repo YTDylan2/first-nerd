@@ -42,7 +42,7 @@ exports.run = async (client, message, args, level) => {
       return message.channel.send("Too many characters. You're " + difference + " characters over the limit. (max 7)")
     }
     let combos = getAnagrams(text)
-    combos = combos.join('\n,')
+    combos = combos.join(',\n')
     client.hastebin(combos)
     .then(link =>{
       message.channel.send("Anagrams posted at " + link)
