@@ -32,14 +32,17 @@ function getAnagrams(input) {
     return anagrams;
 }
 
+const math = require('mathjs')
 exports.run = async (client, message, args, level) => {
     let text = args.join(" ")
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a word!")
     }
-    if (text.length > 7) {
-      let difference = text.length - 7
-      return message.channel.send("Too many characters. You're " + difference + " characters over the limit. (max 7)")
+    if (text.length > 8) {
+      let difference = text.length - 8
+      let factorial = `${text.length}!`
+      let res = math.eval(factorial)
+      return message.channel.send("I would crash if I tried that, but there would be **" + res + "** different combinations.\n(max 8 characters, `" + difference + "` over limit.)")
     }
     let combos = getAnagrams(text)
     combos = combos.join(',\n')
