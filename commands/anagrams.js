@@ -38,11 +38,11 @@ exports.run = async (client, message, args, level) => {
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a word!")
     }
-    if (text.length > 8) {
-      let difference = text.length - 8
+    if (text.length > 7) {
+      let difference = text.length - 7
       let factorial = `${text.length}!`
       let res = math.eval(factorial)
-      return message.channel.send("I would crash if I tried that, but there would be **" + res + "** different combinations.\n(max 8 characters, `" + difference + "` over limit.)")
+      return message.channel.send("I would crash if I tried that, but there would be **" + res + "** different combinations.\n(max 7 characters, `" + difference + "` over limit.)")
     }
     let combos = getAnagrams(text)
     combos = combos.join(',\n')
