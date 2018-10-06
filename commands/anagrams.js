@@ -37,9 +37,9 @@ exports.run = async (client, message, args, level) => {
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a word!")
     }
-    if (text.length > 6) {
-      let difference = text.length - 6
-      return message.channel.send("Too many characters. You're " + difference + " characters over the limit. (max 6)")
+    if (text.length > 5) {
+      let difference = text.length - 5
+      return message.channel.send("Too many characters. You're " + difference + " characters over the limit. (max 5)")
     }
     let combos = getAnagrams(text)
     combos = combos.join('\n,')
