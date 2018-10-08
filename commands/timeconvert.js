@@ -13,11 +13,9 @@ function returnMultiplier(letter) {
 exports.run = (client, message, args, level) => {
     const moment = require('moment')
     require('moment-duration-format')
-    let time = parseFloat(args[0])
+    let time = args[0]
     if (!time) return;
-    if (time < 0) {
-      time = time * -1
-    }
+    if (time.match("-")) return;
     let number = parseFloat(time.match(/[\d\.]+/))
     let r = time.replace(/[^a-zA-Z]+/g, '');
     let multiplier = returnMultiplier(r)
