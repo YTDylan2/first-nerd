@@ -4,7 +4,8 @@ function returnMultiplier(letter) {
     "s" : 1,
     "m" : 60,
     "h" : 3600,
-    "d" : 86400
+    "d" : 86400,
+    "y" : 31536000
   }
   return times[letter]
 }
@@ -12,14 +13,18 @@ function returnMultiplier(letter) {
 exports.run = (client, message, args, level) => {
     const moment = require('moment')
     require('moment-duration-format')
-    let time = args[0]
+    let time = parseFloat(args[0])
+    if (!time) return;
+    if (time < 0) {
+      time = time * -1
+    }
     let number = parseFloat(time.match(/[\d\.]+/))
     let r = time.replace(/[^a-zA-Z]+/g, '');
     let multiplier = returnMultiplier(r)
     if (number && multiplier) {
       let format = moment.duration(number * multiplier, "seconds").format({
         template: ('y [years], M [months], w [weeks], D [days], H [hours], m [minutes], s [seconds]'),
-        precision: 2
+        precision: 3
       })
       message.channel.send("Time: **" + format + "**")
     } else {
