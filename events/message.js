@@ -33,7 +33,7 @@ module.exports = (client, message) => {
     let match =  matchMention(message.content)
     if (match || message.channel.type == 'dm') {
       client.cleverbot.create(function(bad, session) {
-         if (match != "help" && message.content.indexOf('[ignore]') !== 0) {
+         if (match != "help" || message.content.indexOf('[ignore]') !== 0) {
             message.channel.startTyping()
             client.cleverbot.ask(match, function(err, response) {
                message.channel.send(response + ' <@!' + message.author.id + '>')
@@ -53,20 +53,14 @@ module.exports = (client, message) => {
    } else {
       id = '0'
    }
-   client.redisClient.get(id + "-SETTINGS", function(err, data) {
-      let settings = JSON.parse(data)
-      if (!settings) {
-         settings = client.config.defaultSettings
+   client.get(id + "-DATA").then(response => {
+      let data = JSON.parse(response)
+      if (!data) {
+         data = client.config.defaultSettings
       }
 
-
-
-
+      let settings = data.settings
       message.settings = settings;
-
-
-
-
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
       if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0) return;
@@ -96,12 +90,12 @@ module.exports = (client, message) => {
        return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
 
       if (level < client.levelCache[cmd.conf.permLevel]) {
-         return message.channel.send(`You're missing the required permission (${cmd.conf.permLevel}) to use this command!`)
+         return message.channel.send(`You're missing the required permission **(${cmd.conf.permLevel})** to use this command!`)
       }
 
       // don't run if disabled
       if (cmd.conf.enabled == false) {
-         return message.channel.send("Looks like this command is disabled.")
+         return message.author.send("That command is disabled!")
       }
 
       // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
