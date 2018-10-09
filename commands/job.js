@@ -18,7 +18,7 @@ exports.run = (client, message, args, level) => {
   let guild = message.guild
   let phrases = [
     "You swept the floors and got ",
-    "You got ",
+    "You dusted the ceiling ",
     "You made a successful game and got ",
     "You did some work and got ",
     "You helped someone find their cat and they rewarded you with ",
@@ -26,26 +26,28 @@ exports.run = (client, message, args, level) => {
     "You wrote a song, and sold tons of copies for ",
     "You sold your business for "
   ]
-
-  let timeoutKey = message.author.id + "-" + message.guild.id + '-timeout'
-  let dataKey = message.author.id + "-" + message.guild.id + "-coins"
+  let user = message.author
+  let timeoutKey = user.id + "-" + guild.id + '-timeout'
 
   let now = Date.now()
-  client.redisClient.get(guild.id + '-SETTINGS', function(err, reply) {
-    let settings = JSON.parse(reply)
-    if (!settings) {
-       settings = client.config.defaultSettings
-    }
 
-    let workEarnMin = parseInt(settings.workEarnMin) || client.config.defaultSettings.workEarnMin || 20
-    let workEarnMax = parseInt(settings.workEarnMax) || client.config.defaultSettings.workEarnMax || 50
-    let workEarnCooldown = parseInt(settings.workEarnCooldown) || client.config.defaultSettings.workEarnCooldown || 5
+  client.getGuildData(guild).then(response => {
+    let data = JSON.parse(response)
+    if (data) {
+      let settings = data.settings
+      let economy = data.economy
 
-    workEarnCooldown = workEarnCooldown * 1000
-    if (!workers[timeoutKey]) {
-      workers[timeoutKey] = now - (workEarnCooldown * 2)
-    }
-    if (workers[timeoutKey]) {
+      let workEarnMin = parseInt(settings.workEarnMin) || client.config.defaultSettings.settings.workEarnMin || 20
+      let workEarnMax = parseInt(settings.workEarnMax) || client.config.defaultSettings.settings.workEarnMax || 50
+      let workEarnCooldown = parseInt(settings.workEarnCooldown) || client.config.defaultSettings.settings.workEarnCooldown || 5
+
+      let playerData = economy.players[user.id]
+
+      workEarnCooldown = workEarnCooldown * 1000
+      if (!workers[timeoutKey]) {
+        workers[timeoutKey] = now - (workEarnCooldown * 2)
+      }
+      if (workers[timeoutKey]) {
       let time = workers[timeoutKey]
         if (now - time > workEarnCooldown) {
           workers[timeoutKey] = now
@@ -55,23 +57,19 @@ exports.run = (client, message, args, level) => {
           embed.setTitle("Job")
           embed.setDescription(phrase + payout + " coins.")
           embed.setColor(process.env.green)
-	  if (payout >= Math.pow(2^40)) {
+          if (payout >= Math.pow(2^40)) {
               message.channel.send("Could not payout; sum is too great!")
               return
           }
-          client.redisClient.incrby(dataKey, payout, function(err, reply) {
-            message.channel.send({embed})
-
-          client.updateGlobal({key: message.author.id, value: reply, guild: message.guild.id + "-globalcoins"})
-          })
-
+          playerData.coins = playerData.coins + payout
+          client.set(guild.id + '-DATA', JSON.stringify(data))
+          client.updateGlobal(guild.id)
         } else {
           let timeElapsed = now - time
           let format = moment.duration(workEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
           message.channel.send("You have to wait **" + format + "** until you can work!");
         }
-    } else {
-
+      }
     }
   })
 }
@@ -86,6 +84,6 @@ exports.conf = {
 exports.help = {
 		name: "job",
 		category: "Economy",
-		description: "Put in some time and get some profit!",
+		description: "Put in some time and get some coins!",
 		usage: "job"
 };

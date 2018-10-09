@@ -9,13 +9,13 @@ exports.run = (client, message, args, level) => {
                 icon_url: client.user.avatarURL
             },
             title: "Support Server",
-            url: "https://discord.gg/bVJ8WJk",
+            url: "https://discord.gg/" + process.env.supportServerCode,
             description: "Find information about Vannesa!\n**DISCLAIMER: While using the Cleverbot integration, your conversations may be viewed but not recorded for future reference.**",
             fields: [{
                 name: "Info",
-                value: `I am  ${client.user.username}, the culimation of water is ice soup's creativity.\nI'm also a great listener. Just ping me.\nCurrent Guilds: ${client.guilds.size}\nEvery user I've seen: ${client.users.size}`
+                value: `I am ${client.user.username}, the culimation of water is ice soup's creativity.\nI'm also a great listener. Just ping me.\nCurrent Guild Count: ${client.guilds.size}\nNumber of Users: ${client.users.size}`
             },
-           
+
             {
                 name: "Owners / Developers",
                 value: "@water is ice soup#0907 - Owner and Developer"
@@ -26,7 +26,7 @@ exports.run = (client, message, args, level) => {
             },
             {
                 name: "Special Thanks",
-                value: "Special thanks to Flatbird, and Rewolf for getting the idea underway and testing the bot!\nThanks alot to Budgie for being a great help with the hosting!"
+                value: "Special thanks to Flatbird, and Rewolf for helping testing the bot!\nThanks alot to Budgie for being a great help with the hosting!"
             },
             {
                 name: "Invite Link",
@@ -50,5 +50,3 @@ exports.help = {
     description: "Shows bot information.",
     usage: "support",
 };
-
-

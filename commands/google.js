@@ -1,19 +1,42 @@
 // clear messages
+let badLinks = [
+  "porn",
+  "hentai",
+  "deathaddict",
+  "gay",
+  "xvide",
+  "grabify",
+  "redtu",
+  ""
+]
 
 exports.run = (client, message, args, level) => {
     var google = require('google')
+    var canPost = true
+
     let links = []
     let search = args.join(" ")
     if (search === undefined) {
         message.channel.send("Please send something to search!")
         return;
     }
-    google(search, async (err, res) => {
+    google(search, async (err, response) => {
+        let res = JSON.parse(response)
         if (!res.links[0].link) {
             message.channel.send("There were no search results.")
             return
         } else {
-            message.channel.send(res.links[0].link)
+
+            for (x in badLinks) {
+              if (res.links[0].link.toString().match(badLinks[x])) {
+                canPost = false
+                break;
+              }
+            }
+            if (canPost) {
+              message.channel.send(res.links[0].link)
+            }
+
         }
     })
 
@@ -32,5 +55,3 @@ exports.help = {
     description: "Googles stuff. You know?",
     usage: "google [...search terms]"
 };
-
-

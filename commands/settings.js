@@ -15,8 +15,9 @@ const discord = require('discord.js')
 // OR the same as:
 // const [action, key, ...value] = args;
 exports.run = (client, message, [action, key, value], level) => { // eslint-disable-line no-unused-vars
-  let guildId = message.guild.id
-  client.redisClient.get(guildId + "-SETTINGS", function(err, settings) {
+  let guild = message.guild
+  let guildId = guild.id
+  client.getGuildData(guild).then(settings => {
     if (settings) {
       let modifiable = JSON.parse(settings)
       if (action == "edit") {
@@ -29,7 +30,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (!modifiable[key]) {
           return message.channel.send("That setting wasn't found!")
         }
-        modifiable[key] = value
+        modifiable.settings[key] = value
         if (key == "workEarnCooldown") {
           message.channel.send("Please note this setting is counted in seconds, setting this to `10` would give you a `10 second cooldown.`")
         }
@@ -39,7 +40,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (key == "crimeWinRate") {
           message.channel.send("This is out of 100 percent. Settings this to 35% sets the crime winning rate to 35%.")
         }
-        client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(fail, data) {
+        client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable), function(fail, data) {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
@@ -47,13 +48,13 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let newArray = []
          let embed = new discord.RichEmbed()
          embed.setTitle("Setting Configuration")
-         embed.setDescription("These are the settings for your guild! Say `>edit (setting) (value)` to change it!")
-         for (var i in modifiable) {
-           newArray.push(`${i} => ${modifiable[i]}`)
+         embed.setDescription("These are the settings for your guild! Say `>settings edit (setting) (value)` to change it!")
+         for (var i in modifiable.settings) {
+           newArray.push(`${i} => ${modifiable.settings[i]}`)
          }
          let missingKeys = 0
          for (x in client.config.defaultSettings) {
-           if (!modifiable[x]) {
+           if (!modifiable.settings[x]) {
              missingKeys = missingKeys + 1
            }
          }
@@ -71,7 +72,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
 
       }
       if (action == 'reset') {
-        client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
+        client.redisClient.set(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
         message.channel.send("Default settings have been applied!")
       }
       if (action == "update") {
@@ -80,17 +81,17 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         for (x in client.config.defaultSettings) {
           if (!modifiable[x]) {
             updatedKeys = updatedKeys + 1
-            modifiable[x] = client.config.defaultSettings[x]
+            modifiable.settings[x] = client.config.defaultSettings[x]
           }
         }
-        for (x in modifiable) {
+        for (x in modifiable.settings) {
           if (!client.config.defaultSettings[x]) {
             removed = removed + 1
-            delete modifiable[x]
+            delete modifiable.settings[x]
           }
         }
         if (updatedKeys > 0) {
-          client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(modifiable), function(err, reply) {
+          client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable), function(err, reply) {
             message.channel.send("**" + updatedKeys + "** settings were added / updated.\n**" + removed + "** settings were removed.")
           })
         } else {
@@ -99,7 +100,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
 
       }
     } else {
-      client.redisClient.set(guildId + "-SETTINGS", JSON.stringify(client.config.defaultSettings))
+      client.set(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
     }
 
@@ -112,7 +113,13 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["setting", "set", "conf", "config"],
-  permLevel: "Server Owner"
+  permLevel: "Server Owner",
+  subCommands: [
+    "edit - Used to edit a setting.\n`>settings edit prefix !`\n`>settings edit workEarnMax 2400`",
+    "view - Used to view settings.\n`>settings view`",
+    "reset - Applies default settings.\n`>settings reset`",
+    "update - Updates settings.\n`>settings update`"
+  ]
 };
 
 exports.help = {

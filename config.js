@@ -23,21 +23,46 @@ const config = {
   // VIA COMMANDS IN THE GUILD.
 
   "defaultSettings" : {
-    "prefix": ">",
-    "modLogChannel": "bot-logs",
-    "modRole": "Moderator",
-    "adminRole": "Admin",
-    "systemNotice": "true", // This gives a notice when a user tries to run a command that they do not have permission to use.
-    "welcomeChannel": "general",
-    "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
-    "welcomeEnabled": "true",
-    "workEarnMin" : 20,
-    "workEarnMax" : 50,
-    "workEarnCooldown" : 5,
-    "workEarnDaily" : 500,
-    "crimeMultiplier" : 1.5,
-    "crimeDeductionPercent" : 2.5,
-    "crimeWinRate" : 50
+    "settings": {
+
+
+      "prefix": ">",
+      "welcomeChannel": "general",
+      "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
+      "welcomeEnabled": "true",
+      "workEarnMin" : 25,
+      "workEarnMax" : 150,
+      "workEarnCooldown" : 5,
+      "workEarnDaily" : 500,
+      "crimeMultiplier" : 1.5,
+      "crimeDeductionPercent" : 2.5,
+      "crimeWinRate" : 50
+    },
+    "economy" : {
+      "leaderboards" : {
+
+      },
+      "players" :{
+
+      }
+    },
+    "data" : {
+      "ignoredChannels" : {
+
+      },
+      "modRoles" : {
+
+      },
+      "adminRoles" : {
+
+      },
+      "disabledCommands" : {
+
+      },
+      "disabledCategories" :{
+        
+      }
+    }
 
   },
 

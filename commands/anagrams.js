@@ -55,7 +55,7 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["wordcombos"],
+    aliases: ["wordcombos", "anagram"],
     permLevel: "User"
 };
 

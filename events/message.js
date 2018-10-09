@@ -31,9 +31,9 @@ module.exports = (client, message) => {
   // to the message object, so `message.settings` is accessible.
     let mentions = message.mentions.members
     let match =  matchMention(message.content)
-    if (match) {
+    if (match || message.channel.type == 'dm') {
       client.cleverbot.create(function(bad, session) {
-         if (match != "help") {
+         if (match != "help" && message.content.indexOf('[ignore]') !== 0) {
             message.channel.startTyping()
             client.cleverbot.ask(match, function(err, response) {
                message.channel.send(response + ' <@!' + message.author.id + '>')

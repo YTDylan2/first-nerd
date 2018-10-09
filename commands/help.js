@@ -4,13 +4,13 @@ redesigning this command
 would now use embeds
 */
 
-  
+
 
 
 exports.run = (client, message, args, level) => {
   // if no specific command is called show all commands
   const discord = require("discord.js")
-  
+
   function seperateStrings(strings) {
     return strings.join(", ")
   }
@@ -18,12 +18,12 @@ exports.run = (client, message, args, level) => {
   if (message.guild) {
     id = message.guild.id
   }
-  client.redisClient.get(id + "-SETTINGS", function(err, response) {
+  client.getGuildData(message.guild).then(response => {
     let settings = JSON.parse(response)
     if (!settings) {
-      settings = client.config.defaultSettings
+      settings = client.config.defaultSettings.settings
     }
-                           
+
     if (!args[0]) {
       // load guild settings (for prefixes and eventually per guild tweaks)
 
@@ -36,7 +36,7 @@ exports.run = (client, message, args, level) => {
       let arrayCmds = myCommands.array()
       for (var x in arrayCmds) {
         let cmd = arrayCmds[x]
-        if (cmd.help) {        
+        if (cmd.help) {
           if (!sortedCommands[cmd.help.category]) {
             sortedCommands[cmd.help.category] = [cmd.help.name]
           } else {
@@ -73,7 +73,11 @@ exports.run = (client, message, args, level) => {
         .addField("Security", command.conf.permLevel + "+")
         if (command.conf.aliases.length > 0) {
           embed.addField("Aliases", command.conf.aliases.join(", "))
-        }                
+        }
+        if (command.conf.subCommands) {
+          let details = command.conf.subCommands.join('\n')
+          embed.addField("Sub-commands", details)
+        }
         embed.setColor(process.env.purple)
         message.channel.send({embed})
       }

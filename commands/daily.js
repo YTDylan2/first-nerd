@@ -8,42 +8,27 @@ exports.run = (client, message, args, level) => {
     let guild = message.guild
     let channel = message.channel
     let user = message.author
-    let playerCoinKey = user.id + '-' + guild.id + '-coins'
-    let playerDailyKey = user.id + '-' + guild.id + '-daily'
 
     let time = Date.now()
     let oneDay = 86400000
-    client.redisClient.get(guild.id + '-SETTINGS', function(err, response) {
-      let settings = JSON.parse(response)
-      if (!settings) {
-        settings = client.config.defaultSettings
-      }
-      client.redisClient.get(playerDailyKey, function(err, reply) {
-        if (reply) {
+
+    client.getGuildData(guild).then(response => {
+      let data = JSON.parse(response)
+      if (data) {
+          let playerData = data.economy.players[user.id]
           let lastClaim = parseInt(reply)
           let timeElapsed = time - lastClaim
           if (timeElapsed >= oneDay) {
-            let daily = parseInt(settings.workEarnDaily) || client.config.defaultSettings.workEarnDaily
-            client.redisClient.incrby(playerCoinKey, daily, function(err, newCoins) {
-              if (newCoins) {
-                channel.send("You just received your daily **" + daily + "** coins!")
-              }
-            })
-            client.redisClient.set(playerDailyKey, time)
+            let daily = parseInt(data.settings.workEarnDaily) || client.config.defaultSettings.settings.workEarnDaily
+            playerData.coins = playerData.coins + daily
+
+            client.set(guild.id + '-DATA', JSON.stringify(data))
+            client.updateGlobal(guild.id)
           } else {
             let format = moment.duration(oneDay - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
             channel.send("You have to wait **" + format + "** until you can claim your daily coins!")
           }
-        } else {
-          let daily = parseInt(settings.workEarnDaily) || client.config.defaultSettings.workEarnDaily
-          client.redisClient.incrby(playerCoinKey, daily, function(err, newCoins) {
-            if (newCoins) {
-              channel.send("You just received your daily **" + daily + "** coins!")
-            }
-          })
-          client.redisClient.set(playerDailyKey, time)
-        }
-      })
+      }
     })
 }
 

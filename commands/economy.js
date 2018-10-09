@@ -1,7 +1,7 @@
 // economy control
 const discord = require('discord.js')
 
-exports.run = (client, message, args, level) => {
+exports.run = async (client, message, args, level) => {
 
     let guild = message.guild
     let user = message.mentions.members.first()
@@ -22,51 +22,56 @@ exports.run = (client, message, args, level) => {
       embed.setColor(process.env.green)
       message.channel.send({embed})
     }
-    if (action == 'reset') {
-      if (target == 'all') {
-        let members = guild.members
-        for (member in members.array()) {
-          client.redisClient.set(members.array()[member].id + "-" + guild.id + '-coins', 0)
-        }
-        client.redisClient.del(guild.id + "-globalcoins", function(err, reply) {
-          message.channel.send("Successfully reset everyone!")
-        })
-        return
-      }
-      if (user) {
-        client.redisClient.set(user.id + "-" + guild.id + '-coins', 0, function(err, reply) {
-          message.channel.send("Successfully reset " + user.user.tag + "'s coins.")
-        })
-      } else {
-        return message.channel.send("Please send a user, or do `all` to reset all members.")
-      }
-    }
-    if (action == 'give') {
-      if (target == 'all') {
-        if (parseInt(value)) {
-          let members = guild.members
-          if (value >= Math.pow(2, 40)) {
-              message.channel.send("The number is too large!")
-              return
-          }
-          for (member in members.array()) {
-            client.redisClient.incrby(members.array()[member].id + "-" + guild.id + '-coins', value)
-          }
-          message.channel.send("Sucessfully gave all members `" + value + "` coins.")
-        } else {
-          return message.channel.send("Please send a number!")
-        }
-        return
-      }
-      if (user) {
-        client.redisClient.incrby(user.id + "-" + guild.id + '-coins', value, function(err, reply) {
-          message.channel.send("Sucessfully gave **" + user.user.tag + "** `" + value + "` coins.")
-        })
-      } else {
-        return message.channel.send("Please send a user, or do `all` to give coins all members.")
-      }
-    }
+    client.getGuildData(guild).then(response => {
+      let guildData = JSON.parse(response)
 
+      if (guildData) {
+        if (action == 'reset') {
+          if (target == 'all') {
+            let members = guild.members
+            for (member in members.array()) {
+              guildData.economy.players[members.array()[member].id].coins = 0
+            }
+            guildData.economy.leaderboards = {}
+            client.set(guild.id + '-DATA', JSON.stringify(guildData))
+            message.channel.send("Reset " + members.array().length + " users.")
+            return
+          }
+          if (user) {
+            guildData.economy.players[user.id].coins = 0
+            client.set(guild.id + '-DATA', JSON.stringify(guildData))
+            message.channel.send("Reset " + user.user.tag + "'s coins.")
+          } else {
+            return message.channel.send("Please send a user, or do `all` to reset all members.")
+          }
+        }
+        if (action == 'give') {
+          if (target == 'all') {
+            if (parseInt(value)) {
+              let members = guild.members
+              if (value >= Math.pow(2, 40)) {
+                  message.channel.send("The number is too large!")
+                  return
+              }
+              for (member in members.array()) {
+                guildData.economy.players[members.array()[member].id].coins = guildData.economy.players[members.array()[member].id].coins + value
+              }
+              client.set(guild.id + '-DATA', JSON.stringify(guildData))
+              message.channel.send("Sucessfully gave all members `" + value + "` coins.")
+            } else {
+              return message.channel.send("Please send a number!")
+            }
+            return
+          }
+          if (user) {
+            guildData.economy.players[user.id].coins = guildData.economy.players[user.id].coins + value
+            client.set(guild.id + '-DATA', JSON.stringify(guildData))
+          } else {
+            return message.channel.send("Please send a user, or do `all` to give coins all members.")
+          }
+        }
+      }
+    })
 
 
 
@@ -76,7 +81,7 @@ exports.conf = {
     enabled: true,
     guildOnly: true,
     aliases: [""],
-    permLevel: "Server Owner"
+    permLevel: "Administrator"
 };
 
 exports.help = {

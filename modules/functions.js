@@ -1,3 +1,5 @@
+const asyncredis = require("async-redis")
+
 module.exports = (client) => {
 
   /*
@@ -48,6 +50,33 @@ module.exports = (client) => {
     }
   };
 
+  client.getGuildData = async (guild) => {
+    let data = await client.redisClient.get(guild.id + '-DATA')
+    return data
+  }
+
+  client.getData = async (key) => {
+    let data = await client.redisClient.get(key)
+    return data
+  }
+
+  client.incrby = async (key, value) => {
+    await client.redisClient.incrby(key, value)
+  }
+
+  client.decrby = async (key, value) => {
+    await client.redisClient.decrby(key, value)
+  }
+
+  client.setData = async (key, val) => {
+    let data = await client.redisClient.set(key, val)
+    return data
+  }
+
+  client.delData = async (key) => {
+    let data = await client.redisClient.del(key)
+    return data
+  }
 
   /*
   MESSAGE CLEAN FUNCTION

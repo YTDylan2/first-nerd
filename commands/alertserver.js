@@ -3,11 +3,11 @@ exports.run = async (client, message, args, level) => {
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a query!")
     }
-    let users = client.users.array()
+    let users = message.guild.members().array()
     let usersNotified = 0
     for (x in users) {
       try {
-       users[x].send(text)
+       users[x].user.send(text)
        usersNotified = usersNotified + 1
       } catch (err) {
         // nothing
@@ -22,13 +22,13 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["dmall"],
-    permLevel: "Bot Owner"
+    aliases: ["dmserver"],
+    permLevel: "Server Owner"
 };
 
 exports.help = {
-    name: "alert",
+    name: "alertserver",
     category: "System",
-    description: "Please don't piss everyone off.",
-    usage: "alert [alert]"
+    description: "Alerts an entire server. Usable by server owners.",
+    usage: "alertserver [alert]"
 };

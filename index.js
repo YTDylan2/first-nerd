@@ -22,6 +22,7 @@ const EnmapLevel = require("enmap-level");
 const rethink = require("rethinkdb")
 const EnmapRethink = require('enmap-rethink')
 const redis = require('redis')
+const asyncredis = require("async-redis")
 const cleverbot = require('cleverbot.io')
 const recentMessages = new Set();
 
@@ -53,14 +54,15 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
-    .then(function () {
-        console.log("Logged in to ROBLOX!")
-        client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
-    })
-    .catch(function(err) {
-        console.log("login error: " + err)
-        client.startChannel.send('there was a login error, check logs')
-    });
+  .then(function () {
+      console.log("Logged in to ROBLOX!")
+      client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
+  })
+  .catch(function(err) {
+      console.log("login error: " + err)
+      client.startChannel.send('there was a login error, check logs')
+  });
+
 client.caseLegendsPlayerData = []
 client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
 client.lastCommand = "None"
@@ -181,6 +183,36 @@ function secondsToHours(seconds) {
 }
 
 client.updateGlobal = function(data) {
+  client.getGuildData(data).then(response => {
+    if (response) {
+      let parsed = JSON.parse(response)
+      let leaderboards = data.economy.leaderboards
+      let players = data.economy.players
+      for (x in players) {
+         sorted.push([x + '', leaderboards[x].coins])
+      }
+      sorted.sort(function(a, b) {
+         return b[1] - a[1]
+      })
+
+      let display = ""
+      for (i = 0; i < 10; i++) {
+         var userTable = sorted[i]
+         //console.log("user table is " + userTable)
+         if (userTable) {
+            let member = client.users.get(userTable[0])
+           // console.log(member + " (member)")
+            if (member) {
+               let num = i + 1
+               display = display + (ordinal.toOrdinal(num) + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
+            }
+         }
+      }
+
+      leaderboards = display
+      client.set(data.id + '-DATA', JSON.stringify(parsed))
+    }
+  })
     client.redisClient.get(data.guild, function(err, reply) {
         if (reply) {
             var stored = JSON.parse(reply)
@@ -243,6 +275,7 @@ client.collection = new Enmap({provider: new EnmapLevel({name: "enmapTest"})});
 
 // set up redis
 client.redisClient = redis.createClient({url: process.env.REDIS_URL})
+asyncredis.decorate(client.redisClient)
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
@@ -308,12 +341,9 @@ const init = async () => {
 
     setInterval(() => {
       http.get(`http://technoturret.herokuapp.com/`);
-    }, 120000);
+    }, 360000);
 
     // use this to update
-    setInterval(() => {
-        client.config.prefix = process.env.prefix
-    }, 60000)
 
 
 
@@ -359,6 +389,8 @@ const init = async () => {
             console.log("Logged in!")
             client.startChannel.send('renewed ROBLOX login')
         });
+        let now = new Date()
+        client.cleverbot.setNick("Main Session " + now.now())
     }, 8640000);
 
     setInterval(() => {

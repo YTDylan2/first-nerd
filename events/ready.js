@@ -16,5 +16,12 @@ module.exports = async client => {
   client.user.setActivity(`in the ${ordinal.toOrdinal(numb)} timeline. Use ${process.env.prefix}help. ` + client.guilds.size + " guilds." , "Hi.", "https://www.roblox.com/My/Groups.aspx?gid=3643510", "PLAYING")
   // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
   // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
-  
+
+  for (x in client.guilds) {
+    let gData = await client.get(x)
+    if (!gData) {
+      await client.set(x, client.config.defaultSettings)
+      console.log("Default settings applied for guild " + x)
+    }
+  }
 };
