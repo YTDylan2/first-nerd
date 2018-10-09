@@ -210,7 +210,7 @@ client.updateGlobal = function(data) {
       }
 
       leaderboards = display
-      client.set(data.id + '-DATA', JSON.stringify(parsed))
+      client.setData(data.id + '-DATA', JSON.stringify(parsed))
     }
   })
     client.redisClient.get(data.guild, function(err, reply) {
@@ -269,7 +269,7 @@ client.aliases = new Enmap();
 // Now we integrate the use of Evie's awesome Enhanced Map module, which
 // essentially saves a collection to disk. This is great for per-server configs,
 // and makes things extremely easy for this purpose.
-client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
+client.setDatatings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 
 client.collection = new Enmap({provider: new EnmapLevel({name: "enmapTest"})});
 

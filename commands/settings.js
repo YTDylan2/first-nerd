@@ -100,7 +100,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
 
       }
     } else {
-      client.set(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
+      client.setData(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
       message.channel.send("Default settings have been applied!")
     }
 

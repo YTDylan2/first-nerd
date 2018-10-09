@@ -71,7 +71,7 @@ exports.run = (client, message, args, level) => {
             embed.setDescription(phrase + payout + " coins!")
             embed.setColor(process.env.green)
             playerData.coins = playerData.coins + payout
-            client.set(guild.id + '-DATA', JSON.stringify(data))
+            client.setData(guild.id + '-DATA', JSON.stringify(data))
             client.updateGlobal(guild.id)
 
           } else {
@@ -83,7 +83,7 @@ exports.run = (client, message, args, level) => {
             embed.setDescription(phrase + loss + " coins!")
             embed.setColor(process.env.red)
             playerData.coins = playerData.coins - loss
-            client.set(guild.id + '-DATA', JSON.stringify(data))
+            client.setData(guild.id + '-DATA', JSON.stringify(data))
             client.updateGlobal(guild.id)
           }
        } else {

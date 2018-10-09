@@ -18,9 +18,9 @@ module.exports = async client => {
   // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
 
   for (x in client.guilds) {
-    let gData = await client.get(x)
+    let gData = await client.getData(x)
     if (!gData) {
-      await client.set(x, client.config.defaultSettings)
+      await client.setData(x, client.config.defaultSettings)
       console.log("Default settings applied for guild " + x)
     }
   }

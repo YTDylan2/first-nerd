@@ -7,13 +7,14 @@ exports.run = (client, message, args, level) => {
 
     if (member) {
         let user = client.users.get(member.id)
-        client.get(member.id, function(err, reply) {
+        client.getData(member.id, function(err, reply) {
             if (reply == null) {
                 message.channel.send("This person isn't linked to my database.")
             } else {
                 message.channel.startTyping()
                 roblox.getPlayerInfo(parseInt(reply))
                 .then(function(info) {
+                      let embed = new discord.RichEmbed()
                       .setColor(4387926)
                       .setAuthor(user.tag, user.avatarURL)
                       .setThumbnail(`https://www.roblox.com/bust-thumbnail/image?userId=${reply}&width=420&height=420&format=png`)

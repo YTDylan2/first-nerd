@@ -25,7 +25,7 @@ let info = {
 }
 module.exports = (client, guild) => {
   let id = guild.id
-  client.set(id, client.config.defaultSettings).then(r => {
+  client.setData(id, client.config.defaultSettings).then(r => {
     if (r) {
       if (guild.systemChannelID) {
         let channel = guild.channels.get(guild.systemChannelID)

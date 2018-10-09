@@ -53,7 +53,7 @@ module.exports = (client, message) => {
    } else {
       id = '0'
    }
-   client.get(id + "-DATA").then(response => {
+   client.getData(id + "-DATA").then(response => {
       let data = JSON.parse(response)
       if (!data) {
          data = client.config.defaultSettings

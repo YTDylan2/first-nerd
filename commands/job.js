@@ -62,7 +62,7 @@ exports.run = (client, message, args, level) => {
               return
           }
           playerData.coins = playerData.coins + payout
-          client.set(guild.id + '-DATA', JSON.stringify(data))
+          client.setData(guild.id + '-DATA', JSON.stringify(data))
           client.updateGlobal(guild.id)
         } else {
           let timeElapsed = now - time
