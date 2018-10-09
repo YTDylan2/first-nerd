@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a query!")
     }
-    let users = message.guild.members().array()
+    let users = message.guild.members.array()
     let usersNotified = 0
     for (x in users) {
       try {
