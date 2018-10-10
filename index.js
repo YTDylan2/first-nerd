@@ -401,8 +401,8 @@ const init = async () => {
             ['PLAYING', 'with ice soup.'],
             ['LISTENING', 'the bushes for enemies!'],
             ['WATCHING', 'the sun set.'],
-            ['PLAYING', 'on Discord! @Vanessa help'],
-            ['STREAMING', 'commands! @Vanessa help'],
+            ['PLAYING', 'on Discord! >help'],
+            ['STREAMING', 'commands! >help'],
             ['LISTENING', 'this song on repeat for the ' + ordinal.toOrdinal(Math.floor(Math.random() * 101)) + ' time!'],
             ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.'],
             ['PLAYING', 'Use @Vanessa help | help water has taken me hostage!'], // lollipopwut
