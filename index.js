@@ -376,8 +376,8 @@ const init = async () => {
             console.log("Logged in!")
             client.startChannel.send('renewed ROBLOX login')
         });
-        let now = new Date()
-        client.cleverbot.setNick("Main Session " + now.now())
+        let date = new Date()
+        client.cleverbot.setNick("Main Session " + date.now())
     }, 8640000);
 
     setInterval(() => {
