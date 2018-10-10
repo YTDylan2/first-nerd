@@ -64,6 +64,7 @@ exports.run = (client, message, args, level) => {
           playerData.coins = playerData.coins + payout
           client.setData(guild.id + '-DATA', JSON.stringify(data))
           client.updateGlobal(guild.id)
+          message.channel.send({embed})
         } else {
           let timeElapsed = now - time
           let format = moment.duration(workEarnCooldown - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");

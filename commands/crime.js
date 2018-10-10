@@ -73,7 +73,7 @@ exports.run = (client, message, args, level) => {
             playerData.coins = playerData.coins + payout
             client.setData(guild.id + '-DATA', JSON.stringify(data))
             client.updateGlobal(guild.id)
-
+            message.channel.send({embed})
           } else {
             workers[timeoutKey] = now
             let phrase = random(losePhrases)
@@ -85,6 +85,7 @@ exports.run = (client, message, args, level) => {
             playerData.coins = playerData.coins - loss
             client.setData(guild.id + '-DATA', JSON.stringify(data))
             client.updateGlobal(guild.id)
+            message.channel.send({embed})
           }
        } else {
          let timeElapsed = now - time
