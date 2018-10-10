@@ -403,15 +403,25 @@ const init = async () => {
         client.user.setActivity(status[1], {type: status[0]})
         .then(p => console.log(p))
         .catch(e => console.log(e))
-
-    }, 30000)
-
-  for (x in client.guilds) {
-    client.getGuildData(client.guilds[x]).then(response => {
+        let guildz = client.guilds.array()
+  for (var x in guildz) {
+    client.getGuildData(guildz[x]).then(response => {
       let gData = JSON.parse(response)
       if (!gData) {
-        client.setData(x + '-DATA', client.config.defaultSettings)
-        console.log("Default settings applied for guild " + x)
+        client.setData(guildz[x].id + '-DATA', client.config.defaultSettings)
+        console.log("Default settings applied for guild " + guildz[x].id)
+      }
+    })
+  }
+    }, 60000)
+
+  let guildz = client.guilds.array()
+  for (var x in guildz) {
+    client.getGuildData(guildz[x]).then(response => {
+      let gData = JSON.parse(response)
+      if (!gData) {
+        client.setData(guildz[x].id + '-DATA', client.config.defaultSettings)
+        console.log("Default settings applied for guild " + guildz[x].id)
       }
     })
   }
