@@ -16,7 +16,8 @@ exports.run = async (client, message, args, level) => {
 
     }
     await client.wait(10000)
-    message.channel.send(`Out of **${users.length}** users, ${users.length - unnotified.length} were notified.`)
+    let num = users.length - unnotified.length
+    message.channel.send(`Out of **${users.length}** users, ${num} were notified.`)
 }
 
 exports.conf = {
