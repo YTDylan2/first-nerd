@@ -196,21 +196,6 @@ client.updateGlobal = function(data) {
          return b[1] - a[1]
       })
 
-      let display = ""
-      for (i = 0; i < 10; i++) {
-         var userTable = leaderboards[i]
-         //console.log("user table is " + userTable)
-         if (userTable) {
-            let member = client.users.get(userTable[0])
-           // console.log(member + " (member)")
-            if (member) {
-               let num = i + 1
-               display = display + (ordinal.toOrdinal(num) + ". **" + member.tag + "** - **" + userTable[1] + "** coins\n")
-            }
-         }
-      }
-
-      leaderboards = display
       client.setData(data.id + '-DATA', JSON.stringify(parsed))
     }
   })
