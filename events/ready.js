@@ -24,6 +24,6 @@ module.exports = async client => {
         client.setData(x, client.config.defaultSettings)
         console.log("Default settings applied for guild " + x)
       }
-    }
+    })
   }
 };
