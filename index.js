@@ -405,13 +405,12 @@ const init = async () => {
         .catch(e => console.log(e))
         let guildz = client.guilds
   for (x in guildz) {
-    client.getGuildData(guildz[x]).then(response => {
-      let gData = JSON.parse(response)
+    let gData = await client.getGuildData(guildz[x])
+      gData = JSON.parse(gData)
       if (!gData || gData == "[object Object]") {
         client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
         console.log("Default settings applied for guild " + guildz[x].id)
       }
-    })
   }
     }, 60000)
 
