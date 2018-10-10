@@ -6,7 +6,7 @@ let info = {
     "You can use Cleverbot with Vanessa!\n" +
     "To use it, all you need to do is ping her with any text.\n" +
     //"You can also use this feature in DMs! She will not respond with Cleverbot API to a message starting with `[ignore]`.\n" +
-    "**When using the Cleverbot feature, please keep in mind the owner has full access to view conversations.\nThey are viewed for tweaking the bot to be more user friendly."
+    "**When using the Cleverbot feature, please keep in mind the owner has full access to view conversations.\nThey are viewed for tweaking the bot to be more user friendly.**"
   ],
   field2 : [
     "Vanessa has a full economy system, much like UnbelieveaBoat.\n" +
@@ -40,6 +40,7 @@ module.exports = (client, guild) => {
           embed.addField("Other", info.field4[0])
           embed.setFooter("Stuck? Use >help")
           embed.setTimestamp()
+          embed.setColor(3447003)
           channel.send({embed})
         }
       }
