@@ -407,24 +407,15 @@ const init = async () => {
   for (var x in guildz) {
     client.getGuildData(guildz[x]).then(response => {
       let gData = JSON.parse(response)
-      if (!gData) {
-        client.setData(guildz[x].id + '-DATA', client.config.defaultSettings)
+      if (!gData or gDats == "[object Object]) {
+        client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
         console.log("Default settings applied for guild " + guildz[x].id)
       }
     })
   }
     }, 60000)
 
-  let guildz = client.guilds.array()
-  for (var x in guildz) {
-    client.getGuildData(guildz[x]).then(response => {
-      let gData = JSON.parse(response)
-      if (!gData) {
-        client.setData(guildz[x].id + '-DATA', client.config.defaultSettings)
-        console.log("Default settings applied for guild " + guildz[x].id)
-      }
-    })
-  }
+  
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {
