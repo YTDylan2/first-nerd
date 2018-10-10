@@ -9,11 +9,11 @@ exports.run = (client, message, args, level) => {
    client.getData(guildKey).then(response => {
        let data = JSON.parse(response)
        if (data) {
-         let leaders = JSON.parse(data.economy.leaderboards)
+         let leaders = data.economy.leaderboards
          let embed = new discord.RichEmbed()
          .setTitle("Leaderboard")
          .addField("Top 10 Server Users", leaders + "\n\nVanessa")
-         .setFooter("ya")
+         .setFooter("ya", client.user.avatarURL)
          .setTimestamp()
          .setColor(process.env.purple)
          message.channel.send({embed})
