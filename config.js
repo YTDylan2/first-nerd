@@ -107,8 +107,9 @@ const config = {
             if (modRoles[message.member.id]) {
               passed = true
             }
-            return passed
+
           })
+          return passed
         } catch (e) {
           return false;
         }
@@ -136,6 +137,7 @@ const config = {
                 passed = true
               }
             }
+          })
             return passed
         } catch (e) {
           return false;
