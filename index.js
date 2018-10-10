@@ -403,7 +403,7 @@ const init = async () => {
         client.user.setActivity(status[1], {type: status[0]})
         .then(p => console.log(p))
         .catch(e => console.log(e))
-        let guildz = client.guilds.array()
+        let guildz = client.guilds
   for (x in guildz) {
     client.getGuildData(guildz[x]).then(response => {
       let gData = JSON.parse(response)
