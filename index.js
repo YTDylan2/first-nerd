@@ -190,15 +190,15 @@ client.updateGlobal = function(data) {
       let leaderboards = data.economy.leaderboards
       let players = data.economy.players
       for (x in players) {
-         sorted.push([x + '', leaderboards[x].coins])
+         leaderboards.push([x + '', players[x].coins])
       }
-      sorted.sort(function(a, b) {
+      leaderboards.sort(function(a, b) {
          return b[1] - a[1]
       })
 
       let display = ""
       for (i = 0; i < 10; i++) {
-         var userTable = sorted[i]
+         var userTable = leaderboards[i]
          //console.log("user table is " + userTable)
          if (userTable) {
             let member = client.users.get(userTable[0])
