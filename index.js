@@ -404,7 +404,7 @@ const init = async () => {
         .then(p => console.log(p))
         .catch(e => console.log(e))
         let guildz = client.guilds.array()
-  for (var x in guildz) {
+  for (x in guildz) {
     client.getGuildData(guildz[x]).then(response => {
       let gData = JSON.parse(response)
       if (!gData || gData == "[object Object]") {
