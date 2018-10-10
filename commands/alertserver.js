@@ -9,7 +9,6 @@ exports.run = async (client, message, args, level) => {
     for (x in users) {
       try {
        users[x].user.send(text)
-       usersNotified = usersNotified + 1
       } catch (err) {
         // nothing
         unnotified.push(err)
@@ -17,7 +16,7 @@ exports.run = async (client, message, args, level) => {
 
     }
     await client.wait(10000)
-    message.channel.send(`Out of **${users.length}** users, ${usersNotified - unnotified.length} were notified.`)
+    message.channel.send(`Out of **${users.length}** users, ${users.length - unnotified.length} were notified.`)
 }
 
 exports.conf = {
