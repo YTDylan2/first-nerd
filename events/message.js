@@ -61,9 +61,18 @@ module.exports = (client, message) => {
 
       let settings = data.settings
       message.settings = settings;
+
+      let economy = data.economy
+      if (!economy.players[message.author.id]) {
+        economy.players[message.author.id] = {
+          'coins': 25,
+          'daily': Math.pow(2, 25)
+        }
+      }
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
       if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0) return;
+      if (message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
 
       // Here we separate our "command" name, and our "arguments" for the command.
       // e.g. if we have the message "+say Is this the real life?" , we'll get the following:

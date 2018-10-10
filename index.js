@@ -24,6 +24,7 @@ const EnmapRethink = require('enmap-rethink')
 const redis = require('redis')
 const asyncredis = require("async-redis")
 const cleverbot = require('cleverbot.io')
+const ordinal = require('ordinal-js')
 const recentMessages = new Set();
 
 
@@ -213,21 +214,6 @@ client.updateGlobal = function(data) {
       client.setData(data.id + '-DATA', JSON.stringify(parsed))
     }
   })
-    client.redisClient.get(data.guild, function(err, reply) {
-        if (reply) {
-            var stored = JSON.parse(reply)
-            stored[data.key] = data.value
-            client.redisClient.set(data.guild, JSON.stringify(stored), function(err, rep) {
-                console.log(err, rep)
-            })
-        } else {
-            var newData = {}
-            newData[data.key] = data.value
-            client.redisClient.set(data.guild, JSON.stringify(newData), function(err, rep) {
-                console.log(err, rep)
-            })
-        }
-    })
 }
 
 function checkScammer(userId) {

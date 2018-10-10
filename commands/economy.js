@@ -16,7 +16,6 @@ exports.run = async (client, message, args, level) => {
 
       embed.addField('give', "Gives a user or all users coins.\n`economy give @CoolDude 1000`\neconomy give all 10000")
       embed.addField('reset', "Resets a user or all user coins.\n`economy reset @FreakingAnnoying`\neconomy reset all")
-      embed.addField('allcoins', "Returns the number of coins in circulation in the server.")
       embed.setTimestamp()
       embed.setFooter('morbify is ogly >:)', client.user.avatarURL)
       embed.setColor(process.env.green)
@@ -81,7 +80,11 @@ exports.conf = {
     enabled: true,
     guildOnly: true,
     aliases: [""],
-    permLevel: "Administrator"
+    permLevel: "Administrator",
+    subCommands: [
+      "reset - Resets a user or all within the economy.\n`reset all`\n`reset @AnnoyingDude`",
+      "give - Gives a user or all some coins.\n`give all 10000`\n`give @CoolPlayer 1000`"
+    ]
 };
 
 exports.help = {

@@ -19,10 +19,11 @@ exports.run = (client, message, args, level) => {
     id = message.guild.id
   }
   client.getGuildData(message.guild).then(response => {
-    let settings = JSON.parse(response)
-    if (!settings) {
-      settings = client.config.defaultSettings.settings
+    let data = JSON.parse(response)
+    if (!data) {
+      data = client.config.defaultSettings
     }
+    let settings = data.settings
 
     if (!args[0]) {
       // load guild settings (for prefixes and eventually per guild tweaks)

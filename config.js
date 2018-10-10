@@ -12,7 +12,7 @@ const config = {
   "token": ":)",
 
   // our prefix
-  "prefix" : "a!",
+  "prefix" : ">",
 
   // my server
    "ownerGuild": '434477310817730572',
@@ -60,7 +60,7 @@ const config = {
 
       },
       "disabledCategories" :{
-        
+
       }
     }
 
