@@ -15,6 +15,7 @@ exports.run = (client, message, args, level) => {
          .addField("Top 10 Server Users", leaders + "\n\nVanessa")
          .setFooter("ya")
          .setTimestamp()
+         .setColor(process.env.purple)
          message.channel.send({embed})
        }
    })
