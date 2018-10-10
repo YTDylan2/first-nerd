@@ -2,8 +2,8 @@
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
 function matchMention(text) {
-   var mentionTag1 = '<@411683313926012928> '
-   var mentionTag2 = '<@!411683313926012928> '
+   var mentionTag1 = '<@411683313926012928>'
+   var mentionTag2 = '<@!411683313926012928>'
    if (text.indexOf(mentionTag1) == 0) {
      return text.slice(mentionTag1.length)
    }
@@ -31,20 +31,20 @@ module.exports = (client, message) => {
   // to the message object, so `message.settings` is accessible.
     let mentions = message.mentions.members
     let match =  matchMention(message.content)
+
     if (match || message.channel.type == 'dm') {
       client.cleverbot.create(function(bad, session) {
-         if (!message.content.match('[ignore]')) {
+         //if (!message.content.match('[ignore]')) {
             message.channel.startTyping()
             client.cleverbot.ask(match, function(err, response) {
                if (message.channel.type == 'dm') {
-                 message.channel.send(response)
+                 message.author.send(response)
                } else {
                  message.channel.send(response + ' <@!' + message.author.id + '>')
                }
                message.channel.stopTyping()
-
             })
-         }
+         //}
       })
    }
 
@@ -66,7 +66,7 @@ module.exports = (client, message) => {
 
       let economy = data.economy
       if (!economy.players[message.author.id]) {
-        economy.players[message.author.id] = {
+        data.economy.players[message.author.id] = {
           'coins': 25,
           'daily': Math.pow(2, 25)
         }
@@ -74,8 +74,7 @@ module.exports = (client, message) => {
       }
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
-      if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0) return;
-      if (message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
+      if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
 
       // Here we separate our "command" name, and our "arguments" for the command.
       // e.g. if we have the message "+say Is this the real life?" , we'll get the following:

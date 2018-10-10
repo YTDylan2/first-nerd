@@ -5,7 +5,7 @@ let info = {
   field1 : [
     "You can use Cleverbot with Vanessa!\n" +
     "To use it, all you need to do is ping her with any text.\n" +
-    "You can also use this feature in DMs! She will not respond with Cleverbot API to a message starting with `[ignore]`.\n",
+    //"You can also use this feature in DMs! She will not respond with Cleverbot API to a message starting with `[ignore]`.\n" +
     "**When using the Cleverbot feature, please keep in mind the owner has full access to view conversations.\nThey are viewed for tweaking the bot to be more user friendly."
   ],
   field2 : [
