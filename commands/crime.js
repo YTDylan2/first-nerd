@@ -16,6 +16,7 @@ function getRand(min, max) {
 
 exports.run = (client, message, args, level) => {
   let guild = message.guild
+  let user = message.author
   let phrases = [
     "You stole a watch and sold it for ",
     "You robbed the bank and made ",
