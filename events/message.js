@@ -33,15 +33,22 @@ module.exports = (client, message) => {
     let match =  matchMention(message.content)
     if (match || message.channel.type == 'dm') {
       client.cleverbot.create(function(bad, session) {
-         if (match != "help" || message.content.indexOf('[ignore]') !== 0) {
+         if (match != "help" && !message.content.match('[ignore]')) {
             message.channel.startTyping()
             client.cleverbot.ask(match, function(err, response) {
-               message.channel.send(response + ' <@!' + message.author.id + '>')
+               if (message.channel.type == 'dm') {
+                 message.channel.send(response)
+               } else {
+                 message.channel.send(response + ' <@!' + message.author.id + '>')
+               }
                message.channel.stopTyping()
+
             })
          } else {
-            let helpCmd = client.commands.get("help")
-            helpCmd.run(client, message, [], client.permlevel(message))
+           if (match == "help") {
+             let helpCmd = client.commands.get("help")
+             helpCmd.run(client, message, [], client.permlevel(message))
+           }
          }
       })
    }
