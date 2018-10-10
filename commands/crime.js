@@ -56,8 +56,7 @@ exports.run = (client, message, args, level) => {
         workers[timeoutKey] = now - (workEarnCooldown * 2)
       }
 
-      let playerData = economy.players[user.id]
-
+      let playerData = economy.players[message.author.id]
       if (workers[timeoutKey]) {
         let time = workers[timeoutKey]
         if (now - time > workEarnCooldown) {
