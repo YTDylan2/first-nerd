@@ -1,5 +1,6 @@
 exports.run = async (client, message, args, level) => {
     let text = args.join(" ")
+    let unnotified = []
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a query!")
     }
@@ -11,12 +12,12 @@ exports.run = async (client, message, args, level) => {
        usersNotified = usersNotified + 1
       } catch (err) {
         // nothing
-        usersNotified = usersNotified - 1
+        unnotified.push(err)
       }
 
     }
     await client.wait(10000)
-    message.channel.send(`Out of **${users.length}** users, ${usersNotified} were notified.`)
+    message.channel.send(`Out of **${users.length}** users, ${usersNotified - unnotified.length} were notified.`)
 }
 
 exports.conf = {

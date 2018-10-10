@@ -53,7 +53,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
            newArray.push(`${i} => ${modifiable.settings[i]}`)
          }
          let missingKeys = 0
-         for (x in client.config.defaultSettings) {
+         for (x in client.config.defaultSettings.settings) {
            if (!modifiable.settings[x]) {
              missingKeys = missingKeys + 1
            }
@@ -78,14 +78,14 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
       if (action == "update") {
         let updatedKeys = 0
         let removed = 0
-        for (x in client.config.defaultSettings) {
+        for (x in client.config.defaultSettings.settings) {
           if (!modifiable[x]) {
             updatedKeys = updatedKeys + 1
-            modifiable.settings[x] = client.config.defaultSettings[x]
+            modifiable.settings[x] = client.config.defaultSettings.settings[x]
           }
         }
         for (x in modifiable.settings) {
-          if (!client.config.defaultSettings[x]) {
+          if (!client.config.defaultSettings.settings[x]) {
             removed = removed + 1
             delete modifiable.settings[x]
           }

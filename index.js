@@ -421,7 +421,15 @@ const init = async () => {
 
     }, 30000)
 
-
+  for (x in client.guilds) {
+    client.getGuildData(client.guilds[x]).then(response => {
+      let gData = JSON.parse(response)
+      if (!gData) {
+        client.setData(x + '-DATA', client.config.defaultSettings)
+        console.log("Default settings applied for guild " + x)
+      }
+    })
+  }
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {

@@ -17,13 +17,5 @@ module.exports = async client => {
   // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
   // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
 
-  for (x in client.guilds) {
-    client.getData(x).then(response => {
-      let gData = JSON.parse(response)
-      if (!gData) {
-        client.setData(x, client.config.defaultSettings)
-        console.log("Default settings applied for guild " + x)
-      }
-    })
-  }
+
 };

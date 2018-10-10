@@ -28,7 +28,7 @@ const config = {
 
       "prefix": ">",
       "welcomeChannel": "general",
-      "welcomeMessage": "Hey there {{user}}! Welcome to the server!",
+      "welcomeMessage": "Hey there {user}! Welcome to the server!",
       "welcomeEnabled": "true",
       "workEarnMin" : 25,
       "workEarnMax" : 150,

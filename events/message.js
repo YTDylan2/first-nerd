@@ -68,6 +68,7 @@ module.exports = (client, message) => {
           'coins': 25,
           'daily': Math.pow(2, 25)
         }
+        client.setData(id + '-DATA', JSON.stringify(data))
       }
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
