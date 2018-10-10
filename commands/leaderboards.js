@@ -9,7 +9,7 @@ exports.run = (client, message, args, level) => {
    client.getData(guildKey).then(response => {
        let data = JSON.parse(response)
        if (data) {
-         let leaders = data.economy.leaderboards
+         let leaders = JSON.parse(data.economy.leaderboards)
          let embed = new discord.RichEmbed()
          .setTitle("Leaderboard")
          .addField("Top 10 Server Users", leaders + "\n\nVanessa")
