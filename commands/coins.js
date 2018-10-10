@@ -7,7 +7,7 @@ exports.run = (client, message, args, level) => {
       let id = user.id
       let member = client.users.get(id)
       let dataKey = id + "-" + message.guild.id + "-coins"
-      client.getGuildData().then(response => {
+      client.getGuildData(message.guild).then(response => {
         let data = JSON.parse(response)
         if (data) {
           message.channel.send(`**${member.username}** has **${data.economy.players[member.id].coins || 0}** coins.`)
@@ -19,11 +19,12 @@ exports.run = (client, message, args, level) => {
         let id = message.author.id
         let member = client.users.get(id)
         let dataKey = id + "-" + message.guild.id + "-coins"
-        client.redisClient.get(dataKey, function(err, data) {
+        client.getGuildData(message.guild).then(response => {
+          let data = JSON.parse(response)
           if (data) {
-            message.channel.send(`You have **${data.economy.players[member.id].coins || 0}** coins!`)
+            message.channel.send(`You have **${data.economy.players[member.id].coins || 0}** coins.`)
           } else {
-            message.channel.send("You don't have enough money to use this command.\nWait, you have none.")
+            message.channel.send("There's nothing in your wallet.")
           }
         })
       }

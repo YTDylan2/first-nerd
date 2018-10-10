@@ -57,6 +57,15 @@ module.exports = (client, message) => {
    }
    client.getData(id + "-DATA").then(response => {
       let data = JSON.parse(response)
+      if (data) {
+        if (!data.economy.players[message.author.id]) {
+          data.economy.players[message.author.id] = {
+            'coins': 25,
+            'daily': Math.pow(2, 25)
+          }
+          client.setData(id + '-DATA', JSON.stringify(data))
+        }
+      }
       if (!data) {
          data = client.config.defaultSettings
       }
@@ -64,14 +73,7 @@ module.exports = (client, message) => {
       let settings = data.settings
       message.settings = settings;
 
-      let economy = data.economy
-      if (!economy.players[message.author.id]) {
-        data.economy.players[message.author.id] = {
-          'coins': 25,
-          'daily': Math.pow(2, 25)
-        }
-        client.setData(id + '-DATA', JSON.stringify(data))
-      }
+
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
       if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
