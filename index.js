@@ -202,15 +202,19 @@ client.updateGlobal = function(data) {
 }
 
 client.updateGuilds = async function() {
-  let guildz = client.guilds
+  let guildz = client.guilds.array()
+  let updated = []
   for (x in guildz) {
-    let gData = await client.getGuildData(guildz[x])
-      gData = JSON.parse(gData)
+    let response = await client.getGuildData(guildz[x])
+      let gData = JSON.parse(response)
       if (!gData || gData == "[object Object]") {
         client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
         console.log("Default settings applied for guild " + guildz[x].id)
+        updated.push(guildz[x].id)
       }
   }
+  return updated.length + " updated"
+  
 }
 
 function checkScammer(userId) {
