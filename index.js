@@ -201,6 +201,18 @@ client.updateGlobal = function(data) {
   })
 }
 
+client.updateGuilds = async function() {
+  let guildz = client.guilds
+  for (x in guildz) {
+    let gData = await client.getGuildData(guildz[x])
+      gData = JSON.parse(gData)
+      if (!gData || gData == "[object Object]") {
+        client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
+        console.log("Default settings applied for guild " + guildz[x].id)
+      }
+  }
+}
+
 function checkScammer(userId) {
     var https = require('request')
     var result = false
@@ -403,15 +415,7 @@ const init = async () => {
         client.user.setActivity(status[1], {type: status[0]})
         .then(p => console.log(p))
         .catch(e => console.log(e))
-        let guildz = client.guilds
-  for (x in guildz) {
-    let gData = await client.getGuildData(guildz[x])
-      gData = JSON.parse(gData)
-      if (!gData || gData == "[object Object]") {
-        client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
-        console.log("Default settings applied for guild " + guildz[x].id)
-      }
-  }
+        client.updateGuilds()
     }, 60000)
 
   
