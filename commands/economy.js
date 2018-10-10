@@ -32,13 +32,13 @@ exports.run = async (client, message, args, level) => {
               guildData.economy.players[members.array()[member].id].coins = 0
             }
             guildData.economy.leaderboards = {}
-            client.setData(guild.id + '-DATA', JSON.stringify(guildData))
+            client.saveGuildData(guild, JSON.stringify(guildData))
             message.channel.send("Reset " + members.array().length + " users.")
             return
           }
           if (user) {
             guildData.economy.players[user.id].coins = 0
-            client.setData(guild.id + '-DATA', JSON.stringify(guildData))
+            client.saveGuildData(guild, JSON.stringify(guildData))
             message.channel.send("Reset " + user.user.tag + "'s coins.")
           } else {
             return message.channel.send("Please send a user, or do `all` to reset all members.")
@@ -55,7 +55,7 @@ exports.run = async (client, message, args, level) => {
               for (member in members.array()) {
                 guildData.economy.players[members.array()[member].id].coins = guildData.economy.players[members.array()[member].id].coins + value
               }
-              client.setData(guild.id + '-DATA', JSON.stringify(guildData))
+              client.saveGuildData(guild, JSON.stringify(guildData))
               message.channel.send("Sucessfully gave all members `" + value + "` coins.")
             } else {
               return message.channel.send("Please send a number!")
@@ -64,7 +64,7 @@ exports.run = async (client, message, args, level) => {
           }
           if (user) {
             guildData.economy.players[user.id].coins = guildData.economy.players[user.id].coins + value
-            client.setData(guild.id + '-DATA', JSON.stringify(guildData))
+            client.saveGuildData(guild, JSON.stringify(guildData))
           } else {
             return message.channel.send("Please send a user, or do `all` to give coins all members.")
           }

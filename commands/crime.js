@@ -35,10 +35,9 @@ exports.run = (client, message, args, level) => {
   ]
 
   let timeoutKey = message.author.id + "-" + message.guild.id + '-timeout'
-  let dataKey = message.author.id + "-" + message.guild.id + "-coins"
 
   let now = Date.now()
-  client.getGuildData().then(response => {
+  client.getGuildData(guild).then(response => {
     let data = JSON.parse(response)
     if (data) {
       let settings = data.settings
@@ -71,7 +70,7 @@ exports.run = (client, message, args, level) => {
             embed.setDescription(phrase + payout + " coins!")
             embed.setColor(process.env.green)
             playerData.coins = playerData.coins + payout
-            client.setData(guild.id + '-DATA', JSON.stringify(data))
+            client.saveGuildData(guild, JSON.stringify(data))
             client.updateGlobal(guild.id)
             message.channel.send({embed})
           } else {
@@ -83,7 +82,7 @@ exports.run = (client, message, args, level) => {
             embed.setDescription(phrase + loss + " coins!")
             embed.setColor(process.env.red)
             playerData.coins = playerData.coins - loss
-            client.setData(guild.id + '-DATA', JSON.stringify(data))
+            client.saveGuildData(guild, JSON.stringify(data))
             client.updateGlobal(guild.id)
             message.channel.send({embed})
           }

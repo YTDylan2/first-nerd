@@ -42,7 +42,10 @@ const config = {
       "leaderboards" : {
 
       },
-      "players" :{
+      "players" : {
+
+      },
+      "shopData" : {
 
       }
     },
@@ -87,8 +90,25 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message) => {
         try {
-          const modRole = message.guild.roles.find(r => r.name.toLowerCase().match() === message.settings.modRole.toLowerCase());
-          if (modRole && message.member.roles.has(modRole.id)) return true;
+          let passed = false
+          client.getGuildData(message.guild).then(response => {
+            let data = JSON.parse(response)
+            if (data) {
+              let modRoles = data.data.modRoles
+              let memberRoles = message.member.roles
+              let guildRoles = message.guild.roles
+              for (x in modRoles) {
+                if (memberRoles.has(x) && guildRoles.find(r => r.id == x)) {
+                  passed = true
+                  break
+                }
+              }
+            }
+            if (modRoles[message.member.id]) {
+              passed = true
+            }
+            return passed
+          })
         } catch (e) {
           return false;
         }
@@ -99,8 +119,24 @@ const config = {
       name: "Admin",
       check: (message) => {
         try {
-          const adminRole = message.guild.roles.find(r => r.name.toLowerCase().match() === message.settings.adminRole.toLowerCase());
-          return (adminRole && message.member.roles.has(adminRole.id));
+          let passed = false
+          client.getGuildData(message.guild).then(response => {
+            let data = JSON.parse(response)
+            if (data) {
+              let adminRoles = data.data.adminRoles
+              let memberRoles = message.member.roles
+              let guildRoles = message.guild.roles
+              for (x in adminRoles) {
+                if (memberRoles.has(x) && guildRoles.find(r => r.id == x)) {
+                  passed = true
+                  break
+                }
+              }
+              if (adminRoles[message.member.id]) {
+                passed = true
+              }
+            }
+            return passed
         } catch (e) {
           return false;
         }

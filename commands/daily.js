@@ -22,7 +22,7 @@ exports.run = (client, message, args, level) => {
             let daily = parseInt(data.settings.workEarnDaily) || client.config.defaultSettings.settings.workEarnDaily
             playerData.coins = playerData.coins + daily
 
-            client.setData(guild.id + '-DATA', JSON.stringify(data))
+            client.saveGuildData(guild, JSON.stringify(data))
             client.updateGlobal(guild.id)
           } else {
             let format = moment.duration(oneDay - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");

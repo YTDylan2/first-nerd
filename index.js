@@ -187,8 +187,8 @@ client.updateGlobal = function(data) {
   client.getGuildData(data).then(response => {
     if (response) {
       let parsed = JSON.parse(response)
-      let leaderboards = data.economy.leaderboards
-      let players = data.economy.players
+      let leaderboards = parsed.economy.leaderboards
+      let players = parsed.economy.players
       for (x in players) {
          leaderboards.push([x + '', players[x].coins])
       }
@@ -214,7 +214,7 @@ client.updateGuilds = async function() {
       }
   }
   return updated.length + " updated"
-  
+
 }
 
 function checkScammer(userId) {
@@ -422,7 +422,7 @@ const init = async () => {
         client.updateGuilds()
     }, 60000)
 
-  
+
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
   for (let i = 0; i < client.config.permLevels.length; i++) {

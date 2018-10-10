@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
         return;
     }
     google(search, async (err, response) => {
-        let res = JSON.parse(response)
+        let res = response
         if (!res.links[0].link) {
             message.channel.send("There were no search results.")
             return

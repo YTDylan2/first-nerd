@@ -24,9 +24,7 @@ exports.conf = {
 
 exports.help = {
     name: "checkuser",
-    category: "Info",
+    category: "Roblox",
     description: "Says Yes or No if the specified username in Roblox is taken.",
     usage: "checkuser [username]"
 };
-
-

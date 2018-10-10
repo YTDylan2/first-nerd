@@ -22,6 +22,53 @@ module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot) return;
+  if (!recentMessages[message.author.id]) {
+    recentMessages[message.author.id] = {
+      'commandCount' : 0,
+      'alerted' : false
+    }
+  }
+  let userCommandUsage = recentMessages[message.author.id]
+  let ignoreList;
+  client.getData("Cleverbot Ignore List").then(request => {
+    let list = JSON.parse(request)
+    if (list) {
+      if (!list[message.author.id]) {
+        let mentions = message.mentions.members
+        let match =  matchMention(message.content)
+
+        if (match || message.channel.type == 'dm') {
+          client.cleverbot.create(function(bad, session) {
+             if (!message.content.match('!ignore') && !list[message.author.id]) {
+                message.channel.startTyping()
+                if (message.channel.type == 'dm') {
+                  match = message.content
+                }
+                if (message.content == "cleverbot off") {
+                  message.channel.send("Responding to you has been turned `off.`")
+                  list[message.author.id] = true
+                  return
+                }
+                if (message.content == "cleverbot on") {
+                  message.channel.send("Responding to you has been turned `on.`")
+                  delete list[message.author.id]
+                  return
+                }
+                client.cleverbot.ask(match, function(err, response) {
+                   if (message.channel.type == 'dm') {
+                     message.author.send(response)
+                   } else {
+                     message.channel.send(response + ' <@!' + message.author.id + '>')
+                   }
+                   message.channel.stopTyping()
+                })
+             }
+          })
+       }
+      }
+    }
+
+  })
 
 
   // Grab the settings for this server from the PersistentCollection
@@ -29,24 +76,7 @@ module.exports = (client, message) => {
 
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
-    let mentions = message.mentions.members
-    let match =  matchMention(message.content)
 
-    if (match || message.channel.type == 'dm') {
-      client.cleverbot.create(function(bad, session) {
-         if (!message.content.match('!ignore')) {
-            message.channel.startTyping()
-            client.cleverbot.ask(match, function(err, response) {
-               if (message.channel.type == 'dm') {
-                 message.author.send(response)
-               } else {
-                 message.channel.send(response + ' <@!' + message.author.id + '>')
-               }
-               message.channel.stopTyping()
-            })
-         }
-      })
-   }
 
 
    let id;
@@ -73,7 +103,20 @@ module.exports = (client, message) => {
       let settings = data.settings
       message.settings = settings;
 
+      let ignoredChannels = data.data.ignoredChannels
+      let disabledCommands = data.data.disabledCommands
+      let disabledCategories = data.data.disabledCategories
 
+      if (userCommandUsage.commandCount >= 4) {
+        if (!userCommandUsage.alerted) {
+          userCommandUsage.alerted = true
+          message.channel.send("Hey! You're using the commands way too fast. You've been placed on a 10 second cooldown!")
+        }
+        setTimeout(() => {
+          userCommandUsage.commandCount = 0
+          userCommandUsage.alerted = false
+        }, 10000)
+      }
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
       if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
@@ -114,6 +157,13 @@ module.exports = (client, message) => {
       // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
       // The "level" command module argument will be deprecated in the future.
       message.author.permLevel = level;
+      if (ignoredChannels[channel.id] && level < 3) return;
+      if (disabledCommands[cmd.help.name]) {
+        return message.channel.send("This command is disabled for this guild.")
+      }
+      if (disabledCategories[cmd.help.category]) {
+        return message.channel.send("This command's category is disabled. (**" + cmd.help.category + "**)")
+      }
 
       message.flags = [];
       while (args[0] && args[0][0] === "-") {
@@ -123,5 +173,10 @@ module.exports = (client, message) => {
       client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
       client.lastCommand = settings.prefix + cmd.help.name
       cmd.run(client, message, args, level);
+
+      recentMessages[message.author.id].commandCount = recentMessages[message.author.id].commandCount + 1
+      setTimeout(() => {
+        userCommandUsage.commandCount = 0
+      }, 1000)
   })
 };

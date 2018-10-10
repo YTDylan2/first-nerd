@@ -53,7 +53,7 @@ function shopToEmbed(shop, channel, client) {
 
 exports.run = (client, message, args, level) => {
 		let guild = message.guild
-		let guildKey = guild.id + '-SHOPDATA'
+		let guildKey = guild.id + '-DATA'
 		let playerCoins = message.author.id + "-" + guild.id + "-coins"
 		let filter = m => m.author.id === message.author.id
 		let def = {
@@ -307,7 +307,7 @@ exports.run = (client, message, args, level) => {
 }
 
 exports.conf = {
-		enabled: true,
+		enabled: false,
 		guildOnly: true,
 		aliases: ["shop"],
 		permLevel: "User"
@@ -315,7 +315,7 @@ exports.conf = {
 
 exports.help = {
 		name: "store",
-		category: "Development",
+		category: "Vault",
 		description: "This command is under development!",
 		usage: "store [action, ..name]"
 };

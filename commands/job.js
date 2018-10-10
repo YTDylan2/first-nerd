@@ -62,7 +62,7 @@ exports.run = (client, message, args, level) => {
               return
           }
           playerData.coins = playerData.coins + payout
-          client.setData(guild.id + '-DATA', JSON.stringify(data))
+          client.saveGuildData(guild, JSON.stringify(data))
           client.updateGlobal(guild.id)
           message.channel.send({embed})
         } else {

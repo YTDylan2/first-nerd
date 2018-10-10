@@ -27,7 +27,7 @@ exports.run = (client, message, args, level) => {
 				})
 				return
 			}
-			
+
 			if (coins - parseInt(amount) >= 0) {
 				client.redisClient.decrby(playerCoinsKey, parseInt(amount))
 				client.redisClient.incrby(friendCoinsKey, parseInt(amount))
@@ -40,7 +40,7 @@ exports.run = (client, message, args, level) => {
 };
 
 exports.conf = {
-		enabled: true,
+		enabled: false,
 		guildOnly: true,
 		aliases: ["give"],
 		permLevel: "User"
@@ -48,7 +48,7 @@ exports.conf = {
 
 exports.help = {
 		name: "donate",
-		category: "Economy",
+		category: "Vault",
 		description: "Lend a helping hand!",
 		usage: "donate @Friend 1000"
 };

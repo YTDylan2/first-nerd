@@ -71,6 +71,19 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          message.channel.send({embed})
 
       }
+      if (action == "viewall") {
+        let prettyPrint = "{\n"
+        for (x in modifiable) {
+          let dataString = ""
+          for (key in modifiable[x]) {
+            dataString = dataString + `${key} => ${modifiable[x][key].toString()}\n`
+          }
+          prettyPrint = prettyPrint + `\t${x} => {\n` + dataString + '\n}'
+        }
+        client.hastebin(prettyPrint).then(link => {
+          message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
+        })
+      }
       if (action == 'reset') {
         client.redisClient.set(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
         message.channel.send("Default settings have been applied!")
@@ -78,13 +91,21 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
       if (action == "update") {
         let updatedKeys = 0
         let removed = 0
-        for (x in client.config.defaultSettings.settings) {
+        for (x in client.config.defaultSettings) {
+          let section = modifiable[x]
           if (!modifiable[x]) {
             updatedKeys = updatedKeys + 1
-            modifiable.settings[x] = client.config.defaultSettings.settings[x]
+            modifiable[x] = client.config.defaultSettings[x]
+          } else {
+            for (key in client.config.defaultSettings[x]) {
+              if (!section[key]) {
+                updatedKeys = updatedKeys + 1
+                section[key] = client.config.defaultSettings[x][key]
+              }
+            }
           }
         }
-        for (x in modifiable.settings) {
+        for (x in modifiable) {
           if (!client.config.defaultSettings.settings[x]) {
             removed = removed + 1
             delete modifiable.settings[x]

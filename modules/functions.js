@@ -55,6 +55,11 @@ module.exports = (client) => {
     return data
   }
 
+  client.saveGuildData = async (guild, value) => {
+    let data = await client.redisClient.set(guild.id + '-DATA', value)
+    return data
+  }
+
   client.getData = async (key) => {
     let data = await client.redisClient.get(key)
     return data
