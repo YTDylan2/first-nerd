@@ -2,18 +2,19 @@
 function checkMod(guild, member) {
   let passed = false
   client.getGuildData(guild).then(response => {
-    let data = JSON.parse(response)
-    if (data) {
-      let modRoles = data.data.modRoles
-      let memberRoles = member.roles
-      let guildRoles = guild.roles
-      for (x in modRoles) {
-        if (memberRoles.has(x) && guildRoles.find(r => r.id == x)) {
-          passed = true
-          break
+      let data = JSON.parse(response)
+      if (data) {
+        let modRoles = data.data.modRoles
+        let memberRoles = member.roles
+        let guildRoles = guild.roles
+        for (x in modRoles) {
+          if (memberRoles.has(x) && guildRoles.find(r => r.id == x)) {
+            passed = true
+            break
+          }
         }
       }
-    }
+    })
     if (modRoles[message.member.id]) {
       passed = true
     }
