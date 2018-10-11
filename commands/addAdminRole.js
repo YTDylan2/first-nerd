@@ -16,7 +16,7 @@ exports.run = (client, message, args, level) => {
           message.channel.send("Users in the role `" + roleMention.name + "` now have administrator permissions!")
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
-          if (roleMention) return;
+          if (!roleMention) return;
           message.channel.send("This role is already an administrator role!")
         }
         if (userMention && !adminRoles[userMention.id]) {
@@ -24,7 +24,7 @@ exports.run = (client, message, args, level) => {
           message.channel.send(`${userMention.user.tag} is now a server administrator!`)
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
-          if (userMention) return;
+          if (!userMention) return;
           message.channel.send("That user is already a server administrator!")
         }
       }
