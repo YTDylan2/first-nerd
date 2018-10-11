@@ -8,7 +8,7 @@ exports.run = (client, message, args, level) => {
     if (!option && !view) {
       return message.channel.send("An option is needed!")
     }
-    if (!channel && option !== "view" && !view) {
+    if (!channel && option !== "view") {
       return message.channel.send("A channel is needed!")
     }
     option = option.toLowerCase()
