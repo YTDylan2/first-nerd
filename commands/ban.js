@@ -1,10 +1,10 @@
 // ban user
 
-function checkMod(guild, member) {
+async function checkMod(guild, member) {
   let passed = false
-  client.getGuildData(guild).then(response => {
+  let response = client.getGuildData(guild)
       let data = JSON.parse(response)
-      if (data) {
+      if (data) return false;
         let modRoles = data.data.modRoles
         let memberRoles = member.roles
         let guildRoles = guild.roles
@@ -14,8 +14,8 @@ function checkMod(guild, member) {
             break
           }
         }
-      }
-    })
+      
+    
     if (modRoles[message.member.id]) {
       passed = true
     }
