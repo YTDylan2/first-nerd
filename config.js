@@ -101,14 +101,14 @@ const config = {
                 if (memberRoles.has(x)) {
                   console.log("has role " + x)
                   passed = true
-                  return true
+                  
                   // break
                 }
               }
             }
             if (modRoles[message.member.id]) {
               passed = true
-              return true
+              
             } else {
               console.log("no special id")
             }
@@ -136,12 +136,12 @@ const config = {
                 if (memberRoles.has(x)) {
                   console.log("has role " + x)
                   passed = true
-                  return true
+                  
                 }
               }
               if (adminRoles[message.member.id]) {
                 passed = true
-                return true
+                
               } else {
                 console.log("no special id")
               }
