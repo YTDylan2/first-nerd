@@ -47,7 +47,7 @@ module.exports = (client, message) => {
         if (match || message.channel.type == 'dm') {
           client.cleverbot.create(function(bad, session) {
              if (!message.content.match('!ignore') && !list[message.author.id]) {
-                message.channel.startTyping()
+                
                 if (message.channel.type == 'dm') {
                   match = message.content
                 }
@@ -63,6 +63,7 @@ module.exports = (client, message) => {
                   client.setData("Cleverbot Ignore List", JSON.stringify(list))
                   return
                 }
+                message.channel.startTyping()
                 client.cleverbot.ask(match, function(err, response) {
                    if (message.channel.type == 'dm') {
                      message.author.send(response)
