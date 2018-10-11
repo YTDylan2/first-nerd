@@ -108,7 +108,7 @@ const config = {
               
         
             
-            return passed[0] || false
+            return passed.length >= 1
             
         } catch (e) {
           return false;
