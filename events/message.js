@@ -2,8 +2,8 @@
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
 function matchMention(text) {
-   var mentionTag1 = '<@411683313926012928>'
-   var mentionTag2 = '<@!411683313926012928>'
+   var mentionTag1 = '<@411683313926012928> '
+   var mentionTag2 = '<@!411683313926012928> '
    if (text.indexOf(mentionTag1) == 0) {
      return text.slice(mentionTag1.length)
    }
