@@ -106,12 +106,7 @@ const config = {
                   // break
                 }
               }
-            if (modRoles[message.member.id]) {
-              passed = true
-              
-            } else {
-              console.log("no special id")
-            }
+            
 
           
           return passed
@@ -140,12 +135,7 @@ const config = {
                   
                 }
               }
-              if (adminRoles[message.member.id]) {
-                passed = true
-                
-              } else {
-                console.log("no special id")
-              }
+              
           
           
             return passed
