@@ -98,7 +98,7 @@ const config = {
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in modRoles) {
-                if (memberRoles.has(x) || x == message.member.id) {
+                if (memberRoles.has(x)) {
                   console.log("has role " + x)
                   passed.push("yes")
                   break
