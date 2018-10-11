@@ -1,5 +1,5 @@
 exports.run = (client, message, args, level) => {
-    var roblox = require('noblox-js')
+    var roblox = require('noblox.js')
     var discord = require('discord.js')
     var request = require('request')
     let member = message.mentions.members.first()
