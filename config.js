@@ -105,10 +105,8 @@ const config = {
                   // break
                 }
               }
+            
             })
-
-          
-          return passed
         } catch (e) {
           return false;
         }
