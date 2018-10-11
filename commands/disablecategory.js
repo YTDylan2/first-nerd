@@ -9,10 +9,12 @@ exports.run = (client, message, args, level) => {
     if (!category ) {
       return message.channel.send("A category name is needed!")
     }
+    
+    category = category.toProperCase()
     for (x in commandsArray) {
       let command = commandsArray[x]
-      if (!foundCategories[command.help.category.toLowerCase()]) {
-        foundCategories[command.help.category.toLowerCase()] = true
+      if (!foundCategories[command.help.category.toProperCase()]) {
+        foundCategories[command.help.category.toProperCase()] = true
       }
     }
     if (!foundCategories[category]) {
@@ -22,7 +24,7 @@ exports.run = (client, message, args, level) => {
       return message.channel.send("You cannot disable this category!")
     }
 
-    category = category.toLowerCase()
+    
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)
