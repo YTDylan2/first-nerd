@@ -16,6 +16,7 @@ exports.run = (client, message, args, level) => {
           message.channel.send("Users in the role `" + roleMention.name + "` no longer have moderator permissions!")
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
+          if (roleMention) return;
           message.channel.send("This role is not listed a moderator role!")
         }
         if (userMention && modRoles[userMention.id]) {
@@ -23,6 +24,7 @@ exports.run = (client, message, args, level) => {
           message.channel.send(`${userMention.user.tag} is no longer a server moderator!`)
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
+          if (userMention) return;
           message.channel.send("That user is not listed as a server moderator!")
         }
       }
