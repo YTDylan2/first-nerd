@@ -8,7 +8,7 @@ exports.run = (client, message, args, level) => {
     if (!option && !view) {
       return message.channel.send("An option is needed!")
     }
-    if (!channel && option !== "view") {
+    if (!channel && option !== "view" && !view) {
       return message.channel.send("A channel is needed!")
     }
     option = option.toLowerCase()
@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
       let data = JSON.parse(response)
       if (data) {
         let ignoredChannels = data.data.ignoredChannels
-        let channelID = channel.id
+        let channelID = channel.id || "UNKNOWN_CHANNEL"
         let channelMention = `<#${channelID}>`
         if (option == "view" || view == "view") {
           let channelArray = []
