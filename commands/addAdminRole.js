@@ -8,7 +8,7 @@ exports.run = (client, message, args, level) => {
     }
 
     client.getGuildData(guild).then(response => {
-      let data = JSON.parse(data)
+      let data = JSON.parse(response)
       if (data) {
         let adminRoles = data.data.adminRoles
         if (!adminRoles[roleMention.id]) {
