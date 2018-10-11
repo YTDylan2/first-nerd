@@ -90,7 +90,7 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message, client) => {
         try {
-          var passed = []
+          let passed = []
           client.getGuildData(message.guild).then(response => {
             let data = JSON.parse(response)
             if (!data) return false;
@@ -100,7 +100,7 @@ const config = {
               for (x in modRoles) {
                 if (memberRoles.has(x)) {
                   console.log("has role " + x)
-                  passed.push("yes")
+                  passed[0] = "Test"
                   break
                 }
               }
