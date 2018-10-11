@@ -22,14 +22,14 @@ exports.run = (client, message, args, level) => {
           if (ignoredChannels[channel.id]) {
             delete ignoredChannels[channel.id]
             message.channel.send(`${channelMention} is now unblocked! I can speak there now!`)
-            client.saveGuildData(guild, JSON.stringify)
+            client.saveGuildData(guild, JSON.stringify(data))
           }
         }
         if (option == "on") {
           if (!ignoredChannels[channel.id]) {
             ignoredChannels[channel.id] = true
             message.channel.send(`${channelMention} is now blocked! I won't speak there anymore.`)
-            client.saveGuildData(guild, JSON.stringify)
+            client.saveGuildData(guild, JSON.stringify(data))
           } else {
             return message.channel.send("This channel is already blocked!")
           }
