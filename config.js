@@ -107,7 +107,7 @@ const config = {
               return false
             })
             console.log(passed.length)
-            return false
+            
             
         } catch (e) {
           return false;
