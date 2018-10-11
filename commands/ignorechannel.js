@@ -3,19 +3,16 @@ const discord = require('discord.js')
 exports.run = (client, message, args, level) => {
     let guild = message.guild
     let channel = message.mentions.channels.first()
-    let option = args[1]
-    let view = args[0]
-    if (!option && !view) {
+    let option = args[1] || args[0]
+   
+    if (!option) {
       return message.channel.send("An option is needed!")
     }
-    if (!channel && option !== "view" && !view) {
+    if (!channel && option !== "view") {
       return message.channel.send("A channel is needed!")
     }
     option = option.toLowerCase()
-    if (!view) {
-        view = "ree"
-    }
-    view = view.toLowerCase()
+    
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)
@@ -23,7 +20,7 @@ exports.run = (client, message, args, level) => {
         let ignoredChannels = data.data.ignoredChannels
         let channelID = channel.id || "UNKNOWN_CHANNEL"
         let channelMention = `<#${channelID}>`
-        if (option == "view" || view == "view") {
+        if (option == "view") {
           let channelArray = []
           for (x in ignoredChannels) {
             channelArray.push(`<#${x}>`)
