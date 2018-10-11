@@ -5,10 +5,10 @@ exports.run = (client, message, args, level) => {
     let channel = message.mentions.channels.first()
     let option = args[1]
     let view = args[0]
-    if (!option) {
+    if (!option && !view) {
       return message.channel.send("An option is needed!")
     }
-    if (!channel && option !== "view") {
+    if (!channel && option !== "view" && !view) {
       return message.channel.send("A channel is needed!")
     }
     option = option.toLowerCase()
