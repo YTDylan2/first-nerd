@@ -92,7 +92,7 @@ const config = {
         try {
           return false
           var passed = false
-          let response = client.getGuildData(message.guild)
+          client.getGuildData(message.guild).then(response => {
             let data = JSON.parse(response)
             if (!data) return falss;
               let modRoles = data.data.modRoles
@@ -106,7 +106,7 @@ const config = {
                   // break
                 }
               }
-            
+            })
 
           
           return passed
