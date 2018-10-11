@@ -88,10 +88,10 @@ const config = {
       // Then it checks if the member that authored the message has the role.
       // If they do return true, which will allow them to execute the command in question.
       // If they don't then return false, which will prevent them from executing the command.
-      check: (message, client) => {
+      check: async (message, client) => {
         try {
           var passed = []
-          client.getGuildData(message.guild).then(response => {
+          var response = await client.getGuildData(message.guild)
             let data = JSON.parse(response)
             if (!data) return falss;
               let modRoles = data.data.modRoles
@@ -105,7 +105,7 @@ const config = {
                 }
               }
               return passed[0]
-            })
+            
             
             
         } catch (e) {
