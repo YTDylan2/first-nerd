@@ -4,6 +4,7 @@ exports.run = (client, message, args, level) => {
     let guild = message.guild
     let channel = message.mentions.channels.first()
     let option = args[1]
+    let view = args[0]
     if (!option) {
       return message.channel.send("An option is needed!")
     }
@@ -11,6 +12,10 @@ exports.run = (client, message, args, level) => {
       return message.channel.send("A channel is needed!")
     }
     option = option.toLowerCase()
+    if (!view) {
+        view = "ree"
+    }
+    view = view.toLowerCase()
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)
@@ -18,7 +23,19 @@ exports.run = (client, message, args, level) => {
         let ignoredChannels = data.data.ignoredChannels
         let channelID = channel.id
         let channelMention = `<#${channelID}>`
-
+        if (option == "view" || view == "view") {
+          let channelArray = []
+          for (x in ignoredChannels) {
+            channelArray.push(`<#${x}>`)
+          }
+          channelArray = channelArray.join(", ")
+          let embed = new discord.RichEmbed()
+          .setTitle("Blocked Channels")
+          .setDescription("The list of blocked channels by your server.\n\n" + channelArray)
+          .setColor(process.env.purple)
+          message.channel.send({embed})
+          return 
+        }
         if (option == "off") {
           if (ignoredChannels[channel.id]) {
             delete ignoredChannels[channel.id]
@@ -35,18 +52,7 @@ exports.run = (client, message, args, level) => {
             return message.channel.send("This channel is already blocked!")
           }
         }
-        if (option == "view") {
-          let channelArray = []
-          for (x in ignoredChannels) {
-            channelArray.push(`<#${x}>`)
-          }
-          channelArray = channelArray.join(", ")
-          let embed = new discord.RichEmbed()
-          .setTitle("Blocked Channels")
-          .setDescription("The list of blocked channels by your server.\n\n" + channelArray)
-          .setColor(process.env.purple)
-          message.channel.send({embed})
-        }
+        
 
       }
     })
