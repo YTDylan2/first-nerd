@@ -100,13 +100,14 @@ const config = {
               for (x in modRoles) {
                 if (memberRoles.has(x)) {
                   console.log("has role " + x)
-                  passed[0] = "Test"
+                  passed[1] = "Test"
                   break
                 }
               }
+              console.log(passed.length)
               return false
             })
-            console.log(passed.length)
+            
             
             
         } catch (e) {
