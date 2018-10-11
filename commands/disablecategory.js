@@ -11,8 +11,8 @@ exports.run = (client, message, args, level) => {
     }
     for (x in commandsArray) {
       let command = commandsArray[x]
-      if (!foundCategories[command.conf.category.toLowerCase()]) {
-        foundCategories[command.conf.category.toLowerCase()] = true
+      if (!foundCategories[command.help.category.toLowerCase()]) {
+        foundCategories[command.help.category.toLowerCase()] = true
       }
     }
     if (!foundCategories[category]) {
