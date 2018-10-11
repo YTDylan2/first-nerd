@@ -37,7 +37,45 @@ module.exports = (client, message) => {
 
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
+  client.getData("Cleverbot Ignore List").then(request => {
+    let list = JSON.parse(request)
+    if (list) {
+      if (!list[message.author.id]) {
+        let mentions = message.mentions.members
+        let match =  matchMention(message.content)
 
+        if (match || message.channel.type == 'dm') {
+          client.cleverbot.create(function(bad, session) {
+             if (!message.content.match('!ignore') && !list[message.author.id]) {
+                message.channel.startTyping()
+                if (message.channel.type == 'dm') {
+                  match = message.content
+                }
+                if (message.content == "cleverbot off") {
+                  message.channel.send("Responding to you has been turned `off.`")
+                  list[message.author.id] = true
+                  return
+                }
+                if (message.content == "cleverbot on") {
+                  message.channel.send("Responding to you has been turned `on.`")
+                  delete list[message.author.id]
+                  return
+                }
+                client.cleverbot.ask(match, function(err, response) {
+                   if (message.channel.type == 'dm') {
+                     message.author.send(response)
+                   } else {
+                     message.channel.send(response + ' <@!' + message.author.id + '>')
+                   }
+                   message.channel.stopTyping()
+                })
+             }
+          })
+       }
+      }
+    }
+
+  })
 
 
    let id;

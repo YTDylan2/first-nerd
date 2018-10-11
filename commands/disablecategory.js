@@ -2,7 +2,7 @@ const discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let category = args[0].toLowerCase()
+    let category = args[0]
     let commandsArray = client.commands.array()
 
     let foundCategories = {}
@@ -21,6 +21,8 @@ exports.run = (client, message, args, level) => {
     if (category == "Info" || category == "Moderation") {
       return message.channel.send("You cannot disable this category!")
     }
+
+    category = category.toLowerCase()
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)

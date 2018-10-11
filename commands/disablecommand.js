@@ -2,7 +2,7 @@ const discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let cmd = args[0].toLowerCase()
+    let cmd = args[0]
     if (!cmd) {
       return message.channel.send("A command name is needed!")
     }
@@ -13,6 +13,7 @@ exports.run = (client, message, args, level) => {
     if (cmd == "disablecommand" || cmd == "enablecommand") {
       return message.channel.send("This command cannot be disabled!")
     }
+    cmd = cmd.toLowerCase()
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)

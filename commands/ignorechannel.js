@@ -3,13 +3,14 @@ const discord = require('discord.js')
 exports.run = (client, message, args, level) => {
     let guild = message.guild
     let channel = message.mentions.channels.first()
-    let option = args[1].toLowerCase()
+    let option = args[1]
     if (!option) {
       return message.channel.send("An option is needed!")
     }
     if (!channel && option !== "view") {
       return message.channel.send("A channel is needed!")
     }
+    option = option.toLowerCase()
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)

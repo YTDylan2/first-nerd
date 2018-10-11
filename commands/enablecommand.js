@@ -2,14 +2,14 @@ const discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let cmd = args[0].toLowerCase()
+    let cmd = args[0]
     if (!cmd) {
       return message.channel.send("A command name is needed!")
     }
     if (!client.commands.get(cmd)) {
       return message.channel.send("That command was not found! You can't enable a command by an alias.")
     }
-
+    cmd = cmd.toLowerCase()
 
     client.getGuildData(guild).then(response => {
       let data = JSON.parse(response)
