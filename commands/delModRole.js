@@ -11,14 +11,14 @@ exports.run = (client, message, args, level) => {
       let data = JSON.parse(response)
       if (data) {
         let modRoles = data.data.modRoles
-        if (modRoles[roleMention.id]) {
+        if (roleMention && modRoles[roleMention.id]) {
           delete modRoles[roleMention.id]
           message.channel.send("Users in the role `" + roleMention.name + "` no longer have moderator permissions!")
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
           message.channel.send("This role is not listed a moderator role!")
         }
-        if (modRoles[userMention.id]) {
+        if (userMention && modRoles[userMention.id]) {
           delete modRoles[userMention.id]
           message.channel.send(`${userMention.user.tag} is no longer a server moderator!`)
           client.saveGuildData(guild, JSON.stringify(data))
