@@ -40,7 +40,6 @@ module.exports = (client, message) => {
   client.getData("Cleverbot Ignore List").then(request => {
     let list = JSON.parse(request)
     if (list) {
-      if (!list[message.author.id]) {
         let mentions = message.mentions.members
         let match =  matchMention(message.content)
 
@@ -63,6 +62,7 @@ module.exports = (client, message) => {
                   client.setData("Cleverbot Ignore List", JSON.stringify(list))
                   return
                 }
+                if (list[message.author.id]) return;
                 message.channel.startTyping()
                 client.cleverbot.ask(match, function(err, response) {
                    if (message.channel.type == 'dm') {
@@ -75,7 +75,6 @@ module.exports = (client, message) => {
              }
           })
        }
-      }
     } else {
        client.setData("Cleverbot Ignore List", JSON.stringify({}))
     }
