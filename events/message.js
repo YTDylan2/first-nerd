@@ -157,7 +157,7 @@ module.exports = (client, message) => {
       // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
       // The "level" command module argument will be deprecated in the future.
       message.author.permLevel = level;
-      if (ignoredChannels[channel.id] && level < 3) return;
+      if (ignoredChannels[message.channel.id] && level < 3) return;
       if (disabledCommands[cmd.help.name]) {
         return message.channel.send("This command is disabled for this guild.")
       }
