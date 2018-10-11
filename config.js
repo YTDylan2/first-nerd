@@ -118,27 +118,27 @@ const config = {
 
     { level: 4,
       name: "Admin",
-      check: (message, client) => {
+      check: (message, client, data) => {
         try {
-          return false
-          var passed = false
-          let response = client.getGuildData(message.guild)
-            let data = JSON.parse(response)
-            if (data) return false;
-              let adminRoles = data.data.adminRoles
+          let passed = []
+          
+ 
+            if (!data) return false;
+              let modRoles = data.data.adminRoles
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
-              for (x in adminRoles) {
+              for (x in modRoles) {
                 if (memberRoles.has(x)) {
                   console.log("has role " + x)
-                  passed = true
-                  
+                  passed[0] = "Test"
+                  break
                 }
               }
+              console.log(passed.length)
               
-          
-          
-            return passed
+        
+            
+            return passed.length >= 1
         } catch (e) {
           return false;
         }
