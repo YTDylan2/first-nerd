@@ -37,7 +37,7 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: ["del-mod-role", "delmod"],
-    permLevel: "Administrator"
+    permLevel: "Admin"
 };
 
 exports.help = {
