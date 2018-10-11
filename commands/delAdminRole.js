@@ -11,14 +11,14 @@ exports.run = (client, message, args, level) => {
       let data = JSON.parse(response)
       if (data) {
         let adminRoles = data.data.adminRoles
-        if (!adminRoles[roleMention.id]) {
+        if (roleMention && !adminRoles[roleMention.id]) {
           delete adminRoles[roleMention.id]
           message.channel.send("Users in the role `" + roleMention.name + "` no longer have administrator permissions!")
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
           message.channel.send("This role is not listed as an administrator role!")
         }
-        if (adminRoles[userMention.id]) {
+        if (userMention && adminRoles[userMention.id]) {
           delete adminRoles[userMention.id]
           message.channel.send(`${userMention.user.tag} is no longer a server administrator!`)
           client.saveGuildData(guild, JSON.stringify(data))
