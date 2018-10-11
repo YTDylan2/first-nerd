@@ -128,7 +128,7 @@ module.exports = (client, message) => {
       const command = args.shift().toLowerCase();
 
       // Get the user or member's permission level from the elevation
-      const level = client.permlevel(message);
+      const level = client.permlevel(message, data);
 
       // Check whether the command, or alias, exist in the collections defined
       // in app.js.
