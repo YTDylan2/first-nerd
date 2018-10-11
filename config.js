@@ -73,7 +73,7 @@ const config = {
 
   permLevels: [
     // This is the lowest permisison level, this is for non-roled users.
-    { level: 0,
+    { level: 1,
       name: "User",
       // Don't bother checking, just return true which allows them to execute any command their
       // level allows them to.
@@ -81,7 +81,7 @@ const config = {
     },
 
     // This is your permission level, the staff levels should always be above the rest of the roles.
-    { level: 2,
+    { level: 3,
       // This is the name of the role.
       name: "Moderator",
       // The following lines check the guild the message came from for the roles.
@@ -116,7 +116,7 @@ const config = {
       }
     },
 
-    { level: 3,
+    { level: 4,
       name: "Admin",
       check: (message, client) => {
         try {
