@@ -18,14 +18,14 @@ exports.run = (client, message, args, level) => {
     .then(id => {
        
         // already verified
-        client.redisClient.get(message.author.id, function(err, reply) {
+        client.getData(message.author.id).then(reply => {
             if (reply != null) {
                  message.channel.send(`❗Warning: You're already linked to an account! Proceeding will replace your current account with the one you choose. Current account: https://roblox.com/users/${reply}/profile`)
                 // proceed = !proceed
                 // return;
             }
              // trying to verify to another user
-            client.redisClient.get(id.toString(), function(err, reply) {
+            client.getData(id.toString()).then(reply => {
                  if (reply != null && proceed) {
                      var user = client.users.get(reply)
                      if (user) { 
@@ -52,8 +52,8 @@ exports.run = (client, message, args, level) => {
                                      roblox.getStatus(id)
                                      .then(status => {
                                          if (status.toLowerCase().match('dog cat lol')) {
-                                             client.redisClient.set(message.author.id, id.toString())
-                                             client.redisClient.set(id.toString(), message.author.id)
+                                             client.setData(message.author.id, id.toString())
+                                             client.setData(id.toString(), message.author.id)
                                              message.channel.send('✅ Successfully verified!')
                                          }
                                          if (!status.toLowerCase().match('dog cat lol')) {
