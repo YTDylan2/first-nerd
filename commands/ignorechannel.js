@@ -18,8 +18,7 @@ exports.run = (client, message, args, level) => {
       let data = JSON.parse(response)
       if (data) {
         let ignoredChannels = data.data.ignoredChannels
-        let channelID = channel.id || "UNKNOWN_CHANNEL"
-        let channelMention = `<#${channelID}>`
+        
         if (option == "view") {
           let channelArray = []
           for (x in ignoredChannels) {
@@ -33,6 +32,11 @@ exports.run = (client, message, args, level) => {
           message.channel.send({embed})
           return 
         }
+          
+        
+        let channelID = channel.id || "UNKNOWN_CHANNEL"
+        let channelMention = `<#${channelID}>`
+        
         if (option == "off") {
           if (ignoredChannels[channel.id]) {
             delete ignoredChannels[channel.id]
