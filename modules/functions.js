@@ -24,7 +24,7 @@ module.exports = (client) => {
         permlvl = currentLevel.level;
         }
         break;
-      }
+      
     }
     return permlvl;
   };
