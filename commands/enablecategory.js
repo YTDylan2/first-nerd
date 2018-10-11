@@ -2,17 +2,19 @@ const discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-    let category = args[0].toLowerCase()
+    let category = args[0]
     let commandsArray = client.commands.array()
 
     let foundCategories = {}
     if (!category ) {
       return message.channel.send("A category name is needed!")
     }
+    
+    category = category.toProperCase()
     for (x in commandsArray) {
       let command = commandsArray[x]
-      if (!foundCategories[command.conf.category.toLowerCase()]) {
-        foundCategories[command.conf.category.toLowerCase()] = true
+      if (!foundCategories[command.help.category.toProperCase()]) {
+        foundCategories[command.help.category.toProperCase()] = true
       }
     }
     if (!foundCategories[category]) {
