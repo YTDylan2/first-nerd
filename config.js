@@ -104,9 +104,10 @@ const config = {
                   break
                 }
               }
-            
+              return passed[0]
             })
-            return passed[0]
+            
+            
         } catch (e) {
           return false;
         }
