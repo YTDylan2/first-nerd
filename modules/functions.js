@@ -22,8 +22,9 @@ module.exports = (client) => {
       let check = await currentLevel.check(message, client)
         if (check) {
         permlvl = currentLevel.level;
+         break
         }
-        break;
+        
       
     }
     return permlvl;
