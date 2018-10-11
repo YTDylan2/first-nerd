@@ -51,14 +51,16 @@ module.exports = (client, message) => {
                 if (message.channel.type == 'dm') {
                   match = message.content
                 }
-                if (message.content == "cleverbot off") {
+                if (match == "cleverbot off") {
                   message.channel.send("Responding to you has been turned `off.`")
                   list[message.author.id] = true
+                  client.setData("Cleverbot Ignore List", JSON.stringify(list))
                   return
                 }
-                if (message.content == "cleverbot on") {
+                if (match == "cleverbot on") {
                   message.channel.send("Responding to you has been turned `on.`")
                   delete list[message.author.id]
+                  client.setData("Cleverbot Ignore List", JSON.stringify(list))
                   return
                 }
                 client.cleverbot.ask(match, function(err, response) {
@@ -73,6 +75,8 @@ module.exports = (client, message) => {
           })
        }
       }
+    } else {
+       client.setData("Cleverbot Ignore List", JSON.stringify({}))
     }
 
   })
