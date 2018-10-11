@@ -101,7 +101,7 @@ const config = {
                 if (memberRoles.has(x)) {
                   console.log("has role " + x)
                   passed = true
-                  
+                  return true
                   // break
                 }
               }
