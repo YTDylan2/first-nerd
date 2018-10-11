@@ -88,7 +88,7 @@ const config = {
       // Then it checks if the member that authored the message has the role.
       // If they do return true, which will allow them to execute the command in question.
       // If they don't then return false, which will prevent them from executing the command.
-      check: async (message, client) => {
+      check: (message, client) => {
         try {
           return false
           var passed = false
@@ -123,7 +123,7 @@ const config = {
 
     { level: 3,
       name: "Admin",
-      check: async (message, client) => {
+      check: (message, client) => {
         try {
           return false
           var passed = false
