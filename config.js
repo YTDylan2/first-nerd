@@ -90,7 +90,7 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message) => {
         try {
-          let passed = false
+          var passed = false
           client.getGuildData(message.guild).then(response => {
             let data = JSON.parse(response)
             if (data) {
@@ -99,6 +99,7 @@ const config = {
               let guildRoles = message.guild.roles
               for (x in modRoles) {
                 if (memberRoles.has(x)) {
+                  console.log("has role " + x)
                   passed = true
                   return true
                   // break
@@ -108,6 +109,8 @@ const config = {
             if (modRoles[message.member.id]) {
               passed = true
               return true
+            } else {
+              console.log("no special id")
             }
 
           })
@@ -122,7 +125,7 @@ const config = {
       name: "Admin",
       check: (message) => {
         try {
-          let passed = false
+          var passed = false
           client.getGuildData(message.guild).then(response => {
             let data = JSON.parse(response)
             if (data) {
@@ -131,6 +134,7 @@ const config = {
               let guildRoles = message.guild.roles
               for (x in adminRoles) {
                 if (memberRoles.has(x)) {
+                  console.log("has role " + x)
                   passed = true
                   return true
                 }
@@ -138,6 +142,8 @@ const config = {
               if (adminRoles[message.member.id]) {
                 passed = true
                 return true
+              } else {
+                console.log("no special id")
               }
             }
           })
