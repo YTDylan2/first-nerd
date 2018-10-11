@@ -104,7 +104,7 @@ const config = {
                   break
                 }
               }
-              return passed[0]
+              return false
             
             
             
