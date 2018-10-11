@@ -16,18 +16,18 @@ exports.run = (client, message, args, level) => {
           message.channel.send("Users in the role `" + roleMention.name + "` no longer have administrator permissions!")
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
-          if (roleMention) {
+          
           message.channel.send("This role is not listed as an administrator role!")
-              }
+              
         }
         if (userMention && adminRoles[userMention.id]) {
           delete adminRoles[userMention.id]
           message.channel.send(`${userMention.user.tag} is no longer a server administrator!`)
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
-          if (!userMention) {
+          
           message.channel.send("That user is not listed as a server administrator!")
-              }
+              
         }
       }
     })
