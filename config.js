@@ -98,7 +98,7 @@ const config = {
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in modRoles) {
-                if (memberRoles.has(x) && guildRoles.find(r => r.id == x)) {
+                if (memberRoles.has(x) && guildRoles.has(x)) {
                   passed = true
                   break
                 }
@@ -128,7 +128,7 @@ const config = {
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in adminRoles) {
-                if (memberRoles.has(x) && guildRoles.find(r => r.id == x)) {
+                if (memberRoles.has(x) && guildRoles.has(x)) {
                   passed = true
                   break
                 }
