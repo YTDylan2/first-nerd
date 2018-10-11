@@ -90,7 +90,6 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message, client) => {
         try {
-          return false
           var passed = false
           client.getGuildData(message.guild).then(response => {
             let data = JSON.parse(response)
