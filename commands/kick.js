@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     let reason = args[1]
     let realReason = reason || "Kicked by " + message.author.tag
-    if (&& user) {
+    if (user) {
         if (!checkMod(user)) {
             user.kick(realReason).then(function (member) {
                 message.channel.send(`${user} was kicked for ` + reason || "ungiven reason.")
