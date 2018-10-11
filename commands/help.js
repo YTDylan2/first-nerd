@@ -24,7 +24,9 @@ exports.run = (client, message, args, level) => {
       data = client.config.defaultSettings
     }
     let settings = data.settings
-
+    let disabledCommands = data.data.disabledCommands
+    let disabledCategories = data.data.disabledCategories
+    
     if (!args[0]) {
       // load guild settings (for prefixes and eventually per guild tweaks)
 
@@ -38,6 +40,9 @@ exports.run = (client, message, args, level) => {
       for (var x in arrayCmds) {
         let cmd = arrayCmds[x]
         if (cmd.help) {
+          if (disabledCommands[cmd.help.name]) {
+              cmd.help.name = cmd.help.name + " (disabled)"
+          }
           if (!sortedCommands[cmd.help.category]) {
             sortedCommands[cmd.help.category] = [cmd.help.name]
           } else {
@@ -50,6 +55,9 @@ exports.run = (client, message, args, level) => {
 
       for (var x in sortedCommands) {
         let seperated = seperateStrings(sortedCommands[x])
+        if (disabledCategories[x]) {
+          x = x + " (disabled)"
+        }
         embed.addField(x, seperated)
       }
       embed.setColor(process.env.purple)
@@ -67,8 +75,12 @@ exports.run = (client, message, args, level) => {
           message.channel.send("Uh oh! Looks like you can't use this command!")
           return;
         }
+        let cmdName = command.help.name
+        if (disabledCommands[cmdName]) {
+          cmdName = cmdName + " (disabled)"
+        }
         let embed = new discord.RichEmbed()
-        .setTitle(settings.prefix + command.help.name)
+        .setTitle(settings.prefix + cmdName)
         .setDescription(command.help.description)
         .addField("Usage", "`" + `${settings.prefix}${command.help.usage}` + "`")
         .addField("Security", command.conf.permLevel + "+")
