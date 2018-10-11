@@ -7,7 +7,7 @@ exports.run = (client, message, args, level) => {
 
     if (member) {
         let user = client.users.get(member.id)
-        client.getData(member.id, function(err, reply) {
+        client.getData(member.id).then(reply => {
             if (reply == null) {
                 message.channel.send("This person isn't linked to my database.")
             } else {
