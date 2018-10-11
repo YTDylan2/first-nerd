@@ -24,7 +24,7 @@ exports.run = (client, message, args, level) => {
           message.channel.send(`${userMention.user.tag} is no longer a server administrator!`)
           client.saveGuildData(guild, JSON.stringify(data))
         } else {
-          if (userMention) return;
+          if (!userMention) return;
           message.channel.send("That user is not listed as a server administrator!")
         }
       }
