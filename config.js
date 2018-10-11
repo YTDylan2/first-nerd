@@ -93,7 +93,7 @@ const config = {
           var passed = false
           let response = await client.getGuildData(message.guild)
             let data = JSON.parse(response)
-            if (data) {
+            if (!data) return falss;
               let modRoles = data.data.modRoles
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
@@ -105,7 +105,6 @@ const config = {
                   // break
                 }
               }
-            }
             if (modRoles[message.member.id]) {
               passed = true
               
@@ -128,7 +127,7 @@ const config = {
           var passed = false
           let response = await client.getGuildData(message.guild)
             let data = JSON.parse(response)
-            if (data) {
+            if (data) return false;
               let adminRoles = data.data.adminRoles
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
@@ -145,7 +144,7 @@ const config = {
               } else {
                 console.log("no special id")
               }
-            }
+          
           
             return passed
         } catch (e) {
