@@ -90,6 +90,7 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: async (message, client) => {
         try {
+          return false
           var passed = false
           let response = await client.getGuildData(message.guild)
             let data = JSON.parse(response)
@@ -124,6 +125,7 @@ const config = {
       name: "Admin",
       check: async (message, client) => {
         try {
+          return false
           var passed = false
           let response = await client.getGuildData(message.guild)
             let data = JSON.parse(response)
