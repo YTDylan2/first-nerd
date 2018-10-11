@@ -11,7 +11,7 @@ module.exports = (client) => {
   command including the VERY DANGEROUS `eval` and `exec` commands!
 
   */
-  client.permlevel = async (message) => {
+  client.permlevel = (message) => {
     let permlvl = 0;
 
     const permOrder = client.config.permLevels.slice(0).sort((p, c) => p.level < c.level ? 1 : -1);
@@ -19,8 +19,8 @@ module.exports = (client) => {
     while (permOrder.length) {
       const currentLevel = permOrder.shift();
       if (message.guild && currentLevel.guildOnly) continue;
-      let check = await currentLevel.check(message, client)
-        if (check) {
+      
+        if (currentLevel.check(message, client) ) {
         permlvl = currentLevel.level;
          break
         }
