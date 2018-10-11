@@ -98,13 +98,15 @@ const config = {
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in modRoles) {
-                if (memberRoles.has(x) && guildRoles.has(x)) {
+                if (memberRoles.has(x)) {
+                  passed = true
                   return true
                   // break
                 }
               }
             }
             if (modRoles[message.member.id]) {
+              passed = true
               return true
             }
 
@@ -128,11 +130,13 @@ const config = {
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in adminRoles) {
-                if (memberRoles.has(x) && guildRoles.has(x)) {
+                if (memberRoles.has(x)) {
+                  passed = true
                   return true
                 }
               }
               if (adminRoles[message.member.id]) {
+                passed = true
                 return true
               }
             }
