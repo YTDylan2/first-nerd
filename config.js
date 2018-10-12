@@ -145,7 +145,7 @@ const config = {
       }
     },
     // This is the server owner.
-    { level: 4,
+    { level: 5,
       name: "Server Owner",
       // Simple check, if the guild owner id matches the message author's ID, then it will return true.
       // Otherwise it will return false.
@@ -170,7 +170,7 @@ const config = {
     // This is the bot owner, this should be the highest permission level available.
     // The reason this should be the highest level is because of dangerous commands such as eval
     // or exec (if the owner has that).
-    { level: 10,
+    { level: 999,
       name: "Bot Owner",
       // Another simple check, compares the message author id to the one stored in the config file.
       check: (message) => message.client.config.ownerID === message.author.id
