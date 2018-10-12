@@ -34,20 +34,7 @@ module.exports = (client, message) => {
   let ignoreList;
 
 
-  if (userCommandUsage.commandCount >= 3) {
-    if (!userCommandUsage.alerted) {
-      userCommandUsage.alerted = true
-      message.channel.send("Hey! You're using the commands way too fast. You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
-    }
-    setTimeout(() => {
-      userCommandUsage.commandCount = 0
-      userCommandUsage.alerted = false
-    }, 10000)
-  }
 
-  if (userCommandUsage.commandCount >= 3) {
-    return;
-  }
 
 
 
@@ -153,6 +140,21 @@ module.exports = (client, message) => {
 
       if (!cmd) return;
 
+
+      if (userCommandUsage.commandCount >= 3) {
+        if (!userCommandUsage.alerted) {
+          userCommandUsage.alerted = true
+          message.channel.send("Hey! You're using the commands way too fast. You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
+        }
+        setTimeout(() => {
+          userCommandUsage.commandCount = 0
+          userCommandUsage.alerted = false
+        }, 10000)
+      }
+
+      if (userCommandUsage.commandCount >= 3) {
+        return;
+      }
       // Some commands may not be useable in DMs. This check prevents those commands from running
       // and return a friendly error message.
       if (cmd && !message.guild && cmd.conf.guildOnly)
@@ -192,6 +194,6 @@ module.exports = (client, message) => {
         if (userCommandUsage.commandCount < 3 && !userCommandUsage.alerted) {
           userCommandUsage.commandCount = 0
         }
-      }, 1250)
+      }, 750)
   })
 };
