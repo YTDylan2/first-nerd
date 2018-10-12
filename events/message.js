@@ -45,7 +45,7 @@ module.exports = (client, message) => {
     }, 10000)
   }
 
-  if (userCommandUsage.commandCount) >= 3) {
+  if (userCommandUsage.commandCount >= 3) {
     return;
   }
 
