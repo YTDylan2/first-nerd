@@ -28,7 +28,6 @@ module.exports = (client, message) => {
       'alerted' : false
     }
   }
-  recentMessages[message.author.id].commandCount = recentMessages[message.author.id].commandCount + 1
 
   let userCommandUsage = recentMessages[message.author.id]
   let ignoreList;
@@ -188,7 +187,8 @@ module.exports = (client, message) => {
       client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
       client.lastCommand = settings.prefix + cmd.help.name
       cmd.run(client, message, args, level);
-
+      
+      userCommandUsage.commandCount = userCommandUsage.commandCount + 1
 
       setTimeout(() => {
         if (userCommandUsage.commandCount < 3 && !userCommandUsage.alerted) {
