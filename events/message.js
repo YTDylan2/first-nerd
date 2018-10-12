@@ -28,8 +28,27 @@ module.exports = (client, message) => {
       'alerted' : false
     }
   }
+  recentMessages[message.author.id].commandCount = recentMessages[message.author.id].commandCount + 1
+
   let userCommandUsage = recentMessages[message.author.id]
   let ignoreList;
+
+
+  if (userCommandUsage.commandCount >= 3) {
+    if (!userCommandUsage.alerted) {
+      userCommandUsage.alerted = true
+      message.channel.send("Hey! You're using the commands way too fast. You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
+    }
+    setTimeout(() => {
+      userCommandUsage.commandCount = 0
+      userCommandUsage.alerted = false
+    }, 10000)
+  }
+
+  if (userCommandUsage.commandCount) >= 3) {
+    return;
+  }
+
 
 
   // Grab the settings for this server from the PersistentCollection
@@ -46,7 +65,7 @@ module.exports = (client, message) => {
         if (match || message.channel.type == 'dm') {
           client.cleverbot.create(function(bad, session) {
              if (!message.content.match('!ignore')) {
-                
+
                 if (message.channel.type == 'dm') {
                   match = message.content
                 }
@@ -110,16 +129,7 @@ module.exports = (client, message) => {
       let disabledCommands = data.data.disabledCommands
       let disabledCategories = data.data.disabledCategories
 
-      if (userCommandUsage.commandCount >= 4) {
-        if (!userCommandUsage.alerted) {
-          userCommandUsage.alerted = true
-          message.channel.send("Hey! You're using the commands way too fast. You've been placed on a 10 second cooldown!")
-        }
-        setTimeout(() => {
-          userCommandUsage.commandCount = 0
-          userCommandUsage.alerted = false
-        }, 10000)
-      }
+
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
       if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
@@ -177,9 +187,11 @@ module.exports = (client, message) => {
       client.lastCommand = settings.prefix + cmd.help.name
       cmd.run(client, message, args, level);
 
-      recentMessages[message.author.id].commandCount = recentMessages[message.author.id].commandCount + 1
+
       setTimeout(() => {
-        userCommandUsage.commandCount = 0
-      }, 1000)
+        if (userCommandUsage.commandCount < 3 && !userCommandUsage.alerted) {
+          userCommandUsage.commandCount = 0
+        }
+      }, 1250)
   })
 };
