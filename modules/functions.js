@@ -54,7 +54,7 @@ module.exports = (client) => {
   };
 
   // JSON to Array - Preserves keys
-  client.jsonToArray = (json) {
+  client.jsonToArray = (json) => {
     let array = []
     for (x in json) {
       array.push([x, json[x]])
