@@ -363,9 +363,26 @@ const init = async () => {
       });
     }, 30000); // lazy af
 
-    var loggedAssets = {}
-    //var messageCheck = client.channels.get(process.env.channelid).fetchMessage(process.env.messageid).then(msg => { console.log("edit message redy") })
+    // roblox events
+    var wallPost = Roblox.onWallPost(process.env.groupid)
+    wallPost.on('data', function(post) {
+      let content = post.content
+      let author = post.author
+      let id = author.id
+      let name = post.name
+      let postingChannel = client.channels.get('500726748229664769')
 
+      let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
+
+      var embed = new discord.RichEmbed()
+      embed.setTitle(name)
+      embed.setDescription("Wall post by " + name)
+      embed.addField("Body", "```fix\n" + content + "```")
+      embed.setThumbnail(pictureURL)
+      embed.setFooter("Powered by Vanessa", client.user.avatarURL)
+      embed.setTimestamp()
+      postingChannel.send({embed})
+    })
 
 
 
