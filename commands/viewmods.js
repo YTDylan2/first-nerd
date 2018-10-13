@@ -5,8 +5,8 @@ exports.run = (client, message, args, level) => {
   client.getGuildData(guild).then(response => {
     let data = JSON.parse(response)
     if (!data) return;
-    let modRoles = client.jsonToArray(data.data.modRoles)
-    let adminRoles = client.jsonToArray(data.data.adminRoles)
+    let modRoles = data.data.modRoles
+    let adminRoles = data.data.adminRoles
 
     let finalModRoles = {
       'roles' : [],
@@ -17,8 +17,8 @@ exports.run = (client, message, args, level) => {
       'users' : []
     }
     for (x in modRoles) {
-      let role = guild.roles.get(x[0])
-      let user = client.users.get(x[0])
+      let role = guild.roles.get(x.toString())
+      let user = client.users.get(x.toString())
 
       if (role) {
         finalModRoles.roles.push(r.name)
@@ -28,8 +28,8 @@ exports.run = (client, message, args, level) => {
       }
     }
     for (x in adminRoles) {
-      let role = guild.roles.get(x[0])
-      let user = client.users.get(x[0])
+      let role = guild.roles.get(x.toString())
+      let user = client.users.get(x.toString())
 
       if (role) {
         finalAdminRoles.roles.push(r.name)
