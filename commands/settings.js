@@ -76,9 +76,9 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         for (x in modifiable) {
           let dataString = ""
           for (key in modifiable[x]) {
-            dataString = dataString + `${key} => ${modifiable[x][key].toString()}\n`
+            dataString = dataString + `${key} => ${modifiable[x][key]}\n`
           }
-          prettyPrint = prettyPrint + `\t${x} => {\n` + dataString + '\n}'
+          prettyPrint = prettyPrint + `${x} => {\n\t` + dataString + '\n}'
         }
         client.hastebin(prettyPrint).then(link => {
           message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")

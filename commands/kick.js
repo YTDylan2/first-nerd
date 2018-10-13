@@ -37,7 +37,7 @@ exports.run = (client, message, args, level) => {
         checkMod(message.guild, user, client).then(modStatus => {
           if (!modStatus) {
               user.kick(realReason).then(function (member) {
-                  message.channel.send(`${member.user.tag} was kicked for ` + reason || "ungiven reason.")
+                  message.channel.send(`**${member.user.tag}** was kicked! Reason: ` + reason || "`ungiven reason.``")
               })
           } else {
               message.channel.send("That user is a moderator!")
