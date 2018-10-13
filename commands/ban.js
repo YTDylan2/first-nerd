@@ -2,7 +2,7 @@
 
 async function checkMod(guild, member, client) {
   let passed = false
-  let response = client.getGuildData(guild)
+  let response = await client.getGuildData(guild)
   let data = JSON.parse(response)
     if (!data) return;
     let modRoles = data.data.modRoles
