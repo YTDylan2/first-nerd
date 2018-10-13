@@ -58,6 +58,26 @@ Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
   .then(function () {
       console.log("Logged in to ROBLOX!")
       client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
+
+      var wallPost = Roblox.onWallPost(process.env.groupid)
+      wallPost.on('data', function(post) {
+        let content = post.content
+        let author = post.author
+        let id = author.id
+        let name = post.name
+        let postingChannel =
+
+        let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
+
+        var embed = new discord.RichEmbed()
+        embed.setTitle(name)
+        embed.setDescription("Wall post by " + name)
+        embed.addField("Body", "```fix\n" + content + "```")
+        embed.setThumbnail(pictureURL)
+        embed.setFooter("Powered by Vanessa", client.user.avatarURL)
+        embed.setTimestamp()
+        postingChannel.send({embed})
+      })
   })
   .catch(function(err) {
       console.log("login error: " + err)
@@ -364,25 +384,7 @@ const init = async () => {
     }, 30000); // lazy af
 
     // roblox events
-    var wallPost = Roblox.onWallPost(process.env.groupid)
-    wallPost.on('data', function(post) {
-      let content = post.content
-      let author = post.author
-      let id = author.id
-      let name = post.name
-      let postingChannel = client.channels.get('500726748229664769')
 
-      let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
-
-      var embed = new discord.RichEmbed()
-      embed.setTitle(name)
-      embed.setDescription("Wall post by " + name)
-      embed.addField("Body", "```fix\n" + content + "```")
-      embed.setThumbnail(pictureURL)
-      embed.setFooter("Powered by Vanessa", client.user.avatarURL)
-      embed.setTimestamp()
-      postingChannel.send({embed})
-    })
 
 
 
@@ -402,7 +404,7 @@ const init = async () => {
     }, 57600000)
 
     setInterval(() => {
-        client.startChannel = client.channels.get('491777217920106508')
+        client.startChannel = client.channels.get()
 
         let ordinal = require("ordinal-js")
         let buildVer = process.env.HEROKU_RELEASE_VERSION
@@ -450,6 +452,8 @@ const init = async () => {
 
   // Here we login the client.
   client.login(process.env.BOT_TOKEN);
+  client.postingChannel = client.channels.get('500726748229664769')
+  client.startChannel = client.channels.get('491777217920106508')
 
 // End top-level async/await function
 

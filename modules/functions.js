@@ -19,13 +19,13 @@ module.exports = (client) => {
     while (permOrder.length) {
       const currentLevel = permOrder.shift();
       if (message.guild && currentLevel.guildOnly) continue;
-      
+
         if (currentLevel.check(message, client, data) ) {
         permlvl = currentLevel.level;
          break
         }
-        
-      
+
+
     }
     return permlvl;
   };
@@ -169,7 +169,7 @@ module.exports = (client) => {
       return guildMember.hasPermission(permissionName)
     } catch (e) {
       console.log('check perm fail: ' + e)
-      // client.startChannel.send('check permission failure: ' + e)
+      client.startChannel.send('check permission failure: ' + e)
     }
   }
 
@@ -194,7 +194,7 @@ module.exports = (client) => {
   process.on("unhandledRejection", err => {
     client.logger.error(`Unhandled rejection: ${err}`);
     if (client.startChannel) {
-      //client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
+      client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
     }
   });
 
