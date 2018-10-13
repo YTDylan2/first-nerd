@@ -36,7 +36,7 @@ exports.run = (client, message, args, level) => {
     let reason = args[1]
     let realReason = reason + message.author.tag || "Banned by " + message.author.tag
     if (user) {
-      checkMod(user).then(modStatus => {
+      checkMod(message.guild, user, client).then(modStatus => {
         if (!modStatus) {
             user.ban(realReason).then(function (member) {
                 message.channel.send(`${member.user.tag} was banned for ` + reason || "ungiven reason.")

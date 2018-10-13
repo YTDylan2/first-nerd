@@ -34,7 +34,7 @@ exports.run = (client, message, args, level) => {
     let reason = args[1]
     let realReason = reason || "Kicked by " + message.author.tag
     if (user) {
-        checkMod(user).then(modStatus => {
+        checkMod(message.guild, user, client).then(modStatus => {
           if (!modStatus) {
               user.kick(realReason).then(function (member) {
                   message.channel.send(`${member.user.tag} was kicked for ` + reason || "ungiven reason.")
