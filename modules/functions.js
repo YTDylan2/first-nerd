@@ -53,6 +53,16 @@ module.exports = (client) => {
     }
   };
 
+  // JSON to Array - Preserves keys
+  client.jsonToArray = (json) {
+    let array = []
+    for (x in json) {
+      array.push([x, json[x]])
+    }
+    return array
+  }
+
+  // Data functions.
   client.getGuildData = async (guild) => {
     let data = await client.redisClient.get(guild.id + '-DATA')
     return data

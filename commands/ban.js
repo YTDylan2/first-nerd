@@ -40,6 +40,11 @@ exports.run = (client, message, args, level) => {
         if (!modStatus) {
             user.ban(realReason).then(function (member) {
                 message.channel.send(`**${member.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
+            }).catch(e => {
+              let strErr = e.toString()
+              if (strErr.match("Permissions")) {
+                message.channel.send("Missing permissions to ban this user!\nA). One role they have is above my highest role\nB). I am missing the `BAN_MEMBERS` permission")
+              }
             })
         } else {
             message.channel.send("That user is a moderator!")
