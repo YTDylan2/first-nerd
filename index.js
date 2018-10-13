@@ -274,6 +274,9 @@ const init = async () => {
     delete require.cache[require.resolve(`./events/${file}`)];
   });
 
+  client.postingChannel = client.channels.get('500726748229664769')
+  client.startChannel = client.channels.get('491777217920106508')
+  
   Noblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX!")
@@ -443,8 +446,7 @@ const init = async () => {
 
   // Here we login the client.
   client.login(process.env.BOT_TOKEN);
-  client.postingChannel = client.channels.get('500726748229664769')
-  client.startChannel = client.channels.get('491777217920106508')
+
 
 // End top-level async/await function
 
