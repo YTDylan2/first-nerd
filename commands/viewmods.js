@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
       let user = client.users.get(x.toString())
 
       if (role) {
-        finalModRoles.roles.push(r.name)
+        finalModRoles.roles.push(role.name)
       }
       if (user) {
         finalModRoles.users.push('`' + user.tag + '`')
@@ -32,7 +32,7 @@ exports.run = (client, message, args, level) => {
       let user = client.users.get(x.toString())
 
       if (role) {
-        finalAdminRoles.roles.push(r.name)
+        finalAdminRoles.roles.push(role.name)
       }
       if (user) {
         finalAdminRoles.users.push('`' + user.tag + '`')
