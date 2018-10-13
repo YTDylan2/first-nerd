@@ -186,8 +186,15 @@ module.exports = (client, message) => {
       // If the command exists, **AND** the user has permission, run it.
       client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
       client.lastCommand = settings.prefix + cmd.help.name
-      cmd.run(client, message, args, level);
-      
+      try {
+        cmd.run(client, message, args, level);
+      } catch (e) {
+        if (level > 900) {
+          message.channel.send("There was an internal error when executing this command!\nError: `" + e + "``")
+          return
+        }
+      }
+
       userCommandUsage.commandCount = userCommandUsage.commandCount + 1
 
       setTimeout(() => {

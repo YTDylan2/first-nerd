@@ -10,10 +10,10 @@ async function checkMod(guild, member, client) {
     let memberRoles = member.roles
     let guildRoles = guild.roles
 
-    if (modRoles[message.member.id]) {
+    if (modRoles[member.id]) {
       return true
     }
-    if (adminRoles[message.member.id]) {
+    if (adminRoles[member.id]) {
       return true
     }
     for (x in modRoles) {
