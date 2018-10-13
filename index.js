@@ -8,6 +8,7 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 // Load up the discord.js library
 const Discord = require("discord.js");
 const Roblox = require("roblox-js");
+const Noblox = require("noblox.js")
 const express = require("express");
 const bodyParser = require('body-parser')
 const validator = require('validator')
@@ -54,37 +55,6 @@ app.listen(process.env.PORT || 3000, function() {
   console.log("Running on port " + process.env.PORT)
 })
 
-Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
-  .then(function () {
-      console.log("Logged in to ROBLOX!")
-      client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
-
-      var wallPost = Roblox.onWallPost(process.env.groupid)
-      wallPost.on('data', function(post) {
-        let content = post.content
-        let author = post.author
-        let id = author.id
-        let name = post.name
-
-        let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
-
-        var embed = new discord.RichEmbed()
-        embed.setTitle(name)
-        embed.setDescription("Wall post by " + name)
-        embed.addField("Body", "```fix\n" + content + "```")
-        embed.setThumbnail(pictureURL)
-        embed.setFooter("Powered by Vanessa", client.user.avatarURL)
-        embed.setTimestamp()
-        postingChannel.send({embed})
-      })
-  })
-  .catch(function(err) {
-      console.log("login error: " + err)
-      client.startChannel.send('there was a login error, check logs')
-  });
-
-client.caseLegendsPlayerData = []
-client.savedPlayerData = new Enmap({ provider: new EnmapLevel({ name: 'playerData' }) });
 client.lastCommand = "None"
 
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
@@ -272,12 +242,6 @@ function checkScammer(userId) {
 client.commands = new Enmap();
 client.aliases = new Enmap();
 
-// Now we integrate the use of Evie's awesome Enhanced Map module, which
-// essentially saves a collection to disk. This is great for per-server configs,
-// and makes things extremely easy for this purpose.
-client.setDatatings = new Enmap({provider: new EnmapLevel({name: "settings"})});
-
-client.collection = new Enmap({provider: new EnmapLevel({name: "enmapTest"})});
 
 // set up redis
 client.redisClient = redis.createClient({url: process.env.REDIS_URL})
@@ -310,6 +274,34 @@ const init = async () => {
     delete require.cache[require.resolve(`./events/${file}`)];
   });
 
+  Noblox.login({username: process.env.rbxname, password: process.env.rbxpass})
+    .then(function () {
+        console.log("Logged in to ROBLOX!")
+        client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
+
+        var wallPost = Noblox.onWallPost(process.env.groupid)
+        wallPost.on('data', function(post) {
+          let content = post.content
+          let author = post.author
+          let id = author.id
+          let name = post.name
+
+          let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
+
+          var embed = new discord.RichEmbed()
+          embed.setTitle(name)
+          embed.setDescription("Wall post by " + name)
+          embed.addField("Body", "```fix\n" + content + "```")
+          embed.setThumbnail(pictureURL)
+          embed.setFooter("Powered by Vanessa", client.user.avatarURL)
+          embed.setTimestamp()
+          postingChannel.send({embed})
+        })
+    })
+    .catch(function(err) {
+        console.log("login error: " + err)
+        client.startChannel.send('there was a login error, check logs')
+    });
    // app stuff
 
   app.post('/ping', authenticate, function(req, res, next) {
