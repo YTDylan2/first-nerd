@@ -65,7 +65,6 @@ Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
         let author = post.author
         let id = author.id
         let name = post.name
-        let postingChannel =
 
         let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
 
