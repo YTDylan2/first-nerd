@@ -7,7 +7,7 @@ let badLinks = [
   "xvide",
   "grabify",
   "redtu",
-  ""
+  "liveleak"
 ]
 
 exports.run = (client, message, args, level) => {
