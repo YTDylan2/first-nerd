@@ -21,11 +21,11 @@ let info = {
     "Vanessa has many settings you can modify, such as the prefix, economy, and etc.\n" +
     "Please use `>settings` to view your setting configuration.\n" +
     "Vanessa will alert you if your settings need an update."
-  ]
+  ],
 }
 module.exports = (client, guild) => {
   let id = guild.id
-  client.setData(id, client.config.defaultSettings).then(r => {
+  client.setData(id, JSON.stringify(client.config.defaultSettings)).then(r => {
     if (r) {
       if (guild.systemChannelID) {
         let channel = guild.channels.get(guild.systemChannelID)
@@ -40,7 +40,7 @@ module.exports = (client, guild) => {
           embed.addField("Other", info.field4[0])
           embed.setFooter("Stuck? Use >help")
           embed.setTimestamp()
-          embed.setColor(3447003)
+          embed.setColor(process.env.blue)
           channel.send({embed})
         }
       }
