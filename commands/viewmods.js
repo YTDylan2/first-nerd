@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
       let user = client.users.get(x.toString())
 
       if (role) {
-        finalModRoles.roles.push(role.name)
+        finalModRoles.roles.push('`' + role.name + '`')
       }
       if (user) {
         finalModRoles.users.push('`' + user.tag + '`')
@@ -32,7 +32,7 @@ exports.run = (client, message, args, level) => {
       let user = client.users.get(x.toString())
 
       if (role) {
-        finalAdminRoles.roles.push(role.name)
+        finalAdminRoles.roles.push('`' + role.name + '`')
       }
       if (user) {
         finalAdminRoles.users.push('`' + user.tag + '`')
@@ -46,6 +46,7 @@ exports.run = (client, message, args, level) => {
     embed.addField("Moderator Bound Users", finalModRoles.users.join(", ") || "None")
     embed.addField("Admin Bound Roles", finalAdminRoles.roles.join(", ") || "None")
     embed.addField("Admin Bound Users", finalAdminRoles.users.join(", ") || "None")
+    embed.addField("Server Owner", guild.owner.user.tag)
     embed.setFooter("Powered by Vanessa", client.user.avatarURL)
     embed.setTimestamp()
     embed.setColor(process.env.blue)
