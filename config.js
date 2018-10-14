@@ -91,8 +91,8 @@ const config = {
       check: (message, client, data) => {
         try {
           let passed = []
-          
- 
+
+
             if (!data) return false;
               let modRoles = data.data.modRoles
               let memberRoles = message.member.roles
@@ -105,11 +105,11 @@ const config = {
                 }
               }
               console.log(passed.length)
-              
-        
-            
+
+
+
             return passed.length >= 1
-            
+
         } catch (e) {
           return false;
         }
@@ -117,12 +117,12 @@ const config = {
     },
 
     { level: 4,
-      name: "Admin",
+      name: "Administrator",
       check: (message, client, data) => {
         try {
           let passed = []
-          
- 
+
+
             if (!data) return false;
               let modRoles = data.data.adminRoles
               let memberRoles = message.member.roles
@@ -135,9 +135,9 @@ const config = {
                 }
               }
               console.log(passed.length)
-              
-        
-            
+
+
+
             return passed.length >= 1
         } catch (e) {
           return false;
