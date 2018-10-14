@@ -5,7 +5,9 @@ exports.run = (client, message, args, level) => {
     var erasing = num
     if (!isNaN(num)) {
         let loopTimes = Math.max(Math.ceil(num / 100), 1)
-
+        if (num > 1500) {
+            return message.channel.send("Hey! Keep it wholesome, that's alot of messages!")
+        }
         var i;
         for (i = 1; i <= loopTimes; i++) {
             if (num > 100) {
