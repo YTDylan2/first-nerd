@@ -35,6 +35,8 @@ exports.run = (client, message, args, level) => {
             }
             if (canPost) {
               message.channel.send(res.links[0].link)
+            } else {
+              message.channel.send("Sorry! The content on that page would be deemed inappropiate.")
             }
 
         }
