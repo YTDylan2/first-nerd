@@ -1,6 +1,6 @@
 exports.run = (client, message, args, level) => {
     let guild = message.guild
-
+    if (level < 4) return;
     let roleMention = message.mentions.roles.first()
     let userMention = message.mentions.members.first()
     if (!roleMention && !userMention) {
