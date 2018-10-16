@@ -33,9 +33,10 @@ async function checkMod(guild, member, client) {
 exports.run = (client, message, args, level) => {
     let user = message.mentions.members.first();
     var discord = require('discord.js')
-    let reason = args[1]
+    let reason = args.join(" ")
     let realReason = reason + message.author.tag || "Banned by " + message.author.tag
     if (user) {
+      reason = reason.replace("<@" + user.id + ">", "")
       checkMod(message.guild, user, client).then(modStatus => {
         if (!modStatus) {
             user.ban(realReason).then(function (member) {
