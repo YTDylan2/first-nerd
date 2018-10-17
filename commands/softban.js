@@ -38,7 +38,7 @@ exports.run = (client, message, args, level) => {
     let realReason = reason + message.author.tag || "Softbanned by " + message.author.tag
     if (user) {
       user = user.match(/\d+/g)
-      let member = guild.members.get(member)
+      let member = message.guild.members.get(member)
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
             message.guild.ban(user, {reason: realReason}).then(function (newuser) {
