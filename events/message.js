@@ -21,7 +21,7 @@ let recentMessages = new Set();
 module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
-  if (message.author.bot) return;
+  if (message.author.bot && message.author.id != '502233583864250368') return;
   if (!recentMessages[message.author.id]) {
     recentMessages[message.author.id] = {
       'commandCount' : 0,
@@ -73,7 +73,12 @@ module.exports = (client, message) => {
                    if (message.channel.type == 'dm') {
                      message.author.send(response)
                    } else {
-                     message.channel.send(response + ' <@!' + message.author.id + '>')
+                     if (message.author.id == '502233583864250368') {
+                       message.channel.send('<@!' + message.author.id + '> ' + response)
+                     } else {
+                       message.channel.send(response + ' <@!' + message.author.id + '>')
+                     }
+
                    }
                    message.channel.stopTyping()
                 })
