@@ -35,7 +35,7 @@ async function checkMod(guild, member, client) {
 exports.run = (client, message, args, level) => {
     let user = args[0]
     var discord = require('discord.js')
-    let reason = client.getPastIndex(1, args)
+    let reason = client.getPastIndex(1, args).join(" ")
     let realReason = reason + message.author.tag || "Softbanned by " + message.author.tag
     if (user) {
       user = user.match(/\d+/g)[0]
@@ -74,5 +74,5 @@ exports.help = {
     name: "softban",
     category: "Moderation",
     description: "A quick ban to delete messages from a user.",
-    usage: "softban [user] [reason - optional]"
+    usage: "softban [user or id] [reason - optional]"
 };
