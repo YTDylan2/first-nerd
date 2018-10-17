@@ -41,7 +41,7 @@ exports.run = (client, message, args, level) => {
         } else {
 
             for (x in badLinks) {
-              if (res.links[0].link.toString().match(badLinks[x])) {
+              if (res.links[0].link.toString().toLowerCase().match(badLinks[x])) {
                 canPost = false
                 break;
               }
