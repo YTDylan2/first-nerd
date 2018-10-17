@@ -44,7 +44,7 @@ exports.run = (client, message, args, level) => {
         if (!modStatus) {
             message.guild.ban(user, {reason: realReason, days: 1}).then(function (finished) {
                 if (!member) {
-                  message.channel.send(`**${user}** was banned! Reason: ` + reason || "`ungiven reason.``")
+                  message.channel.send(`**${finished.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
                 } else {
                   message.channel.send(`**${member.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
                 }
