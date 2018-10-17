@@ -7,8 +7,20 @@ let badLinks = [
   "xvide",
   "grabify",
   "redtu",
-  "liveleak"
+  "liveleak",
+  "brazz",
+  "bangb",
+  "wetting",
+  "nude",
+  "naked",
+  "sex",
+  "r34",
+  "rule34",
+  "e621",
+  "gore",
+  "milf",
 ]
+
 
 exports.run = (client, message, args, level) => {
     var google = require('google')
