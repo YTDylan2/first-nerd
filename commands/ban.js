@@ -38,7 +38,7 @@ exports.run = (client, message, args, level) => {
     let reason = client.getPastIndex(1, args)
     let realReason = reason + message.author.tag || "Banned by " + message.author.tag
     if (user) {
-      user = user.match(/\d+/g)
+      user = user.match(/\d+/g)[0]
       let member = message.guild.members.get(user)
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
