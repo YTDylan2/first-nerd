@@ -42,7 +42,7 @@ exports.run = (client, message, args, level) => {
       let member = message.guild.members.get(user)
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
-            message.guild.ban(user, {reason: realReason}).then(function (finished) {
+            message.guild.ban(user, {reason: realReason, days: 1}).then(function (finished) {
                 if (!member) {
                   message.channel.send(`**${user}** was banned! Reason: ` + reason || "`ungiven reason.``")
                 } else {
