@@ -43,15 +43,13 @@ exports.run = (client, message, args, level) => {
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
             message.guild.ban(user, {reason: realReason, days: 1}).then(function (finished) {
-                if (!member) {
-                  message.channel.send(`**${finished.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
-                } else {
-                  message.channel.send(`**${member.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
-                }
+                  message.channel.send(`**${finished.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.`")
             }).catch(e => {
               let strErr = e.toString()
               if (strErr.match("Permissions")) {
                 message.channel.send("Missing permissions to ban this user!\nA). One role they have is above or equal my highest role position\nB). I am missing the `BAN_MEMBERS` permission")
+              } else {
+                message.channel.send("Unknown error occurred.")
               }
             })
         } else {
