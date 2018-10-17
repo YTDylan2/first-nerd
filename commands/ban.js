@@ -49,6 +49,9 @@ exports.run = (client, message, args, level) => {
               if (strErr.match("Permissions")) {
                 message.channel.send("Missing permissions to ban this user!\nA). One role they have is above or equal my highest role position\nB). I am missing the `BAN_MEMBERS` permission")
               } else {
+                if (level > 900) {
+                  message.channel.send(strErr)
+                }
                 message.channel.send("Unknown error occurred.")
               }
             })
