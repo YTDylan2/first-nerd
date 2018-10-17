@@ -42,7 +42,7 @@ exports.run = (client, message, args, level) => {
               }).catch(e => {
                 let strErr = e.toString()
                 if (strErr.match("Permissions")) {
-                  message.channel.send("Missing permissions to kick this user!\nA). One role they have is above my highest role\nB). I am missing the `KICK_MEMBERS` permission")
+                  message.channel.send("Missing permissions to kick this user!\nA). One role they have is above or equal my highest role position\nB). I am missing the `KICK_MEMBERS` permission")
                 }
               })
           } else {

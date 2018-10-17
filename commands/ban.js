@@ -5,6 +5,7 @@ async function checkMod(guild, member, client) {
   let response = await client.getGuildData(guild)
   let data = JSON.parse(response)
     if (!data) return;
+    if (!member) return false;
     let modRoles = data.data.modRoles
     let adminRoles = data.data.adminRoles
     let memberRoles = member.roles
@@ -31,20 +32,25 @@ async function checkMod(guild, member, client) {
 }
 
 exports.run = (client, message, args, level) => {
-    let user = message.mentions.members.first();
+    let user = args[0]
     var discord = require('discord.js')
-    let reason = args.join(" ")
+    let reason = client.getPastIndex(1, args)
     let realReason = reason + message.author.tag || "Banned by " + message.author.tag
     if (user) {
-      reason = reason.replace("<@" + user.id + ">", "")
-      checkMod(message.guild, user, client).then(modStatus => {
+      user = user.match(/\d+/g)
+      let member = guild.members.get(user)
+      checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
-            user.ban(realReason).then(function (member) {
-                message.channel.send(`**${member.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
+            message.guild.ban(user, {reason: realReason}).then(function (finished) {
+                if (!member) {
+                  message.channel.send(`**${user}** was banned! Reason: ` + reason || "`ungiven reason.``")
+                } else {
+                  message.channel.send(`**${member.user.tag}** was banned! Reason: ` + reason || "`ungiven reason.``")
+                }
             }).catch(e => {
               let strErr = e.toString()
               if (strErr.match("Permissions")) {
-                message.channel.send("Missing permissions to ban this user!\nA). One role they have is above my highest role\nB). I am missing the `BAN_MEMBERS` permission")
+                message.channel.send("Missing permissions to ban this user!\nA). One role they have is above or equal my highest role position\nB). I am missing the `BAN_MEMBERS` permission")
               }
             })
         } else {

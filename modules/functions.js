@@ -53,6 +53,18 @@ module.exports = (client) => {
     }
   };
 
+  // Get all elements of an array after a certain index
+  client.getPastIndex = function (index, array) {
+  		let x;
+  		let args = []
+  		for (x in array) {
+  				if (x >= index) {
+  						args.push(array[x])
+  				}
+  		}
+  	return args
+  }
+
   // JSON to Array - Preserves keys
   client.jsonToArray = (json) => {
     let array = []

@@ -41,6 +41,6 @@ exports.conf = {
 exports.help = {
     name: "disablecommand",
     category: "Moderation",
-    description: "Disables a command. This command cannot be disabled.",
+    description: "Disables a command. This command cannot be disabled.\nYou can view all disabled commands by using `>help`",
     usage: "disablecommand [cmd name]"
 };
