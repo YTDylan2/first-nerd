@@ -90,25 +90,25 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message, client, data) => {
         try {
-          let passed = []
+          let passed = falzs
 
-
+    
             if (!data) return false;
               let modRoles = data.data.modRoles
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in modRoles) {
-                if (memberRoles.has(x) || message.member.id) {
+                if (memberRoles.has(x) || x == message.member.id) {
                   console.log("has role " + x)
-                  passed[0] = "Test"
+                  passed = true
                   break
                 }
               }
-              console.log(passed.length)
+              
 
 
 
-            return passed.length >= 1
+            return passed
 
         } catch (e) {
           return false;
@@ -120,7 +120,7 @@ const config = {
       name: "Administrator",
       check: (message, client, data) => {
         try {
-          let passed = []
+          let passed = false
 
 
             if (!data) return false;
@@ -130,15 +130,15 @@ const config = {
               for (x in modRoles) {
                 if (memberRoles.has(x) || x == message.member.id) {
                   console.log("has role " + x)
-                  passed[0] = "Test"
+                  passed = true
                   break
                 }
               }
-              console.log(passed.length)
+              // console.log(passed.length)
 
 
 
-            return passed.length >= 1
+            return passed
         } catch (e) {
           return false;
         }
