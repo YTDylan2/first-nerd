@@ -42,7 +42,7 @@ exports.run = (client, message, args, level) => {
       let member = message.guild.members.get(user)
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
-            message.guild.ban(user, {reason: realReason}).then(function (newuser) {
+            message.guild.ban(user, {reason: realReason, days: 7}).then(function (newuser) {
                 message.guild.unban(user, {reason: "Unbanning for softban: " + user}).then(finish => {
                   message.channel.send(`**${finish.tag}** was successfully softbanned.`)
                 }).catch(e => {
