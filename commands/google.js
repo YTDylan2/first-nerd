@@ -32,6 +32,7 @@ exports.run = (client, message, args, level) => {
         message.channel.send("Please send something to search!")
         return;
     }
+    search = client.removeAccents(search)
     google(search, async (err, response) => {
         let res = response
         if (!res.links[0].link) {
