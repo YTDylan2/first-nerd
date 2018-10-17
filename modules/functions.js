@@ -57,8 +57,8 @@ module.exports = (client) => {
 		var strAccents = strAccents.split('');
 		var strAccentsOut = new Array();
 		var strAccentsLen = strAccents.length;
-		var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
-		var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+		var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠš§§ŸÿýŽž';
+		var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsSsYyyZz";
 		for (var y = 0; y < strAccentsLen; y++) {
 			if (accents.indexOf(strAccents[y]) != -1) {
 				strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
