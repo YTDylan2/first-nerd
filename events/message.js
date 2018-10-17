@@ -190,7 +190,7 @@ module.exports = (client, message) => {
         cmd.run(client, message, args, level);
       } catch (e) {
         if (level > 900) {
-          message.channel.send("There was an internal error when executing this command!\nError: `" + e + "``")
+          message.channel.send("There was an internal error when executing this command!\nError: `" + e + "`")
           return
         }
       }
