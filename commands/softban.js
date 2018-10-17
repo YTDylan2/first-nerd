@@ -1,11 +1,12 @@
 // ban user
 
 async function checkMod(guild, member, client) {
+  if (!member) return false;
   let passed = false
   let response = await client.getGuildData(guild)
   let data = JSON.parse(response)
     if (!data) return;
-    if (!member) return false;
+
     let modRoles = data.data.modRoles
     let adminRoles = data.data.adminRoles
     let memberRoles = member.roles
@@ -38,7 +39,7 @@ exports.run = (client, message, args, level) => {
     let realReason = reason + message.author.tag || "Softbanned by " + message.author.tag
     if (user) {
       user = user.match(/\d+/g)
-      let member = message.guild.members.get(member)
+      let member = message.guild.members.get(user)
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
             message.guild.ban(user, {reason: realReason}).then(function (newuser) {

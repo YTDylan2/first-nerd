@@ -1,11 +1,12 @@
 // ban user
 
 async function checkMod(guild, member, client) {
+  if (!member) return false;
   let passed = false
   let response = await client.getGuildData(guild)
   let data = JSON.parse(response)
     if (!data) return;
-    if (!member) return false;
+
     let modRoles = data.data.modRoles
     let adminRoles = data.data.adminRoles
     let memberRoles = member.roles
