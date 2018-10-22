@@ -31,6 +31,6 @@ exports.conf = {
 exports.help = {
     name: "alert",
     category: "System",
-    description: "Please don't piss everyone off.",
+    description: "Please don't piss everyone off lol",
     usage: "alert [alert]"
 };
