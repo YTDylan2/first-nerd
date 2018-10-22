@@ -284,7 +284,7 @@ const init = async () => {
     })
     .catch(function(err) {
         console.log("login error: " + err)
-        client.startChannel.send('there was a login error, check logs')
+        // client.startChannel.send('there was a login error, check logs')
     });
    // app stuff
 
