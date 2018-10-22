@@ -56,7 +56,7 @@ app.listen(process.env.PORT || 3000, function() {
 })
 
 client.lastCommand = "None"
-
+client.galaxyClickerGuildID = '501860458626547721'
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
 
@@ -276,7 +276,7 @@ const init = async () => {
 
   client.postingChannel = client.channels.get('500726748229664769')
   client.startChannel = client.channels.get('491777217920106508')
-  
+
   Noblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX!")
@@ -329,6 +329,12 @@ const init = async () => {
           success = true
       }
       res.send(success)
+  })
+
+  app.post('/getCollectibles', authenticate, function(req, res) {
+    client.setData("GC:Re Collectibles", JSON.stringify(req)).then(reply => {
+      client.galaxyClickerItems = JSON.parse(reply)
+    })
   })
 
 
@@ -389,8 +395,6 @@ const init = async () => {
             console.log("Logged in!")
             client.startChannel.send('renewed ROBLOX login')
         });
-        let date = new Date()
-        client.cleverbot.setNick("Main Session " + date.now())
     }, 8640000);
 
     setInterval(() => {
