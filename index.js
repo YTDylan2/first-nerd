@@ -285,6 +285,9 @@ const init = async () => {
 
   client.postingChannel = client.channels.get('500726748229664769')
   client.startChannel = client.channels.get('491777217920106508')
+  client.getData("GC:Re Collectibles").then(reply => {
+      client.galaxyClickerItems = JSON.parse(reply)
+  })
 
   
    // app stuff
