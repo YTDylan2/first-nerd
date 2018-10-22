@@ -8,10 +8,16 @@ exports.run = async (client, message, args, level) => {
     if (!item || item === undefined) {
       return message.channel.send("An item name is needed!");
     }
+    item = item.toLowerCase()
     // if (message.guild.id != client.galaxyClickerGuildID) {
       // return message.channel.send("This command can only be run in the Galaxy Clicker guild.");
     // }
-    let itemData = data[item.toLowerCase()]
+    let itemData;
+    for (x in data) {
+      if (x.match(item)) {
+        itemData = data[x]   
+      }
+    }
     if (itemData) {
       let embed = new discord.RichEmbed()
       embed.setTitle(itemData.Name)
