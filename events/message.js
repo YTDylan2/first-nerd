@@ -49,7 +49,7 @@ module.exports = (client, message) => {
         let match =  matchMention(message.content)
 
         if (match || message.channel.type == 'dm') {
-          client.cleverbot.setNick("Main Session " + message.author.id)
+          client.cleverbot.setNick("Main Session - " + message.author.id)
           client.cleverbot.create(function(bad, session) {
              if (!message.content.match('!ignore')) {
 

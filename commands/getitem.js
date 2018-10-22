@@ -23,7 +23,7 @@ exports.run = async (client, message, args, level) => {
       embed.setFooter("Item #" + itemData.Index + " - Vanessa")
       message.channel.send({embed})
     } else {
-      return message.channel.send("This item does not exist in the game!")
+      return message.channel.send("This item does not exist in the game!");
     };
 }
 
