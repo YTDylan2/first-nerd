@@ -15,12 +15,12 @@ exports.run = async (client, message, args, level) => {
     if (itemData) {
       let embed = new discord.RichEmbed()
       embed.setTitle(itemData.Name)
-      embed.addField("RAP", itemData.Price)
-      embed.addField("Value", itemData.Value)
+      embed.addField("RAP", itemData.Price, true)
+      embed.addField("Value", itemData.Value, true)
       embed.addField("Rarity", itemData.Rarity)
-      embed.setColor(itemData.Color)
+      embed.setColor(itemData.RarityCol)
       embed.setThumbnail(itemData.ThumbnailURL)
-      embed.setFooter("Item #" + itemData.Index + " - Vanessa")
+      embed.setFooter("Item #" + itemData.Number + " - Vanessa")
       message.channel.send({embed})
     } else {
       return message.channel.send("This item does not exist in the game!");
