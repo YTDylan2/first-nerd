@@ -316,6 +316,7 @@ const init = async () => {
     client.setData("GC:Re Collectibles", JSON.stringify(req)).then(reply => {
       client.galaxyClickerItems = JSON.parse(reply)
     })
+    res.send("Transfer completed!")
   })
 
 
