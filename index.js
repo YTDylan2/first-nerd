@@ -280,26 +280,7 @@ const init = async () => {
   Noblox.login({username: process.env.rbxname, password: process.env.rbxpass})
     .then(function () {
         console.log("Logged in to ROBLOX!")
-        client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
-
-        var wallPost = Noblox.onWallPost(process.env.groupid)
-        wallPost.on('data', function(post) {
-          let content = post.content
-          let author = post.author
-          let id = author.id
-          let name = post.name
-
-          let pictureURL = `https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`
-
-          var embed = new discord.RichEmbed()
-          embed.setTitle(name)
-          embed.setDescription("Wall post by " + name)
-          embed.addField("Body", "```fix\n" + content + "```")
-          embed.setThumbnail(pictureURL)
-          embed.setFooter("Powered by Vanessa", client.user.avatarURL)
-          embed.setTimestamp()
-          postingChannel.send({embed})
-        })
+        // client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
     })
     .catch(function(err) {
         console.log("login error: " + err)
