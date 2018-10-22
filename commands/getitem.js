@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
       embed.setTitle(itemData.Name)
       embed.addField("RAP", itemData.Price, true)
       embed.addField("Value", itemData.Value, true)
-      embed.addField("Rarity", itemData.Rarity)
+      embed.addField("Rarity", itemData.Rarity, true)
       embed.setColor(itemData.RarityCol)
       embed.setThumbnail(itemData.ThumbnailURL)
       embed.setFooter("Item #" + itemData.Number + " - Vanessa")
