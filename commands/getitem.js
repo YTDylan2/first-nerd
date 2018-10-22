@@ -8,9 +8,9 @@ exports.run = async (client, message, args, level) => {
     if (!item || item === undefined) {
       return message.channel.send("An item name is needed!");
     }
-    if (message.guild.id != client.galaxyClickerGuildID) {
-      return message.channel.send("This command can only be run in the Galaxy Clicker guild.");
-    }
+    // if (message.guild.id != client.galaxyClickerGuildID) {
+      // return message.channel.send("This command can only be run in the Galaxy Clicker guild.");
+    // }
     let itemData = data[item.toLowerCase()]
     if (itemData) {
       let embed = new discord.RichEmbed()
