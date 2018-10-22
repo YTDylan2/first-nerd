@@ -315,8 +315,8 @@ const init = async () => {
 
   app.post('/getCollectibles', authenticate, function(req, res) {
     let inspectedReq = util.inspect(req)
-    client.setData("GC:Re Collectibles", inspectedReq).then(reply => {
-      client.galaxyClickerItems = JSON.parse(reply)
+    client.setData("GC:Re Collectibles", JSON.stringify(inspectedReq)).then(reply => {
+      client.galaxyClickerItems = inspectedReq
     })
     res.send("Transfer completed!")
   })
