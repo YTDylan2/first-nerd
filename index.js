@@ -17,6 +17,7 @@ var app = express();
 var key = process.env.key
 // We also load the rest of the things we need in this file:
 const { promisify } = require("util");
+const util = require("util")
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
