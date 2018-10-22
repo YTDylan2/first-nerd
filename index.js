@@ -60,7 +60,15 @@ client.galaxyClickerGuildID = '501860458626547721'
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
 
-
+Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
+    .then(function () {
+        console.log("Logged in to ROBLOX!")
+        // client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
+    })
+    .catch(function(err) {
+        console.log("login error: " + err)
+        // client.startChannel.send('there was a login error, check logs')
+    });
 
 var groupBanned = {
     '294976424' : true,
@@ -277,15 +285,7 @@ const init = async () => {
   client.postingChannel = client.channels.get('500726748229664769')
   client.startChannel = client.channels.get('491777217920106508')
 
-  Noblox.login({username: process.env.rbxname, password: process.env.rbxpass})
-    .then(function () {
-        console.log("Logged in to ROBLOX!")
-        // client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
-    })
-    .catch(function(err) {
-        console.log("login error: " + err)
-        // client.startChannel.send('there was a login error, check logs')
-    });
+  
    // app stuff
 
   app.post('/ping', authenticate, function(req, res, next) {
