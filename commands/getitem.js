@@ -14,8 +14,13 @@ exports.run = async (client, message, args, level) => {
     // }
     let itemData;
     for (x in data) {
+      if (x == item) {
+        itemData = data[x] 
+        break
+      }
       if (x.match(item)) {
         itemData = data[x]   
+        break
       }
     }
     if (itemData) {
