@@ -24,7 +24,7 @@ exports.run = async (client, message, args, level) => {
       message.channel.send({embed})
     } else {
       return message.channel.send("This item does not exist in the game!")
-    }
+    };
 }
 
 exports.conf = {
