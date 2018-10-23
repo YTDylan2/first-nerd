@@ -16,11 +16,11 @@ exports.run = async (client, message, args, level) => {
     for (x in data) {
       if (x === item) {
         itemData = data[x] 
-        break;
+        return;
       } else {
           if (x.match(item)) {
             itemData = data[x]   
-            break;
+            return;
           }
       }
     }
