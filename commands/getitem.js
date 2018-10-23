@@ -14,7 +14,7 @@ exports.run = async (client, message, args, level) => {
     // }
     let itemData;
     for (x in data) {
-      if (x === item) {
+      if (data[item]) {
         itemData = data[x] 
         break;
       } else {
