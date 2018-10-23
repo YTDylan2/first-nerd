@@ -10,7 +10,7 @@ exports.run = async (client, message, args, level) => {
     }
     for (x in data) {
      let item = data[x] 
-     itemArray.push(`#${item.Number} - ${item.Name} - ${item.RAP} RAP, ${item.Value} Value, Rarity: ${item.Rarity}`)
+     itemArray.push(`#${item.Number} - ${item.Name} - ${item.Price} RAP, ${item.Value} Value, Rarity: ${item.Rarity}`)
     }
     itemArray = itemArray.join("\n")
     client.hastebin(itemArray).then(link => {
