@@ -9,7 +9,7 @@ let badLinks = [
   "redtu",
   "liveleak",
   "brazz",
-  "bangb",
+  "bangbr",
   "wetting",
   "nude",
   "naked",
@@ -19,6 +19,14 @@ let badLinks = [
   "e621",
   "gore",
   "milf",
+  "vagina",
+  "pussy",
+  "slut",
+  "penis",
+  "dick",
+  "ass",
+  "gore",
+  "gay p",
 ]
 
 
@@ -35,19 +43,32 @@ exports.run = (client, message, args, level) => {
     search = client.removeAccents(search)
     google(search, async (err, response) => {
         let res = response
-        if (!res.links[0].link) {
+        let linkObj = res.links[0]
+        let link = linkObj.href
+        let title = linkObj.title
+        let desc = linkObj.description
+        
+        if (!link) {
             message.channel.send("There were no search results.")
             return
         } else {
 
             for (x in badLinks) {
-              if (res.links[0].link.toString().toLowerCase().match(badLinks[x])) {
+              if (link.toLowerCase().match(badLinks[x])) {
+                canPost = false
+                break;
+              }
+              if (title.toLowerCase().match(badLinks[x])) {
+                canPost = false
+                break;
+              }
+              if (desc.toLowerCase().match(badLinks[x])) {
                 canPost = false
                 break;
               }
             }
             if (canPost) {
-              message.channel.send(res.links[0].link)
+              message.channel.send(`${title}\n${link}\n\n${desc}`)
             } else {
               message.channel.send("Sorry! The content on that page would be deemed inappropiate.")
             }
