@@ -27,6 +27,10 @@ let badLinks = [
   "ass",
   "gore",
   "gay p",
+  "prn",
+  "d1ck",
+  "p0rn",
+  "pen15"
 ]
 
 
