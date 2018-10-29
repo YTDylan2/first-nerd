@@ -90,7 +90,7 @@ const config = {
       // If they don't then return false, which will prevent them from executing the command.
       check: (message, client, data) => {
         try {
-          let passed = falzs
+          let passed = false
 
     
             if (!data) return false;
