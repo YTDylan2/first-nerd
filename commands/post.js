@@ -1,5 +1,5 @@
 exports.run = (client, message, args, level) => {
-    var roblox = require('roblox-js')
+    var roblox = require('noblox.js')
     let text = args.join(" ")
     if (text.length === 0) {
         message.channel.send("Can't send an empty message!");
