@@ -9,7 +9,18 @@
       document.getElementById("button1").innerHTML = "actually does crap like a boss"
     }
     function randomGirl() {
-      let choices = []
+      let choices = [
+        "meguSeriously.PNG",
+        "meguSmug.PNG",
+        "remStop.PNG",
+        "remSmile.PNG",
+        "meguWTF.PNG",
+        "meguWow.PNG",
+        "remEvil 2.PNG"
+      ]
+      let random = choices[Math.floor(Math.random() * choices.length)]
+      document.getElementById("picture").src = random
+      document.getElementById("picture_title").innerHTML = "random anime girl actually haha"
     }   
   </script>
   
@@ -18,8 +29,9 @@
   <a href= "http://discord.gg/5Dw4Xke">so here's the GC:Re discord server</a>
   <h2>here's a useless button</h2>
   <button type="button" id = "button1" onclick="bamboozle()">you can click me but i won't do crap ;(</button>
-  <h3>here's a smiling rem</h3>
-  <img src="remSmile.PNG" alt="i did something wrong so best girl didn't load. :(">
+  <h3 id="picture_title">here's a smiling rem</h3>
+  <img src="remSmile.PNG" id="picture" alt="i did something wrong so best girl didn't load. :(">
+  <button type="button" onclick="randomGirl">click to change to random anime girl</button>
   <br>
   <hr>
   <p style="color:red">this is a paragraph BUT IT'S RED WHO WOULD'VE GUESSED.</p>
