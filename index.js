@@ -291,7 +291,7 @@ const init = async () => {
 
   
    // app stuff\
-  app.static('./public')
+  app.use(express.static('./public'))
 
   app.post('/ping', authenticate, function(req, res, next) {
       let senderTime = req.body.sendTime
