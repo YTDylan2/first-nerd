@@ -290,7 +290,8 @@ const init = async () => {
   })
 
   
-   // app stuff
+   // app stuff\
+  app.static('./public')
 
   app.post('/ping', authenticate, function(req, res, next) {
       let senderTime = req.body.sendTime
