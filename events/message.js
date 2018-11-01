@@ -43,7 +43,7 @@ module.exports = (client, message) => {
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
   client.getData("Cleverbot Ignore List").then(request => {
-    let list = JSON.parse(request)
+    let list = request
     if (list) {
         let mentions = message.mentions.members
         let match =  matchMention(message.content)
