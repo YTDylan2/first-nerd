@@ -47,7 +47,7 @@ module.exports = (client, message) => {
     if (list) {
         let mentions = message.mentions.members
         let match =  matchMention(message.content)
-
+        return message.channel.send("An issue is occurring internally with Cleverbot.io. This feature will be disabled until further notice.")
         if (match || message.channel.type == 'dm') {
           // client.cleverbot.setNick("Main Session - " + message.author.id)
           client.cleverbot.create(function(bad, session) {
