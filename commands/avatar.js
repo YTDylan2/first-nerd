@@ -4,7 +4,7 @@ exports.run = async (client, message, args, level) => {
       return message.channel.send(client.responseEmoji.fluster + " Please provider a user!")
     }
     let picture = member.user.avatarURL
-    message.channel.send("Avatar for " + member.user.username, {file: picture})
+    message.channel.send("Avatar for " + member.user.username + ": " + picture)
 }
 
 exports.conf = {
