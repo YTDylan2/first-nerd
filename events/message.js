@@ -134,7 +134,42 @@ module.exports = (client, message) => {
 
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
-      if (message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) return;
+      let prefix = message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0
+      if (!prefix) {
+       // in case of a ping for an argument
+        let user = message.mentions.members.first()
+        if (user) {
+          client.getData("AFK").then(reply => {
+            let list = JSON.parse(reply)
+            if (list[user.id]) {
+              if (list[message.author.id]) {
+                delete list[message.author.id]
+                client.setData("AFK", JSON.stringify(list))
+                message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.")
+                return 
+              }
+              let reason = list[user.id][0]
+              let timeAfk = list[user.id][1]
+
+              let now = Date.now()
+              let elapsed = now - timeAfk
+              let format = message.channel.send(format);
+              message.channel.send(user.nickname + " has been AFK for " + format + ": " + reason)
+            }
+          })
+        } else {
+          client.getData("AFK").then(reply => {
+            let list = JSON.parse(reply)
+            if (list[message.author.id]) {
+              delete list[message.author.id]
+              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.")
+              client.setData("AFK", JSON.stringify(list))
+              return 
+            }
+          })
+        }
+        return  
+      }
 
       // Here we separate our "command" name, and our "arguments" for the command.
       // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
@@ -153,41 +188,7 @@ module.exports = (client, message) => {
       // and clean way to grab one of 2 values!
       // clever bot
 
-      if (!cmd) {
-        // in case of a ping for an argument
-        let user = message.mentions.members.first()
-        if (user) {
-          client.getData("AFK").then(reply => {
-            let list = JSON.parse(reply)
-            if (list[user.id]) {
-              if (list[message.author.id]) {
-                delete list[message.author.id]
-                client.setData("AFK", JSON.stringify(list))
-                message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
-                return 
-              }
-              let reason = list[user.id][0]
-              let timeAfk = list[user.id][1]
-
-              let now = Date.now()
-              let elapsed = now - timeAfk
-              let format = message.channel.send(format);
-              message.channel.send(user.nickname + " has been AFK for " + format + ": " + reason)
-            }
-          })
-        } else {
-          client.getData("AFK").then(reply => {
-            let list = JSON.parse(reply)
-            if (list[message.author.id]) {
-              delete list[message.author.id]
-              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
-              client.setData("AFK", JSON.stringify(list))
-              return 
-            }
-          })
-        }
-        return
-      };
+      if (!cmd) return;
 
 
       if (userCommandUsage.commandCount >= 3) {
