@@ -307,7 +307,7 @@ const init = async () => {
   client.responseEmojis = {}
 
   for (x in emojis) {
-    client.responseEmojis[x] = client.emojis.get(x).toString()
+    client.responseEmojis[x] = client.emojis.get(emojis[x]).toString()
   }
   
    // app stuff\
