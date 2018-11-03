@@ -61,7 +61,7 @@ const config = {
       },
       "superAdmins" : {
 
-      }
+      },
       "disabledCommands" : {
 
       },
