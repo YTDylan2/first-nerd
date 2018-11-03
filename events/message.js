@@ -163,7 +163,8 @@ module.exports = (client, message) => {
               if (list[message.author.id]) {
                 delete list[message.author.id]
                 client.setData("AFK", JSON.stringify(list))
-                return message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
+                message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
+                return 
               }
               let reason = list[user.id][0]
               let timeAfk = list[user.id][1]
@@ -179,8 +180,9 @@ module.exports = (client, message) => {
             let list = JSON.parse(reply)
             if (list[message.author.id]) {
               delete list[message.author.id]
+              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
               client.setData("AFK", JSON.stringify(list))
-              return message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
+              return 
             }
           })
         }
