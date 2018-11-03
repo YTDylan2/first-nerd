@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, level) => {
     let member = message.mentions.members.first()
     if (!member) {
-      return message.channel.send(client.responseEmojis.fluster + " Can you please provider a user!")
+      return message.channel.send(client.responseEmojis.fluster + " Can you please provide a user?")
     }
     let picture = member.user.avatarURL
     message.channel.send("Avatar for " + member.user.username + ": " + picture)
