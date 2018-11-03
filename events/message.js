@@ -137,9 +137,7 @@ module.exports = (client, message) => {
       if (!message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) {
        // in case of a ping for an argument
         let user = message.mentions.members
-        if (user) {
-          user = user.first()
-          if (!user.id) return;
+        if (user.first() || user.first().id) {
           client.getData("AFK").then(reply => {
             let list = JSON.parse(reply)
             if (list[user.id]) {
