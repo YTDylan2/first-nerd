@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-  message.channel.send(client.responseEmojis.highfive1 + client.responseEmojis.highfive2)
+  message.channel.send(client.responseEmojis.highfive2 + client.responseEmojis.highfive1)
 }
 
 exports.conf = {
