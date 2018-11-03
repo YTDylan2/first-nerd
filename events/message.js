@@ -152,7 +152,7 @@ module.exports = (client, message) => {
 
               let now = Date.now()
               let elapsed = now - timeAfk
-              let format = message.channel.send(format);
+              let format = moment.duration(elapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
               message.channel.send(user.nickname + " has been AFK for " + format + ": " + reason)
             }
           })
