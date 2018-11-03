@@ -23,15 +23,15 @@ function getRand(min, max) {
 
 function unafk(client, message) {
    client.getData("AFK").then(reply => {
-            let list = JSON.parse(reply)
-            if (list[message.author.id]) {
-              delete list[message.author.id]
-              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
-              client.setData("AFK", JSON.stringify(list))
-              return 
-            }
-          })
-   }
+      let list = JSON.parse(reply)
+      if (list[message.author.id]) {
+        delete list[message.author.id]
+        message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
+        client.setData("AFK", JSON.stringify(list))
+        return 
+      }
+    })
+}
 let recentMessages = new Set();
 module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
@@ -148,7 +148,11 @@ module.exports = (client, message) => {
       if (!message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) {
        // in case of a ping for an argument
         let user = message.mentions.members
-        if (user.first()) {
+        if (user) {
+          if (!user.first()) {
+             unafk(client, message) 
+             return; 
+          }
           user = user.first()
           if (!user.id) { 
              unafk(client, message) 
@@ -160,7 +164,7 @@ module.exports = (client, message) => {
               if (list[message.author.id]) {
                 delete list[message.author.id]
                 client.setData("AFK", JSON.stringify(list))
-              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
+                message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
                 
                 return 
               }
