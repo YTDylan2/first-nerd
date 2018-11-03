@@ -10,7 +10,7 @@ exports.run = async (client, message, args, level) => {
       if (!afkList[message.author.id]) {
         text = text.replace("@everyone", "[ping]")
         text = text.replace("@here", "[ping]")
-        afkList[message.author.id]) = [text, date]
+        afkList[message.author.id] = [text, date]
         client.setData("AFK", JSON.stringify(afkList))
         message.channel.send(client.responseEmojis.wink + " Set your AFK status to: " + text)
       }
