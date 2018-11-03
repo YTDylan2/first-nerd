@@ -289,6 +289,26 @@ const init = async () => {
       client.galaxyClickerItems = JSON.parse(reply)
   })
 
+  let emojis = {
+    "hmm": '508090899662897152',
+    'highfive1': '508089207126884363',
+    'highfive2': '508089347317170186',
+    'scream': '508090283045552128',
+    'wink': '508090308861624320',
+    'dance1': '508091101568172042',
+    'dance2': '508091101568172042',
+    'cry': '508095193560645652',
+    'fluster': '508090330030276619',
+    'grr': '508089705141633034',
+    'wtf': '508089722715766784',
+    'wave': '508101901498187788',
+    'huh': '508102916905762867'
+  }
+  client.responseEmojis = {}
+
+  for (x in emojis) {
+    client.responseEmojis[x] = client.emojis.get(x).toString()
+  }
   
    // app stuff\
   app.use(express.static('./public'))
