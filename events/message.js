@@ -150,7 +150,10 @@ module.exports = (client, message) => {
         let user = message.mentions.members
         if (user.first()) {
           user = user.first()
-          if (!user.id) { unafk(client, message) return; } 
+          if (!user.id) { 
+             unafk(client, message) 
+             return; 
+          } 
           client.getData("AFK").then(reply => {
             let list = JSON.parse(reply)
             if (list[user.id]) {
