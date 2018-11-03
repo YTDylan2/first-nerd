@@ -219,7 +219,7 @@ module.exports = (client, message) => {
        return message.channel.send("Sorry, but this command is guild only! " + client.responseEmojis.scream);
 
       if (level < client.levelCache[cmd.conf.permLevel]) {
-         return message.channel.send(client.responseEmojis.fluster + ` Hehe... you need to be atleast at the **(${cmd.conf.permLevel})** level to use this command!`)
+         return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!`)
       }
 
       // don't run if disabled
