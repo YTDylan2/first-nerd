@@ -1,7 +1,7 @@
 exports.run = async (client, message, args, level) => {
     let text = args.join(" ")
     let date = Date.now()
-    if (text === undefined) {
+    if (text === undefined || text.length == 0) {
       text = "Currently away"
     }
 
