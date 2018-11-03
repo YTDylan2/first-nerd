@@ -26,7 +26,7 @@ function unafk(client, message) {
             let list = JSON.parse(reply)
             if (list[message.author.id]) {
               delete list[message.author.id]
-              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.")
+              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
               client.setData("AFK", JSON.stringify(list))
               return 
             }
@@ -160,7 +160,8 @@ module.exports = (client, message) => {
               if (list[message.author.id]) {
                 delete list[message.author.id]
                 client.setData("AFK", JSON.stringify(list))
-                message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.")
+              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
+                
                 return 
               }
               let reason = list[user.id][0]
