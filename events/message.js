@@ -42,56 +42,61 @@ module.exports = (client, message) => {
 
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
-  client.getData("Cleverbot Ignore List").then(request => {
-    let list = request
-    if (list) {
-        let mentions = message.mentions.members
-        let match =  matchMention(message.content)
-         
-        if (match || message.channel.type == 'dm') {
-          return message.channel.send("An issue is occurring internally with Cleverbot.io. This feature will be disabled until further notice.")
-          // client.cleverbot.setNick("Main Session - " + message.author.id)
-          client.cleverbot.create(function(bad, session) {
-             if (!message.content.match('!ignore')) {
 
-                if (message.channel.type == 'dm') {
-                  match = message.content
-                }
-                if (match == "cleverbot off") {
-                  message.channel.send("Responding to you has been turned `off.`")
-                  list[message.author.id] = true
-                  client.setData("Cleverbot Ignore List", JSON.stringify(list))
-                  return
-                }
-                if (match == "cleverbot on") {
-                  message.channel.send("Responding to you has been turned `on.`")
-                  delete list[message.author.id]
-                  client.setData("Cleverbot Ignore List", JSON.stringify(list))
-                  return
-                }
-                if (list[message.author.id]) return;
-                message.channel.startTyping()
-                client.cleverbot.ask(match, function(err, response) {
+   try {
+     client.getData("Cleverbot Ignore List").then(request => {
+       let list = request
+       if (list) {
+           let mentions = message.mentions.members
+           let match =  matchMention(message.content)
+
+           if (match || message.channel.type == 'dm') {
+             // return message.channel.send("An issue is occurring internally with Cleverbot.io. This feature will be disabled until further notice.")
+             // client.cleverbot.setNick("Main Session - " + message.author.id)
+             client.cleverbot.create(function(bad, session) {
+                if (!message.content.match('!ignore')) {
+
                    if (message.channel.type == 'dm') {
-                     message.author.send(response)
-                   } else {
-                     if (message.author.id == '502233583864250368') {
-                       message.channel.send('<@!' + message.author.id + '> ' + response)
-                     } else {
-                       message.channel.send(response + ' <@!' + message.author.id + '>')
-                     }
-
+                     match = message.content
                    }
-                   message.channel.stopTyping()
-                })
-             }
-          })
-       }
-    } else {
-       client.setData("Cleverbot Ignore List", JSON.stringify({}))
-    }
+                   if (match == "cleverbot off") {
+                     message.channel.send("Responding to you has been turned `off.`")
+                     list[message.author.id] = true
+                     client.setData("Cleverbot Ignore List", JSON.stringify(list))
+                     return
+                   }
+                   if (match == "cleverbot on") {
+                     message.channel.send("Responding to you has been turned `on.`")
+                     delete list[message.author.id]
+                     client.setData("Cleverbot Ignore List", JSON.stringify(list))
+                     return
+                   }
+                   if (list[message.author.id]) return;
+                   message.channel.startTyping()
+                   client.cleverbot.ask(match, function(err, response) {
+                      if (message.channel.type == 'dm') {
+                        message.author.send(response)
+                      } else {
+                        if (message.author.id == '502233583864250368') {
+                          message.channel.send('<@!' + message.author.id + '> ' + response)
+                        } else {
+                          message.channel.send(response + ' <@!' + message.author.id + '>')
+                        }
 
-  })
+                      }
+                      message.channel.stopTyping()
+                   })
+                }
+             })
+          }
+       } else {
+          client.setData("Cleverbot Ignore List", JSON.stringify({}))
+       }
+
+     })
+   } catch (e) {
+     return message.channel.send("Uhhm... an error didn't just totally occur...")  
+   }
 
 
    let id;
