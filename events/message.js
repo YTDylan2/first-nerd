@@ -21,6 +21,17 @@ function getRand(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+function unafk(client, message) {
+   client.getData("AFK").then(reply => {
+            let list = JSON.parse(reply)
+            if (list[message.author.id]) {
+              delete list[message.author.id]
+              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.")
+              client.setData("AFK", JSON.stringify(list))
+              return 
+            }
+          })
+   }
 let recentMessages = new Set();
 module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
@@ -137,7 +148,9 @@ module.exports = (client, message) => {
       if (!message.content.indexOf(settings.prefix !== 0) && message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || message.content.indexOf(client.config.prefix !== 0) && message.content.indexOf(client.config.prefix.toUpperCase()) !== 0) {
        // in case of a ping for an argument
         let user = message.mentions.members
-        if (user.first() || user.first().id) {
+        if (user.first()) {
+          user = user.first()
+          if (!user.id) { unafk(client, message) return; } 
           client.getData("AFK").then(reply => {
             let list = JSON.parse(reply)
             if (list[user.id]) {
@@ -157,15 +170,7 @@ module.exports = (client, message) => {
             }
           })
         } else {
-          client.getData("AFK").then(reply => {
-            let list = JSON.parse(reply)
-            if (list[message.author.id]) {
-              delete list[message.author.id]
-              message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.")
-              client.setData("AFK", JSON.stringify(list))
-              return 
-            }
-          })
+          unafk(client, message)
         }
         return  
       }
