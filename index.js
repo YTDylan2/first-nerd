@@ -421,7 +421,6 @@ const init = async () => {
         }
         let status = random(phrases)
         client.user.setActivity(status[1], {type: status[0]})
-        .then(p => console.log(p))
         .catch(e => console.log(e))
         client.updateGuilds()
       
