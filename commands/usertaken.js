@@ -8,9 +8,9 @@ exports.run = (client, message, args, level) => {
             return console.log(err);
         }
         if (body.success) {
-            message.channel.send(`The username **${username}** is taken.`)
+            message.channel.send(`The username **${username}** is taken. ` + client.responseEmojis.cry)
         } else {
-            message.channel.send(`The username **${username}** is not taken. Sniping time?`)
+            message.channel.send(`The username **${username}** is not taken. Sniping time? ` + client.responseEmojis.hmm)
         }
     });
 }

@@ -44,7 +44,7 @@ exports.run = (client, message, args, level) => {
         if (!modStatus) {
             message.guild.ban(user, {reason: realReason, days: 7}).then(function (newuser) {
                 message.guild.unban(user, {reason: "Unbanning for softban: " + user}).then(finish => {
-                  message.channel.send(`**${finish.tag}** was successfully softbanned.`)
+                  message.channel.send(`**${finish.tag}** was successfully softbanned. Reason: ` + reason)
                 }).catch(e => {
                   message.channel.send("Something went wrong! I was able to ban the user, but unable to unban them. You may need to do that manually.")
                 })

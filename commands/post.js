@@ -28,7 +28,7 @@ exports.conf = {
 
 exports.help = {
     name: "post",
-    category: "Fun",
+    category: "Personal",
     description: "Posts something to the group wall of WaterIsIceSoup.",
     usage: "post [text]"
 };

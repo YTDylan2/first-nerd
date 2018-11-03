@@ -6,8 +6,8 @@ exports.run = (client, message, args, level) => {
     var redis = require('redis')
     var roblox = require('roblox-js')
     var proceed = true
-    
-    
+
+
     // bad argument
     if (!username || username == undefined) {
        message.channel.send("You need to send a valid username!")
@@ -16,7 +16,7 @@ exports.run = (client, message, args, level) => {
      message.channel.send('Checking database... 🔄')
     roblox.getIdFromUsername(username)
     .then(id => {
-       
+
         // already verified
         client.getData(message.author.id).then(reply => {
             if (reply != null) {
@@ -28,15 +28,15 @@ exports.run = (client, message, args, level) => {
             client.getData(id.toString()).then(reply => {
                  if (reply != null && proceed) {
                      var user = client.users.get(reply)
-                     if (user) { 
+                     if (user) {
                         message.channel.send("That roblox account has already been verified to Discord User **" + user.tag + "**!")
                         proceed = !proceed
                         return;
-                     }             
+                     }
                  }
                  if (reply == null && proceed) {
                      if (id != null && proceed) {
-                        message.channel.send("You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `yes` or `no`. (is this you?) - https://www.roblox.com/users/" + id +"/profile")
+                        message.channel.send(client.responseEmojis.hmm + " You have chosen to verify your discord account with the ROBLOX user **" + username + "**. Is this correct? Say `yes` or `no`. (is this you?) - https://www.roblox.com/users/" + id +"/profile")
                         message.channel.awaitMessages(response => response.author.id == message.author.id && (response.content.toLowerCase().match('yes') || response.content.toLowerCase().match('no')), {
                             max: 1,
                             time: 60000,
@@ -54,31 +54,31 @@ exports.run = (client, message, args, level) => {
                                          if (status.toLowerCase().match('dog cat lol')) {
                                              client.setData(message.author.id, id.toString())
                                              client.setData(id.toString(), message.author.id)
-                                             message.channel.send('✅ Successfully verified!')
+                                             message.channel.send(client.responseEmojis.wink + ' Successfully verified!')
                                          }
                                          if (!status.toLowerCase().match('dog cat lol')) {
-                                             message.channel.send('❎ oof... could not verify you. Did you enter the phrase into your status correctly?')
+                                             message.channel.send(client.responseEmojis.wtf +' Hmm... could not verify you. Did you enter the phrase into your status correctly?')
                                          }
                                      })
                                  }).catch(() => {
-                                     message.channel.send("oof, your verification timed out!")
+                                     message.channel.send("Aww... your verification timed out. " + client.responseEmojis.cry)
                                  })
                               }
-                              if (collected.first().content.toLowerCase().match('no')) { 
+                              if (collected.first().content.toLowerCase().match('no')) {
                                  message.channel.send("Verification cancelled.")
                               }
                         }).catch(() => {
                           message.channel.send('You failed to respond within 1 minute! Your verification timed out. :(')
-                        })                                                                                 
+                        })
                    };
                  }
-            })  
+            })
         })
     })
-    .catch(() => { 
-        message.channel.send("You need to send a valid username! Case sensitive.") 
-        return; 
-    })    
+    .catch(() => {
+        message.channel.send("You need to send a valid username! Case sensitive.")
+        return;
+    })
 }
 
 exports.conf = {

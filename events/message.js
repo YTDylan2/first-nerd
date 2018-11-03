@@ -1,6 +1,10 @@
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
+const moment = require("moment");
+require("moment-duration-format");
+
+
 function matchMention(text) {
    var mentionTag1 = '<@411683313926012928> '
    var mentionTag2 = '<@!411683313926012928> '
@@ -60,13 +64,13 @@ module.exports = (client, message) => {
                      match = message.content
                    }
                    if (match == "cleverbot off") {
-                     message.channel.send("Responding to you has been turned `off.`")
+                     message.channel.send("Responding to you has been turned `off.` " + client.responseEmojis.wink)
                      list[message.author.id] = true
                      client.setData("Cleverbot Ignore List", JSON.stringify(list))
                      return
                    }
                    if (match == "cleverbot on") {
-                     message.channel.send("Responding to you has been turned `on.`")
+                     message.channel.send("Responding to you has been turned `on.`" + client.responseEmojis.wink)
                      delete list[message.author.id]
                      client.setData("Cleverbot Ignore List", JSON.stringify(list))
                      return
@@ -95,7 +99,7 @@ module.exports = (client, message) => {
 
      })
    } catch (e) {
-     return message.channel.send("Uhhm... an error didn't just totally occur...")  
+     return message.channel.send("Uhhm... an error didn't just totally occur... " + client.responseEmojis.fluster)
    }
 
 
@@ -149,13 +153,45 @@ module.exports = (client, message) => {
       // and clean way to grab one of 2 values!
       // clever bot
 
-      if (!cmd) return;
+      if (!cmd) {
+        // in case of a ping for an argument
+        let user = message.mentions.members.first()
+        if (user) {
+          client.getData("AFK").then(reply => {
+            let list = JSON.parse(reply)
+            if (list[user.id]) {
+              if (list[message.author.id]) {
+                delete list[message.author.id]
+                client.setData("AFK", JSON.stringify(list))
+                return message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
+              }
+              let reason = list[user.id][0]
+              let timeAfk = list[user.id][1]
+
+              let now = Date.now()
+              let elapsed = now - timeAfk
+              let format = message.channel.send(format);
+              message.channel.send(user.nickname + " has been AFK for " + format + ": " + reason)
+            }
+          })
+        } else {
+          client.getData("AFK").then(reply => {
+            let list = JSON.parse(reply)
+            if (list[message.author.id]) {
+              delete list[message.author.id]
+              client.setData("AFK", JSON.stringify(list))
+              return message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + "! I removed your AFK status.")
+            }
+          })
+        }
+        return
+      };
 
 
       if (userCommandUsage.commandCount >= 3) {
         if (!userCommandUsage.alerted) {
           userCommandUsage.alerted = true
-          message.channel.send("Hey! You're using the commands way too fast. You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
+          message.channel.send(client.responseEmojis.wtf + " You're using the commands way too fast! You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
         }
         setTimeout(() => {
           userCommandUsage.commandCount = 0
@@ -169,10 +205,10 @@ module.exports = (client, message) => {
       // Some commands may not be useable in DMs. This check prevents those commands from running
       // and return a friendly error message.
       if (cmd && !message.guild && cmd.conf.guildOnly)
-       return message.channel.send("This command is unavailable via private message. Please run this command in a guild.");
+       return message.channel.send("Sorry, but this command is guild only! " + client.responseEmojis.scream);
 
       if (level < client.levelCache[cmd.conf.permLevel]) {
-         return message.channel.send(`You're missing the required permission **(${cmd.conf.permLevel})** to use this command!`)
+         return message.channel.send(client.responseEmojis.fluster + ` Hehe... you need to be atleast at the **(${cmd.conf.permLevel})** level to use this command!`)
       }
 
       // don't run if disabled
@@ -185,10 +221,10 @@ module.exports = (client, message) => {
       message.author.permLevel = level;
       if (ignoredChannels[message.channel.id] && level < 3) return;
       if (disabledCommands[cmd.help.name] && level < 3) {
-        return message.channel.send("This command is disabled for this guild.")
+        return message.channel.send("This command is disabled for this guild! " + client.responseEmojis.scream)
       }
       if (disabledCategories[cmd.help.category]) {
-        return message.channel.send("This command's category is disabled. (**" + cmd.help.category + "**)")
+        return message.channel.send("This command's category is disabled. (**" + cmd.help.category + "**)" + client.responseEmojis.scream)
       }
 
       message.flags = [];

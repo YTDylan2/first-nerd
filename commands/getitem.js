@@ -15,11 +15,11 @@ exports.run = async (client, message, args, level) => {
     let itemData;
     for (x in data) {
       if (data[item]) {
-        itemData = data[item] 
+        itemData = data[item]
         break;
       } else {
           if (x.match(item)) {
-            itemData = data[x]   
+            itemData = data[x]
             break;
           }
       }
@@ -35,7 +35,7 @@ exports.run = async (client, message, args, level) => {
       embed.setFooter("Item #" + itemData.Number + " - Vanessa")
       message.channel.send({embed})
     } else {
-      return message.channel.send("This item does not exist in the game!");
+      return message.channel.send(client.responseEmojis.huh + " Huh? This item doesn't exist.");
     };
 }
 

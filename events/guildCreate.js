@@ -22,6 +22,9 @@ let info = {
     "Please use `>settings` to view your setting configuration.\n" +
     "Vanessa will alert you if your settings need an update."
   ],
+  field5: [
+    "There is also a moderation system."
+  ]
 }
 module.exports = (client, guild) => {
   let id = guild.id

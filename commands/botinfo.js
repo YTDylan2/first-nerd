@@ -18,11 +18,11 @@ exports.run = (client, message, args, level) => {
 
             {
                 name: "Owners / Developers",
-                value: "@water is ice soup#0907 - Owner and Developer"
+                value: "<@240639333567168512> - Owner and Developer"
             },
             {
                 name: "Features",
-                value: `Cleverbot (@ the bot with some text)\nTranslation\nSoon to be moderation\nEconomic system`
+                value: `Cleverbot (@ the bot with some text)\nTranslation\nModeration\nEconomic system\nCustomizable settings`
             },
             {
                 name: "Special Thanks",

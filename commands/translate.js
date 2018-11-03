@@ -4,7 +4,7 @@ exports.run = (client, message, args, level) => {
     const translate = require('translate')
     const request = require('request')
     let transKey = process.env.transKey
-    
+
     translate.engine = 'yandex'
     translate.key = transKey
     let languages = {
@@ -31,7 +31,7 @@ exports.run = (client, message, args, level) => {
         message.channel.awaitMessages(filter, {max: 1, time: 60000, errors: ["time"]})
         .then(collected => {
           var toLang = collected.first().content.toLowerCase()
-         
+
           if (!languages[toLang]) {
               return message.channel.send("Please send a valid, supported language!")
           }
@@ -39,18 +39,18 @@ exports.run = (client, message, args, level) => {
           request.post('https://translate.yandex.net/api/v1.5/tr.json/detect?key=' + process.env.transKey + '&text=' + text, function(err, res, body) {
               if (err) {
                 console.log(err)
-                return message.channel.send("Error detecting your text's language.")   
+                return message.channel.send("Error detecting your text's language. " + client.responseEmojis.fluster)
               }
               //console.log(body)
               body = JSON.parse(body)
               let fromLang = body.lang
               translate(text, {from: fromLang, to: toLang, engine: 'yandex', key: process.env.transKey}).then(function(response) {
-                message.channel.send("Translation:\n" + response)  
+                message.channel.send("Translation:\n" + response)
               })
           })
         })
     })
-    
+
 }
 
 exports.conf = {
@@ -66,5 +66,3 @@ exports.help = {
     description: "Translate text using Vanessa!\nInteractive setup!",
     usage: "translate <setup>"
 };
-
-

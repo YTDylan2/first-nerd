@@ -13,7 +13,28 @@ module.exports = async client => {
   numb = parseInt(numb)
   // Both `wait` and `client.log` are in `./modules/functions`.
   client.logger.log(`[READY] ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "ready");
-  client.user.setActivity(`in the ${ordinal.toOrdinal(numb)} timeline. Use ${process.env.prefix}help. ` + client.guilds.size + " guilds." , "Hi.", "https://www.roblox.com/My/Groups.aspx?gid=3643510", "PLAYING")
+  client.user.setActivity(`in the ${ordinal.toOrdinal(numb)} timeline. Use ${process.env.prefix}help. ` + client.guilds.size + " guilds.", "PLAYING")
+
+  let emojis = {
+    "hmm": '508090899662897152',
+    'highfive1': '508089207126884363',
+    'highfive2': '508089347317170186',
+    'scream': '508090283045552128',
+    'wink': '508090308861624320',
+    'dance1': '508091101568172042',
+    'dance2': '508091101568172042',
+    'cry': '508095193560645652',
+    'fluster': '508090330030276619',
+    'grr': '508089705141633034',
+    'wtf': '508089722715766784',
+    'wave': '508101901498187788',
+    'huh': '508102916905762867'
+  }
+  client.responseEmojis = {}
+
+  for (x in emojis) {
+    client.responseEmojis[x] = client.emojis.get(x).toString()
+  }
   // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
   // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
 

@@ -4,7 +4,7 @@ exports.run = (client, message, args, level) => {
    var discord = require("discord.js")
    var allowedUsers = client.redisClient.get("Roadmap Allowed")
    var prefix = client.config.prefix
-   
+
    function getArgsPastIndex(index, array) {
       let x;
       let args = []
@@ -15,7 +15,7 @@ exports.run = (client, message, args, level) => {
       }
       return args
    }
-   
+
    function spaceOut(str) {
       let matching = '-'
       let final = str
@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
       }
       return final
    }
-   
+
    function isCommand(str) {
       if (!str == "help" && !str == "addtopic" && !str == "deltopic" && !str == "addplan" && !str == "delplan") {
          return true
@@ -33,14 +33,14 @@ exports.run = (client, message, args, level) => {
          return false
       }
    }
-      
+
    client.redisClient.get("Roadmap", function(err, roadmapData) {
       if (roadmapData) {
          var data = JSON.parse(roadmapData)
          var scope = args[0]
-         var fullString = args.join(" ")        
+         var fullString = args.join(" ")
          var command = args[1]
-         
+
          if (command && scope == 'config') {
             if (level == 10 || allowedUsers[message.author.id]) {
                let cmdArgs = getArgsPastIndex(1, args)
@@ -115,12 +115,12 @@ exports.run = (client, message, args, level) => {
             return
          }
          if (scope) {
-            
+
             let plans = data[fullString]
-            if (plans) {                 
+            if (plans) {
                let str = ""
                for (var i in plans) {
-                   if (typeof(plans[i]) == 'string') {     
+                   if (typeof(plans[i]) == 'string') {
                      let num = i + 1
                      str = str + ( parseInt(num) + ". " + plans[i] + '\n')
                    }
@@ -137,8 +137,8 @@ exports.run = (client, message, args, level) => {
             } else {
                message.channel.send("No plans for this topic!")
             }
-         } else {    
-            if (!scope) {               
+         } else {
+            if (!scope) {
               message.channel.send("Please provide a scope / roadmap topic! Here, I'll fetch some!")
                let scopes = [];
                let i;
@@ -147,19 +147,19 @@ exports.run = (client, message, args, level) => {
                }
                let str = scopes.join("\n")
                 const embed = new discord.RichEmbed()
-               
+
                .setColor(6579455)
                if (scopes.length > 0 && str.length > 0) {
                   embed.addField("Scopes and topics\n\n", str)
                } else {
                   embed.addField("Scopes and topics\n\n", "None")
-               }                  
-               message.channel.send({embed})             
-               
+               }
+               message.channel.send({embed})
+
             }
-         }   
+         }
       }
-   })    
+   })
 }
 
 exports.conf = {
@@ -171,7 +171,7 @@ exports.conf = {
 
 exports.help = {
     name: "roadmap",
-    category: "System",
+    category: "Personal",
     description: "Shows any planned updates.\nConfig topics using <prefix>roadmap config [params].\nUse <prefix>roadmap config help for help",
     usage: "roadmap"
 };

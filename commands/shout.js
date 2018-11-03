@@ -27,7 +27,7 @@ exports.conf = {
 
 exports.help = {
     name: "shout",
-    category: "Fun",
+    category: "Personal",
     description: "Posts something to the group shout of Galactic Games.",
     usage: "shout [text]"
 };

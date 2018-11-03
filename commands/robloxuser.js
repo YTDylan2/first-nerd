@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
                 }
 
             }).catch(function (err) {
-                message.channel.send("Could not find " + username + ". Did you type the name correctly?")
+                message.channel.send("I couldn't find that person. Did you double check your spelling? " + client.responseEmojis.hmm)
             });
     }
     else
@@ -31,5 +31,3 @@ exports.help = {
     description: "Gives the profile of a roblox user.",
     usage: "robloxuser [username]"
 };
-
-

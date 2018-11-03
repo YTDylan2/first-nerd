@@ -59,6 +59,9 @@ const config = {
       "adminRoles" : {
 
       },
+      "superAdmins" : {
+
+      }
       "disabledCommands" : {
 
       },
@@ -92,7 +95,7 @@ const config = {
         try {
           let passed = false
 
-    
+
             if (!data) return false;
               let modRoles = data.data.modRoles
               let memberRoles = message.member.roles
@@ -104,7 +107,7 @@ const config = {
                   break
                 }
               }
-              
+
 
 
 
