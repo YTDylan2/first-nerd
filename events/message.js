@@ -139,6 +139,7 @@ module.exports = (client, message) => {
         let user = message.mentions.members
         if (user) {
           user = user.first()
+          if (!user.id) return;
           client.getData("AFK").then(reply => {
             let list = JSON.parse(reply)
             if (list[user.id]) {
