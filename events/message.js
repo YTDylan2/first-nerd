@@ -202,7 +202,7 @@ module.exports = (client, message) => {
       if (userCommandUsage.commandCount >= 3) {
         if (!userCommandUsage.alerted) {
           userCommandUsage.alerted = true
-          message.channel.send(client.responseEmojis.wtf + " You're using the commands way too fast! You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
+          message.channel.send(client.responseEmojis.scream + " You're using the commands way too fast! You've been placed on a 10 second cooldown!\n(3 commands in 10 seconds)")
         }
         setTimeout(() => {
           userCommandUsage.commandCount = 0
