@@ -145,7 +145,7 @@ module.exports = (client, message) => {
 
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
-      if ( !message.content.indexOf(settings.prefix !== 0) && !message.content.indexOf(settings.prefix.toUpperCase()) !== 0 || !message.content.indexOf('>' !== 0)) {
+      if ( !message.content.indexOf(settings.prefix == 0) && !message.content.indexOf(settings.prefix.toUpperCase()) == 0 || !message.content.indexOf('>' == 0)) {
        // in case of a ping for an argument
         let user = message.mentions.members
         if (user) {
