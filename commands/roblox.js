@@ -2,14 +2,14 @@ exports.run = (client, message, args, level) => {
     var roblox = require('noblox.js')
     var discord = require('discord.js')
     var request = require('request')
-    let member = message.mentions.members.first()
+    let member = message.mentions.members.first() || client.findGuildUser(message.guild, args[0])
 
 
     if (member) {
         let user = client.users.get(member.id)
         client.getData(member.id).then(reply => {
             if (reply == null) {
-                message.channel.send("This person isn't linked to my database.")
+                message.channel.send("Could not find info for the person you are looking for.")
             } else {
                 message.channel.startTyping()
                 roblox.getPlayerInfo(parseInt(reply))
@@ -31,7 +31,7 @@ exports.run = (client, message, args, level) => {
             }
         })
     } else {
-        message.channel.send("Please mention a user!")
+        message.channel.send("Please provide a user!")
     }
     message.channel.stopTyping(true)
 }
