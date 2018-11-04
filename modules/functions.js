@@ -128,7 +128,12 @@ client.getPastIndex = function (index, array) {
   client.findGuildUser = function(guild, name) {
     name = name.toLowerCase()
     let members = guild.members
-    let member = members.find(mem => mem.nickname.toLowerCase().indexOf(name) == 0 || mem.nickname.toLowerCase().match(name))
+    let filter = mem => mem.nickname && mem.nickname.toLowerCase().indexOf(name) == 0 || mem.nickname && mem.nickname.toLowerCase().match(name)
+    let filter2 = mem => mem.user && mem.user.username.toLowerCase().indexOf(name) == 0 || mem.user && mem.user.username.toLowerCase().match(name)
+    let member = members.find(filter)
+    if (!member) {
+      member = members.find(filter2)
+    }
     return member
   }
 
