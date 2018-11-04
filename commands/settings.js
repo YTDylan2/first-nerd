@@ -77,7 +77,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
 
       }
       if (action == "viewall") {
-        client.clean(modifiable).then(prettyPrint => {
+        client.clean(client, modifiable).then(prettyPrint => {
           client.hastebin(prettyPrint).then(link => {
             message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
           })
