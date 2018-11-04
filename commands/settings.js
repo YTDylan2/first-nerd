@@ -77,10 +77,9 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
 
       }
       if (action == "viewall") {
-        client.clean(client, modifiable).then(prettyPrint => {
-          client.hastebin(prettyPrint).then(link => {
-            message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
-          })
+        let prettyPrint = JSON.stringify(modifiable, null, 2)
+        client.hastebin(prettyPrint).then(link => {
+          message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
         })
       }
       if (action == 'reset') {
