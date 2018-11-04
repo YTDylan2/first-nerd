@@ -166,12 +166,12 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: [""],
-    permLevel: "User"
+    permLevel: "Bot Owner"
 };
 
 exports.help = {
     name: "roadmap",
     category: "Personal",
-    description: "Shows any planned updates.\nConfig topics using <prefix>roadmap config [params].\nUse <prefix>roadmap config help for help",
+    description: "this command does not do anything",
     usage: "roadmap"
 };
