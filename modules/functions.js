@@ -126,8 +126,9 @@ client.getPastIndex = function (index, array) {
   
   // Find a guild user by name similarity
   client.findGuildUser = function(guild, name) {
+    name = name.toLowerCase()
     let members = guild.members
-    let member = members.find(mem => mem.nickname.indexOf(name) == 0 || mem.nickname.match(name))
+    let member = members.find(mem => mem.nickname.toLowerCase().indexOf(name) == 0 || mem.nickname.toLowerCase().match(name))
     return member
   }
 
