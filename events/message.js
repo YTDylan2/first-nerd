@@ -145,7 +145,9 @@ module.exports = (client, message) => {
 
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
-      if ( !message.content.indexOf(settings.prefix == 0) && !message.content.indexOf(settings.prefix.toUpperCase()) == 0 || !message.content.indexOf('>' == 0)) {
+      let prefixFound = message.content.indexOf(settings.prefix) == 0 || message.content.indexOf(settings.prefix.toUpperCase()) == 0
+      let defaultPrefix = message.content.indexOf('>' == 0)
+      if (!prefixFound && !defaultPrefix) {
        // in case of a ping for an argument
         let user = message.mentions.members
         if (user) {
@@ -187,7 +189,14 @@ module.exports = (client, message) => {
       // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
       // command = say
       // args = ["Is", "this", "the", "real", "life?"]
-      const args = message.content.slice(settings.prefix.length || 1).trim().split(/ +/g);
+      var prefixTrim;
+      if (prefixFound) {
+        prefixTrim = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+      } 
+      if (defaultPrefix) {
+        prefixTrim = message.content.slice(1).trim().split(/ +/g);
+      }
+      const args = prefixTrim
       const command = args.shift().toLowerCase();
 
       // Get the user or member's permission level from the elevation
