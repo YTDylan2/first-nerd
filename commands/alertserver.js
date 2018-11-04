@@ -4,20 +4,28 @@ exports.run = async (client, message, args, level) => {
     if (text == undefined || text.length == 0) {
       return message.channel.send("Need a query!")
     }
-    let users = message.guild.members.array()
-    let usersNotified = 0
-    for (x in users) {
-      try {
-       users[x].user.send(text + "\n\nSent by " + message.member.user.tag)
-      } catch (err) {
-        // nothing
-        unnotified.push(err)
-      }
-
+    
+    let confirmation = await client.awaitReply(message, "Are you sure you want to proceed? Proceeding will message everyone in the server with a signature from you.\nThis will not message users who have blocked the bot. Say 'yes' or 'no' to continue.")
+    if (["n", "no", "stop", "cancel"].includes(confirmation)) {
+        message.channel.send("Command was cancelled. " + client.responseEmojis.hmm)
+        return;
     }
-    await client.wait(7000)
-    let num = users.length - unnotified.length
-    message.channel.send(`Out of **${users.length}** users, ${num} were notified.`)
+    if (["yes", "proceed", "go"].includes(confirmation)) {
+        let users = message.guild.members.array()
+        let usersNotified = 0
+        for (x in users) {
+          try {
+           users[x].user.send(text + "\n\nSent by " + message.member.user.tag)
+          } catch (err) {
+            // nothing
+            unnotified.push(err)
+          }
+
+        }
+        await client.wait(7000)
+        let num = users.length - unnotified.length
+        message.channel.send(`Out of **${users.length}** users, ${num} were notified.`)
+    }
 }
 
 exports.conf = {
