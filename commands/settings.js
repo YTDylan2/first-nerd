@@ -40,7 +40,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (key == "crimeWinRate") {
           message.channel.send("This is out of 100 percent. Settings this to 35% sets the crime winning rate to 35%.")
         }
-        client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable), function(fail, data) {
+        client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
@@ -81,9 +81,9 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         for (x in modifiable) {
           let dataString = ""
           for (key in modifiable[x]) {
-            dataString = dataString + `${key} => ${modifiable[x][key]}\n`
+            dataString = dataString + `\t\t${key} => ${modifiable[x][key]}\n`
           }
-          prettyPrint = prettyPrint + `${x} => {\n\t` + dataString + '\n}'
+          prettyPrint = prettyPrint + `${x} => {\t\n` + dataString + '\n}'
         }
         client.hastebin(prettyPrint).then(link => {
           message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
