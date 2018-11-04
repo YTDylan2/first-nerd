@@ -77,16 +77,10 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
 
       }
       if (action == "viewall") {
-        let prettyPrint = "{\n"
-        for (x in modifiable) {
-          let dataString = ""
-          for (key in modifiable[x]) {
-            dataString = dataString + `\t${key} => ${modifiable[x][key]}\n`
-          }
-          prettyPrint = prettyPrint + `${x} => {\t\n` + dataString + '\n}, '
-        }
-        client.hastebin(prettyPrint).then(link => {
-          message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
+        client.clean(modifiable).then(prettyPrint => {
+          client.hastebin(prettyPrint).then(link => {
+            message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
+          })
         })
       }
       if (action == 'reset') {
