@@ -27,7 +27,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (!value) {
           return message.channel.send("Please return a valid value for this key!")
         }
-        if (!modifiable[key]) {
+        if (!modifiable.settings[key]) {
           return message.channel.send("That setting wasn't found!")
         }
         modifiable.settings[key] = value
@@ -55,6 +55,11 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let missingKeys = 0
          for (x in client.config.defaultSettings.settings) {
            if (!modifiable.settings[x]) {
+             missingKeys = missingKeys + 1
+           }
+         }
+         for (x in client.config.defaultSettings.data) {
+           if (!modifiable.data[x]) {
              missingKeys = missingKeys + 1
            }
          }
