@@ -191,6 +191,28 @@ client.getPastIndex = function (index, array) {
     delete require.cache[require.resolve(`../commands/${commandName}.js`)];
     return false;
   };
+	
+// conversion of time from strings
+client.convertTime = function(string) {
+  function returnMultiplier(letter) {
+    let times = {
+	"m" : 60,
+	"h" : 3600,
+	"d" : 86400,
+    }
+    return times[letter]
+   }	  
+   if (!string) return;
+   if (string.match("-")) return;
+   let number = parseFloat(string.match(/[\d\.]+/))
+   let r = string.replace(/[^a-zA-Z]+/g, '');
+   let multiplier = returnMultiplier(r)
+   if (number && multiplier) {
+     return [number, multiplier]
+   } else {
+     return;
+   }
+}
 
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
 
