@@ -123,6 +123,13 @@ client.getPastIndex = function (index, array) {
     let data = await client.redisClient.del(key)
     return data
   }
+  
+  // Find a guild user by name similarity
+  client.findGuildUser = function(guild, name) {
+    let members = guild.members
+    let member = members.find(mem => mem.name.indexOf(name) == 0 || mem.name.match(name))
+    return member
+  }
 
   /*
   MESSAGE CLEAN FUNCTION
