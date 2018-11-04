@@ -117,7 +117,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
           }
         }
         if (updatedKeys > 0) {
-          client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable), function(err, reply) {
+          client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable).then(rep => {       
             message.channel.send("**" + updatedKeys + "** settings were added / updated.\n**" + removed + "** settings were removed.")
           })
         } else {
