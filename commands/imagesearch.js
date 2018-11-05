@@ -34,6 +34,9 @@ let badLinks = [
   "blue waf",
   "cock",
   "cancer",
+  "p3nis",
+  "pen1s",
+  "pvssy",
 ]
 
 const googleImages = require('google-images')
@@ -58,7 +61,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    googleclient.search(search, {page: rPage}).then(images => {
+    googleclient.search(search, {page: rPage, safe: 'high'}).then(images => {
       let image = images[0]
       if (image) {
         let size = Math.floor(image.size / 1000)
@@ -72,6 +75,18 @@ exports.run = (client, message, args, level) => {
         embed.setFooter("Requested by " + message.author.tag, message.author.avatarURL)
         embed.setColor(process.env.green)
         embed.setTimestamp()
+        for (x in badLinks) {
+          if (image.url.toLowerCase().match(badLinks[x])) {
+            canPost = false;
+            break
+          }
+        }
+        for (x in badLinks) {
+          if (image.description.toLowerCase().match(badLinks[x])) {
+            canPost = false;
+            break
+          }
+        }
         if (canPost) {
           message.channel.send({embed})
         } else {

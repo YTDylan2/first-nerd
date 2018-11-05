@@ -218,7 +218,6 @@ client.updateGuilds = async function() {
         console.log("Default settings applied for guild " + guildz[x].id)
         updated.push(guildz[x].id)
       }
-      client.updateGlobal(guildz[x])
   }
   return updated.length + " updated"
 
