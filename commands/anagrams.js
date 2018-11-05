@@ -49,7 +49,9 @@ exports.run = async (client, message, args, level) => {
     client.hastebin(combos)
     .then(link =>{
       message.channel.send("Anagrams posted at " + link)
-    }).catch(message.channel.send("There was an error trying to upload it to Hastebin."))
+     }).catch(e => {
+          message.channel.send("There was an error trying to upload it to Hastebin.")
+        })
 }
 
 exports.conf = {
