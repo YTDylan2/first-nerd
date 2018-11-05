@@ -64,8 +64,9 @@ exports.run = (client, message, args, level) => {
         embed.setAuthor("Image Result for '" + search + "'")
         embed.setDescription("Image type: " + image.type)
         embed.addField("Image Filesize", "**~" + size + "KB**")
-        embed.setThumbnail(thumbnail.url)
+        embed.setImage(thumbnail.url)
         embed.setFooter("Dimensions: " + dimension + " ~Vanessa")
+        embed.setColor(process.env.green)
         embed.setTimestamp()
         if (canPost) {
           message.channel.send({embed})
