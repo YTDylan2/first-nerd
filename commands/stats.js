@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
   .setAuthor("Vanessa", client.user.avatarURL)
   .setTitle("Bot Statistics")
   .setDescription("Some collected statistics for Vanessa!")
-  .addField("Memory Usage", (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2))
+  .addField("Memory Usage", (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) + "MB")
   .addField("Uptime", duration)
   .addField("Users", client.users.size.toLocaleString())
   .addField("Servers", client.guilds.size.toLocaleString())
@@ -19,7 +19,7 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
   .addField("Node Version", process.version)
   .addField("Build Version", process.env.HEROKU_RELEASE_VERSION)
   .setTimestamp()
-  .setColor(process.env.purple)
+  .setColor(process.env.blue)
   message.channel.send({embed})
 };
 
