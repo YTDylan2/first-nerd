@@ -61,7 +61,7 @@ exports.run = (client, message, args, level) => {
         let size = Math.floor(image.size / 1000)
         let dimension = image.width + "x" + image.height
         let embed = new discord.RichEmbed()
-        embed.setAuthor("Image Result for '" + search "'")
+        embed.setAuthor("Image Result for '" + search + "'")
         embed.setDescription("Image type: " + image.type)
         embed.addField("Image Filesize", "**~" + size + "KB**")
         embed.setThumbnail(thumbnail.url)
@@ -79,7 +79,6 @@ exports.run = (client, message, args, level) => {
       } else {
         return message.channel.send("Couldn't find an image for that!")
       }
-
 
     })
 
