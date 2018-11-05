@@ -27,7 +27,7 @@ exports.run = async (client, message, args, level) => {
     embed.addField("Account Created at", registerDate, true)
     embed.setThumbnail(user.avatarURL)
     embed.addField("Original Avatar Picture", user.defaultAvatarURL, true)
-    embed.addField("Roles [" + count + "]", roles, , true)
+    embed.addField("Roles [" + count + "]", roles, true)
     embed.setFooter("User ID: " + user.id)
     embed.setTimestamp()
     message.channel.send({embed})
