@@ -31,7 +31,9 @@ let badLinks = [
   "d1ck",
   "p0rn",
   "pen15",
-  "blue waf"
+  "blue waf",
+  "cock",
+  "cancer",
 ]
 
 const googleImages = require('google-images')

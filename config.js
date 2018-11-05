@@ -87,7 +87,7 @@ const config = {
       name: "Voter",
       // Check if they have voted on the bot
       check: (message, client) => {
-        return client.voters[message.member.id]
+        return client.voters[message.author.id]
       }
     },
 
