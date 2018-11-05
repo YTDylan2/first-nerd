@@ -49,14 +49,14 @@ module.exports = (client, guild) => {
           channel.send({embed})
           
           let log = new discord.RichEmbed()
-          embed.setTitle("Guild Joined!")
-          embed.addField("Guild Name", guild.name)
-          embed.addField("Guild ID", guild.id)
-          embed.addField("Users", guild.members.size)
-          embed.setColor(process.env.blue)
-          embed.setFooter("Joined " + guild.name + " - Vanessa")
-          embed.setTimestamp()
-          client.guildLogs.send({embed})
+          log.setTitle("Guild Joined!")
+          log.addField("Guild Name", guild.name)
+          log.addField("Guild ID", guild.id)
+          log.addField("Users", guild.members.size)
+          log.setColor(process.env.blue)
+          log.setFooter("Joined " + guild.name + " - Vanessa")
+          log.setTimestamp()
+          client.guildLogs.send({log})
         }
       }
     }
