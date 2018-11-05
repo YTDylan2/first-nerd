@@ -71,7 +71,7 @@ exports.run = (client, message, args, level) => {
                 break;
               }
             }
-            if (canPost) {
+            if (canPost && !message.channel.nsfw) {
               message.channel.send(`${title}\n${link}\n\n${desc}`)
             } else {
               message.channel.send("Sorry! The content on that page would be deemed inappropiate.")
