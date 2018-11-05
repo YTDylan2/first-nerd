@@ -56,7 +56,7 @@ module.exports = (client, guild) => {
           log.setColor(process.env.blue)
           log.setFooter("Joined " + guild.name + " - Vanessa")
           log.setTimestamp()
-          client.guildLogs.send({log})
+          client.guildLogs.send({embed: log})
         }
       }
     }
