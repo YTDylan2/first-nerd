@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => {
             },
             title: "Support Server",
             url: "https://discord.gg/" + process.env.supportServerCode,
-            description: "Find information about Vannesa!\n**DISCLAIMER: While using the Cleverbot integration, your conversations may be viewed but not recorded for future reference.**",
+            description: "Find information about Vannesa!",
             fields: [{
                 name: "Info",
                 value: `I am ${client.user.username}, the culimation of water is ice soup's creativity.\nI'm also a great listener. Just ping me.\nCurrent Guild Count: ${client.guilds.size}\nNumber of Users: ${client.users.size}`
@@ -30,7 +30,7 @@ exports.run = (client, message, args, level) => {
             },
             {
                 name: "Invite Link",
-                value: "It is up to you which permissions she has.\nhttps://discordapp.com/oauth2/authorize?client_id=411683313926012928&scope=bot&permissions=67136512"
+                value: "It is up to you which permissions she has.\nhttps://discordapp.com/oauth2/authorize?client_id=411683313926012928&scope=bot&permissions=60422"
             }
             ],
         },
