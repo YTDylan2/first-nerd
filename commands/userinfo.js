@@ -5,7 +5,7 @@ exports.run = async (client, message, args, level) => {
       
     if (message.mentions.members) {
         if (message.mentions.members.first()) {
-            user = message.members.first().user       
+            user = message.mentions.members.first().user       
         }
     }
     
