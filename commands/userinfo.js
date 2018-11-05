@@ -1,12 +1,18 @@
 const discord = require('discord.js');
 
 exports.run = async (client, message, args, level) => {
-    let user = message.mentions.members.first() || client.findGuildUser(message, args[0]) || message.author
+    let user = client.findGuildUser(message, args[0])
+      
+    if (message.mentions.members) {
+        if (message.mentions.members.first()) {
+            user = message.members.first().user       
+        }
+    }
     
     let roles = []
     let count = 0;
-
-    user.member = message.guild.members[user.id] // incase
+    let member = message.guild.members[user.id]
+    user.member = member // incase
     for (x in user.member.roles.array()) {
       let role = user.member.roles.array()[x]
       if (role.name !== "@everyone") {
