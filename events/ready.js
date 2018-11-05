@@ -34,6 +34,8 @@ module.exports = async client => {
   for (x in emojis) {
     client.responseEmojis[x] = client.emojis.get(emojis[x]).toString()
   }
+  
+  client.guildLogs = client.channels.get('503384922564722688')
   // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
   // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
 
