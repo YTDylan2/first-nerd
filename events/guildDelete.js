@@ -8,7 +8,7 @@ module.exports = (client, guild) => {
     embed.setTitle("Guild Left!")
     embed.addField("Guild Name", guild.name)
     embed.addField("Guild ID", guild.id)
-    embed.addField("Users Lost", guild.members.size)
+    embed.addField("Users", guild.members.size)
     embed.setColor(process.env.red)
     embed.setFooter("Left " + guild.name + " - Vanessa")
     embed.setTimestamp()
