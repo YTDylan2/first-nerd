@@ -35,7 +35,7 @@ let badLinks = [
 
 const googleImages = require('google-images')
 const discord = require('discord.js')
-const google_client = new googleImages(process.env.CSE_KEY, process.env.G_API_KEY)
+const googleclient = new googleImages(process.env.CSE_KEY, process.env.G_API_KEY)
 
 exports.run = (client, message, args, level) => {
     if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote")
@@ -54,9 +54,9 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    google_client.search(search).then(images => {
+    googleclient.search(search).then(images => {
       let image = images[0]
-      if (!image) {
+      if (image) {
         let thumbnail = image.thumbnail
         let size = Math.floor(image.size / 1000)
         let dimension = image.width + "x" + image.height
