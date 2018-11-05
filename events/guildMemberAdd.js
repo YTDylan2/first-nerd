@@ -1,16 +1,13 @@
-// This event executes when a new member joins a server. Let's welcome them!
-
 module.exports = (client, member) => {
   // Load the guild's settings
-  const settings = client.redisClient.get(member.guild.id);
+  client.getGuildData(member.guild).then(settings => {
+    if (settings) {
+      settings = JSON.parse(settings)
+      if (settings.welcomeEnabled !== "true") return;
 
-  // If welcome is off, don't proceed (don't welcome the user)
-  if (settings.welcomeEnabled !== "true") return;
-
-  // Replace the placeholders in the welcome message with actual data
-  const welcomeMessage = settings.welcomeMessage.replace("{user}", member.user.username);
-
-  // Send the welcome message to the welcome channel
-  // There's a place for more configs here.
-  member.guild.channels.find("name", settings.welcomeChannel).send(welcomeMessage).catch(console.log);
+      // replace the {user} in the welcome message with actual data
+      const welcomeMessage = settings.welcomeMessage.replace("{user}", member.user.username)
+      member.guild.channels.find("name", settings.welcomeChannel).send(welcomeMessage).catch(console.log)
+    }
+  })
 };
