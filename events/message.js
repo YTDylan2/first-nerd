@@ -48,15 +48,18 @@ module.exports = (client, message) => {
   let ignoreList;
 
   // Check if they voted, if so set them to our voters table
-  client.botlistclient.hasVoted(message.author.id).then(voted => {
-    if (voted) {
-      client.voters[message.author.id] = true
-    } else {
-      if (client.voters[message.author.id]) {
-        delete client.voters[message.author.id]
+  if (client.botlistclient) {
+    client.botlistclient.hasVoted(message.author.id).then(voted => {
+      if (voted) {
+        client.voters[message.author.id] = true
+      } else {
+        if (client.voters[message.author.id]) {
+          delete client.voters[message.author.id]
+        }
       }
-    }
-  })
+    })
+  }
+
 
 
 
