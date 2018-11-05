@@ -99,6 +99,6 @@ exports.conf = {
 exports.help = {
     name: "imagesearch",
     category: "Image",
-    description: "Finds an image based on your query!",
+    description: "Finds an image based on your query!\nThis command requires you to have voted on Vanessa!",
     usage: "imagesearch [...search terms]"
 };
