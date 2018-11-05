@@ -18,15 +18,15 @@ exports.run = (client, message, args, level) => {
 
             {
                 name: "Owners / Developers",
-                value: "<@240639333567168512> - Owner and Developer"
+                value: "<@240639333567168512> - Owner and Bot Developer"
             },
             {
                 name: "Features",
-                value: `Cleverbot (@ the bot with some text)\nTranslation\nModeration\nEconomic system\nCustomizable settings`
+                value: "Cleverbot (@ the bot with some text)\nTranslation\nModeration\nEconomic system\nCustomizable settings"
             },
             {
                 name: "Special Thanks",
-                value: "Special thanks to Flatbird, and Rewolf for helping testing the bot!\nThanks alot to Budgie for being a great help with the hosting!"
+                value: "Special thanks to Flatbird, and <@382426073008439306> for helping test the bot!\nThanks alot to <@205093576865087497> for being a great help with the hosting!\nI'm also happy this inspired <@491337614717353994> to make a Discord bot!"
             },
             {
                 name: "Invite Link",
