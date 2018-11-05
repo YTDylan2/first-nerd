@@ -3,5 +3,13 @@
 module.exports = (client, guild) => {
   // Well they're gone. Let's remove them from the settings!
     client.delData(guild.id);
-//client.user.setActivity("Techno World. Use a!help. Serving " + client.users.size + " users in " + client.guilds.size + " servers." , "Hi.", "https://www.roblox.com/My/Groups.aspx?gid=3643510", "PLAYING")
+    let embed = new discord.RichEmbed()
+    embed.setTitle("Guild Left!")
+    embed.addField("Guild Name", guild.name)
+    embed.addField("Guild ID", guild.id)
+    embed.addField("Users Lost", guild.members.size)
+    embed.setColor(process.env.red)
+    embed.setFooter("Left " + guild.name + " - Vanessa")
+    embed.setTimestamp()
+    client.guildLogs.send({embed})
 };
