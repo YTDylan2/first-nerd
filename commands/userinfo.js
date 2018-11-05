@@ -23,6 +23,9 @@ exports.run = async (client, message, args, level) => {
     }
     count = roles.length
     roles = roles.join(", ")
+    if (roles.length < 1) {
+        roles = "None"
+    }
 
     let joinDate = user.member.joinedAt
     let registerDate = user.createdAt
