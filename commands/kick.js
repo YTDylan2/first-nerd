@@ -33,10 +33,15 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     let reason = args.join(" ")
     let realReason = reason || "Kicked by " + message.author.tag
+    let perms = client.checkPerm(message.guild.members[client.id], "KICK_MEMBERS")
+    if (!perms) {
+     return message.channel.send(client.responseEmojis.fluster + " I need the permissions `KICK_MEMBERS` to do that! Please check my roles and try again.") 
+    }
     if (user) {
       reason = reason.replace("<@" + user.id + ">", "")
         checkMod(message.guild, user, client).then(modStatus => {
           if (!modStatus) {
+              user.send("You have been kicked from " + message.guild.name + " for: " + reason)
               user.kick(realReason).then(function (member) {
                   message.channel.send(`**${member.user.tag}** was kicked! Reason: ` + reason || "`ungiven reason.``")
               }).catch(e => {
