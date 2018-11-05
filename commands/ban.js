@@ -37,11 +37,16 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     let reason = client.getPastIndex(1, args).join(" ")
     let realReason = reason + message.author.tag || "Banned by " + message.author.tag
+    let perms = client.checkPerm(message.guild.members[client.id], "BAN_MEMBERS")
+    if (!perms) {
+     return message.channel.send(client.responseEmojis.fluster + " I need the permissions `BAN_MEMBERS` to do that! Please check my roles and try again.") 
+    }
     if (user) {
       user = user.match(/\d+/g)[0]
       let member = message.guild.members.get(user)
       checkMod(message.guild, member, client).then(modStatus => {
         if (!modStatus) {
+            user.send("You have been banned from " + message.guild.name + " for: " + reason)
             message.guild.ban(user, {reason: realReason, days: 1}).then(function (finished) {
               if (!member) {
                   message.channel.send(`**${"User ID **" + user + "** <@" + user + ">"}** was banned! Reason: ` + reason || "`ungiven reason.`")
