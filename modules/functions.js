@@ -123,7 +123,7 @@ client.getPastIndex = function (index, array) {
     let data = await client.redisClient.del(key)
     return data
   }
-  
+
   // Find a guild user by name similarity
   client.findGuildUser = function(message, name) {
     if (!name || name === undefined) {
@@ -195,7 +195,7 @@ client.getPastIndex = function (index, array) {
     delete require.cache[require.resolve(`../commands/${commandName}.js`)];
     return false;
   };
-	
+
 // conversion of time from strings
 client.convertTime = function(string) {
   function returnMultiplier(letter) {
@@ -205,7 +205,7 @@ client.convertTime = function(string) {
 	"d" : 86400,
     }
     return times[letter]
-   }	  
+   }
    if (!string) return;
    if (string.match("-")) return;
    let number = parseFloat(string.match(/[\d\.]+/))
@@ -269,7 +269,8 @@ client.convertTime = function(string) {
   });
 
   process.on("unhandledRejection", err => {
-    client.logger.error(`Unhandled rejection: ${err}`);
+    const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
+    client.logger.error(`Unhandled rejection: ${errorMsg}`);
     if (client.startChannel) {
       client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
     }
