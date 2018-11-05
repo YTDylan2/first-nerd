@@ -3,7 +3,7 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var request = require('request')
     let member = message.mentions.members.first() || client.findGuildUser(message, args[0])
-
+    member = member.user || member
 
     if (member) {
         let user = client.users.get(member.id)
