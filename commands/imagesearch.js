@@ -54,7 +54,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    google_client.search(search, {safe: 'low'}).then(images => {
+    google_client.search(search).then(images => {
       let image = images[0]
       if (!image) {
         let thumbnail = image.thumbnail

@@ -27,7 +27,7 @@ const redis = require('redis')
 const asyncredis = require("async-redis")
 const cleverbot = require('cleverbot.io')
 const ordinal = require('ordinal-js')
-const discordbotlist = require('dblapi.js')
+
 const recentMessages = new Set();
 
 
@@ -35,9 +35,7 @@ const recentMessages = new Set();
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
 const client = new Discord.Client();
-const dbl = new discordbotlist(process.env.DBL_KEY, client)
 
-client.botlistclient = dbl
 
 
 // Here we load the config file that contains our token and our prefix values.
@@ -438,9 +436,7 @@ const init = async () => {
 
     }, 60000)
 
-    dbl.on('posted', () => {
-      console.log("Server count was posted!")
-    })
+
 
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};

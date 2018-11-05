@@ -1,4 +1,5 @@
 module.exports = async client => {
+  const discordbotlist = require('dblapi.js')
   // Why await here? Because the ready event isn't actually ready, sometimes
   // guild information will come in *after* ready. 1s is plenty, generally,
   // for all of them to be loaded.
@@ -34,8 +35,15 @@ module.exports = async client => {
   for (x in emojis) {
     client.responseEmojis[x] = client.emojis.get(emojis[x]).toString()
   }
-  
+
   client.guildLogs = client.channels.get('503384922564722688')
+  const dbl = new discordbotlist(process.env.DBL_KEY, client)
+
+  client.botlistclient = dbl
+
+  dbl.on('posted', () => {
+    console.log("Server count was posted!")
+  })
   // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
   // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
 
