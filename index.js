@@ -438,7 +438,7 @@ const init = async () => {
 
     }, 60000)
 
-    dbl.on('posted' () => {
+    dbl.on('posted', () => {
       console.log("Server count was posted!")
     })
 

@@ -38,6 +38,7 @@ const discord = require('discord.js')
 
 
 exports.run = (client, message, args, level) => {
+  if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote")
     var canPost = true
     var nsfw = message.channel.nsfw
     let attachment = message.attachments.array()[0]
