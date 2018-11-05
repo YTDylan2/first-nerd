@@ -33,7 +33,7 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     let reason = args.join(" ")
     let realReason = reason || "Kicked by " + message.author.tag
-    let perms = client.checkPerm(message.guild.members[client.id], "KICK_MEMBERS")
+    let perms = client.checkPerm(message.guild.members.get(client.id), "KICK_MEMBERS")
     if (!perms) {
      return message.channel.send(client.responseEmojis.fluster + " I need the permissions `KICK_MEMBERS` to do that! Please check my roles and try again.") 
     }
