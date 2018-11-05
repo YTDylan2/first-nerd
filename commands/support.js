@@ -30,8 +30,13 @@ exports.run = (client, message, args, level) => {
             },
             {
                 name: "Invite Link",
-                value: "It is up to you which permissions she has.\nhttps://discordapp.com/oauth2/authorize?client_id=411683313926012928&scope=bot&permissions=322566"
-            }
+                value: "It is up to you which permissions she has. Invite her [here](https://discordapp.com/oauth2/authorize?client_id=411683313926012928&scope=bot&permissions=322566)"
+            },
+            
+            {
+                name: "Help the bot!",
+                value: "You can help the bot by upvoting [here.](https://discordbots.org/bot/411683313926012928/vote)"
+            },
             ],
         },
     });
