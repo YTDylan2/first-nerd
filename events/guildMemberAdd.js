@@ -2,7 +2,7 @@ module.exports = (client, member) => {
   // Load the guild's settings
   client.getGuildData(member.guild).then(reply => {
     if (reply) {
-      let settings = JSON.parse(settings)
+      let settings = JSON.parse(reply)
       if (settings.welcomeEnabled !== "true") return;
 
       // replace the {user} in the welcome message with actual data
