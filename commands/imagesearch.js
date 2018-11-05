@@ -36,7 +36,20 @@ let badLinks = [
   "cancer",
   "p3nis",
   "pen1s",
-  "pvssy",
+  "pvss",
+  "boob",
+  "b00b",
+  "b0ob",
+  "bo0b",
+  "breast",
+  "br3ast",
+  "br34s",
+  "t1t",
+  "ti1t3",
+  "tit",
+  "sperm",
+  "sp3rm",
+  "pnis",
 ]
 
 const googleImages = require('google-images')
@@ -87,6 +100,12 @@ exports.run = (client, message, args, level) => {
             break
           }
         }
+        for (x in badLinks) {
+          if (image.parentPage.toLowerCase().match(badLinks[x])) {
+            canPost = false;
+            break
+          }
+        }
         if (canPost) {
           message.channel.send({embed})
         } else {
@@ -115,6 +134,6 @@ exports.conf = {
 exports.help = {
     name: "imagesearch",
     category: "Image",
-    description: "Finds an image based on your query!\nThis command requires you to have voted on Vanessa!",
+    description: "Finds an image based on your query! This command cannot filter every single result out.\nThis command requires you to have voted on Vanessa!",
     usage: "imagesearch [...search terms]"
 };
