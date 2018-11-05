@@ -9,6 +9,8 @@ exports.run = async (client, message, args, level) => {
         }
     }
     
+    user = user.user || user
+    
     let roles = []
     let count = 0;
     let member = message.guild.members.find(m => m.id == user.id)
