@@ -26,6 +26,9 @@ let info = {
     "There is also a moderation system.\n" +
     "You can find most of the commands in the Moderation section.\n" +
     "Moderation and Info categorized commands cannot be disabled category wide."
+  ],
+  field6: [
+    "Upvoting helps our recognition! Upvote [here](https://discordbots.org/bot/411683313926012928/vote)"
   ]
 }
 module.exports = (client, guild) => {
@@ -42,7 +45,10 @@ module.exports = (client, guild) => {
           embed.addField("Cleverbot", info.field1[0])
           embed.addField("Economy", info.field2[0])
           embed.addField("Roblox Verification", info.field3[0])
+          embed.addField("Moderation", info.field5[0])
+          embed.addField("Helping out", info.field6[0])
           embed.addField("Other", info.field4[0])
+          
           embed.setFooter("Stuck? Use >help")
           embed.setTimestamp()
           embed.setColor(process.env.blue)
