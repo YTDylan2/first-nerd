@@ -16,7 +16,7 @@ exports.run = async (client, message, args, level) => {
     for (x in user.member.roles.array()) {
       let role = user.member.roles.array()[x]
       if (role.name !== "@everyone") {
-        roles.push("<@" + role.id + ">, ")
+        roles.push("<@&" + role.id + ">")
       }
     }
     count = roles.length
@@ -36,6 +36,7 @@ exports.run = async (client, message, args, level) => {
     embed.addField("Roles [" + count + "]", roles, true)
     embed.setFooter("User ID: " + user.id)
     embed.setTimestamp()
+    embed.setColor(process.env.purple)
     message.channel.send({embed})
 }
 
