@@ -242,7 +242,7 @@ client.convertTime = function(string) {
       return guildMember.hasPermission(permissionName)
     } catch (e) {
       console.log('check perm fail: ' + e)
-      client.startChannel.send('check permission failure: ' + e)
+      // client.startChannel.send('check permission failure: ' + e)
     }
   }
 
