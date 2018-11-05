@@ -1,10 +1,8 @@
 const discord = require('discord.js');
 
 exports.run = async (client, message, args, level) => {
-    let user = message.mentions.members.first() || client.findGuildUser(message.guild, args[0])
-    if (!user) {
-      return message.channel.send(client.responseEmojis.fluster + " Can you please provide a user?")
-    }
+    let user = message.mentions.members.first() || client.findGuildUser(message.guild, args[0]) || message.author
+    
     let roles = []
     let count = 0;
 
