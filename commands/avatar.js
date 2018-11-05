@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-    let member = message.mentions.members.first() || client.findGuildUser(message.guild, args[0])
+    let member = message.mentions.members.first() || client.findGuildUser(message, args[0])
     if (!member) {
       return message.channel.send(client.responseEmojis.fluster + " Can you please provide a user?")
     }
