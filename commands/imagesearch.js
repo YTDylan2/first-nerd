@@ -74,7 +74,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    googleclient.search(search, {page: rPage, safe: 'high'}).then(images => {
+    googleclient.search(search, {page: rPage, safe: 'active'}).then(images => {
       let image = images[0]
       if (image) {
         let size = Math.floor(image.size / 1000)
