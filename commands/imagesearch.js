@@ -59,7 +59,6 @@ exports.run = (client, message, args, level) => {
     googleclient.search(search, {page: rPage}).then(images => {
       let image = images[0]
       if (image) {
-        let thumbnail = image.thumbnail
         let size = Math.floor(image.size / 1000)
         let dimension = image.width + "x" + image.height
         let embed = new discord.RichEmbed()
@@ -67,8 +66,8 @@ exports.run = (client, message, args, level) => {
         embed.setDescription("Image type: " + image.type)
         embed.addField("Image Filesize", "**~" + size + "KB**")
         embed.addField("Dimensions", dimension)
-        embed.setImage(thumbnail.url)
-        embed.setFooter("Requested by <@" + message.author.id + ">", message.author.avatarURL)
+        embed.setImage(image.url)
+        embed.setFooter("Requested by " + message.author.tag, message.author.avatarURL)
         embed.setColor(process.env.green)
         embed.setTimestamp()
         if (canPost) {
