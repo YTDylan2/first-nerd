@@ -398,7 +398,7 @@ const init = async () => {
     }, 57600000)
 
     setInterval(() => {
-        client.startChannel = client.channels.get('508114061599440897')
+
 
         let ordinal = require("ordinal-js")
         let buildVer = process.env.HEROKU_RELEASE_VERSION

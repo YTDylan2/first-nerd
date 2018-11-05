@@ -11,6 +11,8 @@ module.exports = async client => {
   let numb = buildVer.match(/\d/g);
   numb = numb.join("");
   numb = parseInt(numb)
+
+  let d = new Date()
   // Both `wait` and `client.log` are in `./modules/functions`.
   client.logger.log(`[READY] ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "ready");
   client.user.setActivity(`in the ${ordinal.toOrdinal(numb)} timeline. Use ${process.env.prefix}help. ` + client.guilds.size + " guilds.", "PLAYING")
@@ -36,7 +38,11 @@ module.exports = async client => {
     client.responseEmojis[x] = client.emojis.get(emojis[x]).toString()
   }
 
-  client.guildLogs = client.channels.get('503384922564722688')
+  client.guildLogs = client.channels.get('509138607068413973')
+  client.startChannel = client.channels.get('509138634969055256')
+  
+  client.startChannel.send("Ready and running at " + d)
+
   const dbl = new discordbotlist(process.env.DBL_KEY, client)
 
   client.botlistclient = dbl
