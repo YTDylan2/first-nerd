@@ -30,7 +30,8 @@ let badLinks = [
   "prn",
   "d1ck",
   "p0rn",
-  "pen15"
+  "pen15",
+  "blue waf"
 ]
 
 const googleImages = require('google-images')
@@ -42,6 +43,7 @@ exports.run = (client, message, args, level) => {
     var canPost = true
     var nsfw = message.channel.nsfw
     let search = args.join(" ")
+    let rPage = Math.floor(Math.random() * 8)
     if (search === undefined) {
         message.channel.send("Please send something to search!")
         return;
@@ -54,7 +56,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    googleclient.search(search).then(images => {
+    googleclient.search(search, {page: rPage}).then(images => {
       let image = images[0]
       if (image) {
         let thumbnail = image.thumbnail
@@ -64,8 +66,9 @@ exports.run = (client, message, args, level) => {
         embed.setAuthor("Image Result for '" + search + "'")
         embed.setDescription("Image type: " + image.type)
         embed.addField("Image Filesize", "**~" + size + "KB**")
+        embed.addField("Dimensions", dimension)
         embed.setImage(thumbnail.url)
-        embed.setFooter("Dimensions: " + dimension + " ~Vanessa")
+        embed.setFooter("Requested by <@" + message.author.id + ">", message.author.avatarURL)
         embed.setColor(process.env.green)
         embed.setTimestamp()
         if (canPost) {
