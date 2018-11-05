@@ -9,7 +9,7 @@ let badLinks = [
   "redtu",
   "liveleak",
   "brazz",
-  "bangbr",
+  "bangbros",
   "wetting",
   "nude",
   "naked",
@@ -37,6 +37,7 @@ let badLinks = [
 exports.run = (client, message, args, level) => {
     var google = require('google')
     var canPost = true
+    var nsfw = message.channel.nsfw
 
     let links = []
     let search = args.join(" ")
@@ -51,7 +52,7 @@ exports.run = (client, message, args, level) => {
         let link = linkObj.href
         let title = linkObj.title
         let desc = linkObj.description
-        
+
         if (!link) {
             message.channel.send("There were no search results.")
             return
@@ -71,10 +72,14 @@ exports.run = (client, message, args, level) => {
                 break;
               }
             }
-            if (canPost && !message.channel.nsfw) {
+            if (canPost) {
               message.channel.send(`${title}\n${link}\n\n${desc}`)
             } else {
-              message.channel.send("Sorry! The content on that page would be deemed inappropiate.")
+              if (nsfw) {
+                message.channel.send(`${title}\n${link}\n\n${desc}`)
+              } else {
+                message.channel.send("Sorry! The content on that page would be deemed inappropiate. Please try this in an NSFW channel.")
+              }
             }
 
         }

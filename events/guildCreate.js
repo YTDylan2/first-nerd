@@ -48,23 +48,24 @@ module.exports = (client, guild) => {
           embed.addField("Moderation", info.field5[0])
           embed.addField("Helping out", info.field6[0])
           embed.addField("Other", info.field4[0])
-          
+
           embed.setFooter("Stuck? Use >help")
           embed.setTimestamp()
           embed.setColor(process.env.blue)
           channel.send({embed})
-          
-          let log = new discord.RichEmbed()
-          log.setTitle("Guild Joined!")
-          log.addField("Guild Name", guild.name)
-          log.addField("Guild ID", guild.id)
-          log.addField("Users", guild.members.size)
-          log.setColor(process.env.blue)
-          log.setFooter("Joined " + guild.name + " - Vanessa")
-          log.setTimestamp()
-          client.guildLogs.send({embed: log})
+
+
         }
       }
     }
   })
+  let log = new discord.RichEmbed()
+  log.setTitle("Guild Joined!")
+  log.addField("Guild Name", guild.name)
+  log.addField("Guild ID", guild.id)
+  log.addField("Users", guild.members.size)
+  log.setColor(process.env.blue)
+  log.setFooter("Joined " + guild.name + " - Vanessa")
+  log.setTimestamp()
+  client.guildLogs.send({embed: log})
 };

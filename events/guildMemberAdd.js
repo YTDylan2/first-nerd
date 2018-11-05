@@ -3,7 +3,7 @@ module.exports = (client, member) => {
   client.getGuildData(member.guild).then(reply => {
     if (reply) {
       let settings = JSON.parse(reply)
-      if (settings.welcomeEnabled !== "true") return;
+      if (settings.welcomeEnabled !== "true" && settings.welcomeEnabled !== true) return;
 
       // replace the {user} in the welcome message with actual data
       const welcomeMessage = settings.welcomeMessage.replace("{user}", member.user.username)

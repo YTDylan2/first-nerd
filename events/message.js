@@ -28,7 +28,7 @@ function unafk(client, message) {
         delete list[message.author.id]
         message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
         client.setData("AFK", JSON.stringify(list))
-        return 
+        return
       }
     })
 }
@@ -47,6 +47,16 @@ module.exports = (client, message) => {
   let userCommandUsage = recentMessages[message.author.id]
   let ignoreList;
 
+  // Check if they voted, if so set them to our voters table
+  client.botlistclient.hasVoted(message.author.id).then(voted => {
+    if (voted) {
+      client.voters[message.author.id] = true
+    } else {
+      if (client.voters[message.author.id]) {
+        delete client.voters[message.author.id]
+      }
+    }
+  })
 
 
 
@@ -152,14 +162,14 @@ module.exports = (client, message) => {
         let user = message.mentions.members
         if (user) {
           if (!user.first()) {
-             unafk(client, message) 
-             return; 
+             unafk(client, message)
+             return;
           }
           user = user.first()
-          if (!user.id) { 
-             unafk(client, message) 
-             return; 
-          } 
+          if (!user.id) {
+             unafk(client, message)
+             return;
+          }
           client.getData("AFK").then(reply => {
             let list = JSON.parse(reply)
             if (list[user.id]) {
@@ -167,8 +177,8 @@ module.exports = (client, message) => {
                 delete list[message.author.id]
                 client.setData("AFK", JSON.stringify(list))
                 message.channel.send(client.responseEmojis.wave + " Welcome back <@" + message.author.id + ">! I removed your AFK status.").then(msg => msg.delete(5000))
-                
-                return 
+
+                return
               }
               let reason = list[user.id][0]
               let timeAfk = list[user.id][1]
@@ -182,7 +192,7 @@ module.exports = (client, message) => {
         } else {
           unafk(client, message)
         }
-        return  
+        return
       }
 
       // Here we separate our "command" name, and our "arguments" for the command.
@@ -192,7 +202,7 @@ module.exports = (client, message) => {
       var prefixTrim;
       if (prefixFound) {
         prefixTrim = message.content.slice(settings.prefix.length).trim().split(/ +/g);
-      } 
+      }
       if (defaultPrefix) {
         prefixTrim = message.content.slice(1).trim().split(/ +/g);
       }

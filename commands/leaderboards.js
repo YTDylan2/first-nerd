@@ -43,6 +43,6 @@ exports.conf = {
 exports.help = {
     name: "leaderboards",
     category: "Economy",
-    description: "Displays the top 10 in coin earning!",
+    description: "Displays the top 10 in coin earning! Refreshes every minute.",
     usage: "leaderboards"
 };

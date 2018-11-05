@@ -36,12 +36,13 @@ const config = {
       "workEarnDaily" : 500,
       "crimeMultiplier" : 1.5,
       "crimeDeductionPercent" : 2.5,
-      "crimeWinRate" : 50
+      "crimeWinRate" : 50,
+      "botOwnerPerms" : "false"
     },
     "economy" : {
-      "leaderboards" : {
+      "leaderboards" : [
 
-      },
+      ],
       "players" : {
 
       },
@@ -81,6 +82,13 @@ const config = {
       // Don't bother checking, just return true which allows them to execute any command their
       // level allows them to.
       check: () => true
+    },
+    { level: 2,
+      name: "Voter",
+      // Check if they have voted on the bot
+      check: (message) => {
+        return client.voters[message.author.id]
+      }
     },
 
     // This is your permission level, the staff levels should always be above the rest of the roles.

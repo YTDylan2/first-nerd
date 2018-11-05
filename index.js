@@ -27,6 +27,7 @@ const redis = require('redis')
 const asyncredis = require("async-redis")
 const cleverbot = require('cleverbot.io')
 const ordinal = require('ordinal-js')
+const discordbotlist = require('dblapi.js')
 const recentMessages = new Set();
 
 
@@ -34,6 +35,9 @@ const recentMessages = new Set();
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
 const client = new Discord.Client();
+const dbl = new discordbotlist(process.env.DBL_KEY, client)
+
+client.botlistclient = dbl
 
 
 // Here we load the config file that contains our token and our prefix values.
@@ -56,8 +60,11 @@ app.listen(process.env.PORT || 3000, function() {
   console.log("Running on port " + process.env.PORT)
 })
 
+// Set up some client objects / values
 client.lastCommand = "None"
 client.galaxyClickerGuildID = '501860458626547721'
+client.voters = {}
+
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
 
@@ -181,11 +188,14 @@ function secondsToHours(seconds) {
     return parseInt(seconds / 3600)
 }
 
-client.updateGlobal = function(data) {
-  client.getGuildData(data).then(response => {
+client.updateGlobal = function(guild) {
+  client.getGuildData(guild).then(response => {
     if (response) {
       let parsed = JSON.parse(response)
       let leaderboards = parsed.economy.leaderboards
+      if (!leaderboards[0]) {
+        leaderboards = []
+      }
       let players = parsed.economy.players
       for (x in players) {
          leaderboards.push([x + '', players[x].coins])
@@ -194,7 +204,7 @@ client.updateGlobal = function(data) {
          return b[1] - a[1]
       })
 
-      client.setData(data.id + '-DATA', JSON.stringify(parsed))
+      client.setData(guild.id + '-DATA', JSON.stringify(parsed))
     }
   })
 }
@@ -210,6 +220,7 @@ client.updateGuilds = async function() {
         console.log("Default settings applied for guild " + guildz[x].id)
         updated.push(guildz[x].id)
       }
+      client.updateGlobal(guildz[x])
   }
   return updated.length + " updated"
 
@@ -289,7 +300,7 @@ const init = async () => {
       client.galaxyClickerItems = JSON.parse(reply)
   })
 
-  
+
    // app stuff\
   app.use(express.static('./public'))
 
@@ -423,10 +434,13 @@ const init = async () => {
         client.user.setActivity(status[1], {type: status[0]})
         .catch(e => console.log(e))
         client.updateGuilds()
-      
-        
+
+
     }, 60000)
 
+    dbl.on('posted' () => {
+      console.log("Server count was posted!")
+    })
 
   // Generate a cache of client permissions for pretty perms
   client.levelCache = {};
