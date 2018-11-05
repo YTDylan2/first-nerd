@@ -5,8 +5,8 @@ let info = {
   field1 : [
     "You can use Cleverbot with Vanessa!\n" +
     "To use it, all you need to do is ping her with any text.\n" +
+    "This feature also works in Direct Messages."
     //"You can also use this feature in DMs! She will not respond with Cleverbot API to a message starting with `[ignore]`.\n" +
-    "**When using the Cleverbot feature, please keep in mind the owner has full access to view conversations.\nThey are viewed for tweaking the bot to be more user friendly.**"
   ],
   field2 : [
     "Vanessa has a full economy system, much like UnbelieveaBoat.\n" +
@@ -23,7 +23,9 @@ let info = {
     "Vanessa will alert you if your settings need an update."
   ],
   field5: [
-    "There is also a moderation system."
+    "There is also a moderation system.\n" +
+    "You can find most of the commands in the Moderation section.\n" +
+    "Moderation and Info categorized commands cannot be disabled category wide."
   ]
 }
 module.exports = (client, guild) => {
@@ -45,6 +47,16 @@ module.exports = (client, guild) => {
           embed.setTimestamp()
           embed.setColor(process.env.blue)
           channel.send({embed})
+          
+          let log = new discord.RichEmbed()
+          embed.setTitle("Guild Joined!")
+          embed.addField("Guild Name", guild.name)
+          embed.addField("Guild ID", guild.id)
+          embed.addField("Users", guild.members.size)
+          embed.setColor(process.env.blue)
+          embed.setFooter("Joined " + guild.name + " - Vanessa")
+          embed.setTimestamp()
+          client.guildLogs.send({embed})
         }
       }
     }
