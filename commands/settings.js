@@ -80,7 +80,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         let prettyPrint = JSON.stringify(modifiable, null, 2)
         client.hastebin(prettyPrint).then(link => {
           message.channel.send("Your guild's entire data has been uploaded to " + link + ".js")
-        })
+        }).catch(message.channel.send("There was an error trying to upload it to Hastebin."))
       }
       if (action == 'reset') {
         client.redisClient.set(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
