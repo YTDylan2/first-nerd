@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
     
     let roles = []
     let count = 0;
-    let member = message.guild.members[user.id]
+    let member = message.guild.members.find(m => m.id == user.id)
     user.member = member // incase
     for (x in user.member.roles.array()) {
       let role = user.member.roles.array()[x]
