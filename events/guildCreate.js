@@ -1,5 +1,6 @@
 // This event executes when a new guild (server) is joined.
 const discord = require('discord.js')
+const ordinal = require('ordinal-js')
 
 let info = {
   field1 : [
@@ -64,6 +65,7 @@ module.exports = (client, guild) => {
   log.addField("Guild Name", guild.name)
   log.addField("Guild ID", guild.id)
   log.addField("Users", guild.members.size)
+  log.addField("My " + ordinal.toOrdinal(client.guilds.size) + " guild", "Guild #" + client.guilds.size)
   log.setColor(process.env.blue)
   log.setFooter("Joined " + guild.name + " - Vanessa")
   log.setTimestamp()

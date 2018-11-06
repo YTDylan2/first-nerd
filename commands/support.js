@@ -34,7 +34,7 @@ exports.run = (client, message, args, level) => {
             },
 
             {
-                name: "Help the bot!",
+                name: "Voting",
                 value: "You can help the bot by upvoting [here.](https://discordbots.org/bot/411683313926012928/vote)\nBy upvoting, you get access to the `imagesearch` command!"
             },
             ],
