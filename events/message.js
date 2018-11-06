@@ -245,7 +245,12 @@ module.exports = (client, message) => {
        return message.channel.send("Sorry, but this command is guild only! " + client.responseEmojis.scream);
 
       if (level < client.levelCache[cmd.conf.permLevel]) {
-         return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!`)
+         if (client.levelCache[cmd.conf.permLevel] == 2) {
+            return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!\nYou can get that by voting for me here: https://discordbots.org/bot/411683313926012928/vote`)
+         } else {
+            return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!`)
+         }
+         
       }
 
       // don't run if disabled
