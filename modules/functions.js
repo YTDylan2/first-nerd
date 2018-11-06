@@ -259,7 +259,7 @@ client.convertTime = function(string) {
   // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
   process.on("uncaughtException", (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
-    client.logger.error(`Uncaught Exception: ${errorMsg}`);
+    client.logger.error(`Uncaught Exception:\n${errorMsg}`);
     // Always best practice to let the code crash on uncaught exceptions.
     // Because you should be catching them anyway.
      if (client.startChannel) {
@@ -272,7 +272,7 @@ client.convertTime = function(string) {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
     client.logger.error(`Unhandled rejection: ${errorMsg}`);
     if (client.startChannel) {
-      client.startChannel.send("unhandled rejection: " + err + "\nlast known command used: " + client.lastCommand)
+      client.startChannel.send("Unhandled Rejection\n" + client.clean(client, errorMsg) + "\nLast command used: " + client.lastCommand)
     }
   });
 

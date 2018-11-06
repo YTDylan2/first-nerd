@@ -5,7 +5,6 @@ module.exports = async client => {
   // for all of them to be loaded.
   var ordinal = require('ordinal-js')
   await client.wait(1000);
-  //client.startChannel = client.channels.get('491777217920106508')
 
   let buildVer = process.env.HEROKU_RELEASE_VERSION
   let numb = buildVer.match(/\d/g);
@@ -13,10 +12,12 @@ module.exports = async client => {
   numb = parseInt(numb)
 
   let d = new Date()
+
   // Both `wait` and `client.log` are in `./modules/functions`.
   client.logger.log(`[READY] ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`, "ready");
   client.user.setActivity(`in the ${ordinal.toOrdinal(numb)} timeline. Use ${process.env.prefix}help. ` + client.guilds.size + " guilds.", "PLAYING")
 
+  // String the emojis into usability
   let emojis = {
     "hmm": '508090899662897152',
     'highfive1': '508089207126884363',
@@ -38,20 +39,20 @@ module.exports = async client => {
     client.responseEmojis[x] = client.emojis.get(emojis[x]).toString()
   }
 
+  // Set up guild logging channels
   client.guildLogs = client.channels.get('509138607068413973')
   client.startChannel = client.channels.get('509138634969055256')
-  
+
   client.startChannel.send("Ready and running at " + d)
 
-  const dbl = new discordbotlist(process.env.DBL_KEY, client)
+  // Update DBL page
+  setInterval(() => {
+      if (client.botlistclient) {
+        client.botlistclient.postStats(client.guilds.size);
+        client.startChannel.send("Guild stats posted to Discord Bot List")
+      }
+  }, 1800000);
 
-  client.botlistclient = dbl
-
-  dbl.on('posted', () => {
-    console.log("Server count was posted!")
-  })
-  // We check for any guilds added while the bot was offline, if any were, they get a default configuration.
-  // client.guilds.filter(g => !client.redisCient.get(g.id)).forEach(g => client.redisClient.set(g.id, client.config.defaultSettings));
 
 
 };

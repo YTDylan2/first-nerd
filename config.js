@@ -37,7 +37,7 @@ const config = {
       "crimeMultiplier" : 1.5,
       "crimeDeductionPercent" : 2.5,
       "crimeWinRate" : 50,
-      "botOwnerPerms" : "false"
+      "botOwnerPerms" : "true"
     },
     "economy" : {
       "leaderboards" : [
@@ -184,7 +184,9 @@ const config = {
     { level: 999,
       name: "Bot Owner",
       // Another simple check, compares the message author id to the one stored in the config file.
-      check: (message) => message.client.config.ownerID === message.author.id
+      check: (message, client, data) => {
+        return message.client.config.ownerID === message.author.id && data.settings.botOwnerPerms == "true"
+      }
     }
   ]
 };

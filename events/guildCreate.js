@@ -29,7 +29,7 @@ let info = {
     "Moderation and Info categorized commands cannot be disabled category wide."
   ],
   field6: [
-    "Upvoting helps our recognition! Upvote [here](https://discordbots.org/bot/411683313926012928/vote)"
+    "Upvoting helps our recognition! Upvote [here!](https://discordbots.org/bot/411683313926012928/vote)"
   ]
 }
 module.exports = (client, guild) => {

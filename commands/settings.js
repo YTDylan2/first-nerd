@@ -40,7 +40,10 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (key == "crimeWinRate") {
           message.channel.send("This is out of 100 percent. Settings this to 35% sets the crime winning rate to 35%.")
         }
-        client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
+        if (key == "botOwnerPerms") {
+          message.channel.send("This setting determines whether the bot owner has permissions to all commands in your server.")
+        }
+        client.setData(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
           message.channel.send(`Successfully updated **${key}** to **${value}**!`)
         })
       }
@@ -48,7 +51,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let newArray = []
          let embed = new discord.RichEmbed()
          embed.setTitle("Setting Configuration")
-         embed.setDescription("These are the settings for your guild! Say `>settings edit (setting) (value)` to change it!")
+         embed.setDescription("These are the settings for your guild! Say `>settings edit (setting) (value)` to change it!\nThe settings are **caSe seNsitiVe**!")
          for (var i in modifiable.settings) {
            newArray.push(`${i} => ${modifiable.settings[i]}`)
          }
@@ -85,7 +88,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         })
       }
       if (action == 'reset') {
-        client.redisClient.set(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
+        client.setData(guildId + "-DATA", JSON.stringify(client.config.defaultSettings))
         message.channel.send("Default settings have been applied!")
       }
       if (action == "update") {
@@ -112,7 +115,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
           }
         }
         if (updatedKeys > 0) {
-          client.redisClient.set(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {       
+          client.setData(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
             message.channel.send("**" + updatedKeys + "** settings were added / updated.\n**" + removed + "** settings were removed.")
           })
         } else {
@@ -139,13 +142,14 @@ exports.conf = {
     "edit - Used to edit a setting.\n`>settings edit prefix !`\n`>settings edit workEarnMax 2400`",
     "view - Used to view settings.\n`>settings view`",
     "reset - Applies default settings.\n`>settings reset`",
-    "update - Updates settings.\n`>settings update`"
+    "update - Updates settings.\n`>settings update`",
+    "viewall - Uploads ALL your data to Hastebin."
   ]
 };
 
 exports.help = {
   name: "settings",
   category: "System",
-  description: "Configure server information!",
-  usage: "settings [option, setting, value]\nsettings edit modRole Owner\nsettings update"
+  description: "Configure server settings for Vanessa!",
+  usage: "settings [option, setting, value]\nsettings edit welcomeEnabled false\nsettings update"
 };

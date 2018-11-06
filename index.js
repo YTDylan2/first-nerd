@@ -35,6 +35,13 @@ const recentMessages = new Set();
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
 const client = new Discord.Client();
+const dbl = new discordbotlist(process.env.DBL_KEY, client)
+
+client.botlistclient = dbl
+
+dbl.on('posted', () => {
+  console.log("Server count was posted!")
+})
 
 
 
