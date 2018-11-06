@@ -36,6 +36,7 @@
     "enmap-rethink": "^2.1.2",
     "express": "^4.16.3",
     "google": "^2.1.0",
+    "google-image-query": "^1.0.3",
     "google-images": "^2.1.0",
     "http": "0.0.0",
     "image-recognition": "^1.1.0",
