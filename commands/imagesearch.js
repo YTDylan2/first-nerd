@@ -73,7 +73,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    googleImages(search, function(images) {
+    googleImages(search, function(error, images) {
       let rImage = Math.floor(Math.random() * images.length)
       let image = images[rImage] || images[0]
       if (image) {
@@ -101,6 +101,7 @@ exports.run = (client, message, args, level) => {
           }
         }
       } else {
+        console.log(error)
         return message.channel.send("Couldn't find an image for that!")
       }
 
