@@ -2,7 +2,7 @@ exports.run = (client, message, args, level) => {
     var roblox = require('noblox.js')
     var discord = require('discord.js')
     var request = require('request')
-    let member = message.mentions.members.first() || client.findGuildUser(message, args[0])
+    let member = message.mentions.members.first() || client.findGuildUser(message, args.join(" "))
     member = member.user || member
 
     if (member) {
