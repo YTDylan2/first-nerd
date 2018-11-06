@@ -56,7 +56,7 @@ const googleImages = require('g-i-s')
 const discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
-    if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote")
+    if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote\nIt may take a while for your vote to register!")
     var canPost = true
     var nsfw = message.channel.nsfw
     let search = args.join(" ")
