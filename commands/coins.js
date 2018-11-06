@@ -1,7 +1,7 @@
 // coinz
 
 exports.run = (client, message, args, level) => {
-    let user = message.mentions.members.first() || client.findGuildUser(message.guild, args[0])
+    let user = message.mentions.members.first() || client.findGuildUser(message.guild, args.join(" "))
 
     if (user) {
       let id = user.id
