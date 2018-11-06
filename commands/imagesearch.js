@@ -80,7 +80,8 @@ exports.run = (client, message, args, level) => {
         let dimension = image.width + "x" + image.height
         let embed = new discord.RichEmbed()
         embed.setAuthor("Image Result for '" + search + "'")
-        embed.addField("Dimensions", dimension)
+        embed.addField("Dimensions", dimension, true)
+        embed.addField("Result #", rImage + " out of " + images.length + " possible results", true)
         embed.setImage(image.url)
         embed.setFooter("Requested by " + message.author.tag, message.author.avatarURL)
         embed.setColor(process.env.green)
