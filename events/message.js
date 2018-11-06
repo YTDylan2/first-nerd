@@ -246,7 +246,7 @@ module.exports = (client, message) => {
 
       if (level < client.levelCache[cmd.conf.permLevel]) {
          if (client.levelCache[cmd.conf.permLevel] == 2) {
-            return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!\nYou can get that by voting for me here: https://discordbots.org/bot/411683313926012928/vote`)
+            return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!\nYou can get that by voting for me here: https://discordbots.org/bot/411683313926012928/vote\nIt may take a while for your vote to register!`)
          } else {
             return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!`)
          }
