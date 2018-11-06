@@ -52,16 +52,15 @@ let badLinks = [
   "pnis",
 ]
 
-const googleImages = require('google-images')
+const googleImages = require('g-i-s')
 const discord = require('discord.js')
-const googleclient = new googleImages(process.env.CSE_KEY, process.env.G_API_KEY)
 
 exports.run = (client, message, args, level) => {
     if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote")
     var canPost = true
     var nsfw = message.channel.nsfw
     let search = args.join(" ")
-    let rPage = Math.floor(Math.random() * 8)
+
     if (search === undefined) {
         message.channel.send("Please send something to search!")
         return;
@@ -74,15 +73,13 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    googleclient.search(search, {page: rPage, safe: 'active'}).then(images => {
-      let image = images[0]
+    googleImages.search(search, function(images) {
+      let rImage = Math.floor(Math.random() * images.length)
+      let image = images[rImage] || images[0]
       if (image) {
-        let size = Math.floor(image.size / 1000)
         let dimension = image.width + "x" + image.height
         let embed = new discord.RichEmbed()
         embed.setAuthor("Image Result for '" + search + "'")
-        embed.setDescription("Image type: " + image.type)
-        embed.addField("Image Filesize", "**~" + size + "KB**")
         embed.addField("Dimensions", dimension)
         embed.setImage(image.url)
         embed.setFooter("Requested by " + message.author.tag, message.author.avatarURL)
@@ -90,18 +87,6 @@ exports.run = (client, message, args, level) => {
         embed.setTimestamp()
         for (x in badLinks) {
           if (image.url.toLowerCase().match(badLinks[x])) {
-            canPost = false;
-            break
-          }
-        }
-        for (x in badLinks) {
-          if (image.description.toLowerCase().match(badLinks[x])) {
-            canPost = false;
-            break
-          }
-        }
-        for (x in badLinks) {
-          if (image.parentPage.toLowerCase().match(badLinks[x])) {
             canPost = false;
             break
           }
