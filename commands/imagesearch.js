@@ -73,7 +73,7 @@ exports.run = (client, message, args, level) => {
       }
     }
 
-    googleImages.search(search, function(images) {
+    googleImages(search, function(images) {
       let rImage = Math.floor(Math.random() * images.length)
       let image = images[rImage] || images[0]
       if (image) {
