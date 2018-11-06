@@ -1,7 +1,7 @@
 const discord = require('discord.js');
 
 exports.run = async (client, message, args, level) => {
-    let user = client.findGuildUser(message, args[0])
+    let user = client.findGuildUser(message, args.join(" "))
       
     if (message.mentions.members) {
         if (message.mentions.members.first()) {
