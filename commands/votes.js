@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-    let bot = client.botlistclient.getBot(client.user.id)
+    let bot = await client.botlistclient.getBot(client.user.id)
     if (bot) {
       let votes = bot.points
       message.channel.send("I have **" + votes + "** votes!")
