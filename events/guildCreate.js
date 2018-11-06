@@ -41,7 +41,7 @@ module.exports = (client, guild) => {
         if (channel) {
           let embed = new discord.RichEmbed()
           embed.setTitle("Thanks for inviting me!")
-          embed.setDescription("Thank you for inviting Vanessa to your server!")
+          embed.setDescription("Thank you for inviting Vanessa to your server! Fun fact: You are the " + ordinal.toOrdinal(client.guilds.size) + " to add the bot!")
           embed.setURL("http://discord.gg/" + process.env.supportServerCode)
           embed.addField("Cleverbot", info.field1[0])
           embed.addField("Economy", info.field2[0])
@@ -53,7 +53,9 @@ module.exports = (client, guild) => {
           embed.setFooter("Stuck? Use >help")
           embed.setTimestamp()
           embed.setColor(process.env.blue)
-          channel.send({embed})
+          channel.send({embed}).catch(e => {
+            client.startChannel.send("There was an error trying to welcome guild " + guild.name + "\n\n" + client.clean(client, e.stack) )
+          })
 
 
         }
