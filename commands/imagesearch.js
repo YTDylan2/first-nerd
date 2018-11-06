@@ -56,7 +56,7 @@ const googleImages = require('g-i-s')
 const discord = require('discord.js')
 
 exports.run = (client, message, args, level) => {
-    if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote\nIt may take a while for your vote to register!")
+    if (!client.voters[message.author.id]) return message.channel.send("You can't run this command unless you vote!\nVote me at https://discordbots.org/bot/411683313926012928/vote\n\n**It may take a while for your vote to register, so use >checkvote to check the status of your vote.**")
     var canPost = true
     var nsfw = message.channel.nsfw
     let search = args.join(" ")
@@ -114,7 +114,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["searchimage", "image-search"],
+    aliases: ["searchimage", "image-search", "imgsrch", "imgsearch"],
     permLevel: "Voter"
 };
 

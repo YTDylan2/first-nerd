@@ -236,7 +236,7 @@ module.exports = (client, message) => {
         }, 10000)
       }
 
-      if (userCommandUsage.commandCount >= 3) {
+      if (userCommandUsage.commandCount >= 3 || userCommandUsage.alerted) {
         return;
       }
       // Some commands may not be useable in DMs. This check prevents those commands from running
@@ -246,22 +246,22 @@ module.exports = (client, message) => {
 
       if (level < client.levelCache[cmd.conf.permLevel]) {
          if (client.levelCache[cmd.conf.permLevel] == 2) {
-            return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!\nYou can get that by voting for me here: https://discordbots.org/bot/411683313926012928/vote\nIt may take a while for your vote to register!`)
+            return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!\nYou can get that by voting for me here: https://discordbots.org/bot/411683313926012928/vote\n\n**It may take a while for your vote to register! You can check if you voted by using the >checkvote command.**`)
          } else {
             return message.channel.send(client.responseEmojis.fluster + ` Hehe... the minimum rank required is **(${cmd.conf.permLevel})** to use this command!`)
          }
-         
+
       }
 
       // don't run if disabled
       if (cmd.conf.enabled == false) {
-         return message.author.send("That command is disabled!")
+         return message.author.send("That command is disabled globally!")
       }
 
       // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
       // The "level" command module argument will be deprecated in the future.
       message.author.permLevel = level;
-      if (ignoredChannels[message.channel.id] && level < 3) return;
+      if (ignoredChannels[message.channel.id] && level < 3) return message.author.send(message.channel.name " in " + message.guild.name + " is command-restricted.");
       if (disabledCommands[cmd.help.name] && level < 3) {
         return message.channel.send("This command is disabled for this guild! " + client.responseEmojis.scream)
       }
