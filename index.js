@@ -27,7 +27,7 @@ const redis = require('redis')
 const asyncredis = require("async-redis")
 const cleverbot = require('cleverbot.io')
 const ordinal = require('ordinal-js')
-
+const discordbotlist = require('dblapi.js')
 const recentMessages = new Set();
 
 
