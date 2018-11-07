@@ -69,6 +69,7 @@ app.listen(process.env.PORT || 3000, function() {
 client.lastCommand = "None"
 client.galaxyClickerGuildID = '501860458626547721'
 client.voters = {}
+client.allowRandomStatuses = true
 
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
@@ -405,41 +406,40 @@ const init = async () => {
 
     setInterval(() => {
 
+        if (client.allowRandomStatuses) {
+          let ordinal = require("ordinal-js")
+          let buildVer = process.env.HEROKU_RELEASE_VERSION
+          let numb = buildVer.match(/\d/g);
+          numb = numb.join("");
+          numb = parseInt(numb)
 
-        let ordinal = require("ordinal-js")
-        let buildVer = process.env.HEROKU_RELEASE_VERSION
-        let numb = buildVer.match(/\d/g);
-        numb = numb.join("");
-        numb = parseInt(numb)
-
-        let phrases = [
-            ['WATCHING', 'you have fun.'],
-            ['PLAYING', 'with your feelings.'],
-            ['LISTENING', 'the sweet sound of your voice'],
-            ['STREAMING', 'commands to ' + client.guilds.size + ' servers!'],
-            ['WATCHING', 'you through the window. Hi!'],
-            ['PLAYING', 'with ice soup.'],
-            ['LISTENING', 'the bushes for enemies!'],
-            ['WATCHING', 'the sun set.'],
-            ['PLAYING', 'on Discord! >help'],
-            ['STREAMING', 'commands! >help'],
-            ['LISTENING', 'this song on repeat for the ' + ordinal.toOrdinal(Math.floor(Math.random() * 101)) + ' time!'],
-            ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.'],
-            ['PLAYING', 'Use @Vanessa help | help water has taken me hostage!'], // lollipopwut
-        ]
+          let phrases = [
+              ['WATCHING', 'you have fun.'],
+              ['PLAYING', 'with your feelings.'],
+              ['LISTENING', 'the sweet sound of your voice'],
+              ['STREAMING', 'commands to ' + client.guilds.size + ' servers!'],
+              ['WATCHING', 'you through the window. Hi!'],
+              ['PLAYING', 'with ice soup.'],
+              ['LISTENING', 'the bushes for enemies!'],
+              ['WATCHING', 'the sun set.'],
+              ['PLAYING', 'on Discord! >help'],
+              ['STREAMING', 'commands! >help'],
+              ['LISTENING', 'this song on repeat for the ' + ordinal.toOrdinal(Math.floor(Math.random() * 101)) + ' time!'],
+              ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.'],
+              ['PLAYING', 'Use @Vanessa help | help water has taken me hostage!'], // lollipopwut
+          ]
 
 
 
-        function random(array) {
-            return array[Math.floor(Math.random() * array.length)] || ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
+          function random(array) {
+              return array[Math.floor(Math.random() * array.length)] || ['WATCHING', 'the ' + ordinal.toOrdinal(numb) + ' timeline. Use >help or ping me for help.']
 
+          }
+          let status = random(phrases)
+          client.user.setActivity(status[1], {type: status[0]})
+          .catch(e => console.log(e))
+          client.updateGuilds()
         }
-        let status = random(phrases)
-        client.user.setActivity(status[1], {type: status[0]})
-        .catch(e => console.log(e))
-        client.updateGuilds()
-
-
     }, 60000)
 
 

@@ -24,31 +24,19 @@ const config = {
 
   "defaultSettings" : {
     "settings": {
-
-
       "prefix": ">",
       "welcomeChannel": "general",
       "welcomeMessage": "Hey there {user}! Welcome to the server!",
       "welcomeEnabled": "true",
-      "workEarnMin" : 25,
-      "workEarnMax" : 150,
-      "workEarnCooldown" : 5,
-      "workEarnDaily" : 500,
-      "crimeMultiplier" : 1.5,
-      "crimeDeductionPercent" : 2.5,
-      "crimeWinRate" : 50,
       "botOwnerPerms" : "true"
     },
-    "economy" : {
+    "playerData" : {
       "leaderboards" : [
 
       ],
       "players" : {
 
       },
-      "shopData" : {
-
-      }
     },
     "data" : {
       "ignoredChannels" : {
@@ -66,7 +54,10 @@ const config = {
       "disabledCommands" : {
 
       },
-      "disabledCategories" :{
+      "disabledCategories" : {
+
+      },
+      "commandPermissions" : {
 
       }
     }
@@ -136,6 +127,35 @@ const config = {
 
             if (!data) return false;
               let modRoles = data.data.adminRoles
+              let memberRoles = message.member.roles
+              let guildRoles = message.guild.roles
+              for (x in modRoles) {
+                if (memberRoles.has(x) || x == message.member.id) {
+                  console.log("has role " + x)
+                  passed = true
+                  break
+                }
+              }
+              // console.log(passed.length)
+
+
+
+            return passed
+        } catch (e) {
+          return false;
+        }
+      }
+    },
+
+    { level: 4.5,
+      name: "Super Administrator",
+      check: (message, client, data) => {
+        try {
+          let passed = false
+
+
+            if (!data) return false;
+              let modRoles = data.data.superAdmins
               let memberRoles = message.member.roles
               let guildRoles = message.guild.roles
               for (x in modRoles) {
