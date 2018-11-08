@@ -51,7 +51,7 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
          let newArray = []
          let embed = new discord.RichEmbed()
          embed.setTitle("Setting Configuration")
-         embed.setDescription("These are the settings for your guild! Say `>settings edit (setting) (value)` to change it!\nThe settings are **caSe seNsitiVe**!")
+         embed.setDescription("These are the settings for your guild! Say `>settings edit (setting) (value)` to change it!\nThe settings are **caSe seNsitiVe**!\n\nNeed more help/info on guild settings? Please join the support server to seek assistance (`>support`)")
          for (var i in modifiable.settings) {
            newArray.push(`${i} => ${modifiable.settings[i]}`)
          }

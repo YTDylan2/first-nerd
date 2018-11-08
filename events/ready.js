@@ -19,6 +19,7 @@ module.exports = async client => {
 
   // String the emojis into usability
   let emojis = {
+    // cuties
     "hmm": '508090899662897152',
     'highfive1': '508089207126884363',
     'highfive2': '508089347317170186',
@@ -32,6 +33,9 @@ module.exports = async client => {
     'wtf': '508089722715766784',
     'wave': '508101901498187788',
     'huh': '508102916905762867',
+    'woop': '508088637930340352',
+
+    // boxes
     'Test Box' : '509893366734127122'
   }
   client.responseEmojis = {}

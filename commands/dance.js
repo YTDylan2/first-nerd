@@ -6,9 +6,9 @@ exports.run = async (client, message, args, level) => {
     return
   }
   if (random < 5) {
-    message.channel.send(client.responseEmojis.dance1)
+    message.channel.send(client.responseEmojis.dance1).then(m => message.delete())
   } else {
-    message.channel.send(client.responseEmojis.dance2)
+    message.channel.send(client.responseEmojis.dance2).then(m => message.delete())
   }
 }
 
@@ -24,4 +24,4 @@ exports.help = {
     category: "Fun",
     description: "Dancing is fun!",
     usage: "dance"
-};  
+};
