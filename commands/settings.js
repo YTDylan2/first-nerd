@@ -14,7 +14,7 @@ const discord = require('discord.js')
 // const action = args[0]; const key = args[1]; const value = args.slice(2);
 // OR the same as:
 // const [action, key, ...value] = args;
-exports.run = (client, message, [action, key, value], level) => { // eslint-disable-line no-unused-vars
+exports.run = (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
   let guild = message.guild
   let guildId = guild.id
   client.getGuildData(guild).then(settings => {
@@ -30,7 +30,6 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (!modifiable.settings[key]) {
           return message.channel.send("That setting wasn't found!")
         }
-        modifiable.settings[key] = value
         if (key == "workEarnCooldown") {
           message.channel.send("Please note this setting is counted in seconds, setting this to `10` would give you a `10 second cooldown.`")
         }
@@ -43,8 +42,9 @@ exports.run = (client, message, [action, key, value], level) => { // eslint-disa
         if (key == "botOwnerPerms") {
           message.channel.send("This setting determines whether the bot owner has permissions to all commands in your server.")
         }
+        modifiable.settings[key] = value.join(" ")
         client.setData(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
-          message.channel.send(`Successfully updated **${key}** to **${value}**!`)
+          message.channel.send(`Successfully updated **${key}** to **${value.join(" ")}**!`)
         })
       }
       if (action == "view" || !action) {
