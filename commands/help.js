@@ -26,7 +26,7 @@ exports.run = (client, message, args, level) => {
     let settings = data.settings
     let disabledCommands = data.data.disabledCommands
     let disabledCategories = data.data.disabledCategories
-    
+
     if (!args[0]) {
       // load guild settings (for prefixes and eventually per guild tweaks)
 
@@ -63,9 +63,13 @@ exports.run = (client, message, args, level) => {
       embed.setColor(process.env.purple)
       embed.setTimestamp()
       embed.setAuthor("Vanessa", client.user.avatarURL)
-      embed.setFooter("dlivie was here owo", client.user.avatarURL)
+      embed.setFooter("Help me!!", client.user.avatarURL)
       embed.setDescription("A full list of commands! Use " +`**${settings.prefix}help [command name]** ` + "to get more help on a command!")
-      message.channel.send({embed});
+      message.author.send({embed}).then(msg => {
+        message.channel.send("Sent you a DM containing the information!")
+      }).catch(e => {
+        message.channel.send("Couldn't send you the help info! Are your Direct Messages off?")
+      })
     } else {
       // show command's help.
       let command = args[0];
