@@ -37,7 +37,7 @@ exports.run = async (client, message, args, level) => {
 
     let embed = new discord.RichEmbed()
     embed.setAuthor(user.tag, user.avatarURL)
-    embed.setDescription("<@" + user.id + ">\nRoles are in ascending order, beginning with the highest role.")
+    embed.setDescription("<@" + user.id + ">\nRoles are in descending order, beginning with the highest role.")
     embed.addField("Status on Discord", user.presence.status, true)
     embed.addField("Server Join Date", `${joinDate.month}/${joinDate.day}/${joinDate.year}`, true)
     embed.addField("Account Created at", `${registerDate.month}/${registerDate.day}/${registerDate.year}`, true)
