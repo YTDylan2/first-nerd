@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
     output = output.join("\n")
     client.hastebin(output)
     .then(link => {
-      message.channel.send("Guild data posted at " + link + "!")
+      message.channel.send("Guild data posted at " + link)
     }).catch(e => {
       message.channel.send("There was an error trying to upload guild data to Hastebin.")
     })
