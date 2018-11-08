@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => {
     for (x in guilds) {
       let guild = guilds[x]
       let pos = parseInt(x) + 1
-      let str = `${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\n`
+      let str = `${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\nGuild Owner: ${guild.owner.user.tag}\n`
       if (guild.id == message.guild.id) {
         str = str + "^ (This Guild) ^\n"
       }
@@ -37,6 +37,6 @@ exports.conf = {
 exports.help = {
     name: "guilds",
     category: "Info",
-    description: "Shows how many guilds this bot is in!",
+    description: "Shows how many guilds this bot is in!\nOn the Hastebin posted link, your guild is marked by '^ (This Guild) ^'",
     usage: "guilds"
 };
