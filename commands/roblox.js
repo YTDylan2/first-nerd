@@ -3,13 +3,18 @@ exports.run = (client, message, args, level) => {
     var discord = require('discord.js')
     var request = require('request')
     let member = message.mentions.members.first() || client.findGuildUser(message, args.join(" "))
+    if (!member) {
+      message.channel.stopTyping(true)
+      return message.channel.send("Could not find info for the person you are looking for.\nAre you looking for a **roblox user on the website?** If so, use `>rbxuser " + args.join(" ") + "`")
+    }
     member = member.user || member
 
     if (member) {
         let user = client.users.get(member.id)
         client.getData(member.id).then(reply => {
             if (reply == null) {
-                message.channel.send("Could not find info for the person you are looking for.\nAre you looking for a **roblox user on the website?** If so, use `>rbxuser " + args.join(" ") + "`")
+                return message.channel.send("Could not find info for the person you are looking for.\nAre you looking for a **roblox user on the website?** If so, use `>rbxuser " + args.join(" ") + "`")
+                message.channel.stopTyping(true)
             } else {
                 message.channel.startTyping()
                 roblox.getPlayerInfo(parseInt(reply))
