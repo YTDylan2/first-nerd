@@ -212,22 +212,22 @@ const config = {
 
   caseData : {
     "Test" : {
-      Price = 0,
-      Color = '#ffffff',
-      Chances = {
-        Common = 100
+      Price: 0,
+      Color: '#ffffff',
+      Chances: {
+        Common: 100
       },
-      Description = "A mysterious box only some can open.",
-      Emoji = 'Test Box'
+      Description: "A mysterious box only some can open.",
+      Emoji: 'Test Box'
     }
   },
 
-  defaultPlayerData = {
-    coins = 1000,
-    shards = 0,
-    votePoints = 0,
-    level = 1,
-    xp = 0,
+  defaultPlayerData : {
+    coins: 1000,
+    shards: 0,
+    votePoints: 0,
+    level: 1,
+    xp: 0,
   }
 };
 
