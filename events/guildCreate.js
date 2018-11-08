@@ -41,7 +41,7 @@ module.exports = (client, guild) => {
         if (channel) {
           let embed = new discord.RichEmbed()
           embed.setTitle("Thanks for inviting me!")
-          embed.setDescription("Thank you for inviting Vanessa to your server! Fun fact: You are the " + ordinal.toOrdinal(client.guilds.size) + " to add the bot!")
+          embed.setDescription("Thank you for inviting Vanessa to your server! Fun fact: You are the **" + ordinal.toOrdinal(client.guilds.size) + "** to add the bot!")
           embed.setURL("http://discord.gg/" + process.env.supportServerCode)
           embed.addField("Cleverbot", info.field1[0])
           embed.addField("Economy", info.field2[0])
@@ -67,6 +67,7 @@ module.exports = (client, guild) => {
   log.addField("Guild Name", guild.name)
   log.addField("Guild ID", guild.id)
   log.addField("Users", guild.members.size)
+  log.addField("Guild Owner", guild.owner.user.tag + " - <@" + guild.owner.id + ">")
   log.addField("My " + ordinal.toOrdinal(client.guilds.size) + " guild", "Guild #" + client.guilds.size)
   log.setColor(process.env.blue)
   log.setFooter("Joined " + guild.name + " - Vanessa")

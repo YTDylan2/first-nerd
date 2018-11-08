@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
     let output = []
     for (x in guilds) {
       let guild = guilds[x]
-      let pos = x + 1
+      let pos = parseInt(x) + 1
       output.push(`${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\n`)
     }
     output = output.join("\n")
