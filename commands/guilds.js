@@ -14,7 +14,7 @@ exports.run = async (client, message, args, level) => {
       let pos = parseInt(x) + 1
       let str = `${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\n`
       if (guild.id == message.guild.id) {
-        str = str + " (This Guild)"
+        str = str + "^ (This Guild) ^\n"
       }
       output.push(str)
     }
