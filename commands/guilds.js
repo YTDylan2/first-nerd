@@ -5,14 +5,18 @@ exports.run = async (client, message, args, level) => {
     let guilds = client.guilds.array()
     let guildCount = client.guilds.size
     message.channel.send("Currently in `" + guildCount + "` guilds.")
-    guilds.sort(function(b, a) {
+    guilds.sort(function(a, b) {
       return b.members.size - a.members.size
     })
     let output = []
     for (x in guilds) {
       let guild = guilds[x]
       let pos = parseInt(x) + 1
-      output.push(`${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\n`)
+      let str = `${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\n`
+      if (guild.id == message.guild.id) {
+        str = str + " (This Guild)"
+      }
+      output.push(str)
     }
     output = output.join("\n")
     client.hastebin(output)
