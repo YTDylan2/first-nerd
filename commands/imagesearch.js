@@ -66,12 +66,12 @@ exports.run = (client, message, args, level) => {
     var canPost = true
     var nsfw = message.channel.nsfw
     let search = args.join(" ")
-
+    
     if (search === undefined) {
         message.channel.send("Please send something to search!")
         return;
     }
-
+    search = client.removeAccents(search)
     for (x in badLinks) {
       if (search.toLowerCase().match(badLinks[x])) {
         canPost = false;
