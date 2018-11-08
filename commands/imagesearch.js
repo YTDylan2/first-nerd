@@ -50,6 +50,12 @@ let badLinks = [
   "sperm",
   "sp3rm",
   "pnis",
+  "fap",
+  "masturb",
+  "f4p",
+  "hot anime girls", // smfh uno
+  "h3nt",
+  
 ]
 
 const googleImages = require('g-i-s')
