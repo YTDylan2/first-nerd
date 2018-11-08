@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   if (!request) {
     var embed = new discord.RichEmbed()
     embed.setTitle("Available Boxes")
-    embed.setDescription("A list of all available boxes to open.")
+    embed.setDescription("A list of all available boxes to open.\nUse `>boxes [box name]` for specific box information.")
     embed.setColor(process.env.green)
     embed.setFooter(message.author.tag + " requested some boxes", message.author.avatarURL)
     embed.setTimestamp()

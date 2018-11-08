@@ -1,3 +1,5 @@
+const discord = require('discord.js')
+
 exports.run = async (client, message, args, level) => {
     let member = message.mentions.members.first() || client.findGuildUser(message, args[0])
     if (!member) {
@@ -5,7 +7,12 @@ exports.run = async (client, message, args, level) => {
     }
     member = member.user || member
     let picture = member.avatarURL
-    message.channel.send("Avatar for " + member.username + ": " + picture)
+
+    var embed = new discord.RichEmbed()
+    embed.setAuthor(member.tag + "'s Avatar", picture)
+    embed.setImage(picture)
+    embed.setColor(process.env.blue)
+    message.channel.send({embed})
 }
 
 exports.conf = {

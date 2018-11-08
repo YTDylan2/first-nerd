@@ -54,6 +54,13 @@ module.exports = async client => {
       }
   }, 1800000);
 
+  client.botlistclient.getVotes().then(votes => {
+    for(x in votes) {
+      let vote = votes[x]
+      client.voters[vote.id] = true
+    }
+  })
+
 
 
 };
