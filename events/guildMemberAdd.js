@@ -7,8 +7,8 @@ module.exports = (client, member) => {
       if (settings.welcomeEnabled == "true") {
           // replace the {user} in the welcome message with actual data
         var welcomeMessage = settings.welcomeMessage.replace("{user}", member.user.username)
-        welcomeMessage = settings.welcomeMessage.replace("{mention}", "<@" + member.id + ">")
-        welcomeMessage = settings.welcomeMessage.replace("{server-name}", member.guild.name)
+        welcomeMessage = welcomeMessage.replace("{mention}", "<@" + member.id + ">")
+        welcomeMessage = welcomeMessage.replace("{server-name}", member.guild.name)
         member.guild.channels.find(c => c.name == settings.welcomeChannel).send(welcomeMessage).catch(console.log(""))
         // empty cause it's just that they didn't set it yet
       }
