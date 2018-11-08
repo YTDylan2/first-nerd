@@ -8,14 +8,14 @@ exports.run = async (client, message, args, level) => {
     client.getGuildData(guild).then(reply => {
       if (reply) {
         let gData = JSON.parse(reply)
-        let serverData = gData.playerData
+        let serverData = gData.playerData.players
         if (!serverData[member.id]) {
           serverData[member.id] = client.config.defaultPlayerData
           client.saveGuildData(guild, JSON.stringify(gData)).then(done => {
             let embed = new discord.RichEmbed()
             embed.setAuthor(member.user.tag, member.user.avatarURL)
             embed.setDescription("Welcome to the club, " + member.user.tag + "!")
-            embed.addField("Successfully started your save", "You've successfully started the box game!")
+            embed.addField("Successfully started your save!", "You've successfully started the box game!")
             embed.setFooter("Welcome, " + member.user.tag, member.user.avatarURL)
             embed.setColor(process.env.green)
             embed.setTimestamp()

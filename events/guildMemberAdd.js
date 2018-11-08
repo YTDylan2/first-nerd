@@ -10,7 +10,7 @@ module.exports = (client, member) => {
         member.guild.channels.find(c => c.name == settings.welcomeChannel).send(welcomeMessage).catch(console.log)
       }
     } else {
-      console.log("error welcoming in guild " + member.guild.name)
+      // console.log("error welcoming in guild " + member.guild.name)
     }
   })
 };

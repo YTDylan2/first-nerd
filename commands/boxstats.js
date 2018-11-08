@@ -9,7 +9,7 @@ exports.run = async (client, message, args, level) => {
     client.getGuildData(guild).then(reply => {
       if (reply) {
         let gData = JSON.parse(reply)
-        let serverData = gData.playerData
+        let serverData = gData.playerData.players
         if (serverData[member.id]) {
           let player = serverData[member.id]
 
