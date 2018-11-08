@@ -31,7 +31,7 @@ exports.run = async (client, message, args, level) => {
           stats = stats.join('\n')
 
           let embed = new discord.RichEmbed()
-          embed.setAuthor(member.user.tag + "'s Stats", member.user.avatarURL)
+          embed.setAuthor(member.tag + "'s Stats", member.avatarURL)
           embed.setColor(process.env.green)
           embed.setDescription(stats)
           embed.setFooter(message.author.tag + " lookin' for stats", message.author.avatarURL)
