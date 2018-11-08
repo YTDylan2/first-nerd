@@ -205,13 +205,14 @@ client.updateGlobal = function(guild) {
 client.updateGuilds = async function() {
   let guildz = client.guilds.array()
   let updated = []
-  for (x in guildz) {
-    let response = await client.getData(guildz[x].id + '-DATA')
+  for (id in guildz) {
+    let guild = guildz[id]
+    let response = await client.getGuildData(guild)
       let gData = JSON.parse(response)
       if (!gData) {
-        client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
-        console.log("Default settings applied for guild " + guildz[x].id)
-        updated.push(guildz[x].id)
+        client.saveGuildData(guild, JSON.stringify(client.config.defaultSettings))
+        console.log("Default settings applied for guild " + guild.id)
+        updated.push(guild.id)
       } else {
         let modifiable = gData
         let updatedKeys = 0
@@ -237,8 +238,8 @@ client.updateGuilds = async function() {
           }
         }
         if (updatedKeys > 0) {
-          client.saveGuildData(guildz[x], JSON.stringify(modifiable)).then(rep => {
-            console.log(updatedKeys + " settings were added / updated.\n" + removed + " settings were removed.\nGuild " + guildz[x].id)
+          client.saveGuildData(guild, JSON.stringify(modifiable)).then(rep => {
+            console.log(updatedKeys + " settings were added / updated.\n" + removed + " settings were removed.\nGuild " + guild.id)
           })
         }
       }
