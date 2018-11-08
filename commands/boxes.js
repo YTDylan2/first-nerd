@@ -15,7 +15,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   embed.setTimestamp()
   for (box in caseData) {
     let boxData = caseData[box]
-    let format = client.responseEmojis[boxData.Emoji] || "" + `**Price: $${boxData.Price.toLocaleString()}**\n\n${boxData.Description}`
+    let format = (client.responseEmojis[boxData.Emoji] || "") + `**Price: $${boxData.Price.toLocaleString()}**\n\n${boxData.Description}`
     embed.addField(`${box} Box`, format)
   }
   message.channel.send({embed})
