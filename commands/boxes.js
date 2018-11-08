@@ -8,6 +8,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   var caseData = config.caseData
 
   let request = args[0]
+  let done = false;
 
   if (!request) {
     var embed = new discord.RichEmbed()
@@ -18,7 +19,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     embed.setTimestamp()
     for (box in caseData) {
       let boxData = caseData[box]
-      let format = (client.responseEmojis[boxData.Emoji] || "") + `- Price: $${boxData.Price.toLocaleString()}\n${boxData.Description}`
+      let format = (client.responseEmojis[boxData.Emoji] || "") + ` - Price: $${boxData.Price.toLocaleString()}\n${boxData.Description}`
       embed.addField(`${box} Box`, format)
     }
     return message.channel.send({embed})
@@ -41,11 +42,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         embed.setColor(process.env.green)
         embed.setFooter(message.author.tag + " requested box info on " + `${box} Box`, message.author.avatarURL)
         embed.setTimestamp()
+        done = true
         return message.channel.send({embed})
       }
 
     }
+    if (!done) {
+      message.channel.send("I couldn't find the box you were looking for.")
+    }
   }
+
 
 };
 

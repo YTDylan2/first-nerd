@@ -63,8 +63,9 @@ exports.run = (client, message, args, level) => {
       embed.setColor(process.env.purple)
       embed.setTimestamp()
       embed.setAuthor("Vanessa", client.user.avatarURL)
-      embed.setFooter("Help me!!", client.user.avatarURL)
+      embed.setFooter("best girl is rem no arguments", client.user.avatarURL)
       embed.setDescription("A full list of commands! Use " +`**${settings.prefix}help [command name]** ` + "to get more help on a command!")
+      embed.addField("Cleverbot", "To talk to me, either send a message to me or do the following:\n<@" + client.user.id + "> what is the longest word you know?\nTurn this off by messaging me with **cleverbot off**.\nTurn it on with **cleverbot on**.")
       message.author.send({embed}).then(msg => {
         message.channel.send("Sent you a DM containing the information!")
       }).catch(e => {

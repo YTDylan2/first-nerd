@@ -141,6 +141,18 @@ client.getPastIndex = function (index, array) {
     return member
   }
 
+
+  client.extractDate = (dateObj) => {
+    let month = dateObj.getMonth()
+    let day = dateObj.getDate()
+    let year = dateObj.getFullYear()
+    return {
+      month: month,
+      day: day,
+      year: year
+    }
+  }
+
   /*
   MESSAGE CLEAN FUNCTION
 

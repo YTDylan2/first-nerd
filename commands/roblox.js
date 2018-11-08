@@ -9,11 +9,13 @@ exports.run = (client, message, args, level) => {
         let user = client.users.get(member.id)
         client.getData(member.id).then(reply => {
             if (reply == null) {
-                message.channel.send("Could not find info for the person you are looking for.")
+                message.channel.send("Could not find info for the person you are looking for.\nAre you looking for a **roblox user on the website?** If so, use `>rbxuser " + args.join(" ") + "`")
             } else {
                 message.channel.startTyping()
                 roblox.getPlayerInfo(parseInt(reply))
                 .then(function(info) {
+                      let date = new Date(info.joinDate)
+                      let dateInfo = client.extractDate(date)
                       let embed = new discord.RichEmbed()
                       .setColor(4387926)
                       .setAuthor(user.tag, user.avatarURL)
@@ -23,7 +25,7 @@ exports.run = (client, message, args, level) => {
                       .addField("Bio", info.blurb || 'Nothing', true)
                       .addField("Feed", info.status || 'Nothing', true)
                       .addField("Account Age", info.age || 'Unresolvable')
-                      .addField("Join Date", new Date(info.joinDate).toLocaleDateString() || 'Unresolvable')
+                      .addField("Join Date", `${dateInfo.month}/${dateInfo.day}/${dateInfo.year}` || 'Unresolvable')
                       .addField("Profile Link", `https://roblox.com/users/${reply}/profile`)
                    message.channel.send({embed})
                    message.channel.stopTyping(true)

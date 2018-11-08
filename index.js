@@ -212,6 +212,35 @@ client.updateGuilds = async function() {
         client.setData(guildz[x].id + '-DATA', JSON.stringify(client.config.defaultSettings))
         console.log("Default settings applied for guild " + guildz[x].id)
         updated.push(guildz[x].id)
+      } else {
+        let modifiable = gData
+        let updatedKeys = 0
+        let removed = 0
+        for (x in client.config.defaultSettings) {
+          let section = modifiable[x]
+          if (!modifiable[x]) {
+            updatedKeys = updatedKeys + 1
+            modifiable[x] = client.config.defaultSettings[x]
+          } else {
+            for (key in client.config.defaultSettings[x]) {
+              if (!section[key]) {
+                updatedKeys = updatedKeys + 1
+                section[key] = client.config.defaultSettings[x][key]
+              }
+            }
+          }
+        }
+        for (x in modifiable) {
+          if (!client.config.defaultSettings.settings[x]) {
+            removed = removed + 1
+            delete modifiable.settings[x]
+          }
+        }
+        if (updatedKeys > 0) {
+          client.setData(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
+            console.log(updatedKeys + " settings were added / updated.\n" + removed + " settings were removed.\nGuild " + guildz[x].id)
+          })
+        }
       }
   }
   return updated.length + " updated"
@@ -427,6 +456,12 @@ const init = async () => {
           .catch(e => console.log(e))
           client.updateGuilds()
         }
+        client.botlistclient.getVotes().then(votes => {
+          for(x in votes) {
+            let vote = votes[x]
+            client.voters[vote.id] = true
+          }
+        })
     }, 60000)
 
 

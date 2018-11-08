@@ -1,22 +1,26 @@
-// ban user
+// guilds
+const ordinal = require('ordinal-js')
 
 exports.run = async (client, message, args, level) => {
     let guilds = client.guilds.array()
     let guildCount = client.guilds.size
     message.channel.send("Currently in `" + guildCount + "` guilds.")
-
+    guilds.sort(function(b, a) {
+      return b.members.size - a.members.size
+    })
     let output = []
     for (x in guilds) {
       let guild = guilds[x]
-      output.push(`${guild.name} - ${guild.id}\nMembers: ${guild.members.size}`)
+      let pos = x + 1
+      output.push(`${ordinal.toOrdinal(pos)} place: ${guild.name}\nMembers: ${guild.members.size}\nID: ${guild.id}\n`)
     }
     output = output.join("\n")
     client.hastebin(output)
     .then(link => {
-      message.channel.send("Guild data posted at " + link)
+      message.channel.send("Guild data posted at " + link + "!")
     }).catch(e => {
-          message.channel.send("There was an error trying to upload it to Hastebin.")
-        })
+      message.channel.send("There was an error trying to upload guild data to Hastebin.")
+    })
 }
 
 exports.conf = {
