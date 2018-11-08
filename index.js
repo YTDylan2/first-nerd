@@ -237,7 +237,7 @@ client.updateGuilds = async function() {
           }
         }
         if (updatedKeys > 0) {
-          client.setData(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
+          client.setData(guildz[x].id + "-DATA", JSON.stringify(modifiable)).then(rep => {
             console.log(updatedKeys + " settings were added / updated.\n" + removed + " settings were removed.\nGuild " + guildz[x].id)
           })
         }
