@@ -34,7 +34,7 @@ exports.run = (client, message, args, level) => {
    })
 }
 exports.conf = {
-    enabled: true,
+    enabled: false,
     guildOnly: false,
     aliases: ["leaders", "richest", "lb"],
     permLevel: "User"
@@ -42,7 +42,7 @@ exports.conf = {
 
 exports.help = {
     name: "leaderboards",
-    category: "Economy",
-    description: "Displays the top 10 in coin earning! Refreshes every minute.",
+    category: "Vault",
+    description: "This command is disabled until the new Game system is set in place!",
     usage: "leaderboards"
 };

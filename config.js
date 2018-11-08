@@ -9,7 +9,7 @@ const config = {
   "support": [],
 
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
-  "token": ":)",
+  "token": "the token lmao",
 
   // our prefix
   "prefix" : ">",
@@ -165,7 +165,7 @@ const config = {
                   break
                 }
               }
-              // console.log(passed.length)
+              // console.log(passed.length) nice copy pasta you noob
 
 
 
@@ -208,7 +208,27 @@ const config = {
         return message.client.config.ownerID === message.author.id && data.settings.botOwnerPerms == "true"
       }
     }
-  ]
+  ],
+
+  caseData : {
+    "Test" : {
+      Price = 0,
+      Color = '#ffffff',
+      Chances = {
+        Common = 100
+      },
+      Description = "A mysterious box only some can open.",
+      Emoji = 'Test Box'
+    }
+  },
+
+  defaultPlayerData = {
+    coins = 1000,
+    shards = 0,
+    votePoints = 0,
+    level = 1,
+    xp = 0,
+  }
 };
 
 module.exports = config;

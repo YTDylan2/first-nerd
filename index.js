@@ -197,20 +197,7 @@ function secondsToHours(seconds) {
 client.updateGlobal = function(guild) {
   client.getGuildData(guild).then(response => {
     if (response) {
-      let parsed = JSON.parse(response)
-      let leaderboards = parsed.economy.leaderboards
-      if (!leaderboards[0]) {
-        leaderboards = []
-      }
-      let players = parsed.economy.players
-      for (x in players) {
-         leaderboards.push([x + '', players[x].coins])
-      }
-      leaderboards.sort(function(a, b) {
-         return b[1] - a[1]
-      })
 
-      client.setData(guild.id + '-DATA', JSON.stringify(parsed))
     }
   })
 }
