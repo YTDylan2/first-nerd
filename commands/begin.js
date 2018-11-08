@@ -8,7 +8,7 @@ exports.run = async (client, message, args, level) => {
     client.getGuildData(guild).then(reply => {
       if (reply) {
         let gData = JSON.parse(reply)
-        let serverData = gData.players
+        let serverData = gData.playerData
         if (!serverData[member.id]) {
           serverData[member.id] = client.config.defaultPlayerData
           client.saveGuildData(guild, JSON.stringify(gData)).then(done => {
