@@ -1,7 +1,7 @@
 // say text
 
 exports.run = (client, message, args, level) => {
-    let text = message.content.slice("a!say".length)
+    let text = args.join(" ")
     if (text.match("@everyone") || text.match("@here")) {
         message.channel.send("<@" + message.author.id + ">" + " just tried to mention everyone. Shame with you!");
         return;
@@ -12,11 +12,7 @@ exports.run = (client, message, args, level) => {
     }
     if (text.length > 0 && !text.match("@everyone") && !text.match("@here")) {
         message.delete()
-        if (level < 4) {
-            message.channel.send(text + " (" + message.author.username + ")")
-        } else {
-            message.channel.send(text)
-        }
+        message.channel.send(text)
     }
 }
 
