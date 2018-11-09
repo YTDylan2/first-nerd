@@ -1,9 +1,10 @@
 // say text
 
-exports.run = (client, message, [channel, ...text], level) => {
-    let saychannel = message.guild.channels.find(c => c.name == channel)
+exports.run = (client, message, [channel, ...args], level) => {
+    let saychannel = message.guild.channels.find(c => c.name.toLowerCase() == channel.toLowerCase())
+    let text = args.join(" ")
     if (!saychannel) {
-      return message.channel.send("Please send the valid **name** of a channel! Such as `general`, `announcements`, etc.")
+      return message.channel.send("Please send the valid **name** of a channel, not the mention! Such as `general`, `announcements`, etc.")
     }
     if (text.match("@everyone") || text.match("@here")) {
         message.channel.send("<@" + message.author.id + ">" + " just tried to mention everyone. Shame with you!");
