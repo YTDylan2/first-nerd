@@ -9,7 +9,11 @@ module.exports = (client, member) => {
         var welcomeMessage = settings.welcomeMessage.replace("{user}", member.user.username)
         welcomeMessage = welcomeMessage.replace("{mention}", "<@" + member.id + ">")
         welcomeMessage = welcomeMessage.replace("{server-name}", member.guild.name)
-        member.guild.channels.find(c => c.name == settings.welcomeChannel).send(welcomeMessage).catch(console.log(""))
+
+        let channel = member.guild.channels.find(c => c.name == settings.welcomeChannel)
+        if (channel) {
+          channel.send(welcomeMessage).catch(console.log(""))
+        }
         // empty cause it's just that they didn't set it yet
       }
     } else {
