@@ -13,14 +13,15 @@ module.exports = (client, member) => {
         welcomeMessage = welcomeMessage.replace("{server-name}", member.guild.name)
         welcomeMessage = welcomeMessage.replace("{count}", member.guild.members.size.toLocaleString())
 
-        let file = member.user.avatarURL
+        let file = member.user.displayAvatarURL
 
         let channel = member.guild.channels.find(c => c.name == settings.welcomeChannel)
         if (channel) {
           let embed = new discord.RichEmbed()
-          embed.setAuthor(member.user.tag, member.user.avatarURL)
+          embed.setAuthor(member.user.tag, member.user.displayAvatarURL)
           embed.setImage(file)
           embed.setFooter("Powered by Vanessa")
+          embed.setColor(process.env.blue)
           embed.setTimestamp()
           if (settings.welcomeAvatarPicture !== "true") {
             channel.send(welcomeMessage).catch(console.log(""))
