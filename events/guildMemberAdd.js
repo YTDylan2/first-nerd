@@ -11,7 +11,7 @@ module.exports = (client, member) => {
         var welcomeMessage = settings.welcomeMessage.replace("{user}", member.user.username)
         welcomeMessage = welcomeMessage.replace("{mention}", "<@" + member.id + ">")
         welcomeMessage = welcomeMessage.replace("{server-name}", member.guild.name)
-        welcomeMessage = welcomeMessage.replace("{count}", member.guild.members.size)
+        welcomeMessage = welcomeMessage.replace("{count}", member.guild.members.size.toLocaleString())
 
         let file = member.user.avatarURL
 
