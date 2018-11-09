@@ -25,7 +25,9 @@ exports.run = (client, message, [channel, ...args], level) => {
     }
     if (text.length > 0 && !text.match("@everyone") && !text.match("@here")) {
         message.delete()
-        saychannel.send(text).catch(e => {
+        saychannel.send(text).then({
+          // yay
+        }).catch(e => {
           let stringE = e.toString()
           if (stringE.match("Permissions")) {
             return message.channel.send("Sorry, but I don't have permissions to speak in <#" + saychannel.id + ">!")

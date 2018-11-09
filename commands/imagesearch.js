@@ -1,4 +1,4 @@
-// clear messages
+
 let badLinks = [
   "porn",
   "hentai",
@@ -55,7 +55,7 @@ let badLinks = [
   "f4p",
   "hot anime girls", // smfh uno
   "h3nt",
-  
+
 ]
 
 const googleImages = require('g-i-s')
@@ -66,7 +66,7 @@ exports.run = (client, message, args, level) => {
     var canPost = true
     var nsfw = message.channel.nsfw
     let search = args.join(" ")
-    
+
     if (search === undefined) {
         message.channel.send("Please send something to search!")
         return;

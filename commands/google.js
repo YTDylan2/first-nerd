@@ -1,4 +1,3 @@
-// clear messages
 let badLinks = [
   "porn",
   "hentai",
@@ -9,7 +8,7 @@ let badLinks = [
   "redtu",
   "liveleak",
   "brazz",
-  "bangbros",
+  "bangbr",
   "wetting",
   "nude",
   "naked",
@@ -30,7 +29,32 @@ let badLinks = [
   "prn",
   "d1ck",
   "p0rn",
-  "pen15"
+  "pen15",
+  "blue waf",
+  "cock",
+  "cancer",
+  "p3nis",
+  "pen1s",
+  "pvss",
+  "boob",
+  "b00b",
+  "b0ob",
+  "bo0b",
+  "breast",
+  "br3ast",
+  "br34s",
+  "t1t",
+  "ti1t3",
+  "tit",
+  "sperm",
+  "sp3rm",
+  "pnis",
+  "fap",
+  "masturb",
+  "f4p",
+  "hot anime girls", // smfh uno
+  "h3nt",
+
 ]
 
 
