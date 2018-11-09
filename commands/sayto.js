@@ -6,6 +6,15 @@ exports.run = (client, message, [channel, ...args], level) => {
     if (!saychannel) {
       return message.channel.send("Please send the valid **name** of a channel, not the mention! Such as `general`, `announcements`, etc.")
     }
+    let permissions = saychannel.permissionsFor(message.member.id)
+    if (!permissions) {
+      return message.channel.send("You must have permission to speak in <#" + saychannel.id + ">!")
+    }
+
+    let allowed = permissions.has('SEND_MESSAGES', true)
+    if (!allowed) {
+      return message.channel.send("You must have permission to speak in <#" + saychannel.id + ">!")
+    }
     if (text.match("@everyone") || text.match("@here")) {
         message.channel.send("<@" + message.author.id + ">" + " just tried to mention everyone. Shame with you!");
         return;
