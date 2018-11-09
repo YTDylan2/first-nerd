@@ -28,6 +28,7 @@ const config = {
       "welcomeChannel": "general",
       "welcomeMessage": "Hey there {user}! Welcome to the server!",
       "welcomeEnabled": "true",
+      "welcomeAvatarPicture": "false",
       "botOwnerPerms" : "true"
     },
     "playerData" : {
