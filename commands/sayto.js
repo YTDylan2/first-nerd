@@ -1,7 +1,7 @@
 // say text
 
 exports.run = (client, message, [channel, ...args], level) => {
-    let saychannel = message.guild.channels.find(c => c.name.toLowerCase() == channel.toLowerCase())
+    let saychannel = message.guild.channels.find(c => c.name.toLowerCase() == channel.toLowerCase() && c.type == "text")
     let text = args.join(" ")
     if (!saychannel) {
       return message.channel.send("Please send the valid **name** of a channel, not the mention! Such as `general`, `announcements`, etc.")
