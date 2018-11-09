@@ -22,7 +22,7 @@ module.exports = (client, member) => {
           embed.setImage(file)
           embed.setFooter("Powered by Vanessa")
           embed.setTimestamp()
-          if (settings.welcomeAvatarPicture == "true") {
+          if (settings.welcomeAvatarPicture !== "true") {
             channel.send(welcomeMessage).catch(console.log(""))
           } else {
             channel.send(welcomeMessage, {embed: embed}).catch(console.log(""))
