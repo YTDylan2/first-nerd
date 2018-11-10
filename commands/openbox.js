@@ -49,9 +49,9 @@ exports.run = async (client, message, args, level) => {
   }
 
   if (request) {
-
+    request = request.toProperCase()
     for (box in boxData) {
-      if (box.toLowerCase() == request.toLowerCase()) {
+      if (box == request) {
         if (done) return;
         done = true
         if (currentTime - cooldownData.last < 7000) {
@@ -74,7 +74,7 @@ exports.run = async (client, message, args, level) => {
             if (playerData[message.author.id]) {
               let playerSave = playerData[message.author.id]
 
-              let data = boxData[box]
+              let data = boxData[request]
               let price = data.Price
               let coins = playerSave.coins
               if (coins < price) {
@@ -118,7 +118,7 @@ exports.run = async (client, message, args, level) => {
 
               var embed = new discord.RichEmbed()
               embed.setTitle("Box Opened")
-              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${box} Box and got: **${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
+              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${request} Box and got: **${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
               embed.addField("Stats", stats)
               embed.setThumbnail(thumbnail + item.assetId)
               embed.setColor(process.env.green)
