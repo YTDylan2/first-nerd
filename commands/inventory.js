@@ -134,7 +134,7 @@ exports.run = async (client, message, args, level) => {
 
               var embed = new discord.RichEmbed()
               embed.setAuthor(message.author.tag + "'s " + name, message.author.displayAvatarURL)
-              embed.setDescription(`Info on your ${name} collection!\n\nYou have $${priceTotal.toLocaleString()} and ${valueTotal.toLocaleString()} value in total with this item.\nThat makes it **${pricePercentage}** of your total price and **${valuePercentage}** of your total value.`)
+              embed.setDescription(`Info for ${name}!\n\nYou have $${priceTotal.toLocaleString()} and ${valueTotal.toLocaleString()} value in total with this item.\nThat makes it **${pricePercentage}** of your total price and **${valuePercentage}** of your total value.`)
               embed.addField("Amount", amount.toLocaleString(), true)
               embed.addField("Price of 1 " + name, '$' + price.toLocaleString())
               embed.addField("Value of 1 " + name, value.toLocaleString() + ' value')

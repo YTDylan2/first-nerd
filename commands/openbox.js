@@ -113,9 +113,26 @@ exports.run = async (client, message, args, level) => {
                   }
                 }
               }
+              let vowels = {
+                'a': true,
+                'e': true,
+                'i': true,
+                'o': true,
+                'u': true
+              }
+              let conjuction = " a"
+              if (item.name.match(",")) {
+                conjuction = " an"
+              }
+              if (item.name.toLowerCase().indexOf("the") == 0) {
+                conjuction = ""
+              }
+              if (vowels[item.name.toLowerCase().charAt(0)]) {
+                conjuction = " an"
+              }
               var embed = new discord.RichEmbed()
               embed.setTitle("Box Opened")
-              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${box} Box and got a ${item.name}!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
+              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${box} Box and got${conjuction} ${item.name}!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
               embed.addField("Stats", stats)
               embed.setThumbnail(thumbnail + item.assetId)
               embed.setColor(process.env.green)
