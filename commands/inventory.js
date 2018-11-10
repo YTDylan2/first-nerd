@@ -3,6 +3,7 @@
 const moment = require("moment");
 require("moment-duration-format");
 const discord = require('discord.js')
+const ordinal = require('ordinal-js')
 
 var cooldowns = {
   /*
