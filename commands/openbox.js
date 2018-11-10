@@ -22,7 +22,7 @@ function checkMacro(client, message) {
     if (commands[x] == 'openbox') {
       count = count + 1
     }
-    if (count >= 5) {
+    if (count >= 350) {
       return true
     }
   }
