@@ -35,18 +35,18 @@ exports.run = async (client, message, args, level) => {
     for (box in boxData) {
       if (box.toLowerCase() == request.toLowerCase()) {
         done = true
-        if (currentTime - cooldownData.last < 3000) {
+        if (currentTime - cooldownData.last < 7000) {
           if (!cooldownData.alerted) {
             cooldownData.alerted = true
             let timeElapsed = currentTime - cooldownData.last
-            let format = moment.duration(3000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
-            message.reply("You have to wait **" + format + "** until you can open a box!");
+            let format = moment.duration(7000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+            message.reply("You have to wait **" + format + "** until you can open a box! (7 second cooldown!)");
           }
           return;
         }
         setTimeout(() => {
           cooldownData.alerted = false
-        }, 3000)
+        }, 7000)
         cooldownData.last = currentTime
         client.getGuildData(message.guild).then(reply => {
           if (reply) {
