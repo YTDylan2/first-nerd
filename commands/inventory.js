@@ -37,7 +37,7 @@ exports.run = async (client, message, args, level) => {
       cooldownData.alerted = true
       let timeElapsed = currentTime - cooldownData.last
       let format = moment.duration(5000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
-      message.reply("You have to wait **" + format + "** until you can open a box!");
+      message.reply("You have to wait **" + format + "** until you can use this command again!");
     }
     return;
   }
@@ -81,6 +81,7 @@ exports.run = async (client, message, args, level) => {
               let amount = item[1].amount
               let name = item[1].name
               let value = item[1].value
+              let price = item[1].price
               itemData[page].push(`${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()} | ${value.toLocaleString()} value`)
             }
             if (!itemData[playerChosenPage]) {
@@ -89,7 +90,7 @@ exports.run = async (client, message, args, level) => {
             let realPages = parseInt(page) + 1
             var embed = new discord.RichEmbed()
             embed.setAuthor(message.author.tag + "'s Inventory", message.author.displayAvatarURL)
-            embed.setDescription(`All your inventory items! This is page ${playerChosenPage}/${realPages}.`)
+            embed.setDescription(`All your inventory items! This is page ${playerChosenPage + 1}/${realPages}.`)
             embed.addField("Items", itemData[playerChosenPage].join("\n"))
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " lookin' at their items", message.author.avatarURL)
@@ -104,7 +105,7 @@ exports.run = async (client, message, args, level) => {
               return message.reply("You don't have any items! Try opening a box with **>openbox**!")
             }
 
-            let chosenItem = itemArray.find(item => item[1].name.toLowerCase().match(request.toLowerCase()))
+            let chosenItem = itemArray.find(item => item[1].name.toLowerCase().match(request.join(" ").toLowerCase()))
             if (chosenItem) {
               let id = chosenItem[0]
               let name = chosenItem[1].name
@@ -206,5 +207,5 @@ exports.help = {
   name: "inventory",
   category: "WIP Commands",
   description: "Opens a box!",
-  usage: "inventory <opt. item name>"
+  usage: "inventory <opt. item name OR page #>"
 };
