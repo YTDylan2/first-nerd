@@ -32,7 +32,7 @@ module.exports = (client) => {
       return 'items error'
     }
     let winner = random(itemChoices)
-    return {winner, chosenRarity}
+    return [winner, chosenRarity]
 
 
 
