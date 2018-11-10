@@ -256,17 +256,18 @@ const config = {
             item.price = 500000
             item.value = 850000
           }
+
           for (num in rarities) {
             let rarity1 = rarities[num]
-            let rarity2 = rarities[num + 1]
+            let rarity2 = rarities[parseInt(num) + 1]
             if (rarity1 && rarity2) {
               if (item.price == rarity1[1]) {
                 item.rarity = rarity1[0]
-                break
+                // break
               }
               if (item.price == rarity2[1]) {
                 item.rarity = rarity2[0]
-                break
+                // break
               }
               if (item.price > rarity1[1] && item.price < rarity2[1]) {
                 if (rarities.length - 1 == num) {
@@ -281,7 +282,7 @@ const config = {
                   }
                 }
               }
-              break
+              // break
             }
           }
         }
