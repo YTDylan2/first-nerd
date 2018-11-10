@@ -271,23 +271,24 @@ const config = {
             }
           }
           // Set up rarity tables after items are set
-          for (n in rarities) {
-            let rarityData = rarities[n]
-            for (x in items) {
-              if (item.rarity == rarityData[0]) {
-                if (!this.boxItems[item.rarity]) {
-                  this.boxItems[item.rarity] = []
-                }
-                this.boxItems[item.rarity].push(item)
+
+        }
+        for (n in rarities) {
+          let rarityData = rarities[n]
+          for (x in items) {
+            if (item.rarity == rarityData[0]) {
+              if (!this.boxItems[item.rarity]) {
+                this.boxItems[item.rarity] = []
               }
+              this.boxItems[item.rarity].push(item)
             }
           }
+        }
 
-          for (rarity in this.boxItems) {
-            let data = this.boxItems[rarity]
-            for (x in data) {
-              console.log(rarity + " Tier loaded with " + data.length + " items!")
-            }
+        for (rarity in this.boxItems) {
+          let data = this.boxItems[rarity]
+          for (x in data) {
+            console.log(rarity + " Tier loaded with " + data.length + " items!")
           }
         }
       }
