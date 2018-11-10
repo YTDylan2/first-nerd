@@ -232,11 +232,11 @@ const config = {
 
   setUpBoxItems: () => {
     let rarities = [
-      {"Common", 0},
-      {"Rare", 7500},
-      {"Epic", 100000},
-      {"Legendary", 750000},
-      {"Mythic", 2500000},
+      ["Common", 0],
+      ["Rare", 7500],
+      ["Epic", 100000],
+      ["Legendary", 750000],
+      ["Mythic", 2500000],
     ]
     const fs = require('fs')
     let itemsJSONPath = './boxItems.json'
