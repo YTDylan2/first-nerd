@@ -257,10 +257,10 @@ const config = {
           for (num in rarities) {
             let rarity1 = rarities[num]
             let rarity2 = rarities[num + 1]
-            if (!rarity2 && item.price >= rarity1[0]) {
+            if (!rarity2 && item.price >= rarity1[1]) {
               item.rarity = rarity1[0]
             } else {
-              if (item.price <= rarity1[0]) {
+              if (item.price <= rarity1[1]) {
                 item.rarity = rarities[num - 1][0]
               }
             }
@@ -270,9 +270,10 @@ const config = {
               }
             }
           }
-          // Set up rarity tables after items are set
-
         }
+
+        // Set up rarity tables after items are set
+
         for (n in rarities) {
           let rarityData = rarities[n]
           for (x in items) {
