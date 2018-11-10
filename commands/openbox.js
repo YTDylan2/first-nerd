@@ -22,7 +22,7 @@ function checkMacro(client, message) {
     if (commands[x] == 'openbox') {
       count = count + 1
     }
-    if (count >= 350) {
+    if (count >= 5) {
       return true
     }
   }
@@ -113,7 +113,7 @@ exports.run = async (client, message, args, level) => {
                   }
                 }
               }
-              
+
               var embed = new discord.RichEmbed()
               embed.setTitle("Box Opened")
               embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${box} Box and got: **${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
