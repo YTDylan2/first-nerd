@@ -50,8 +50,8 @@ module.exports = async client => {
   }
 
   // Set up guild logging channels
-  client.guildLogs = client.channels.get('509138607068413973')
-  client.startChannel = client.channels.get('509138634969055256')
+  client.guildLogs = client.channels.get('510962197502099497')
+  client.startChannel = client.channels.get('510962401835745304')
 
   client.startChannel.send("Ready and running at " + d)
 
@@ -59,7 +59,7 @@ module.exports = async client => {
   setInterval(() => {
       if (client.botlistclient) {
         client.botlistclient.postStats(client.guilds.size);
-        client.startChannel.send("Guild stats posted to Discord Bot List")
+        client.startChannel.send("**Guild stats posted to Discord Bot List**")
       }
   }, 1800000);
 
