@@ -243,7 +243,8 @@ const config = {
     fs.readFile(itemsJSONPath, 'utf8', function(err, data) {
       if (data) {
         let package = JSON.parse(data)
-        let items = package.items
+        let itemData = package.items
+        let items = itemData
         for (x in items) {
           let item = items[x]
           if (item.price == -1) {
@@ -257,17 +258,29 @@ const config = {
           for (num in rarities) {
             let rarity1 = rarities[num]
             let rarity2 = rarities[num + 1]
-            if (!rarity2 && item.price >= rarity1[1]) {
-              item.rarity = rarity1[0]
-            } else {
-              if (item.price <= rarity1[1]) {
-                item.rarity = rarities[num - 1][0]
-              }
-            }
             if (rarity1 && rarity2) {
-              if (item.price > rarity1[1] && item.price < rarity2[1]) {
+              if (item.price == rarity1[1]) {
                 item.rarity = rarity1[0]
+                break
               }
+              if (item.price == rarity2[1]) {
+                item.rarity = rarity2[0]
+                break
+              }
+              if (item.price > rarity1[1] && item.price < rarity2[1]) {
+                if (rarities.length - 1 == num) {
+                  item.rarity = rarity2[0]
+                } else {
+                  item.rarity = rarity1[0]
+                }
+              } else {
+                if (rarities.length - 1 == num) {
+                  if (item.price >= rarity1[1]) {
+                    item.rarity = rarity1[0]
+                  }
+                }
+              }
+              break
             }
           }
         }
