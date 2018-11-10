@@ -52,6 +52,7 @@ exports.run = async (client, message, args, level) => {
 
     for (box in boxData) {
       if (box.toLowerCase() == request.toLowerCase()) {
+        if (done) return;
         done = true
         if (currentTime - cooldownData.last < 7000) {
           if (!cooldownData.alerted) {
@@ -125,8 +126,7 @@ exports.run = async (client, message, args, level) => {
               embed.setTimestamp()
 
               client.saveGuildData(message.guild, JSON.stringify(gData))
-              message.channel.send({embed})
-              break;
+              return message.channel.send({embed})
             } else {
               return message.reply("You don't have a save! Please run the command **>begin** to start your save!")
             }
