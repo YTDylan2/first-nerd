@@ -18,6 +18,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   var boxData = config.boxData
 
   let request = args[0]
+  let done = false
   let currentTime = Date.now()
   if (!cooldowns[message.author.id]) {
     cooldowns[message.author.id] = {
@@ -43,6 +44,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         setTimeout(() => {
           cooldownData.alerted = false
         }, 5000)
+        cooldownData.last = Date.now()
         client.getGuildData(message.guild).then(reply => {
           if (reply) {
             let gData = JSON.parse(reply)
@@ -98,7 +100,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
               embed.setColor(process.env.green)
               embed.setFooter(message.author.tag + " cracked a box open", message.author.avatarURL)
               embed.setTimestamp()
-
+              done = true
               client.saveGuildData(message.guild, JSON.stringify(gData))
               return message.channel.send({embed})
             } else {
@@ -109,9 +111,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
       }
     }
-    return message.channel.send({embed})
   } else {
     return message.channel.send("Don't know which box to open? Use **>boxes** for a list of boxes!")
+  }
+  if (!done) {
+    return message.channel.send("I couldn't find that box! Use **>boxes** for a list of boxes!")
   }
 
 
