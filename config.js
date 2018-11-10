@@ -264,10 +264,11 @@ const config = {
                 item.rarity = rarities[num - 1][0]
               }
             }
-            if (item.price > rarity1[1] && item.price < rarity2[1]) {
-              item.rarity = rarity1[0]
+            if (rarity1 && rarity2) {
+              if (item.price > rarity1[1] && item.price < rarity2[1]) {
+                item.rarity = rarity1[0]
+              }
             }
-
           }
           // Set up rarity tables after items are set
           for (n in rarities) {
