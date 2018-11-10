@@ -89,7 +89,7 @@ exports.run = (client, message, args, level) => {
         embed.setDescription(`The richest of the rich! This is page ${parseInt(requestedPage) + 1}/${realPages}.`)
         embed.addField("Players", leadersData[requestedPage].join("\n"))
         embed.setColor(process.env.green)
-        if (request) {
+        if (request == "price") {
           embed.addField("Tags", "**price** - Displays the richest in total price!")
         }
         embed.setFooter(message.author.tag + " looking for the rich ones", message.author.avatarURL)
