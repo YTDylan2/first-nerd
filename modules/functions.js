@@ -9,7 +9,7 @@ module.exports = (client) => {
     }
     const box = client.config.boxData[boxType]
     const items = client.config.boxItems
-    if (!case) {
+    if (!box) {
       return 'not found'
     }
 
