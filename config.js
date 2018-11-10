@@ -245,7 +245,6 @@ const config = {
       ["Legendary", 750000],
       ["Mythic", 2500000],
     ]
-    const fs = require('fs')
     let itemsJSONPath = './boxItems.json'
     let fileData = await readFile(itemsJSONPath)
       if (fileData) {
