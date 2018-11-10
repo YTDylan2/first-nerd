@@ -59,9 +59,11 @@ exports.run = async (client, message, args, level) => {
             let inventory = playerSave.inventory
             let itemArray = client.jsonToArray(inventory)
             let itemData = []
-
-            itemArray.sort(a, b => {
-              return b.amount - a.amount
+            if (itemArray.length == 0) {
+              return message.reply("You don't have any items! Try opening a box with **>openbox**!")
+            }
+            itemArray.sort( (a, b) => {
+              return b[1].amount - a[1].amount
             })
 
             let pages = itemArray.length / 10 // adding soon; only 4 items as of writing
@@ -98,8 +100,11 @@ exports.run = async (client, message, args, level) => {
             // Look for item by NAME
             let inventory = playerSave.inventory
             let itemArray = client.jsonToArray(inventory)
+            if (itemArray.length == 0) {
+              return message.reply("You don't have any items! Try opening a box with **>openbox**!")
+            }
 
-            let chosenItem = itemArray.find(item => item.name.toLowerCase().match(request.toLowerCase()))
+            let chosenItem = itemArray.find(item => item[1].name.toLowerCase().match(request.toLowerCase()))
             if (chosenItem) {
               let id = chosenItem[0]
               let name = chosenItem[1].name
@@ -144,9 +149,13 @@ exports.run = async (client, message, args, level) => {
           let itemArray = client.jsonToArray(inventory)
           let itemData = []
 
-          itemArray.sort(a, b => {
+          if (itemArray.length == 0) {
+            return message.reply("You don't have any items! Try opening a box with **>openbox**!")
+          }
+          itemArray.sort( (a, b) => {
             return b[1].amount - a[1].amount
           })
+
 
           let pages = itemArray.length / 10 // adding soon; only 4 items as of writing
           let page = 0
