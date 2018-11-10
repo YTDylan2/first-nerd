@@ -80,6 +80,7 @@ exports.run = async (client, message, args, level) => {
                 let difference = price - coins
                 return message.reply("Oops! Looks like you need " + difference + " more coins to crack this one open.")
               }
+              playerData.coins = playerData.coins - price
               let winner = client.pickBoxItem(box)
 
               let item = winner[0]

@@ -141,7 +141,7 @@ module.exports = (client, message) => {
       if (!data) {
          data = client.config.defaultSettings
       }
-
+      let rCash = Math.floor(Math.random() * 250)
       let settings = data.settings
       message.settings = settings;
 
@@ -151,12 +151,15 @@ module.exports = (client, message) => {
 
       let playerData = data.playerData.players
       if (playerData[message.author.id]) {
+
         let pSave = playerData[message.author.id]
         let status = client.checkPlayerData(pSave)
         if (status[0]) {
           playerData[message.author.id] = status[1]
-          client.saveGuildData(message.guild, JSON.stringify(data))
+
         }
+        playerData.coins = playerData.coins + rCash
+        client.saveGuildData(message.guild, JSON.stringify(data))
       }
 
 

@@ -206,14 +206,37 @@ const config = {
   ],
 
   boxData : {
-    "Test" : {
-      Price: 0,
+    "Common" : {
+      Price: 25,
       Color: '#ffffff',
       Chances: {
         Common: 80,
         Rare: 20,
       },
-      Description: "A mysterious box only some can open.",
+      Description: "A plain old box.",
+      Emoji: 'Test Box'
+    },
+    "Steel" : {
+      Price: 100,
+      Color: '#ffffff',
+      Chances: {
+        Common: 60,
+        Rare: 30,
+        Epic: 10,
+      },
+      Description: "A box with a tough ol' shell.",
+      Emoji: 'Test Box'
+    },
+    "Diamond" : {
+      Price: 400,
+      Color: '#ffffff',
+      Chances: {
+        Common: 30,
+        Rare: 30,
+        Epic: 20,
+        Legendary: 20,
+      },
+      Description: "A nice durable box made from pure diamond",
       Emoji: 'Test Box'
     }
   },
