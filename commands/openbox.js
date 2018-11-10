@@ -76,7 +76,7 @@ exports.run = async (client, message, args, level) => {
 
               let data = boxData[box]
               let price = data.Price
-              let coins = playerData.coins
+              let coins = playerSave.coins
               if (coins < price) {
                 let difference = price - coins
                 return message.reply("Oops! Looks like you need " + difference + " more coins to crack this one open.")
