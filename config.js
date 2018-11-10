@@ -228,7 +228,7 @@ const config = {
     inventory: {},
   },
 
-  boxItems: {}
+  boxItems: {},
 
   setUpBoxItems: () => {
     let rarities = [
