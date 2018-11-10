@@ -69,6 +69,9 @@ exports.run = async (client, message, args, level) => {
             let pages = itemArray.length / 10 // adding soon; only 4 items as of writing
             let page = 0
             let playerChosenPage = parseInt(request) - 1
+            if (playerChosenPage < 0) {
+              return message.reply("Page number needs to above 0!")
+            }
             for (x in itemArray) {
               if (x % 9 == 0 && x > 0) {
                 page = page + 1

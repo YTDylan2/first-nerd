@@ -48,6 +48,11 @@ exports.run = (client, message, args, level) => {
         } else {
           requestedPage = 1
         }
+        if (requestedPage < 0) {
+          return message.reply("Page number needs to above 0!")
+        }
+
+        let page = 0
         for (x in playersArray) {
           if (x % 9 == 0 && x > 0) {
             page = page + 1
@@ -108,6 +113,11 @@ exports.run = (client, message, args, level) => {
         } else {
           requestedPage = 1
         }
+        if (requestedPage < 0) {
+          return message.reply("Page number needs to above 0!")
+        }
+
+        let page = 0
         for (x in playersArray) {
           if (x % 9 == 0 && x > 0) {
             page = page + 1
