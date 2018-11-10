@@ -230,7 +230,13 @@ const config = {
 
   boxItems: {},
 
-  setUpBoxItems: () => {
+  setUpBoxItems: async () => {
+    const fs = require('fs');
+    const util = require('util');
+
+
+    const readFile = util.promisify(fs.readFile);
+
     let newData = {}
     let rarities = [
       ["Common", 0],
@@ -241,9 +247,9 @@ const config = {
     ]
     const fs = require('fs')
     let itemsJSONPath = './boxItems.json'
-    fs.readFile(itemsJSONPath, 'utf8', function(err, data) {
-      if (data) {
-        let package = JSON.parse(data)
+    let fileData = await readFile(itemsJSONPath)
+      if (fileData) {
+        let package = JSON.parse(fileData)
         let itemData = package.items
         let items = itemData
         for (x in items) {
@@ -304,12 +310,9 @@ const config = {
 
         for (rarity in newData) {
           let data = newData[rarity]
-          for (x in data) {
-            console.log(rarity + " Tier loaded with " + data.length + " items!")
-          }
+          console.log(rarity + " Tier loaded with " + data.length + " items!")
         }
       }
-    })
     return newData
   }
 };
