@@ -165,7 +165,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ["leaders", "richest", "lb"],
+    aliases: ["leaders", "richest", "lb", "leaderboard"],
     permLevel: "User",
     subCommands: [
       "value - Gets the leaders sorted by top value in the server.",

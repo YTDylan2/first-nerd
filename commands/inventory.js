@@ -94,7 +94,7 @@ exports.run = async (client, message, args, level) => {
             let realPages = parseInt(page) + 1
             var embed = new discord.RichEmbed()
             embed.setAuthor(message.author.tag + "'s Inventory", message.author.displayAvatarURL)
-            embed.setDescription(`All your inventory items! This is page ${playerChosenPage + 1}/${realPages}.`)
+            embed.setDescription(`All your inventory items! This is page ${playerChosenPage + 1}/${realPages}.\nUse **>inventory [item name]** to find an item!\nUse **>inventory [page #]** to view a certain page!`)
             embed.addField("Items", itemData[playerChosenPage || 0].join("\n"))
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " lookin' at their items", message.author.avatarURL)
@@ -162,7 +162,7 @@ exports.run = async (client, message, args, level) => {
           })
 
 
-          let pages = itemArray.length / 10 // adding soon; only 4 items as of writing
+          let pages = itemArray.length / 10
           let page = 0
           for (x in itemArray) {
             if (x % 9 == 0 && x > 0) {
@@ -184,7 +184,7 @@ exports.run = async (client, message, args, level) => {
 
           var embed = new discord.RichEmbed()
           embed.setAuthor(message.author.tag + "'s Inventory", message.author.displayAvatarURL)
-          embed.setDescription(`All your inventory items! This is page 1/${realPages}.`)
+          embed.setDescription(`All your inventory items! This is page 1/${realPages}.\nUse **>inventory [item name]** to find an item!\nUse **>inventory [page #]** to view a certain page!`)
           embed.addField("Items", itemData[0].join("\n"))
           embed.setColor(process.env.green)
           embed.setFooter(message.author.tag + " lookin' at their items", message.author.avatarURL)
@@ -203,7 +203,7 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [""],
+  aliases: ["backpack"],
   permLevel: "User"
 };
 

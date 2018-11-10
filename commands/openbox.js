@@ -97,7 +97,7 @@ exports.run = async (client, message, args, level) => {
               }
               var embed = new discord.RichEmbed()
               embed.setTitle("Box Opened")
-              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${box} Box and got a ${item.name}!`)
+              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${box} Box and got a ${item.name}!\nUse **>inventory** to view your items!`)
               embed.addField("Stats", stats)
               embed.setThumbnail(thumbnail + item.assetId)
               embed.setColor(process.env.green)
@@ -127,7 +127,7 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["spinbox"],
+  aliases: ["spinbox", "opencase"],
   permLevel: "User"
 };
 

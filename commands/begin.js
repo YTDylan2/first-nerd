@@ -15,7 +15,7 @@ exports.run = async (client, message, args, level) => {
             let embed = new discord.RichEmbed()
             embed.setAuthor(member.user.tag, member.user.avatarURL)
             embed.setDescription("Welcome to the club, " + member.user.tag + "!")
-            embed.addField("Successfully started your save!", "You've successfully started the box game!")
+            embed.addField("Successfully started your save!", "You've successfully started the box game!\nTo get started, try using `>boxes`!\nCheck your new stats using `>boxstats`!")
             embed.setFooter("Welcome, " + member.user.tag, member.user.avatarURL)
             embed.setColor(process.env.green)
             embed.setTimestamp()
