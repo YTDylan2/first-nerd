@@ -315,7 +315,7 @@ const init = async () => {
     delete require.cache[require.resolve(`./events/${file}`)];
   });
 
-  client.config.setUpBoxItems.then(boxData => {
+  client.config.setUpBoxItems().then(boxData => {
     client.config.boxItems = boxData
   })
 
