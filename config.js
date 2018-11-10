@@ -275,16 +275,16 @@ const config = {
             let rarityData = rarities[n]
             for (x in items) {
               if (item.rarity == rarityData[0]) {
-                if (!boxItems[item.rarity]) {
-                  boxItems[item.rarity] = []
+                if (!this.boxItems[item.rarity]) {
+                  this.boxItems[item.rarity] = []
                 }
-                boxItems[item.rarity].push(item)
+                this.boxItems[item.rarity].push(item)
               }
             }
           }
 
           for (rarity in boxItems) {
-            let data = boxItems[rarity]
+            let data = this.boxItems[rarity]
             for (x in data) {
               console.log(rarity + " Tier loaded with " + data.length + " items!")
             }
