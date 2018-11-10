@@ -19,7 +19,7 @@ module.exports = (client) => {
     for (x in box.Chances) {
       let chance = box.Chances[x]
       if (chance > 1) {
-        for (i = 0; i < chance; i++) do {
+        for (i = 0; i < chance; i++) {
           juggle.push(x)
         }
       }
