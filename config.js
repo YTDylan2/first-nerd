@@ -261,6 +261,9 @@ const config = {
             item.price = 500000
             item.value = 850000
           }
+          if (!item.value) {
+            item.value = item.price
+          }
 
           for (num in rarities) {
             let rarity1 = rarities[num]
