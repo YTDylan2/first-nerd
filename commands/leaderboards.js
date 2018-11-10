@@ -76,6 +76,7 @@ exports.run = (client, message, args, level) => {
           }
         }
 
+        let realPages = parseInt(page) + 1
         var embed = new discord.RichEmbed()
         embed.setTitle(message.guild.name + "'s Richest Collectors")
         embed.setDescription(`The richest of the rich! This is page ${parseInt(requestedPage) + 1}/${realPages}.`)
@@ -141,6 +142,7 @@ exports.run = (client, message, args, level) => {
           }
         }
 
+        let realPages = parseInt(page) + 1
         var embed = new discord.RichEmbed()
         embed.setTitle(message.guild.name + "'s Richest Collectors")
         embed.setDescription(`The richest of the rich! This is page ${parseInt(requestedPage) + 1}/${realPages}.`)

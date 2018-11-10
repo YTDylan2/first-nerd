@@ -90,6 +90,7 @@ exports.run = async (client, message, args, level) => {
             if (!itemData[playerChosenPage]) {
               message.reply("You don't have that many pages of items!")
             }
+
             let realPages = parseInt(page) + 1
             var embed = new discord.RichEmbed()
             embed.setAuthor(message.author.tag + "'s Inventory", message.author.displayAvatarURL)
