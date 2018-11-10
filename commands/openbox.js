@@ -1,5 +1,7 @@
 // Open box command
 
+const moment = require("moment");
+require("moment-duration-format");
 const discord = require('discord.js')
 
 var cooldowns = {
@@ -32,19 +34,21 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     for (box in boxData) {
       if (box.toLowerCase() == request.toLowerCase()) {
+        done = true
         if (currentTime - cooldownData.last < 5000) {
           if (!cooldownData.alerted) {
             cooldownData.alerted = true
             let timeElapsed = currentTime - cooldownData.last
             let format = moment.duration(5000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
-            message.channel.send("You have to wait **" + format + "** until you can open a case");
+            message.channel.send("You have to wait **" + format + "** until you can open a box!");
+            return;
           }
 
         }
         setTimeout(() => {
           cooldownData.alerted = false
         }, 5000)
-        cooldownData.last = Date.now()
+        cooldownData.last = currentTime
         client.getGuildData(message.guild).then(reply => {
           if (reply) {
             let gData = JSON.parse(reply)
@@ -100,7 +104,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
               embed.setColor(process.env.green)
               embed.setFooter(message.author.tag + " cracked a box open", message.author.avatarURL)
               embed.setTimestamp()
-              done = true
+
               client.saveGuildData(message.guild, JSON.stringify(gData))
               return message.channel.send({embed})
             } else {
