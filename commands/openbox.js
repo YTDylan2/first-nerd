@@ -31,10 +31,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     for (box in boxData) {
       if (box.toLowerCase() == request.toLowerCase()) {
-        if (now - cooldownData.last < 5000) {
+        if (currentTime - cooldownData.last < 5000) {
           if (!cooldownData.alerted) {
             cooldownData.alerted = true
-            let timeElapsed = now - cooldownData.last
+            let timeElapsed = currentTime - cooldownData.last
             let format = moment.duration(5000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
             message.channel.send("You have to wait **" + format + "** until you can open a case");
           }
