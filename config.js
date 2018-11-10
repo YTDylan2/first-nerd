@@ -276,6 +276,7 @@ const config = {
         for (n in rarities) {
           let rarityData = rarities[n]
           for (x in items) {
+            let item = items[x]
             if (item.rarity == rarityData[0]) {
               if (!this.boxItems[item.rarity]) {
                 this.boxItems[item.rarity] = []
