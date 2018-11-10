@@ -28,14 +28,14 @@ exports.run = (client, message, args, level) => {
           let aPriceTotal = 0
           let bPriceTotal = 0
 
-          for (x in a[1].inventory) {
-            let item = a[1].inventory[x]
+          for (y in a[1].inventory) {
+            let item = a[1].inventory[y]
             let amount = item.amount
             aPriceTotal = aPriceTotal + (amount * item.price)
           }
 
-          for (x in b[1].inventory) {
-            let item = b[1].inventory[x]
+          for (z in b[1].inventory) {
+            let item = b[1].inventory[z]
             let amount = item.amount
             bPriceTotal = bPriceTotal + (amount * item.price)
           }
@@ -63,8 +63,8 @@ exports.run = (client, message, args, level) => {
 
           let priceTotal = 0
           let inventory = playersArray[x][1].inventory
-          for (x in inventory) {
-            let item = inventory[x]
+          for (n in inventory) {
+            let item = inventory[n]
             let amount = item.amount
             priceTotal = priceTotal + (amount * item.price)
           }
@@ -80,7 +80,7 @@ exports.run = (client, message, args, level) => {
         var embed = new discord.RichEmbed()
         embed.setTitle(message.guild.name + "'s Richest Collectors")
         embed.setDescription(`The richest of the rich! This is page ${parseInt(requestedPage) + 1}/${realPages}.`)
-        embed.addField("Players", itemData[requestedPage].join("\n"))
+        embed.addField("Players", leadersData[requestedPage].join("\n"))
         embed.setColor(process.env.green)
         if (request) {
           embed.addField("Tags", "**price** - Displays the richest in total price!")
@@ -94,14 +94,14 @@ exports.run = (client, message, args, level) => {
           let aValueTotal = 0
           let bValueTotal = 0
 
-          for (x in a[1].inventory) {
-            let item = a[1].inventory[x]
+          for (y in a[1].inventory) {
+            let item = a[1].inventory[y]
             let amount = item.amount
             aValueTotal = aValueTotal + (amount * item.price)
           }
 
-          for (x in b[1].inventory) {
-            let item = b[1].inventory[x]
+          for (z in b[1].inventory) {
+            let item = b[1].inventory[z]
             let amount = item.amount
             bValueTotal = bValueTotal + (amount * item.price)
           }
@@ -129,8 +129,8 @@ exports.run = (client, message, args, level) => {
 
           let valueTotal = 0
           let inventory = playersArray[x][1].inventory
-          for (x in inventory) {
-            let item = inventory[x]
+          for (n in inventory) {
+            let item = inventory[n]
             let amount = item.amount
             valueTotal = valueTotal + (amount * item.price)
           }
@@ -146,7 +146,7 @@ exports.run = (client, message, args, level) => {
         var embed = new discord.RichEmbed()
         embed.setTitle(message.guild.name + "'s Richest Collectors")
         embed.setDescription(`The richest of the rich! This is page ${parseInt(requestedPage) + 1}/${realPages}.`)
-        embed.addField("Players", itemData[requestedPage].join("\n"))
+        embed.addField("Players", leadersData[requestedPage].join("\n"))
         embed.setColor(process.env.green)
         embed.addField("Tags", "**value** - Displays the richest in value!")
         embed.setFooter(message.author.tag + " looking for the rich ones", message.author.avatarURL)
