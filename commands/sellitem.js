@@ -24,7 +24,7 @@ exports.run = async (client, message, [...sellData], level) => {
   let amount = sellData.shift()
   let args = sellData.join(" ")
 
-  if (!parseInt(amount)) {
+  if (!parseInt(amount) && (amount !== "all" || amount !== "half")) {
     args = rawArgs
   }
   if (!args) {
@@ -71,6 +71,12 @@ exports.run = async (client, message, [...sellData], level) => {
 
         let item = itemsArray.find(i => i[1].name.toLowerCase().match(args.toLowerCase()))
         if (item) {
+          if (amount == "all") {
+            amount = item[1].amount
+          }
+          if (amount == "half") {
+            amount = item[1].amount / 2
+          }
           let sellAmount = parseInt(amount) || 1
           let itemAmount = item[1].amount
           let id = item[0]
