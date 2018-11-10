@@ -19,6 +19,7 @@ exports.run = async (client, message, args, level) => {
             embed.setFooter("Welcome, " + member.user.tag, member.user.avatarURL)
             embed.setColor(process.env.green)
             embed.setTimestamp()
+            message.channel.send("If you do not see a message below this one, it means I do not have permissions to send embeds. Please fix this issue and try again!")
             message.channel.send({embed})
           }).catch(e => {
             return message.channel.send("A database error has occured. Please join the support server and contact the owner.")

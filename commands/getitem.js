@@ -48,7 +48,7 @@ exports.conf = {
 
 exports.help = {
     name: "getitem",
-    category: "Galaxy Clicker Reawakened",
+    category: "GC:Re",
     description: "Find the stats of an item in the game.",
     usage: "getitem [name]"
 };

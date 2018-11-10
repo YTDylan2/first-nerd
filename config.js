@@ -1,5 +1,5 @@
 const config = {
-  // Bot Owner, level 10 by default. A User ID. Should never be anything else than the bot owner's ID.
+  // Bot Owner, level 999 by default. A User ID. Should never be anything else than the bot owner's ID.
   "ownerID": "240639333567168512",
 
   // Bot Admins, level 9 by default. Array of user ID strings.
@@ -19,8 +19,6 @@ const config = {
 
   // Default per-server settings. New guilds have these settings.
 
-  // DO NOT LEAVE ANY OF THESE BLANK, AS YOU WILL NOT BE ABLE TO UPDATE THEM
-  // VIA COMMANDS IN THE GUILD.
 
   "defaultSettings" : {
     "settings": {
@@ -71,8 +69,7 @@ const config = {
     // This is the lowest permisison level, this is for non-roled users.
     { level: 1,
       name: "User",
-      // Don't bother checking, just return true which allows them to execute any command their
-      // level allows them to.
+
       check: () => true
     },
     { level: 2,
@@ -83,14 +80,11 @@ const config = {
       }
     },
 
-    // This is your permission level, the staff levels should always be above the rest of the roles.
+
     { level: 3,
       // This is the name of the role.
       name: "Moderator",
-      // The following lines check the guild the message came from for the roles.
-      // Then it checks if the member that authored the message has the role.
-      // If they do return true, which will allow them to execute the command in question.
-      // If they don't then return false, which will prevent them from executing the command.
+
       check: (message, client, data) => {
         try {
           let passed = false
@@ -211,12 +205,13 @@ const config = {
     }
   ],
 
-  caseData : {
+  boxData : {
     "Test" : {
       Price: 0,
       Color: '#ffffff',
       Chances: {
-        Common: 100
+        Common: 80,
+        Rare: 20,
       },
       Description: "A mysterious box only some can open.",
       Emoji: 'Test Box'
@@ -229,7 +224,39 @@ const config = {
     votePoints: 0,
     level: 1,
     xp: 0,
-    sector: 'server' // Whether to display global or local
+    sector: 'server', // Whether to display global or local
+    inventory: {},
+  },
+
+  boxItems: {
+    "Common": [
+      {
+        assetId: 21070012,
+        name: "Test One",
+        price: 10000,
+        value: 25000
+      },
+      {
+        assetId: 48545806,
+        name: "Test Two",
+        price: 20000,
+        value: 30000
+      },
+    ],
+    "Rare": [
+      {
+        assetId: 250395631,
+        name: "Test Three",
+        price: 50000,
+        value: 85000
+      },
+      {
+        assetId: 162067148,
+        name: "Test Four",
+        price: 70000,
+        value: 90000
+      },
+    ]
   }
 };
 

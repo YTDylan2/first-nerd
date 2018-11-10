@@ -58,7 +58,14 @@ exports.run = (client, message, args, level) => {
         if (disabledCategories[x]) {
           x = x + " (disabled)"
         }
-        embed.addField(x, seperated)
+        if (x == "GC:Re") {
+          if (message.guild.id == client.galaxyClickerGuildID) {
+            embed.addField(x, seperated)
+          }
+        } else {
+          embed.addField(x, seperated)
+        }
+
       }
       embed.setColor(process.env.purple)
       embed.setTimestamp()

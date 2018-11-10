@@ -29,7 +29,7 @@ exports.conf = {
 
 exports.help = {
     name: "itemlist",
-    category: "Galaxy Clicker Reawakened",
+    category: "GC:Re",
     description: "Find all items ingame.",
     usage: "itemlist"
 };

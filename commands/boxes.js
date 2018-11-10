@@ -5,7 +5,7 @@ const discord = require('discord.js')
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   var config = client.config
-  var caseData = config.caseData
+  var boxData = config.boxData
 
   let request = args[0]
   let done = false;
@@ -17,27 +17,27 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     embed.setColor(process.env.green)
     embed.setFooter(message.author.tag + " requested some boxes", message.author.avatarURL)
     embed.setTimestamp()
-    for (box in caseData) {
-      let boxData = caseData[box]
-      let format = (client.responseEmojis[boxData.Emoji] || "") + ` - Price: $${boxData.Price.toLocaleString()}\n${boxData.Description}`
+    for (box in boxData) {
+      let data = boxData[box]
+      let format = (client.responseEmojis[data.Emoji] || "") + ` - Price: $${data.Price.toLocaleString()}\n${data.Description}`
       embed.addField(`${box} Box`, format)
     }
     return message.channel.send({embed})
   } else {
-    for (box in caseData) {
+    for (box in boxData) {
       if (box.toLowerCase() == request.toLowerCase()) {
-        let boxData = caseData[box]
+        let data = boxData[box]
         let rarityFormat = []
-        for (rarityName in boxData.Chances) {
-          let chance = boxData.Chances[rarityName]
+        for (rarityName in data.Chances) {
+          let chance = data.Chances[rarityName]
           rarityFormat.push(`${rarityName} - ${chance}%`)
         }
         rarityFormat = rarityFormat.join("\n") // DAB ARRAY LINEBREAKING
 
         var embed = new discord.RichEmbed()
         embed.setTitle(`${box} Box`)
-        embed.setDescription(`${(client.responseEmojis[boxData.Emoji] || "")} ${boxData.Description}`)
-        embed.addField("Price", `$${boxData.Price}`)
+        embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} ${data.Description}`)
+        embed.addField("Price", `$${data.Price}`)
         embed.addField("Box Chances", rarityFormat)
         embed.setColor(process.env.green)
         embed.setFooter(message.author.tag + " requested box info on " + `${box} Box`, message.author.avatarURL)
@@ -48,7 +48,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     }
     if (!done) {
-      message.channel.send("I couldn't find the box you were looking for.")
+      message.channel.send("I couldn't find the box you were looking for. Please make sure you spell it correctly!")
     }
   }
 

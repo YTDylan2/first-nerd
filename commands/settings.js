@@ -30,15 +30,6 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
         if (!modifiable.settings[key]) {
           return message.channel.send("That setting wasn't found!")
         }
-        if (key == "workEarnCooldown") {
-          message.channel.send("Please note this setting is counted in seconds, setting this to `10` would give you a `10 second cooldown.`")
-        }
-        if (key == "crimeDeductionPercent") {
-          message.channel.send("Please note this setting is based off how much money the user has at that moment.")
-        }
-        if (key == "crimeWinRate") {
-          message.channel.send("This is out of 100 percent. Settings this to 35% sets the crime winning rate to 35%.")
-        }
         if (key == "botOwnerPerms") {
           message.channel.send("This setting determines whether the bot owner has permissions to all commands in your server.")
         }
@@ -56,6 +47,7 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
            newArray.push(`${i} => ${modifiable.settings[i]}`)
          }
          let missingKeys = 0
+         let oldKeys = 0
          for (x in client.config.defaultSettings.settings) {
            if (!modifiable.settings[x]) {
              missingKeys = missingKeys + 1
@@ -66,12 +58,26 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
              missingKeys = missingKeys + 1
            }
          }
+
+         for (x in modifiable) {
+           let section = client.config.defaultSettings[x]
+           if (!section) {
+             oldKeys = oldKeys + 1
+           } else {
+             for (key in client.config.defaultSettings[x]) {
+               if (!section[key]) {
+                 oldKeys = oldKeys + 1
+               }
+             }
+           }
+         }
          let str = newArray.join("\n")
          let modifiedStr = "```js\n" + str + "\n```"
          if (missingKeys > 0) {
-           if (missingKeys > 0) {
-             embed.addField("Important Notice", "**Reminder: You are missing " + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
-           }
+             embed.addField("Missing Settings", "**Reminder: You are missing " + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
+         }
+         if (oldKeys > 0) {
+             embed.addField("Old Settings", "**Reminder: You have **" + oldKeys + "** old setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
          }
          embed.addField("Settings", modifiedStr)
          embed.setFooter("ten millien fyreflys", client.user.avatarURL)
@@ -109,12 +115,21 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
           }
         }
         for (x in modifiable) {
-          if (!client.config.defaultSettings.settings[x]) {
+          let section = client.config.defaultSettings[x]
+          if (!section) {
             removed = removed + 1
-            delete modifiable.settings[x]
+            delete modifiable[x]
+          } else {
+            for (key in client.config.defaultSettings[x]) {
+              if (!section[key]) {
+                removed = removed + 1
+                delete modifiable[x][key]
+              }
+            }
           }
         }
-        if (updatedKeys > 0) {
+
+        if (updatedKeys > 0 || removed > 0) {
           client.setData(guildId + "-DATA", JSON.stringify(modifiable)).then(rep => {
             message.channel.send("**" + updatedKeys + "** settings were added / updated.\n**" + removed + "** settings were removed.")
           })

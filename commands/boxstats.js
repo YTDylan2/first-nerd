@@ -19,8 +19,21 @@ exports.run = async (client, message, args, level) => {
           let level = player.level.toLocaleString()
           let xp = player.xp.toLocaleString()
           let sector = player.sector.toProperCase()
+          let inventory = player.inventory
+
+          let priceTotal = 0
+          let valueTotal = 0
+
+          for (x in inventory) {
+            let item = inventory[x]
+            let amount = item.amount
+            priceTotal = priceTotal + (amount * item.price)
+            valueTotal = valueTotal + (amount * item.value)
+          }
 
           let stats = [
+            `Total Item Worth: ${priceTotal.toLocaleString()}`,
+            `Total Value: ${valueTotal.toLocaleString()}\n`,
             `Coins: ${coins}`,
             `Shards: ${shards}`,
             `Voter Points: ${votePoints}`,
