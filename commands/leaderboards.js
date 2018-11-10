@@ -46,9 +46,9 @@ exports.run = (client, message, args, level) => {
             requestedPage = parseInt(requestedPage) - 1
           }
         } else {
-          requestedPage = 1
+          requestedPage = 0
         }
-        if (requestedPage <= 0) {
+        if (requestedPage <= -1) {
           return message.reply("Page number needs to above 0!")
         }
 
@@ -112,9 +112,9 @@ exports.run = (client, message, args, level) => {
             requestedPage = parseInt(requestedPage) - 1
           }
         } else {
-          requestedPage = 1
+          requestedPage = 0
         }
-        if (requestedPage <= 0) {
+        if (requestedPage <= -1) {
           return message.reply("Page number needs to above 0!")
         }
 
