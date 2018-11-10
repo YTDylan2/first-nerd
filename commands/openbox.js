@@ -15,6 +15,20 @@ var cooldowns = {
 
 }
 
+function checkMacro(client, message) {
+  let commands = client.commandLogs[message.author.id]
+  let count = 0;
+  for (x in commands) {
+    if (commands[x] == 'openbox') {
+      count = count + 1
+    }
+    if (count >= 350) {
+      return true
+    }
+  }
+  return false
+}
+
 exports.run = async (client, message, args, level) => {
   var config = client.config
   var boxData = config.boxData
@@ -29,6 +43,10 @@ exports.run = async (client, message, args, level) => {
     }
   }
   let cooldownData = cooldowns[message.author.id]
+  let macroing = checkMacro(client, message)
+  if (macroing) {
+    return message.reply("Sorry, you can only run this command 350 times every hour.")
+  }
 
   if (request) {
 
@@ -133,7 +151,7 @@ exports.conf = {
 
 exports.help = {
   name: "openbox",
-  category: "WIP Commands",
+  category: "Box Game Commands",
   description: "Opens a box!",
   usage: "openbox [box name]"
 };

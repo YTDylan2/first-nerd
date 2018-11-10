@@ -228,35 +228,69 @@ const config = {
     inventory: {},
   },
 
-  boxItems: {
-    "Common": [
-      {
-        assetId: 21070012,
-        name: "Dominus Empreyus",
-        price: 10000,
-        value: 25000
-      },
-      {
-        assetId: 48545806,
-        name: "Dominus Frigidus",
-        price: 20000,
-        value: 30000
-      },
-    ],
-    "Rare": [
-      {
-        assetId: 250395631,
-        name: "Dominus Rex",
-        price: 50000,
-        value: 85000
-      },
-      {
-        assetId: 162067148,
-        name: "Dominus Astra",
-        price: 70000,
-        value: 90000
-      },
+  boxItems: {}
+
+  setUpBoxItems: () => {
+    let rarities = [
+      {"Common", 0},
+      {"Rare", 7500},
+      {"Epic", 100000},
+      {"Legendary", 750000},
+      {"Mythic", 2500000},
     ]
+    const fs = require('fs')
+    let itemsJSONPath = './boxItems.json'
+    fs.readFile(itemsJSONPath, 'utf8', function(err, data) {
+      if (data) {
+        let package = JSON.parse(data)
+        let items = package.items
+        for (x in items) {
+          let item = items[x]
+          if (item.price == -1) {
+            item.price = 2500000
+            item.value = 3500000
+          }
+          if (item.price == 0) {
+            item.price = 500000
+            item.value = 850000
+          }
+          for (num in rarities) {
+            let rarity1 = rarities[num]
+            let rarity2 = rarities[num + 1]
+            if (!rarity2 && item.price >= rarity1[0]) {
+              item.rarity = rarity1[0]
+            } else {
+              if (item.price <= rarity1[0]) {
+                item.rarity = rarities[num - 1][0]
+              }
+            }
+            if (item.price > rarity1[1] && item.price < rarity2[1]) {
+              item.rarity = rarity1[0]
+            }
+
+          }
+          // Set up rarity tables after items are set
+          for (n in rarities) {
+            let rarityData = rarities[n]
+            for (x in items) {
+              if (item.rarity == rarityData[0]) {
+                if (!boxItems[item.rarity]) {
+                  boxItems[item.rarity] = []
+                }
+                boxItems[item.rarity].push(item)
+              }
+            }
+          }
+
+          for (rarity in boxItems) {
+            let data = boxItems[rarity]
+            for (x in data) {
+              console.log(rarity + " Tier loaded with " + data.length + " items!")
+            }
+          }
+        }
+      }
+    })
   }
 };
 

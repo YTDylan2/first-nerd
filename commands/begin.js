@@ -48,7 +48,7 @@ exports.conf = {
 
 exports.help = {
     name: "begin",
-    category: "WIP Commands",
+    category: "Box Game Commands",
     description: "Begin your journey here!",
     usage: "begin"
 };

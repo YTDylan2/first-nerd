@@ -64,7 +64,7 @@ exports.conf = {
 
 exports.help = {
   name: "boxes",
-  category: "WIP Commands",
+  category: "Box Game Commands",
   description: "Views the boxes you can open.",
   usage: "boxes"
 };

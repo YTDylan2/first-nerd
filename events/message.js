@@ -59,6 +59,9 @@ module.exports = (client, message) => {
       }
     })
   }
+  if (!client.commandLogs[message.author.id]) {
+    client.commandLogs[message.author.id] = []
+  }
 
 
 
@@ -277,6 +280,11 @@ module.exports = (client, message) => {
       // If the command exists, **AND** the user has permission, run it.
       client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
       client.lastCommand = settings.prefix + cmd.help.name
+      if (message.guild) {
+        if (message.guild.id == '510690871390502912') {
+          client.commandLogs[message.author.id].push(cmd.help.name)
+        }
+      }
       try {
         cmd.run(client, message, args, level);
       } catch (e) {

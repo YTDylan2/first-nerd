@@ -58,12 +58,14 @@ exports.run = (client, message, args, level) => {
 
         let page = 0
         for (x in playersArray) {
-          if (x % 9 == 0 && x > 0) {
+          if (x % 10 == 0 && x > 0) {
             page = page + 1
           }
           if (!leadersData[page]) {
             leadersData[page] = []
           }
+          let pos = parseInt(x) + 1
+          pos = ordinal.toOrdinal(pos)
 
           let priceTotal = 0
           let inventory = playersArray[x][1].inventory
@@ -74,9 +76,9 @@ exports.run = (client, message, args, level) => {
           }
           let user = client.users.get(playersArray[x][0])
           if (user) {
-            leadersData[page].push(`${user.tag} | **$${priceTotal.toLocaleString()}**`)
+            leadersData[page].push(`${pos}. ${user.tag} | **$${priceTotal.toLocaleString()}**`)
           } else {
-            leadersData[page].push(`An unknown user | **$${priceTotal.toLocaleString()}**`)
+            leadersData[page].push(`${pos}. An unknown user | **$${priceTotal.toLocaleString()}**`)
           }
         }
         if (!leadersData[requestedPage]) {
@@ -127,7 +129,7 @@ exports.run = (client, message, args, level) => {
 
         let page = 0
         for (x in playersArray) {
-          if (x % 9 == 0 && x > 0) {
+          if (x % 10 == 0 && x > 0) {
             page = page + 1
           }
           if (!leadersData[page]) {
@@ -179,7 +181,7 @@ exports.conf = {
 
 exports.help = {
     name: "leaderboards",
-    category: "WIP Commands",
+    category: "Box Game Commands",
     description: "Gets the top leaders in the server!",
     usage: "leaderboards [option] [page #]"
 };

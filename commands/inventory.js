@@ -73,7 +73,7 @@ exports.run = async (client, message, args, level) => {
               return message.reply("Page number needs to above 0!")
             }
             for (x in itemArray) {
-              if (x % 9 == 0 && x > 0) {
+              if (x % 10 == 0 && x > 0) {
                 page = page + 1
               }
               if (!itemData[page]) {
@@ -165,19 +165,21 @@ exports.run = async (client, message, args, level) => {
           let pages = itemArray.length / 10
           let page = 0
           for (x in itemArray) {
-            if (x % 9 == 0 && x > 0) {
+            if (x % 10 == 0 && x > 0) {
               page = page + 1
             }
             if (!itemData[page]) {
               itemData[page] = []
             }
+            let pos = parseInt(x) + 1
+            pos = ordinal.toOrdinal(pos)
 
             let item = itemArray[x]
             let amount = item[1].amount
             let name = item[1].name
             let price = item[1].price
             let value = item[1].value
-            itemData[page].push(`${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()} | ${value.toLocaleString()} value`)
+            itemData[page].push(`${pos}. ${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()} | ${value.toLocaleString()} value`)
           }
 
           let realPages = parseInt(page) + 1
@@ -209,7 +211,7 @@ exports.conf = {
 
 exports.help = {
   name: "inventory",
-  category: "WIP Commands",
+  category: "Box Game Commands",
   description: "Opens a box!",
   usage: "inventory <opt. item name OR page #>"
 };

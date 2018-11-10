@@ -69,7 +69,9 @@ app.listen(process.env.PORT || 3000, function() {
 client.lastCommand = "None"
 client.galaxyClickerGuildID = '501860458626547721'
 client.voters = {}
+client.commandLogs = {}
 client.allowRandomStatuses = true
+
 
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
@@ -83,12 +85,6 @@ Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
         console.log("login error: " + err)
         // client.startChannel.send('there was a login error, check logs')
     });
-
-var groupBanned = {
-    '294976424' : true,
-    '620089904' : true,
-}
-
 function sendErr(res, json, status) {
     res.json(json);
 }
@@ -287,7 +283,10 @@ client.aliases = new Enmap();
 
 // set up redis
 client.redisClient = redis.createClient({url: process.env.REDIS_URL})
+client.itemDatastore = redis.createClient({url: process.env.HEROKU_REDIS_BRONZE_URL})
+
 asyncredis.decorate(client.redisClient)
+asyncredis.decorate(client.itemDatastore)
 
 // We're doing real fancy node 8 async/await stuff here, and to do that
 // we need to wrap stuff in an anonymous function. It's annoying but it works.
@@ -389,16 +388,11 @@ const init = async () => {
          }
          for (x in body.data) {
              var userData = body.data[x]
-             if (!groupBanned[userData.userId]) {
-                if (!userData.userId) {
-                    // client.channels.get('449982070597353472').send("Could not promote a user!")
-                    return;
-                }
-               var scammer = checkScammer(userData.userId)
-             };
-             if (groupBanned[userData.userId]) {
-                client.channels.get('449982070597353472').send(userData.username + " is not allowed into the WaterIsIceSoup group!")
-             };
+              if (!userData.userId) {
+                  // client.channels.get('449982070597353472').send("Could not promote a user!")
+                  return;
+              }
+             var scammer = checkScammer(userData.userId)
          };
       });
     }, 30000); // lazy af
@@ -464,6 +458,12 @@ const init = async () => {
           }
         })
     }, 60000)
+
+    setInterval(() => {
+      for (x in client.commandLogs) {
+        client.commandLogs[x] = []
+      }
+    }, 3600000)
 
 
 

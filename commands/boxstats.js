@@ -78,7 +78,7 @@ exports.conf = {
 
 exports.help = {
     name: "boxstats",
-    category: "WIP Commands",
+    category: "Box Game Commands",
     description: "Check out your or another user's save stats.",
     usage: "boxstats [optional user]"
 };
