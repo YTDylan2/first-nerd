@@ -23,7 +23,7 @@ exports.run = (client, message, args, level) => {
       */
       let request = args[0]
       let requestedPage = args[1]
-      if (!request || request == "price") {
+      if (!request || request == "price" || parseInt(request)) {
         playersArray.sort( (a, b) => {
           let aPriceTotal = 0
           let bPriceTotal = 0
@@ -51,7 +51,7 @@ exports.run = (client, message, args, level) => {
         if (parseInt(request)) {
           requestedPage = parseInt(request) - 1
         }
-        
+
         if (requestedPage <= -1) {
           return message.reply("Page number needs to above 0!")
         }
