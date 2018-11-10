@@ -80,8 +80,8 @@ exports.run = async (client, message, args, level) => {
               let item = itemArray[x]
               let amount = item[1].amount
               let name = item[1].name
-              let price = item[1].price
-              itemData[page].push(`${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()}`)
+              let value = item[1].value
+              itemData[page].push(`${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()} | ${value.toLocaleString()} value`)
             }
             if (!itemData[playerChosenPage]) {
               message.reply("You don't have that many pages of items!")
@@ -122,8 +122,8 @@ exports.run = async (client, message, args, level) => {
                 valueTotal = valueTotal + (amount * item.value)
               }
 
-              let pricePercentage = (price * amount) / priceTotal
-              let valuePercentage = (value * amount) / valueTotal
+              let pricePercentage = ((price * amount) / priceTotal) * 100
+              let valuePercentage = ((value * amount) / valueTotal) * 100
               pricePercentage = pricePercentage.toFixed(2) + '%'
               valuePercentage = valuePercentage.toFixed(2) + '%'
 
@@ -131,8 +131,8 @@ exports.run = async (client, message, args, level) => {
               embed.setAuthor(message.author.tag + "'s " + name, message.author.displayAvatarURL)
               embed.setDescription(`Info on your ${name} collection!\n\nYou have $${priceTotal.toLocaleString()} and ${valueTotal.toLocaleString()} value in total with this item.\nThat makes it **${pricePercentage}** of your total price and **${valuePercentage}** of your total value.`)
               embed.addField("Amount", amount.toLocaleString(), true)
-              embed.addField("Price of 1 " + name, price.toLocaleString())
-              embed.addField("Value of 1 " + name, value.toLocaleString())
+              embed.addField("Price of 1 " + name, '$' + price.toLocaleString())
+              embed.addField("Value of 1 " + name, value.toLocaleString() + ' value')
               embed.setThumbnail(thumbnail + id)
               embed.setColor(process.env.green)
               embed.setFooter(message.author.tag + " lookin' at their items", message.author.avatarURL)
@@ -171,7 +171,8 @@ exports.run = async (client, message, args, level) => {
             let amount = item[1].amount
             let name = item[1].name
             let price = item[1].price
-            itemData[page].push(`${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()}`)
+            let value = item[1].value
+            itemData[page].push(`${name} | Owned: ${amount.toLocaleString()} | $${price.toLocaleString()} | ${value.toLocaleString()} value`)
           }
 
           let realPages = parseInt(page) + 1
