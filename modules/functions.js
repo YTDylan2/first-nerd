@@ -38,6 +38,34 @@ module.exports = (client) => {
 
   }
 
+  // Inspect data. In case any item updates occurred
+  client.checkPlayerData = (pData) => {
+    let data = pData
+    let items = client.config.boxItems
+    let defaultdata = client.config.defaultPlayerData
+    let changed = false
+
+    for (x in defaultdata) {
+      if (!data[x]) {
+        data[x] = defaultdata[x]
+        changed = true
+      }
+    }
+
+    for (id in data.inventory) {
+      let playerItem = data.inventory[id]
+      for (rarity in items) {
+        let item = items[rarity].find(i => i.assetId == id)
+        if (item) {
+          playerItem.price = item.price
+          playerItem.value = item.value
+          playerItem.name = item.name
+          changed = true
+        }
+      }
+    }
+    return [changed, data]
+  }
 
 
 

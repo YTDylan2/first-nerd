@@ -74,7 +74,7 @@ exports.run = (client, message, [action, key, ...value], level) => { // eslint-d
          let str = newArray.join("\n")
          let modifiedStr = "```js\n" + str + "\n```"
          if (missingKeys > 0) {
-             embed.addField("Missing Settings", "**Reminder: You are missing " + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
+             embed.addField("Missing Settings", "**Reminder: You are missing **" + missingKeys + "** setting option(s)!\nPlease use `settings update` to get the latest configuration info.")
          }
          if (oldKeys > 0) {
              embed.addField("Old Settings", "**Reminder: You have **" + oldKeys + "** old setting option(s)!\nPlease use `settings update` to get the latest configuration info.")

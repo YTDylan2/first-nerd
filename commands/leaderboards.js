@@ -75,6 +75,9 @@ exports.run = (client, message, args, level) => {
             leadersData[page].push(`An unknown user | **$${priceTotal.toLocaleString()}**`)
           }
         }
+        if (!leadersData[requestedPage]) {
+          return message.reply("That page on the leaderboards does not exist!")
+        }
 
         let realPages = parseInt(page) + 1
         var embed = new discord.RichEmbed()
@@ -132,7 +135,7 @@ exports.run = (client, message, args, level) => {
           for (n in inventory) {
             let item = inventory[n]
             let amount = item.amount
-            valueTotal = valueTotal + (amount * item.price)
+            valueTotal = valueTotal + (amount * item.value)
           }
           let user = client.users.get(playersArray[x][0])
           if (user) {
@@ -140,6 +143,9 @@ exports.run = (client, message, args, level) => {
           } else {
             leadersData[page].push(`An unknown user | **${valueTotal.toLocaleString()} value**`)
           }
+        }
+        if (!leadersData[requestedPage]) {
+          return message.reply("That page on the leaderboards does not exist!")
         }
 
         let realPages = parseInt(page) + 1

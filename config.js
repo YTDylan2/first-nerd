@@ -232,13 +232,13 @@ const config = {
     "Common": [
       {
         assetId: 21070012,
-        name: "Test One",
+        name: "Dominus Empreyus",
         price: 10000,
         value: 25000
       },
       {
         assetId: 48545806,
-        name: "Test Two",
+        name: "Dominus Frigidus",
         price: 20000,
         value: 30000
       },
@@ -246,13 +246,13 @@ const config = {
     "Rare": [
       {
         assetId: 250395631,
-        name: "Test Three",
+        name: "Dominus Rex",
         price: 50000,
         value: 85000
       },
       {
         assetId: 162067148,
-        name: "Test Four",
+        name: "Dominus Astra",
         price: 70000,
         value: 90000
       },

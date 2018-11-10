@@ -146,6 +146,16 @@ module.exports = (client, message) => {
       let disabledCommands = data.data.disabledCommands
       let disabledCategories = data.data.disabledCategories
 
+      let playerData = data.playerData.players
+      if (playerData[message.author.id]) {
+        let pSave = playerData[message.author.id]
+        let status = client.checkPlayerData(pSave)
+        if (status[0]) {
+          playerData[message.author.id] = status[1]
+          client.saveGuildData(message.guild, JSON.stringify(data))
+        }
+      }
+
 
       // Also good practice to ignore any message that does not start with our prefix,
       // which is set in the configuration file.
