@@ -207,7 +207,7 @@ const config = {
 
   boxData : {
     "Common" : {
-      Price: 25,
+      Price: 250,
       Color: '#ffffff',
       Chances: {
         Common: 80,
@@ -217,7 +217,7 @@ const config = {
       Emoji: 'Test Box'
     },
     "Steel" : {
-      Price: 100,
+      Price: 700,
       Color: '#ffffff',
       Chances: {
         Common: 60,
@@ -228,7 +228,7 @@ const config = {
       Emoji: 'Test Box'
     },
     "Diamond" : {
-      Price: 400,
+      Price: 2500,
       Color: '#ffffff',
       Chances: {
         Common: 30,

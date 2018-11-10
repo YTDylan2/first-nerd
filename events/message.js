@@ -158,7 +158,7 @@ module.exports = (client, message) => {
           playerData[message.author.id] = status[1]
 
         }
-        playerData.coins = playerData.coins + rCash
+        pSave.coins = pSave.coins + rCash
         client.saveGuildData(message.guild, JSON.stringify(data))
       }
 
