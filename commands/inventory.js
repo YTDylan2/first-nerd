@@ -95,7 +95,7 @@ exports.run = async (client, message, args, level) => {
             let realPages = parseInt(page) + 1
             var embed = new discord.RichEmbed()
             embed.setAuthor(message.author.tag + "'s Inventory", message.author.displayAvatarURL)
-            embed.setDescription(`All your inventory items! This is page ${playerChosenPage + 1}/${realPages}.\nUse **>inventory [item name]** to find an item!\nUse **>inventory [page #]** to view a certain page!`)
+            embed.setDescription(`All your inventory items! This is page ${playerChosenPage + 1}/${realPages}.\nUse **>inventory [item name]** to find an item!\nUse **>inventory [page #]** to view a certain page!\nUse **>sellitem** to sell an item!`)
             embed.addField("Items", itemData[playerChosenPage || 0].join("\n"))
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " lookin' at their items", message.author.avatarURL)

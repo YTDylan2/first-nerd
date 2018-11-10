@@ -206,43 +206,67 @@ const config = {
   ],
 
   boxData : {
-    "Common" : {
-      Price: 250,
+    "Wooden" : {
+      Price: 1000,
       Color: '#ffffff',
       Chances: {
         Common: 80,
         Rare: 20,
       },
-      Description: "A plain old box.",
-      Emoji: 'Test Box'
+      Description: "A plain old wood box.",
+      Emoji: 'Wood'
     },
-    "Steel" : {
-      Price: 700,
+    "Iron" : {
+      Price: 7500,
       Color: '#ffffff',
       Chances: {
         Common: 60,
         Rare: 30,
         Epic: 10,
       },
-      Description: "A box with a tough ol' shell.",
-      Emoji: 'Test Box'
+      Description: "A sturdy box. Just make sure it doesn't rust what's inside.",
+      Emoji: 'Iron'
     },
-    "Diamond" : {
-      Price: 2500,
+    "Bluesteel" : {
+      Price: 25000,
       Color: '#ffffff',
       Chances: {
         Common: 30,
         Rare: 30,
-        Epic: 20,
-        Legendary: 20,
+        Epic: 35,
+        Legendary: 15,
       },
-      Description: "A nice durable box made from pure diamond",
-      Emoji: 'Test Box'
+      Description: "A nice durable box made from nice smelling bluesteel.",
+      Emoji: 'Steel'
+    },
+    "Diamond" : {
+      Price: 250000,
+      Color: '#ffffff',
+      Chances: {
+        Common: 10,
+        Rare: 25,
+        Epic: 40,
+        Legendary: 25, // 10 + 25 = 35 + 40 = 75 + 25
+      },
+      Description: "A nice durable box made from pure diamonds!\nIt's bound to contain some sweet stuff!",
+      Emoji: 'Diamond'
+    },
+    "Magic" : {
+      Price: 605000,
+      Color: '#ffffff',
+      Chances: {
+        Rare: 20,
+        Epic: 40,
+        Legendary: 30,
+        Mythic: 10,
+      },
+      Description: "A box said to made locked by wizards...",
+      Emoji: 'Magic'
     }
   },
 
   defaultPlayerData : {
-    coins: 1000,
+    coins: 15000,
     shards: 0,
     votePoints: 0,
     level: 1,
