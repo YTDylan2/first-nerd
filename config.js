@@ -283,7 +283,7 @@ const config = {
             }
           }
 
-          for (rarity in boxItems) {
+          for (rarity in this.boxItems) {
             let data = this.boxItems[rarity]
             for (x in data) {
               console.log(rarity + " Tier loaded with " + data.length + " items!")
