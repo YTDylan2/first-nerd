@@ -109,7 +109,7 @@ exports.run = async (client, message, args, level) => {
               return message.reply("You don't have any items! Try opening a box with **>openbox**!")
             }
 
-            let chosenItem = itemArray.find(item => item[1].name.toLowerCase().match(request.join(" ").toLowerCase()))
+            let chosenItem = itemArray.find(item => item[1].name.toLowerCase().match(args.join(" ").toLowerCase()))
             if (chosenItem) {
               let id = chosenItem[0]
               let name = chosenItem[1].name
