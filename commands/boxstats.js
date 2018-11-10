@@ -32,8 +32,8 @@ exports.run = async (client, message, args, level) => {
           }
 
           let stats = [
-            `Total Item Worth: ${priceTotal.toLocaleString()}`,
-            `Total Value: ${valueTotal.toLocaleString()}\n`,
+            `Total Item Worth: $${priceTotal.toLocaleString()}`,
+            `Total Value: ${valueTotal.toLocaleString()} value\n`,
             `Coins: ${coins}`,
             `Shards: ${shards}`,
             `Voter Points: ${votePoints}`,

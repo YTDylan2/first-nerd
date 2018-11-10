@@ -15,7 +15,7 @@ var cooldowns = {
 
 }
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+exports.run = async (client, message, args, level) => {
   var config = client.config
   var boxData = config.boxData
 
@@ -40,7 +40,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             cooldownData.alerted = true
             let timeElapsed = currentTime - cooldownData.last
             let format = moment.duration(5000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
-            message.channel.send("You have to wait **" + format + "** until you can open a box!");
+            message.reply("You have to wait **" + format + "** until you can open a box!");
           }
           return;
         }
@@ -60,7 +60,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
               let coins = playerData.coins
               if (coins < price) {
                 let difference = price - coins
-                return message.channel.send("Oops! Looks like you need " + difference + " more coins to crack this one open.")
+                return message.reply("Oops! Looks like you need " + difference + " more coins to crack this one open.")
               }
               let winner = client.pickBoxItem(box)
 
@@ -68,10 +68,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
               let rarity = winner[1]
               let thumbnail = "https://www.roblox.com/asset-thumbnail/image?width=420&height=420&format=png&assetId="
               if (item == 'not found') {
-                return message.channel.send("An error occurred with opening the box! Error description: `Box does not exist`")
+                return message.reply("An error occurred with opening the box! Error description: `Box does not exist`")
               }
               if (item == 'items error') {
-                return message.channel.send("An error occurred with opening the box! Error description: `Items are empty`")
+                return message.reply("An error occurred with opening the box! Error description: `Items are empty`")
               }
               let stats = [
                 `Rarity: ${rarity}`,
@@ -107,7 +107,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
               client.saveGuildData(message.guild, JSON.stringify(gData))
               return message.channel.send({embed})
             } else {
-              return message.channel.send("You don't have a save! Please run the command **>begin** to start your save!")
+              return message.reply("You don't have a save! Please run the command **>begin** to start your save!")
             }
           }
         })
@@ -115,10 +115,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       }
     }
   } else {
-    return message.channel.send("Don't know which box to open? Use **>boxes** for a list of boxes!")
+    return message.reply("Don't know which box to open? Use **>boxes** for a list of boxes!")
   }
   if (!done) {
-    return message.channel.send("I couldn't find that box! Use **>boxes** for a list of boxes!")
+    return message.reply("I couldn't find that box! Use **>boxes** for a list of boxes!")
   }
 
 
@@ -135,5 +135,5 @@ exports.help = {
   name: "openbox",
   category: "WIP Commands",
   description: "Opens a box!",
-  usage: "open"
+  usage: "openbox [box name]"
 };
