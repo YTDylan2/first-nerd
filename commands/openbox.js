@@ -41,9 +41,8 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
             let timeElapsed = currentTime - cooldownData.last
             let format = moment.duration(5000 - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
             message.channel.send("You have to wait **" + format + "** until you can open a box!");
-            return;
           }
-
+          return;
         }
         setTimeout(() => {
           cooldownData.alerted = false
