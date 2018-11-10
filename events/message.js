@@ -145,9 +145,9 @@ module.exports = (client, message) => {
       let settings = data.settings
       message.settings = settings;
 
-      let ignoredChannels = data.data.ignoredChannels
-      let disabledCommands = data.data.disabledCommands
-      let disabledCategories = data.data.disabledCategories
+      let ignoredChannels = data.data.ignoredChannels || {}
+      let disabledCommands = data.data.disabledCommands || {}
+      let disabledCategories = data.data.disabledCategories || {}
 
       let playerData = data.playerData.players
       if (playerData[message.author.id]) {

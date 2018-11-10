@@ -20,12 +20,12 @@ exports.run = async (client, message, [...sellData], level) => {
   var config = client.config
   var boxData = config.boxData
 
-  let rawArgs = sellData
+  let rawArgs = sellData.join(" ")
   let amount = sellData.shift()
   let args = sellData.join(" ")
 
   if (!parseInt(amount)) {
-    args = rawArgs.join(" ")
+    args = rawArgs
   }
   if (!args) {
     return message.reply("Please send an item name to sell! i.e. **>sellitem 3 ItemName**")
@@ -94,7 +94,7 @@ exports.run = async (client, message, [...sellData], level) => {
               delete playerSave.inventory[id]
             }
             playerSave.coins = playerSave.coins + gain
-            client.saveGuildData(message.guild, JSON.stringify(playerData))
+            client.saveGuildData(message.guild, JSON.stringify(gData))
 
             var embed = new discord.RichEmbed()
             embed.setTitle("Item Sold")
@@ -102,6 +102,7 @@ exports.run = async (client, message, [...sellData], level) => {
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " sold an item off", message.author.avatarURL)
             embed.setTimestamp()
+            message.channel.send({embed})
           } else {
 
           }
