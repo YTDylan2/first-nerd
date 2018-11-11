@@ -59,8 +59,6 @@ exports.run = async (client, message, [...sellData], level) => {
     cooldownData.alerted = false
   }, 5000)
   cooldownData.last = currentTime
-
-  let thumbnail = "https://www.roblox.com/asset-thumbnail/image?width=420&height=420&format=png&assetId="
   client.getGuildData(message.guild).then(reply => {
     if (reply) {
       let gData = JSON.parse(reply)
