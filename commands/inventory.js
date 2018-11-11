@@ -64,7 +64,7 @@ exports.run = async (client, message, args, level) => {
               return message.reply("You don't have any items! Try opening a box with **>openbox**!")
             }
             itemArray.sort( (a, b) => {
-              return b[1].amount - a[1].amount
+              return b[1].value - a[1].value
             })
 
             let pages = itemArray.length / 10 // adding soon; only 4 items as of writing
@@ -159,7 +159,7 @@ exports.run = async (client, message, args, level) => {
             return message.reply("You don't have any items! Try opening a box with **>openbox**!")
           }
           itemArray.sort( (a, b) => {
-            return b[1].amount - a[1].amount
+            return b[1].value - a[1].value
           })
 
 
