@@ -30,8 +30,8 @@ exports.run = async (client, message, [...sellData], level) => {
   if (!args) {
     return message.reply("Please send an item name to sell! i.e. **>sellitem 3 ItemName**")
   }
-  if (args.length < 5) {
-    return message.reply("You need to describe an item in atleast 5 letters! Please be a bit more precise.")
+  if (args.length < 3) {
+    return message.reply("You need to describe an item in atleast 3 letters! Please be a bit more precise.")
   }
 
   let done = false
@@ -104,7 +104,7 @@ exports.run = async (client, message, [...sellData], level) => {
 
             var embed = new discord.RichEmbed()
             embed.setTitle("Item Sold")
-            embed.setDescription(`You sold **${sellAmount.toLocaleString()}** of ${item[1].name} and gained: **${gain.toLocaleString()} coins**!`)
+            embed.setDescription(`You sold **${sellAmount.toLocaleString()}** of ${item[1].name} Box and gained: **${gain.toLocaleString()} coins**!`)
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " sold an item off", message.author.avatarURL)
             embed.setTimestamp()

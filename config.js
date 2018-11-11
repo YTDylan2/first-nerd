@@ -272,6 +272,7 @@ const config = {
     level: 1,
     xp: 0,
     sector: 'server', // Whether to display global or local
+    voterBonus: [false, 0],
     inventory: {},
   },
 

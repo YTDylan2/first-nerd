@@ -41,6 +41,17 @@ exports.run = async (client, message, args, level) => {
             `XP: ${xp}`,
             `Data Type: ${sector} Data`
           ]
+          let voteCheck = client.checkBonus(message, player)
+          if (!voteCheck[0]) {
+            if (voteCheck[1]) {
+              let weekend = client.botlistclient.isWeekend()
+              if (weekend) {
+                stats.push("🡅 x3 Boxes At Once Voter Bonus, expires in " + voteCheck[1])
+              } else {
+                stats.push("🡅 x2 Boxes At Once Voter Bonus, expires in " + voteCheck[1])
+              }
+            }
+          }
           stats = stats.join('\n')
 
           let embed = new discord.RichEmbed()

@@ -67,6 +67,54 @@ module.exports = (client) => {
     return [changed, data]
   }
 
+  // Apply any bonuses
+  client.checkBonus = (message, pData) => {
+    let voted = client.voters[message.author.id]
+    let changed = false
+
+    let now = Date.now()
+    let lastTime = pData.voterBonus[1]
+    let timeOut = 43200000 // 12 hours
+
+    if (voted) {
+      if (now - lastTime < time) {
+        let format = moment.duration(timeOut - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+        // False, the bonus has not expired yet
+        return [false, format]
+      } else {
+        // True, the bonus has expired
+        // Since they voted, give them the bonus
+        pData.voterBonus = [true, now]
+        changed = true
+        return [true]
+      }
+    } else {
+      // If they have not voted
+      if (now - lastTime > time) {
+        // Their bonus has expired, lets take it away
+        pData.voterBonus[0] = false
+        changed = true
+        return [true]
+      }
+    }
+
+    if (changed) {
+      client.getGuildData(message.guild).then(reply => {
+        if (reply) {
+          let gData = JSON.parse(reply)
+          let playerData = gData.playerData.players
+          let playerSave = playerData[member.author.id]
+          if (playerSave) {
+            playerSave = pData
+            client.saveGuildData(message.guild, JSON.stringify(gData))
+          }
+        }
+      })
+
+    }
+    return [false]
+  }
+
 
 
 

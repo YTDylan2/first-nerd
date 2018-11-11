@@ -73,15 +73,26 @@ exports.run = async (client, message, args, level) => {
             let playerData = gData.playerData.players
             if (playerData[message.author.id]) {
               let playerSave = playerData[message.author.id]
-
+              let voteCheck = client.checkBonus(message, player)
+              if (!voteCheck[0]) {
+                if (voteCheck[1]) {
+                  let weekend = client.botlistclient.isWeekend()
+                  if (weekend) {
+                    multiplier = 3
+                  } else {
+                    multiplier = 2
+                  }
+                }
+              }
+              let multiplier = 1
               let data = boxData[request]
-              let price = data.Price
+              let price = data.Price * multiplier
               let coins = playerSave.coins
-              if (coins < price) {
-                let difference = price - coins
+              if (coins < (price  * multiplier)) {
+                let difference = (price * multiplier) - coins
                 return message.reply("Oops! Looks like you need " + difference + " more coins to crack this one open.")
               }
-              playerSave.coins = playerSave.coins - price
+              playerSave.coins = playerSave.coins - (price * multiplier)
               let winner = client.pickBoxItem(request)
 
               let item = winner[0]
@@ -95,8 +106,8 @@ exports.run = async (client, message, args, level) => {
               }
               let stats = [
                 `Rarity: ${rarity}`,
-                `Price: ${item.price.toLocaleString()}`,
-                `Value: ${item.value.toLocaleString()}`,
+                `Price: ${ (item.price * multiplier).toLocaleString()}`,
+                `Value: ${ (item.value * multiplier).toLocaleString()}`,
               ]
 
               stats = stats.join("\n")
@@ -104,21 +115,21 @@ exports.run = async (client, message, args, level) => {
               let inventory = playerSave.inventory
               if (inventory) {
                 if (inventory[item.assetId]) {
-                  inventory[item.assetId].amount = inventory[item.assetId].amount + 1
+                  inventory[item.assetId].amount = inventory[item.assetId].amount + (1 * multiplier)
                 } else {
                   inventory[item.assetId] = {
                     assetId: item.assetId,
                     name: item.name,
                     price: item.price,
                     value: item.value,
-                    amount: 1
+                    amount: 1 * multiplier
                   }
                 }
               }
 
               var embed = new discord.RichEmbed()
               embed.setTitle("Box Opened")
-              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${request} Box and got: **${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
+              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${request} Box and got: **(x${multiplier}) ${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
               embed.addField("Stats", stats)
               embed.setThumbnail(thumbnail + item.assetId)
               embed.setColor(process.env.green)

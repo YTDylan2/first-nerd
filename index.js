@@ -71,6 +71,7 @@ client.galaxyClickerGuildID = '501860458626547721'
 client.voters = {}
 client.commandLogs = {}
 client.allowRandomStatuses = true
+client.voterLink = 'https://discordbots.org/bot/411683313926012928/vote'
 
 
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
