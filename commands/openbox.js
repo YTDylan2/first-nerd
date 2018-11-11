@@ -73,6 +73,8 @@ exports.run = async (client, message, args, level) => {
             let playerData = gData.playerData.players
             if (playerData[message.author.id]) {
               let playerSave = playerData[message.author.id]
+              let multiplier = 1
+              
               let voteCheck = client.checkBonus(message, playerSave)
               if (!voteCheck[0]) {
                 if (voteCheck[1]) {
@@ -84,7 +86,7 @@ exports.run = async (client, message, args, level) => {
                   }
                 }
               }
-              let multiplier = 1
+
               let data = boxData[request]
               let price = data.Price * multiplier
               let coins = playerSave.coins
