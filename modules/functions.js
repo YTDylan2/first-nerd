@@ -80,7 +80,8 @@ module.exports = (client) => {
 
     if (voted) {
       if (now - lastTime < timeOut) {
-        let format = moment.duration(timeOut - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
+        let timePassed = now - lastTime
+        let format = moment.duration(timeOut - timePassed).format(" D [days], H [hours], m [minutes], s [seconds]");
         // False, the bonus has not expired yet
         return [false, format]
       } else {
