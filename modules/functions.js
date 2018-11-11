@@ -77,7 +77,7 @@ module.exports = (client) => {
     let timeOut = 43200000 // 12 hours
 
     if (voted) {
-      if (now - lastTime < time) {
+      if (now - lastTime < timeOut) {
         let format = moment.duration(timeOut - timeElapsed).format(" D [days], H [hours], m [minutes], s [seconds]");
         // False, the bonus has not expired yet
         return [false, format]
@@ -90,7 +90,7 @@ module.exports = (client) => {
       }
     } else {
       // If they have not voted
-      if (now - lastTime > time) {
+      if (now - lastTime > timeOut) {
         // Their bonus has expired, lets take it away
         pData.voterBonus[0] = false
         changed = true

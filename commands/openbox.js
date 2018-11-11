@@ -73,7 +73,7 @@ exports.run = async (client, message, args, level) => {
             let playerData = gData.playerData.players
             if (playerData[message.author.id]) {
               let playerSave = playerData[message.author.id]
-              let voteCheck = client.checkBonus(message, player)
+              let voteCheck = client.checkBonus(message, playerSave)
               if (!voteCheck[0]) {
                 if (voteCheck[1]) {
                   let weekend = client.botlistclient.isWeekend()
