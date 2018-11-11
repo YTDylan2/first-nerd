@@ -1,4 +1,6 @@
 const asyncredis = require("async-redis")
+const moment = require("moment");
+require("moment-duration-format");
 
 module.exports = (client) => {
 
