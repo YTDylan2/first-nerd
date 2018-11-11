@@ -42,14 +42,20 @@ exports.run = async (client, message, args, level) => {
             `Data Type: ${sector} Data`
           ]
           let voteCheck = client.checkBonus(message, player)
+          let weekend = client.botlistclient.isWeekend()
           if (!voteCheck[0]) {
             if (voteCheck[1]) {
-              let weekend = client.botlistclient.isWeekend()
               if (weekend) {
                 stats.push("🡅 x3 Boxes At Once Voter Bonus, expires in " + voteCheck[1])
               } else {
                 stats.push("🡅 x2 Boxes At Once Voter Bonus, expires in " + voteCheck[1])
               }
+            }
+          } else {
+            if (weekend) {
+              stats.push("You can receive a **x3 Boxes At Once** bonus if you upvote [here!](" + client.voterLink + ")")
+            } else {
+              stats.push("You can receive a **x2 Boxes At Once** bonus if you upvote [here!](" + client.voterLink + ")")
             }
           }
           stats = stats.join('\n')

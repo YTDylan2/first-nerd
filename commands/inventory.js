@@ -187,7 +187,7 @@ exports.run = async (client, message, args, level) => {
 
           var embed = new discord.RichEmbed()
           embed.setAuthor(message.author.tag + "'s Inventory", message.author.displayAvatarURL)
-          embed.setDescription(`All your inventory items! This is page 1/${realPages}.\nUse **>inventory [item name]** to find an item!\nUse **>inventory [page #]** to view a certain page!`)
+          embed.setDescription(`All your inventory items! This is page 1/${realPages}.\nUse **>inventory [item name]** to find an item!\nUse **>inventory [page #]** to view a certain page!\n**>boxstats** will show you ALL of your stats!`)
           embed.addField("Items", itemData[0].join("\n"))
           embed.setColor(process.env.green)
           embed.setFooter(message.author.tag + " lookin' at their items", message.author.avatarURL)

@@ -74,7 +74,7 @@ exports.run = async (client, message, args, level) => {
             if (playerData[message.author.id]) {
               let playerSave = playerData[message.author.id]
               let multiplier = 1
-              
+
               let voteCheck = client.checkBonus(message, playerSave)
               if (!voteCheck[0]) {
                 if (voteCheck[1]) {
@@ -131,7 +131,7 @@ exports.run = async (client, message, args, level) => {
 
               var embed = new discord.RichEmbed()
               embed.setTitle("Box Opened")
-              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${request} Box and got: **(x${multiplier}) ${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!`)
+              embed.setDescription(`${(client.responseEmojis[data.Emoji] || "")} You opened a ${request} Box and got: **(x${multiplier}) ${item.name}**!\nUse **>inventory** to view your items!\nUse **>boxstats** to view your stats!\nDon't want this item? You can use **>sellitem** to sell it!`)
               embed.addField("Stats", stats)
               embed.setThumbnail(thumbnail + item.assetId)
               embed.setColor(process.env.green)

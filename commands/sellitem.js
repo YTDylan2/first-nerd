@@ -60,6 +60,7 @@ exports.run = async (client, message, [...sellData], level) => {
   }, 5000)
   cooldownData.last = currentTime
 
+  let thumbnail = "https://www.roblox.com/asset-thumbnail/image?width=420&height=420&format=png&assetId="
   client.getGuildData(message.guild).then(reply => {
     if (reply) {
       let gData = JSON.parse(reply)
@@ -104,6 +105,7 @@ exports.run = async (client, message, [...sellData], level) => {
 
             var embed = new discord.RichEmbed()
             embed.setTitle("Item Sold")
+            embed.setThumbnail(thumbnail + item[1].assetId)
             embed.setDescription(`You sold **${sellAmount.toLocaleString()}** of ${item[1].name} and gained: **${gain.toLocaleString()} coins**!`)
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " sold an item off", message.author.avatarURL)
