@@ -104,7 +104,7 @@ exports.run = async (client, message, [...sellData], level) => {
 
             var embed = new discord.RichEmbed()
             embed.setTitle("Item Sold")
-            embed.setDescription(`You sold **${sellAmount.toLocaleString()}** of ${item[1].name} Box and gained: **${gain.toLocaleString()} coins**!`)
+            embed.setDescription(`You sold **${sellAmount.toLocaleString()}** of ${item[1].name} and gained: **${gain.toLocaleString()} coins**!`)
             embed.setColor(process.env.green)
             embed.setFooter(message.author.tag + " sold an item off", message.author.avatarURL)
             embed.setTimestamp()
