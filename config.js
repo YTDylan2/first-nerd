@@ -1,6 +1,6 @@
 const config = {
   // Bot Owner, level 999 by default. A User ID. Should never be anything else than the bot owner's ID.
-  "ownerID": "240639333567168512",
+  "ownerID": "264597253371592705",
 
   // Bot Admins, level 9 by default. Array of user ID strings.
   "admins": [],
@@ -9,20 +9,20 @@ const config = {
   "support": [],
 
   // Your Bot's Token. Available on https://discordapp.com/developers/applications/me
-  "token": "the token lmao",
+  "token": "MzYwOTExNDcxMzk3NDM3NDUw.D3bp5w.Q-dTwh1KOp98clg-HcUxd9sh8JE",
 
   // our prefix
-  "prefix" : ">",
+  "prefix" : "^",
 
   // my server
-   "ownerGuild": '434477310817730572',
+   "ownerGuild": '558414253527269406',
 
   // Default per-server settings. New guilds have these settings.
 
 
   "defaultSettings" : {
     "settings": {
-      "prefix": ">",
+      "prefix": "^",
       "welcomeChannel": "general",
       "welcomeMessage": "Hey there {user}! Welcome to the server!",
       "welcomeEnabled": "true",
