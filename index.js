@@ -77,18 +77,18 @@ client.voterLink = 'https://discordbots.org/bot/411683313926012928/vote'
 client.cleverbot = new cleverbot(process.env.cbname, process.env.cbkey)
 client.cleverbot.setNick("Main Session")
 
-Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
-    .then(function () {
-        console.log("Logged in to ROBLOX!")
-        // client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
-    })
-    .catch(function(err) {
-        console.log("login error: " + err)
-        // client.startChannel.send('there was a login error, check logs')
-    });
-function sendErr(res, json, status) {
-    res.json(json);
-}
+// Roblox.login({username: process.env.rbxname, password: process.env.rbxpass})
+//     .then(function () {
+//         console.log("Logged in to ROBLOX!")
+//         // client.startChannel.send('sucessfully opened a roblox session as ' + process.env.rbxname)
+//     })
+//     .catch(function(err) {
+//         console.log("login error: " + err)
+//         // client.startChannel.send('there was a login error, check logs')
+//     });
+// function sendErr(res, json, status) {
+//     res.json(json);
+// }
 
 function validatorType(type) {
     switch (type) {
